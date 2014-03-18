@@ -15,6 +15,7 @@
 //----------------------------------------------------------------------
 //
 // set up debug-mode to spit out all values -- i.e. "desktop-span: 3 of 6", "gutter-style: normal", etc.
+// set up build-mode to automate process of setting up color variables and typography
 // if span is 0, display: none
 // map-merge config with seperate custom config called in from outside stylesheet
 // package up framework
@@ -1698,57 +1699,4 @@ $foundation: "nonexistant" !global;
 			}
 		}
 	}
-}
-
-// ----------------------------------------------------------------------
-
-* {
-  @include flint(foundation);
-}
-
-body {
-  @include flint(container);
-  background: #f3f3f3;
-}
-
-.exists {
-
-	@include flint(desktop, 16, $gutter: row) {
-		background: purple;
-	}
-
-	.nested {
-		@include flint(desktop, 6, 16, $shift: 5) {
-			background: tan;
-		}
-	}
-}
-
-.recursive {
-	@include flint(3);
-}
-.two {
-	@include flint(2 0 2 2, $shift: 2 2 2 2);
-	background: blue;
-	z-index: 99999;
-	height: 200px;
-}
-.one {
-	@include flint(2 2 2 2);
-	background: blue;
-	height: 200px;
-
-	@include flint(from desktop to infinity) {
-		background: black;
-	}
-
-	.two {
-		@include flint(1 2 3 2, 1 4 6 4)
-	}
-}
-
-$test: 1 2 3 4;
-
-.nth {
-	test-nth: nth($test, 4);
 }
