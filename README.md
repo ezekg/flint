@@ -11,13 +11,16 @@ Flint handles the layout, you do the rest.
 Config
 ------
 
-Flint's config map is unique in the ability for you to
+Flint's config map is unique in the ability that you may
 define an unlimited number of breakpoints for your
 project. Whether that be 2 breakpoints, or even 12. 
 You're in control.
 
 Settings may be entered in `px` or `em`, and **flint**
 will do the rest.
+
+*Keep in mind, whatever unit you choose to use here needs to 
+be used consistently throughout. No mixing `px` and `em`.*
 
 ```scss
 $flint: (
