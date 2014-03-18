@@ -409,6 +409,8 @@ for extra fine tuned control over your layouts.
 }
 ```
 
+----
+
 **More features coming soon!**
 
 
