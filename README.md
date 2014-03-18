@@ -5,7 +5,7 @@ Flint
 capable of complex responsive layouts customized at each 
 breakpoint, all while using a single mixin. All of your
 layout settings are housed in a simple config file.
-Flint handles the layout, *you do the rest.*
+Flint handles the layout, you do the rest.
 
 Config
 ------
@@ -19,7 +19,7 @@ Settings may be entered in `px` or `em`, and **flint**
 will do the rest.
 
 *Keep in mind, whatever unit you choose to use here needs to 
-be used consistently throughout. No mixing `px` and `em`.*
+be used consistently throughout. No mixing `px` and `em` units.*
 
 ```scss
 $flint: (
@@ -372,11 +372,16 @@ Use if you want to define each span without shorthands.
 .name {
 	@include flint(desktop, 4);
 }
+
+// with context,
+// .name {
+//	  @include flint(desktop, 4, 16);
+// }
 ```
 
 Outputs,
 ```scss
-.recursive {
+.name {
 	display: block;
 	float: left;
 	width: 23.4375%;
