@@ -388,7 +388,7 @@ Gutter modifiers
 ----------------
 
 Here are different gutter modifiers that may be called in when
-defining spans. You should note, that when using shorthands
+defining spans. **You should note**, that when using shorthands
 the gutter modifiers are recursive across all breakpoints.
 
 ```scss
@@ -397,7 +397,7 @@ the gutter modifiers are recursive across all breakpoints.
 	@include flint(desktop, 4, $gutter: alpha);
 }
 
-// no left right
+// no left margin
 .name {
 	@include flint(desktop, 4, $gutter: omega);
 }
