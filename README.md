@@ -81,8 +81,26 @@ Container
 ---------
 
 You may define containers, which simply act as a full row that 
-has `margin: 0 auto` set so that they are centered. If set, it
-will use your projects max-width setting defined in the config.
+has `margin: 0 auto` set so that they are centered. 
+
+If set, it will use your projects max-width setting defined 
+in your config.
+
+```scss
+.container {
+	@include flint(container);
+}
+```
+
+Outputs,
+```scss
+.container {
+	display: block;
+	float: none;
+	width: 100%;
+	margin: 0 auto; // if a max width, or fixed grid is set
+}
+```
 
 Recursive shorthand
 -------------------
