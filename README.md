@@ -5,8 +5,7 @@ Flint
 capable of complex responsive layouts customized at each 
 breakpoint, all while using a single mixin. All of your
 layout settings are housed in a simple config file.
-
-Flint handles the layout, you do the rest.
+Flint handles the layout, *you do the rest.*
 
 Config
 ------
