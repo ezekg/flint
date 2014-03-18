@@ -289,26 +289,26 @@ Use this if you're nesting columns using the variable shorthand.
 
 Outputs,
 ```scss
-recursive {
+.variable {
 	display: block;
 	float: left;
 	width: 85.9375%;
 	margin: 0 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
-	.recursive {
+	.variable {
 		width: 81.25%;
 		margin: 0 1.0416666667%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
-	.recursive {
+	.variable {
 		width: 71.875%;
 		margin: 0 1.5625%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
-	.recursive {
+	.variable {
 		width: 43.75%;
 		margin: 0 3.125%;
 	}
