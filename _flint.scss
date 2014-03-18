@@ -64,56 +64,6 @@ $flint: (
 			"debug-mode": true,
 		),
 	),
-
-	// automation for initial stylesheet build process
-
-	"build": (
-
-		// initializer
-
-		"build-mode": true,
-
-		// color palette
-
-		"colors": (
-			"primary": (
-				"light": skyblue,
-				"base": blue,
-				"dark": navy,
-			),
-			"secondary": (
-				"light": tan,
-				"base": yellow,
-				"dark": gold,
-			),
-			"accent": (
-				"light": orange,
-				"base": red,
-				"dark": brown,
-			),
-		),
-
-		// typography
-
-		"typography": (
-			"font-stacks": (
-				"primary": sans-serif,
-				"secondary": serif,
-			),
-			"headers": (
-				"h1": (
-					"font-stack": "secondary",
-					"size": 32px,
-				),
-				"h2": 24px,
-				"h3": 18px,
-			),
-			"body": (
-				"font-stack": default,
-				"base": 16px,
-			),
-		),
-	),
 );
 
 //----------------------------------------------------------------------
@@ -1656,47 +1606,4 @@ $foundation: "nonexistant" !global;
 
 	}
 
-}
-
-//----------------------------------------------------------------------
-//
-// Build mode
-//
-//----------------------------------------------------------------------
-
-@if build-get-value("build-mode") == true {
-
-	// automate build of global color variables
-
-	@each $build_mode_palette, $build_mode_handle in build-get-value("colors") {
-		@each $build_mode_handle, $build_mode_color in $build_mode_handle {
-			@if $build_mode_palette == "primary" and $build_mode_handle == "light" {
-				$color__primary--light: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "primary" and $build_mode_handle == "base" {
-				$color__primary--base: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "primary" and $build_mode_handle == "dark" {
-				$color__primary--dark: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "secondary" and $build_mode_handle == "light" {
-				$color__secondary--light: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "secondary" and $build_mode_handle == "base" {
-				$color__secondary--base: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "secondary" and $build_mode_handle == "dark" {
-				$color__secondary--dark: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "accent" and $build_mode_handle == "light" {
-				$color__accent--light: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "accent" and $build_mode_handle == "base" {
-				$color__accent--base: $build_mode_color !global;
-			}
-			@if $build_mode_palette == "aceent" and $build_mode_handle == "dark" {
-				$color__accent--dark: $build_mode_color !global;
-			}
-		}
-	}
 }
