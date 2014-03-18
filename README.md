@@ -236,6 +236,8 @@ Variable shorthand
 
 Use this if your content needs different spans across each breakpoints.
 
+*You must include an argument for each breakpoint in your config.*
+
 ```scss
 .variable {
 	@include flint(8 6 4 4);
