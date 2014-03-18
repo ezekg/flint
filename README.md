@@ -191,6 +191,8 @@ Recursive shorthand with variable context
 
 Use this if your context is *not* indentical across breakpoints.
 
+*You must include an argument for each breakpoint in your config.*
+
 ```scss
 //  .parent {
 //	   @include flint(10 8 6 4);
