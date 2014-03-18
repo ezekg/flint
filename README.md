@@ -19,7 +19,7 @@ You're in control.
 Settings may be entered in `px` or `em`, and **flint**
 will do the rest.
 
-```
+```scss
 $flint: (
 
 	// grid configuration
@@ -66,7 +66,7 @@ Foundation
 If you selected `border-box-sizing: true`, then it is 
 *advised* to create a global foundation instance like so,
 
-```
+```scss
 * {
 	@include flint(foundation);
 }
@@ -78,14 +78,14 @@ declarations everytime you define a span.
 Recursive shorthand
 -------------------
 
-```
+```scss
 .recursive {
 	@include flint(3);
 }
 ```
 
 Outputs,
-```
+```scss
 recursive {
 	display: block;
 	float: left;
@@ -121,10 +121,10 @@ Recursive shorthand with identical context
 
 Use this if your nested context is *identical* across all breakpoints.
 
-```
-//.parent {
-//	 @include flint(6);
-//}
+```scss
+//  .parent {
+//  	   @include flint(6);
+//  }
 
 .recursive {
 	@include flint(3, 6);
@@ -132,7 +132,7 @@ Use this if your nested context is *identical* across all breakpoints.
 ```
 
 Outputs,
-```
+```scss
 .recursive {
 	display: block;
 	float: left;
@@ -164,10 +164,10 @@ Recursive shorthand with variable context
 
 Use this if your context is *not* indentical across breakpoints.
 
-```
-//.parent {
-//	 @include flint(10 8 6 4);
-//}
+```scss
+//  .parent {
+//	   @include flint(10 8 6 4);
+//  }
 
 .recursive {
 	@include flint(2, 10 8 6 4);
@@ -175,7 +175,7 @@ Use this if your context is *not* indentical across breakpoints.
 ```
 
 Outputs,
-```
+```scss
 recursive {
 	display: block;
 	float: left;
@@ -207,14 +207,14 @@ Variable shorthand
 
 Use this if your content needs different spans across each breakpoints.
 
-```
+```scss
 .variable {
 	@include flint(8 6 4 4);
 }
 ```
 
 Outputs,
-```
+```scss
 .variable {
 	display: block;
 	float: left;
@@ -246,10 +246,10 @@ Variable shorthand with context
 
 Use this if you're nesting columns using the variable shorthand.
 
-```
-//.parent {
-//	 @include flint(16 12 8 4);
-//}
+```scss
+//  .parent {
+//	   @include flint(16 12 8 4);
+//  }
 
 .variable {
 	@include flint(14 10 6 2, 16 12 8 4);
@@ -257,7 +257,7 @@ Use this if you're nesting columns using the variable shorthand.
 ```
 
 Outputs,
-```
+```scss
 recursive {
 	display: block;
 	float: left;
@@ -289,7 +289,7 @@ Wrapping in media queries
 
 Use these if you need to apply breakpoint specific styling.
 
-```
+```scss
 .wrap {
 	@include flint(desktop) {
 		// only desktop
@@ -337,14 +337,14 @@ Call by name
 
 Use if you want to define each span without shorthands.
 
-```
+```scss
 .name {
 	@include flint(desktop, 4);
 }
 ```
 
 Outputs,
-```
+```scss
 .recursive {
 	display: block;
 	float: left;
@@ -360,7 +360,7 @@ Here are different gutter modifiers that may be called in when
 defining spans. You should note, that when using shorthands
 the gutter modifiers are recursive across all breakpoints.
 
-```
+```scss
 // no left margin
 .name {
 	@include flint(desktop, 4, $gutter: alpha);
@@ -384,7 +384,7 @@ Much like the gutter modifiers, you may also call in a shift
 parameter. This will cause the object to shift the desired amount
 of columns using positive/negative left margins. 
 
-```
+```scss
 // shift 4 columns to the right across all breakpoints
 .name {
 	@include flint(12 12 8 4, $shift: 4);
@@ -400,7 +400,7 @@ One more cool thing about flint is that you are not bound to
 the grid you define. Feel free to use decimals in your arguments
 for extra fine tuned control over your layouts.
 
-```
+```scss
 .so-much-control {
 	@include flint(16, 12.1, 8, 4, $shift: 1.2, 0, 2, 0, $gutter: row);
 }
