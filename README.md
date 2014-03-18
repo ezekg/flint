@@ -77,6 +77,13 @@ If you selected `border-box-sizing: true`, then it is
 That way your output won't be riddled with `box-sizing`
 declarations everytime you define a span.
 
+Container
+---------
+
+You may define containers, which simply act as a full row that 
+has `margin: 0 auto` set so that they are centered. If set, it
+will use your projects max-width setting defined in the config.
+
 Recursive shorthand
 -------------------
 
