@@ -320,11 +320,11 @@ $foundation: "nonexistant" !global;
 		// foundation is now globally existant
 		
 		@if $foundation == "existant" {
-      		-moz-box-sizing: border-box;
+      			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 			@content;
-    	}
+    		}
 
 	} @else if $key == "container"
 		or exists($flint, $key) and $span != null
@@ -347,7 +347,7 @@ $foundation: "nonexistant" !global;
 		// apply individually if foundation is not set globally, but is set to true in config
 		
 		@if get-value(settings, border-box-sizing) == true and $foundation == "nonexistant" {
-      		-moz-box-sizing: border-box;
+      			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 
