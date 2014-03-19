@@ -11,7 +11,7 @@ hard stuff, you do the rest. Enjoy,
 Config
 ------
 
-Flint's config map is unique in the ability that you may
+**Flint's** `config map` is unique in the ability that you may
 define an unlimited number of breakpoints for your
 project. Whether that be 2 breakpoints, or even 12. 
 You're in control. Also, unlike most frameworks, you may
