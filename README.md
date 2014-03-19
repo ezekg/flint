@@ -3,9 +3,10 @@ Flint
 
 **Flint is a seemingly simple Sass based grid-system** 
 capable of complex responsive layouts customized at each 
-breakpoint, all while using a single mixin. All of your
-layout settings are housed in a simple config file.
-Flint handles the layout, you do the rest.
+breakpoint, all while using a single mixin. All of your layout
+settings are housed in a simple config file. Flint will only
+output the code you need, and nothing else. Flint handles the 
+hard stuff, you do the rest. Enjoy,
 
 Config
 ------
