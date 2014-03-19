@@ -483,7 +483,7 @@ $foundation: "nonexistant" !global;
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
 					  					margin-right: calc-margin($sh_key, $sh_span);
-					  					margin-left: ( if( $sh_shift > 0, 
+					  					margin-left: ( if( nth($sh_shift, $i) > 0,
 												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
 												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
 											) 
@@ -662,7 +662,7 @@ $foundation: "nonexistant" !global;
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
 					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-					  					margin-left: ( if( $sh_shift > 0, 
+					  					margin-left: ( if( nth($sh_shift, $i) > 0,
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 											) 
@@ -839,7 +839,7 @@ $foundation: "nonexistant" !global;
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
 					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-						  				margin-left: ( if( $sh_shift > 0, 
+						  				margin-left: ( if( nth($sh_shift, $i) > 0,
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 											) 
@@ -1211,7 +1211,7 @@ $foundation: "nonexistant" !global;
 				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 			  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
 			  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-			  					margin-left: ( if( $sh_shift > 0, 
+			  					margin-left: ( if( nth($sh_shift, $i) > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 									) 
