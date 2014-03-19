@@ -13,7 +13,9 @@ Config
 Flint's config map is unique in the ability that you may
 define an unlimited number of breakpoints for your
 project. Whether that be 2 breakpoints, or even 12. 
-You're in control.
+You're in control. Also, unlike most frameworks, you may
+name these anything that you like. **Flint** is smart and will
+figure out which one you're talking about.
 
 Settings may be entered in `px` or `em`, and **flint**
 will do the rest.
@@ -80,11 +82,12 @@ declarations everytime you define a span.
 Container
 ---------
 
-You may define containers, which simply act as a full row that 
-has `margin: 0 auto` set so that they are centered. 
+You may define containers, which simply act as a row without the `float`
+property. This is really only useful on fixed grid layouts, but can be
+used elsewhere as a simple wrapper.
 
-If set, it will use your projects max-width setting defined 
-in your config.
+If `max-width` is set, it will use your projects settings defined 
+in your config, and apply `margin: 0 auto` to center your row for you.
 
 ```scss
 .container {
@@ -104,6 +107,8 @@ Outputs,
 
 Recursive shorthand
 -------------------
+
+Use this if you want *identical* column spans across all breakpoints.
 
 ```scss
 .recursive {
@@ -141,7 +146,10 @@ recursive {
 
 As you can see, since `desktop` is the framework `default`, it uses
 the output for desktop as the base styles. You can set this to any
-breakpoint you like. So if you like mobile-first, you can do that.
+breakpoint you like. **So if you like mobile-first, you can do that.**
+
+Whatever your `default` is set to, **flint** will not wrap those
+styles in media-queries, so that they may be used in non-supported brwosers.
 
 Recursive shorthand with identical context
 ------------------------------------------
@@ -235,6 +243,7 @@ Variable shorthand
 ------------------
 
 Use this if your content needs different spans across each breakpoints.
+The *order of operations* for this matches the order entered in your `config`.
 
 *You must include an argument for each breakpoint in your config.*
 
@@ -328,12 +337,12 @@ Use these if you need to apply breakpoint specific styling.
 }
 .wrap {
 	@include flint(greater than mobile) {
-		// all sizes above mobile
+		// all sizes above mobile's breakpoint
 	}
 }
 .wrap {
-	@include flint(10em greater than mobile) {
-		// all sizes 10em above mobile
+	@include flint(10em greater than tablet) {
+		// all sizes 10em above tablet's breakpoint
 	}
 }
 .wrap {
@@ -393,8 +402,9 @@ Gutter modifiers
 ----------------
 
 Here are different gutter modifiers that may be called in when
-defining spans. **You should note**, that when using shorthands
-the gutter modifiers are recursive across all breakpoints.
+defining spans using the `$gutter` variable. **You should note**, 
+that when using shorthands the gutter modifiers are recursive
+across all breakpoints.
 
 ```scss
 // no left margin
@@ -417,8 +427,9 @@ Shift
 -----
 
 Much like the gutter modifiers, you may also call in a shift
-parameter. This will cause the object to shift the desired amount
-of columns using positive/negative left margins. 
+parameter using the `$shift` variable. This will cause the element 
+to shift the desired amount of columns using positive/negative 
+left margins. 
 
 ```scss
 // shift 4 columns to the right across all breakpoints
@@ -444,7 +455,11 @@ for extra fine tuned control over your layouts.
 
 ----
 
-**More features coming soon!**
+**More features coming soon.**
+
+*Let me know if you find any bugs, or think of a feature that would be useful*
+*Fork the project if you believe that the code could be more effecient and*
+*would like to help out.*
 
 
 
