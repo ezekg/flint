@@ -454,7 +454,7 @@ for extra fine tuned control over your layouts.
 
 ```scss
 .so-much-control {
-	@include flint(16, 12.1, 8, 4, $shift: 1.2, 0, 2, 0, $gutter: row);
+	@include flint(16, 12.1, 8.9, 4, $shift: 1.2, 0, 2, 0, $gutter: row);
 }
 ```
 
@@ -462,9 +462,10 @@ for extra fine tuned control over your layouts.
 
 **More features coming soon.**
 
-*Let me know if you find any bugs, or think of a feature that would be useful*
-*Fork the project if you believe that the code could be more effecient and*
-*would like to help out.*
+*Let me know if you find any bugs, or think of a feature that would be useful.*
+
+***Fork the project if you believe that the code could be more effecient and***
+***would like to help out.***
 
 
 
