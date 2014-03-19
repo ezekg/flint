@@ -6,7 +6,11 @@ capable of complex responsive layouts customized at each
 breakpoint, all while using a single mixin. All of your layout
 settings are housed in a simple config file. Flint will only
 output the code you need, and nothing else. Flint handles the 
-hard stuff, you do the rest. Enjoy,
+hard stuff, you do the rest. 
+
+Enjoy.
+
+-----
 
 Config
 ------
