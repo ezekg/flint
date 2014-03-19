@@ -392,11 +392,13 @@ $foundation: "nonexistant" !global;
 	@if type-of($key) == number and length($key) == 1 or $key == "container" {
 		@if $key == "container" and get-value(settings, max-width) != false {
 			width: (calc-width(get-value(settings, default), $key));
-			margin: 0 auto;
+			margin-right: auto;
+			margin-left: auto;
 			@content;
 		} @else if $key == "container" and get-value(settings, max-width) == false {
 			width: (calc-width(get-value(settings, default), $key));
-			margin: 0;
+			margin-right: 0;
+			margin-left: 0;
 			@content;
 		} @else {
 
@@ -422,8 +424,8 @@ $foundation: "nonexistant" !global;
 
 							@if length($shift) > 1 {
 								width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-									if( nth($sh_shift, $i) > 0, 
+								margin-right: calc-margin($sh_key, $sh_span);
+				  				margin-left: ( if( nth($sh_shift, $i) > 0, 
 										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
 										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
 									) 
@@ -431,8 +433,8 @@ $foundation: "nonexistant" !global;
 				  				@content;
 				  			} @else {
 				  				width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-									if( $sh_shift > 0, 
+				  				margin-right: calc-margin($sh_key, $sh_span);
+				  				margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
 										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
 									) 
@@ -440,19 +442,23 @@ $foundation: "nonexistant" !global;
 				  			}
 						} @else if $gutter == null and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-							margin: 0 calc-margin($sh_key, $sh_span);
+							margin-right: calc-margin($sh_key, $sh_span);
+							margin-left: calc-margin($sh_key, $sh_span);
 							@content;
 						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin: 0 calc-margin($sh_key, $sh_span) 0 0;
+							margin-right: calc-margin($sh_key, $sh_span);
+							margin-left: 0;
 							@content;
 						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin: 0 0 0 calc-margin($sh_key, $sh_span);
+							margin-right: 0;
+							margin-left: calc-margin($sh_key, $sh_span);
 							@content;
 						} @else if $gutter == "row" or get-value(settings, gutter) == false {
 							width: calc-width($sh_key, $sh_span);
-							margin: 0;
+							margin-right: 0;
+							margin-left: 0;
 							@content;
 						}
 
@@ -465,8 +471,8 @@ $foundation: "nonexistant" !global;
 					  			@if is-highest-breakpoint($sh_key) == true {
 									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 										width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-											if( nth($sh_shift, $i) > 0, 
+										margin-right: calc-margin($sh_key, $sh_span);
+										margin-left: ( if( nth($sh_shift, $i) > 0, 
 												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
 												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
 											) 
@@ -476,8 +482,8 @@ $foundation: "nonexistant" !global;
 					  			} @else {
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-											if( $sh_shift > 0, 
+					  					margin-right: calc-margin($sh_key, $sh_span);
+					  					margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
 												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
 											) 
@@ -489,8 +495,8 @@ $foundation: "nonexistant" !global;
 						  		@if is-highest-breakpoint($sh_key) == true {
 									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 										width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-											if( $sh_shift > 0, 
+										margin-right: alc-margin($sh_key, $sh_span);
+										margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
 												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
 											) 
@@ -500,8 +506,8 @@ $foundation: "nonexistant" !global;
 					  			} @else {
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-											if( $sh_shift > 0, 
+					  					margin-right: calc-margin($sh_key, $sh_span);
+						  				margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
 												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
 											) 
@@ -514,13 +520,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-									margin: 0 calc-margin($sh_key, $sh_span);
+									margin-right: calc-margin($sh_key, $sh_span);
+									margin-left: calc-margin($sh_key, $sh_span);
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-									margin: 0 calc-margin($sh_key, $sh_span);
+									margin-right: calc-margin($sh_key, $sh_span);
+									margin-left: calc-margin($sh_key, $sh_span);
 									@content;
 								}
 							}
@@ -528,13 +536,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin: 0 calc-margin($sh_key, $sh_span) 0 0;
+									margin-right: calc-margin($sh_key, $sh_span);
+									margin-left: 0;
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin: 0 calc-margin($sh_key, $sh_span) 0 0;
+									margin-right: calc-margin($sh_key, $sh_span);
+									margin-left: 0;
 									@content;
 								}
 							}
@@ -542,13 +552,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin: 0 0 0 calc-margin($sh_key, $sh_span);
+									margin-right: 0;
+									margin-left: calc-margin($sh_key, $sh_span);
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin: 0 0 0 calc-margin($sh_key, $sh_span);
+									margin-right: 0;
+									margin-left: calc-margin($sh_key, $sh_span);
 									@content;
 								}
 							}
@@ -556,13 +568,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: calc-width($sh_key, $sh_span);
-									margin: 0;
+									margin-right: 0;
+									margin-left: 0;
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: calc-width($sh_key, $sh_span);
-									margin: 0;
+									margin-right: 0;
+									margin-left: 0;
 									@content;
 								}
 							}
@@ -588,8 +602,8 @@ $foundation: "nonexistant" !global;
 						@if $gutter == null and get-value(settings, gutter) != false and $shift != null {
 							@if length($shift) > 1 {
 								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( nth($sh_shift, $i) > 0, 
+								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+								margin-left: ( if( nth($sh_shift, $i) > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 									) 
@@ -597,8 +611,8 @@ $foundation: "nonexistant" !global;
 				  				@content;
 				  			} @else {
 				  				width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( $sh_shift > 0, 
+				  				margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+				  				margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 									) 
@@ -607,19 +621,23 @@ $foundation: "nonexistant" !global;
 				  			}
 						} @else if $gutter == null and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: 0;
 							@content;
 						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-right: 0;
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						} @else if $gutter == "row" or get-value(settings, gutter) == false {
 							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin: 0;
+							margin-right: 0;
+							margin-left: 0;
 							@content;
 						}
 
@@ -632,8 +650,8 @@ $foundation: "nonexistant" !global;
 					  			@if is-highest-breakpoint($sh_key) == true {
 									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( nth($sh_shift, $i) > 0, 
+										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+										margin-left: ( if( nth($sh_shift, $i) > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 											) 
@@ -643,8 +661,8 @@ $foundation: "nonexistant" !global;
 					  			} @else {
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( $sh_shift > 0, 
+					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+					  					margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 											) 
@@ -656,8 +674,8 @@ $foundation: "nonexistant" !global;
 						  		@if is-highest-breakpoint($sh_key) == true {
 									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( $sh_shift > 0, 
+										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+										margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 											) 
@@ -667,8 +685,8 @@ $foundation: "nonexistant" !global;
 					  			} @else {
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( $sh_shift > 0, 
+					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+					  					margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 											) 
@@ -681,13 +699,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							}
@@ -695,13 +715,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: 0;
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: 0;
 									@content;
 								}
 							}
@@ -709,13 +731,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: 0;
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: 0;
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							}
@@ -723,13 +747,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin: 0;
+									margin-right: 0;
+									margin-left: 0;
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin: 0;
+									margin-right: 0;
+									margin-left: 0;
 									@content;
 								}
 							}
@@ -755,8 +781,8 @@ $foundation: "nonexistant" !global;
 						@if $gutter == null and get-value(settings, gutter) != false and $shift != null {
 							@if length($shift) > 1 {
 								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( nth($sh_shift, $i) > 0, 
+								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+				  				margin-left: ( if( nth($sh_shift, $i) > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 									) 
@@ -764,8 +790,8 @@ $foundation: "nonexistant" !global;
 				  				@content;
 				  			} @else {
 				  				width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( $sh_shift > 0, 
+				  				margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+				  				margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 									) 
@@ -774,19 +800,21 @@ $foundation: "nonexistant" !global;
 				  			}
 						} @else if $gutter == null and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						} @else if $gutter == "row" or get-value(settings, gutter) == false {
 							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin: 0;
+							margin-right: 0;
+							margin-left: 0;
 							@content;
 						}
 
@@ -799,8 +827,8 @@ $foundation: "nonexistant" !global;
 					  			@if is-highest-breakpoint($sh_key) == true {
 									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( nth($sh_shift, $i) > 0, 
+										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+										margin-left: ( if( nth($sh_shift, $i) > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 											) 
@@ -810,8 +838,8 @@ $foundation: "nonexistant" !global;
 					  			} @else {
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( $sh_shift > 0, 
+					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+						  				margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 											) 
@@ -823,8 +851,8 @@ $foundation: "nonexistant" !global;
 						  		@if is-highest-breakpoint($sh_key) == true {
 									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( $sh_shift > 0, 
+										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+						  				margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 											) 
@@ -834,8 +862,8 @@ $foundation: "nonexistant" !global;
 					  			} @else {
 						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-											if( $sh_shift > 0, 
+					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+						  				margin-left: ( if( $sh_shift > 0, 
 												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 											) 
@@ -848,13 +876,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							}
@@ -862,13 +892,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: 0;
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+									margin-left: 0;
 									@content;
 								}
 							}
@@ -876,13 +908,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: 0;
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+									margin-right: 0;
+									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 									@content;
 								}
 							}
@@ -890,13 +924,15 @@ $foundation: "nonexistant" !global;
 							@if is-highest-breakpoint($sh_key) == true {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin: 0;
+									margin-right: 0;
+									margin-left: 0;
 									@content;
 								}
 							} @else {
 								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin: 0;
+									margin-right: 0;
+									margin-left: 0;
 									@content;
 								}
 							}
@@ -933,8 +969,8 @@ $foundation: "nonexistant" !global;
 				@if $gutter == null and get-value(settings, gutter) != false and $shift != null {
 					@if length($shift) > 1 {
 						width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-		  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-							if( nth($sh_shift, $i) > 0, 
+						margin-right: calc-margin($sh_key, $sh_span);
+						margin-left: ( if( nth($sh_shift, $i) > 0, 
 								(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
 								(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
 							) 
@@ -942,8 +978,8 @@ $foundation: "nonexistant" !global;
 						@content;
 					} @else {
 		  				width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-		  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-							if( $sh_shift > 0, 
+		  				margin-right: calc-margin($sh_key, $sh_span);
+		  				margin-left: ( if( $sh_shift > 0, 
 								(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
 								(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
 							) 
@@ -952,19 +988,23 @@ $foundation: "nonexistant" !global;
 					}
 				} @else if $gutter == null and get-value(settings, gutter) != false {
 					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-					margin: 0 calc-margin($sh_key, $sh_span);
+					margin-right: calc-margin($sh_key, $sh_span);
+					margin-left: calc-margin($sh_key, $sh_span);
 					@content;
 				} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
 					width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-					margin: 0 calc-margin($sh_key, $sh_span) 0 0;
+					margin-right: calc-margin($sh_key, $sh_span);
+					margin-left: 0;
 					@content;
 				} @else if $gutter == "omega" and get-value(settings, gutter) != false {
 					width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-					margin: 0 0 0 calc-margin($sh_key, $sh_span);
+					margin-right: 0;
+					margin-left: calc-margin($sh_key, $sh_span);
 					@content;
 				} @else if $gutter == "row" or get-value(settings, gutter) == false {
 					width: calc-width($sh_key, $sh_span);
-					margin: 0;
+					margin-right: 0;
+					margin-left: 0;
 					@content;
 				}
 
@@ -975,8 +1015,8 @@ $foundation: "nonexistant" !global;
 			  			@if is-highest-breakpoint($sh_key) == true {
 							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 								width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-									if( nth($sh_shift, $i) > 0, 
+								margin-right: calc-margin($sh_key, $sh_span);
+								margin-left: ( if( nth($sh_shift, $i) > 0, 
 										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
 										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
 									) 
@@ -986,8 +1026,8 @@ $foundation: "nonexistant" !global;
 			  			} @else {
 				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 			  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-									if( nth($sh_shift, $i) > 0, 
+			  					margin-right: calc-margin($sh_key, $sh_span);
+			  					margin-left: ( if( nth($sh_shift, $i) > 0, 
 										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
 										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
 									) 
@@ -999,8 +1039,8 @@ $foundation: "nonexistant" !global;
 				  		@if is-highest-breakpoint($sh_key) == true {
 							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 								width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-									if( $sh_shift > 0, 
+								margin-right: calc-margin($sh_key, $sh_span);
+				  				margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
 										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
 									) 
@@ -1010,8 +1050,8 @@ $foundation: "nonexistant" !global;
 			  			} @else {
 				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 			  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span) 0 ( 
-									if( $shift > 0, 
+			  					margin-right: calc-margin($sh_key, $sh_span);
+			  					margin-left: ( if( $shift > 0, 
 										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
 										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
 									) 
@@ -1024,13 +1064,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-							margin: 0 calc-margin($sh_key, $sh_span);
+							margin-right: calc-margin($sh_key, $sh_span);
+							margin-left: calc-margin($sh_key, $sh_span);
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-							margin: 0 calc-margin($sh_key, $sh_span);
+							margin-right: calc-margin($sh_key, $sh_span);
+							margin-left: calc-margin($sh_key, $sh_span);
 							@content;
 						}
 					}	
@@ -1038,13 +1080,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin: 0 calc-margin($sh_key, $sh_span) 0 0;
+							margin-right: calc-margin($sh_key, $sh_span);
+							margin-left: 0;
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin: 0 calc-margin($sh_key, $sh_span) 0 0;
+							margin-right: calc-margin($sh_key, $sh_span);
+							margin-left: 0;
 							@content;
 						}
 					}
@@ -1052,13 +1096,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin: 0 0 0 calc-margin($sh_key, $sh_span);
+							margin-right: 0;
+							margin-left: calc-margin($sh_key, $sh_span);
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin: 0 0 0 calc-margin($sh_key, $sh_span);
+							margin-right: 0;
+							margin-left: calc-margin($sh_key, $sh_span);
 							@content;
 						}
 					}
@@ -1066,13 +1112,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: calc-width($sh_key, $sh_span);
-							margin: 0;
+							margin-right: 0;
+							margin-left: 0;
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: calc-width($sh_key, $sh_span);
-							margin: 0;
+							margin-right: 0;
+							margin-left: 0;
 							@content;
 						}
 					}
@@ -1105,8 +1153,8 @@ $foundation: "nonexistant" !global;
 				@if $gutter == null and get-value(settings, gutter) != false and $shift != null {
 					@if length($shift) > 1 {
 						width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-		  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-							if( nth($sh_shift, $i) > 0, 
+						margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+						margin-left: ( if( nth($sh_shift, $i) > 0, 
 								(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 								(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 							) 
@@ -1114,8 +1162,8 @@ $foundation: "nonexistant" !global;
 		  				@content;
 		  			} @else {
 		  				width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-		  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-							if( $sh_shift > 0, 
+		  				margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+		  				margin-left: ( if( $sh_shift > 0, 
 								(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 								(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 							) 
@@ -1124,19 +1172,23 @@ $foundation: "nonexistant" !global;
 		  			}
 				} @else if $gutter == null and get-value(settings, gutter) != false {
 					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-					margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+					margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 					@content;
 				} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
 					width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-					margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+					margin-left: 0;
 					@content;
 				} @else if $gutter == "omega" and get-value(settings, gutter) != false {
 					width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-					margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+					margin-right: 0;
+					margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 					@content;
 				} @else if $gutter == "row" or get-value(settings, gutter) == false {
 					width: calc-width($sh_key, $sh_span, $sh_context);
-					margin: 0;
+					margin-right: 0;
+					margin-left: 0;
 					@content;
 				}
 
@@ -1147,8 +1199,8 @@ $foundation: "nonexistant" !global;
 			  			@if is-highest-breakpoint($sh_key) == true {
 							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( nth($sh_shift, $i) > 0, 
+								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+								margin-left: ( if( nth($sh_shift, $i) > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 									) 
@@ -1158,8 +1210,8 @@ $foundation: "nonexistant" !global;
 			  			} @else {
 				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 			  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( $sh_shift > 0, 
+			  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+			  					margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
 									) 
@@ -1171,8 +1223,8 @@ $foundation: "nonexistant" !global;
 				  		@if is-highest-breakpoint($sh_key) == true {
 							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( $sh_shift > 0, 
+								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+				  				margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 									) 
@@ -1182,8 +1234,8 @@ $foundation: "nonexistant" !global;
 			  			} @else {
 				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 			  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 ( 
-									if( $sh_shift > 0, 
+			  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+			  					margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
 										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
 									) 
@@ -1196,13 +1248,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						}
 					}
@@ -1210,13 +1264,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: 0;
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 calc-margin($sh_key, $sh_span, $sh_context) 0 0;
+							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
+							margin-left: 0;
 							@content;
 						}
 					}
@@ -1224,13 +1280,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-right: 0;
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin: 0 0 0 calc-margin($sh_key, $sh_span, $sh_context);
+							margin-right: 0;
+							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
 							@content;
 						}
 					}
@@ -1238,13 +1296,15 @@ $foundation: "nonexistant" !global;
 					@if is-highest-breakpoint($sh_key) == true {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
 							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin: 0;
+							margin-right: 0;
+							margin-left: 0;
 							@content;
 						}
 					} @else {
 						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
 							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin: 0;
+							margin-right: 0;
+							margin-left: 0;
 							@content;
 						}
 					}
@@ -1346,27 +1406,32 @@ $foundation: "nonexistant" !global;
 	    @if get-value(settings, default) == $key {
 	      
 			@if $gutter == null and get-value(settings, gutter) != false and $shift != null {
-				margin: 0 calc-margin($key, $span) 0 ( 
-					if( $shift > 0, 
+				width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
+				margin-right: calc-margin($key, $span);
+				margin-left: ( if( $shift > 0, 
 						(calc-margin($key, $span)) + (calc-width($key, $shift)),
 						(calc-margin($key, -$span)) + (calc-width($key, $shift)) 
 					) 
 				);
 			} @else if $gutter == null and get-value(settings, gutter) != false {
 				width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-				margin: 0 calc-margin($key, $span);
+				margin-right: calc-margin($key, $span);
+				margin-left: calc-margin($key, $span);
 				@content;
 			} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
 				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-				margin: 0 calc-margin($key, $span) 0 0;
+				margin-right: calc-margin($key, $span);
+				margin-left: 0;
 				@content;
 			} @else if $gutter == "omega" and get-value(settings, gutter) != false {
 				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-				margin: 0 0 0 calc-margin($key, $span);
+				margin-right: 0;
+				margin-left: calc-margin($key, $span);
 				@content;
 			} @else if $gutter == "row" or get-value(settings, gutter) == false {
 				width: calc-width($key, $span);
-				margin: 0;
+				margin-right: 0;
+				margin-left: 0;
 				@content;
 			}
 				
@@ -1378,8 +1443,8 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-		  				margin: 0 calc-margin($key, $span) 0 ( 
-							if( $shift > 0, 
+						margin-right: calc-margin($key, $span);
+						margin-left: ( if( $shift > 0, 
 								(calc-margin($key, $span)) + (calc-width($key, $shift)),
 								(calc-margin($key, -$span)) + (calc-width($key, $shift)) 
 							) 
@@ -1389,8 +1454,8 @@ $foundation: "nonexistant" !global;
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 	  					width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-		  				margin: 0 calc-margin($key, $span) 0 ( 
-							if( $shift > 0, 
+	  					margin-right: calc-margin($key, $span);
+						margin-left: ( if( $shift > 0, 
 								(calc-margin($key, $span)) + (calc-width($key, $shift)),
 								(calc-margin($key, -$span)) + (calc-width($key, $shift)) 
 							) 
@@ -1402,13 +1467,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-		  				margin: 0 calc-margin($key, $span);
+		  				margin-right: calc-margin($key, $span);
+						margin-left: calc-margin($key, $span);
 		  				@content;
 					}
 				} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-		  				margin: 0 calc-margin($key, $span);
+		  				margin-right: calc-margin($key, $span);
+						margin-left: calc-margin($key, $span);
 		  				@content;
 		  			}
 		  		}
@@ -1416,13 +1483,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin: 0 calc-margin($key, $span) 0 0;
+		  				margin-right: calc-margin($key, $span);
+						margin-left: 0;
 		  				@content;
 		  			}
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin: 0 calc-margin($key, $span) 0 0;
+		  				margin-right: calc-margin($key, $span);
+						margin-left: 0;
 		  				@content;
 		  			}
 		  		}
@@ -1430,13 +1499,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin: 0 0 0 calc-margin($key, $span);
+		  				margin-right: 0;
+						margin-left: calc-margin($key, $span);
 		  				@content;
 		  			}
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin: 0 0 0 calc-margin($key, $span);
+		  				margin-right: 0;
+						margin-left: calc-margin($key, $span);
 		  				@content;
 		  			}
 		  		}
@@ -1444,13 +1515,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: calc-width($key, $span);
-		  				margin: 0;
+		  				margin-right: 0;
+						margin-left: 0;
 		  				@content;
 		  			}
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: calc-width($key, $span);
-		  				margin: 0;
+		  				margin-right: 0;
+						margin-left: 0;
 		  				@content;
 		  			}
 		  		}
@@ -1470,27 +1543,31 @@ $foundation: "nonexistant" !global;
 		  @if get-value(settings, default) == $key {
 	      
 			@if $gutter == null and get-value(settings, gutter) != false and $shift != null {
-				margin: 0 calc-margin($key, $span, $context) 0 ( 
-					if( $shift > 0, 
+				margin-right: calc-margin($key, $span, $context);
+				margin-left: ( if( $shift > 0, 
 						(calc-margin($key, $span, $context)) + (calc-width($key, $shift, $context)),
 						(calc-margin($key, -$span, $context)) + (calc-width($key, $shift, $context)) 
 					) 
 				);
 			} @else if $gutter == null and get-value(settings, gutter) != false {
 				width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-				margin: 0 calc-margin($key, $span, $context);
+				margin-right: calc-margin($key, $span, $context);
+				margin-left: calc-margin($key, $span, $context);
 				@content;
 			} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
 				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-				margin: 0 calc-margin($key, $span, $context) 0 0;
+				margin-right: calc-margin($key, $span, $context);
+				margin-left: 0;
 				@content;
 			} @else if $gutter == "omega" and get-value(settings, gutter) != false {
 				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-				margin: 0 0 0 calc-margin($key, $span, $context);
+				margin-right: 0;
+				margin-left: calc-margin($key, $span, $context);
 				@content;
 			} @else if $gutter == "row" or get-value(settings, gutter) == false {
 				width: calc-width($key, $span, $context);
-				margin: 0;
+				margin-right: 0;
+				margin-left: 0;
 				@content;
 			}
 				
@@ -1502,8 +1579,8 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-		  				margin: 0 calc-margin($key, $span, $context) 0 ( 
-							if( $shift > 0, 
+						margin-right: calc-margin($key, $span, $context);
+						margin-left: ( if( $shift > 0, 
 								(calc-margin($key, $span, $context)) + (calc-width($key, $shift, $context)),
 								(calc-margin($key, -$span, $context)) + (calc-width($key, $shift, $context)) 
 							) 
@@ -1513,8 +1590,8 @@ $foundation: "nonexistant" !global;
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-		  				margin: 0 calc-margin($key, $span, $context) 0 ( 
-							if( $shift > 0, 
+		  				margin-right: calc-margin($key, $span, $context);
+						margin-left: ( if( $shift > 0, 
 								(calc-margin($key, $span, $context)) + (calc-width($key, $shift, $context)),
 								(calc-margin($key, -$span, $context)) + (calc-width($key, $shift, $context)) 
 							) 
@@ -1526,13 +1603,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-		  				margin: 0 calc-margin($key, $span, $context);
+		  				margin-right: calc-margin($key, $span, $context);
+						margin-left: calc-margin($key, $span, $context);
 		  				@content;
 		  			}
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-		  				margin: 0 calc-margin($key, $span, $context);
+		  				margin-right: calc-margin($key, $span, $context);
+						margin-left: calc-margin($key, $span, $context);
 		  				@content;
 		  			}
 		  		}
@@ -1540,13 +1619,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin: 0 calc-margin($key, $span, $context) 0 0;
+		  				margin-right: calc-margin($key, $span, $context);
+						margin-left: 0;
 		  				@content;
 		  			}
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin: 0 calc-margin($key, $span, $context) 0 0;
+		  				margin-right: calc-margin($key, $span, $context);
+						margin-left: 0;
 		  				@content;
 		  			}
 		  		}
@@ -1554,13 +1635,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin: 0 0 0 calc-margin($key, $span, $context);
+		  				margin-right: 0;
+						margin-left: calc-margin($key, $span, $context);
 		  				@content;
 		  			}
 	  			} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin: 0 0 0 calc-margin($key, $span, $context);
+		  				margin-right: 0;
+						margin-left: calc-margin($key, $span, $context);
 		  				@content;
 		  			}
 		  		}
@@ -1568,13 +1651,15 @@ $foundation: "nonexistant" !global;
 	  			@if is-highest-breakpoint($key) == true {
 					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
 						width: calc-width($key, $span, $context);
-		  				margin: 0;
+		  				margin-right: 0;
+						margin-left: 0;
 		  				@content;
 		  			}
 				} @else {
 		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
 		  				width: calc-width($key, $span, $context);
-		  				margin: 0;
+		  				margin-right: 0;
+						margin-left: 0;
 		  				@content;
 		  			}
 		  		}
