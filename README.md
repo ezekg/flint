@@ -11,14 +11,14 @@ hard stuff, you do the rest. Enjoy,
 Config
 ------
 
-**Flint's** `config map` is unique in the ability that you may
+Flint's `config map` is unique in the ability that you may
 define an unlimited number of breakpoints for your
 project. Whether that be 2 breakpoints, or even 12. 
 You're in control. Also, unlike most frameworks, you may
-name these anything that you like. **Flint** is smart and will
+name these anything that you like. Flint is smart and will
 figure out which one you're talking about.
 
-Settings may be entered in `px` or `em`, and **flint**
+Settings may be entered in `px` or `em`, and flint
 will do the rest.
 
 *Keep in mind, whatever unit you choose to use here needs to 
