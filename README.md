@@ -16,11 +16,11 @@ Config
 ------
 
 Flint's `config map` is unique in the ability that you may
-define an unlimited number of breakpoints for your
-project. Whether that be 2 breakpoints, or even 12. 
-You're in control. Also, unlike most frameworks, you may
-name these anything that you like. Flint is smart and will
-figure out which one you're talking about.
+define an unlimited number of breakpoints for your project. 
+hether that be 2 breakpoints, or even 12. You're in full 
+control of your columns as well. Also, unlike most frameworks, 
+you may name these anything that you like. Flint is smart and 
+will figure out which one you're talking about.
 
 Settings may be entered in `px` or `em`, and flint
 will do the rest.
@@ -57,13 +57,13 @@ $flint: (
 		// additional grid settings
 
 		"settings": (
-			"default": "desktop",
-			"grid": "fluid",
-			"gutter": 10px,
-			"max-width": false,
-			"float-style": "left",
-			"border-box-sizing": true,
-			"debug-mode": true,
+			"default": "desktop", // one of your breakpoint's name
+			"grid": "fluid", // fixed or fluid
+			"gutter": 10px, // any unit
+			"max-width": false, // either a breakpoint's name, a value or false
+			"float-style": "left", // left or right
+			"border-box-sizing": true, // true or false
+			"debug-mode": true, // in progress
 		),
 	),
 );
