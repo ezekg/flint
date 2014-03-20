@@ -441,6 +441,9 @@ parameter using the `$shift` variable. This will cause the element
 to shift the desired amount of columns using positive/negative 
 left margins. 
 
+*Currently, `$gutter` modifiers and `$shift` modifiers cannot be used*
+*in conjuction with eachother. This functionality will be added soon*
+
 ```scss
 // shift 4 columns to the right across all breakpoints
 .name {
