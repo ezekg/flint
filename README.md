@@ -22,7 +22,7 @@ Config
 
 Flint's `config map` is unique in the ability that you may
 define an unlimited number of breakpoints for your project. 
-hether that be 2 breakpoints, or even 12. You're in full 
+Whether that be 2 breakpoints, or even 12. You're in full 
 control of your columns as well. Also, unlike most frameworks, 
 you may name these anything that you like. Flint is smart and 
 will figure out which one you're talking about.
