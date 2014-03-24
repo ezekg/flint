@@ -42,9 +42,9 @@ $flint: (
 
 		// define breakpoints
 
-		"desktop": (
-			"columns": 16,
-			"breakpoint": 1280px,
+		"desktop": ( // the breakpoint keys can be renamed to anything you like
+			"columns": 16, // can be any column count
+			"breakpoint": 1280px, // the minimum width for this break to be active
 		),
 		"laptop": (
 			"columns": 12,
@@ -422,7 +422,7 @@ across all breakpoints.
 	@include flint(desktop, 4, $gutter: alpha);
 }
 
-// no left margin
+// no right margin
 .name {
 	@include flint(desktop, 4, $gutter: omega);
 }
