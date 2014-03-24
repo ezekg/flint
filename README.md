@@ -164,7 +164,7 @@ styles in media-queries, so that they may be used in non-supported brwosers.
 Recursive shorthand with identical context
 ------------------------------------------
 
-Use this if your nested context is *identical* across all breakpoints.
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent.
 
 ```scss
 //  .parent {
@@ -207,7 +207,7 @@ Outputs,
 Recursive shorthand with variable context
 -----------------------------------------
 
-Use this if your context is *not* indentical across breakpoints.
+Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent.
 
 *You must include an argument for each breakpoint in your config.*
 
@@ -294,7 +294,7 @@ Outputs,
 Variable shorthand with context
 -------------------------------
 
-Use this if you're nesting columns using the variable shorthand.
+Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent.
 
 ```scss
 //  .parent {
