@@ -3,7 +3,7 @@
 * @Flint 
 * @By Ezekiel Gabrielse
 * @Web ezekielg.com
-* @Sass v3.3.0.rc.6
+* @Sass v3.3.3
 * @Compass v1.0.0.alpha.18
 *
 // -------------------------------------------------------------------- **/
@@ -321,11 +321,13 @@ $foundation: "nonexistant" !global;
 		// foundation is now globally existant
 		
 		@if $foundation == "existant" {
-      			-moz-box-sizing: border-box;
-			-webkit-box-sizing: border-box;
-			box-sizing: border-box;
-			@content;
-    		}
+			@at-root *, *:before, *:after {
+	  			-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				@content;
+			}
+		}
 
 	} @else if $key == "container"
 		or exists($flint, $key) and $span != null
@@ -348,7 +350,9 @@ $foundation: "nonexistant" !global;
 		// apply individually if foundation is not set globally, but is set to true in config
 		
 		@if get-value(settings, border-box-sizing) == true and $foundation == "nonexistant" {
-      			-moz-box-sizing: border-box;
+
+			
+  			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 
@@ -391,15 +395,45 @@ $foundation: "nonexistant" !global;
 
 	@if type-of($key) == number and length($key) == 1 or $key == "container" {
 		@if $key == "container" and get-value(settings, max-width) != false {
-			width: (calc-width(get-value(settings, default), $key));
-			margin-right: auto;
-			margin-left: auto;
-			@content;
+			@if get-value(settings, grid) == "fixed" {
+				@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
+					$sh_key: steal-key($i);
+					$sh_span: $key;
+					$sh_shift: $shift;
+
+					@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
+						width: calc-width($sh_key, $sh_span);
+						margin-right: auto;
+						margin-left: auto;
+						@content;
+					}
+				}
+			} @else {
+				width: (calc-width(get-value(settings, default), $key));
+				margin-right: auto;
+				margin-left: auto;
+				@content;
+			}
 		} @else if $key == "container" and get-value(settings, max-width) == false {
-			width: (calc-width(get-value(settings, default), $key));
-			margin-right: 0;
-			margin-left: 0;
-			@content;
+			@if get-value(settings, grid) == "fixed" {
+				@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
+					$sh_key: steal-key($i);
+					$sh_span: $key;
+					$sh_shift: $shift;
+
+					@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
+						width: calc-width($sh_key, $sh_span);
+						margin-right: auto;
+						margin-left: auto;
+						@content;
+					}
+				}
+			} @else {
+				width: (calc-width(get-value(settings, default), $key));
+				margin-right: 0;
+				margin-left: 0;
+				@content;
+			}
 		} @else {
 
 			// @end check for container
@@ -434,7 +468,7 @@ $foundation: "nonexistant" !global;
 				  			} @else {
 				  				width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
 				  				margin-right: calc-margin($sh_key, $sh_span);
-				  				margin-left: ( if( $sh_shift > 0, 
+		  						margin-left: ( if( $sh_shift > 0, 
 										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
 										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
 									) 
