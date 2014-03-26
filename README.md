@@ -1,8 +1,8 @@
 Flint
 =====
 
-**Flint is a seemingly simple Sass based grid-system** 
-capable of complex responsive layouts customized at each 
+**Flint is a seemingly simple Sass based grid-system** built on
+**Sass 3.3** capable of complex responsive layouts customized at each 
 breakpoint, all while using a single mixin. All of your layout
 settings are housed in a simple config file. Flint will only
 output the code you need, and nothing else. Flint handles the 
