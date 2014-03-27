@@ -6,9 +6,9 @@ $flint: (
 
 		// define breakpoints
 
-		"desktop": (
-			"columns": 16,
-			"breakpoint": 1280px,
+		"desktop": ( // [anything you like, aside from reserved Sass/Flint words]
+			"columns": 16, // [0-infinity]
+			"breakpoint": 1280px, // [0-infinity]
 		),
 		"laptop": (
 			"columns": 12,
@@ -26,14 +26,12 @@ $flint: (
 		// additional grid settings
 
 		"settings": (
-			"default": "desktop",
-			"grid": "fluid",
-			"gutter": 10px,
-			"max-width": false,
-			"float-style": "left",
-			"border-box-sizing": true,
-			"theme-development-mode": true,
-			"debug-mode": true,
+			"default": "desktop", // [any breakpoint's name]
+			"grid": "fluid", // [fluid, fixed]
+			"gutter": 10px, // [0-infinity]
+			"max-width": false, // [false, or any breakpoint's nane]
+			"float-style": "left", // [left, right]
+			"border-box-sizing": true, // [true, false]
 		),
 	),
 );
