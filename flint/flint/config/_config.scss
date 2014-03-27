@@ -1,0 +1,39 @@
+$flint: (
+
+	// grid configuration
+
+	"config": (
+
+		// define breakpoints
+
+		"desktop": (
+			"columns": 16,
+			"breakpoint": 1280px,
+		),
+		"laptop": (
+			"columns": 12,
+			"breakpoint": 960px,
+		),
+		"tablet": (
+			"columns": 8,
+			"breakpoint": 640px,
+		),
+		"mobile": (
+			"columns": 4,
+			"breakpoint": 320px,
+		),
+
+		// additional grid settings
+
+		"settings": (
+			"default": "desktop",
+			"grid": "fluid",
+			"gutter": 10px,
+			"max-width": false,
+			"float-style": "left",
+			"border-box-sizing": true,
+			"theme-development-mode": true,
+			"debug-mode": true,
+		),
+	),
+);

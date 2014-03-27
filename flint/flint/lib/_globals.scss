@@ -1,0 +1,20 @@
+//----------------------------------------------------------------------
+//
+// Global variables
+//
+//----------------------------------------------------------------------
+
+// set global variable to check if foundation has been applied globally
+	
+$foundation: "nonexistant" !global;
+
+// set all breakpoints and column counts for JSON
+
+// $flint__json--keys: get-all-keys() !global;
+// $flint__json--breakpoints: get-all-breakpoints() !global;
+// $flint__json--columns: get-all-columns() !global;
+
+// // keep track of all instances of mixin for class output
+
+// $instance-count: 0 !global;
+// $flint__instances: () !global;

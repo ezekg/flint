@@ -1,0 +1,265 @@
+//----------------------------------------------------------------------
+//
+// Utility functions
+//
+//----------------------------------------------------------------------
+
+// fetch value from key in map
+//----------------------------------------------------------------------
+
+@function map-fetch($map, $keys) {
+	$key: nth($keys, 1);
+	$length: length($keys);
+	$value: map-get($map, $key);
+
+	// check if value equals null
+	// return message so that sass still compiles without errors
+
+	@if $value == null { @return "Oops! Something went wrong. Good thing SASS still compiles so that you can debug this." }
+
+	@else {
+		@if ($length > 1) {
+			$rest: ();
+
+			@for $i from 2 through $length {
+				$rest: append($rest, nth($keys, $i))
+			} @return map-fetch($value, $rest);
+
+		} @else {
+			@return $value;
+		}
+	}
+}
+
+// get single value from key in map
+//----------------------------------------------------------------------
+
+@function get-value($i, $n: null) {
+	@if $n == null {
+		@return map-fetch($flint, config $i);
+	} @else {
+		@return map-fetch($flint, config $i $n);
+	}
+}
+
+// check if key exists in map
+//----------------------------------------------------------------------
+
+@function exists($map, $value){
+	@if type-of($map) == map {
+		@if map-has-key($map, $value) {
+			@return true;
+		}
+		@each $key, $i in $map {
+			@if exists($i, $value) {
+				@return true;
+			}
+		}
+	} @return false;
+}
+
+// convert fixed to fluid width
+//----------------------------------------------------------------------
+
+@function fluid-width($target, $context) {
+	@return ($target / $context) * 100%;
+}
+
+// calculate width
+//----------------------------------------------------------------------
+
+@function calc-width($key, $span, $context: null) {
+	@if get-value(settings, grid) == "fluid" {
+		@if $key == "container" or $span == "container" {
+			@return fluid-width(get-value($key, breakpoint), get-value($key, breakpoint));
+		} @else if $context == null {
+			@return fluid-width((get-value($key, breakpoint) / get-value($key, columns) * $span), get-value($key, breakpoint));
+		} @else {
+			@return fluid-width((get-value($key, breakpoint) / get-value($key, columns) * $span), ((get-value($key, breakpoint) / get-value($key, columns) * $context)));
+		}
+	} @if get-value(settings, grid) == "fixed" {
+		@if $key == "container" or $span == "container" {
+			@return get-value($key, breakpoint);
+		} @else if $context == null {
+			@return get-value($key, breakpoint) / get-value($key, columns) * $span;
+		} @else {
+			@return get-value($key, breakpoint) / get-value($key, columns) * $span;
+		}
+	} @else {
+		@return false;
+	}
+}
+
+// calculate margin
+//----------------------------------------------------------------------
+
+@function calc-margin($key, $span, $context: null) {
+	@if get-value(settings, grid) == "fluid" {
+		@if $key == "container" or $span == "container" {
+			@return 0;
+		} @else if $context == null {
+			@return fluid-width(get-value(settings, gutter), get-value($key, breakpoint));
+		} @else {
+			@return fluid-width(get-value(settings, gutter), ((get-value($key, breakpoint) / get-value($key, columns) * $context)));
+		}
+	} @if get-value(settings, grid) == "fixed" {
+		@if $key == "container" or $span == "container" {
+			@return 0;
+		} @if $context == null {
+			@return get-value(settings, gutter);
+		} @else {
+			@return get-value(settings, gutter);
+		}
+	} @else {
+		@return false;
+	}
+}
+
+// calculate from-to breakpoints
+//----------------------------------------------------------------------
+
+@function calc-breakpoint($n, $key, $i) {
+	@if get-value(settings, grid) == "fluid" {
+		@if $n == "from" {
+			@if $i == (length(map-fetch($flint, config)) - 1) {
+				@return 0;
+			} @else {
+				@return (get-value(next-index($i), breakpoint) + 1);
+			}
+		} @else if $n == "to" {
+			@return get-value($key, breakpoint);
+		}
+	} @else if get-value(settings, grid) == "fixed" {
+		@if $n == "from" {
+			@if $i == (length(map-fetch($flint, config)) - 1) {
+				@return 0;
+			} @else {
+				@return get-value($key, breakpoint);
+			}
+		} @else if $n == "to" {
+		  	@if steal-key($i) != steal-key(1) {
+			 	@return (get-value(steal-key(($i - 1)), breakpoint) - 1);
+		 	 } @else {
+		    	@return (get-value(steal-key($i), breakpoint) - 1);
+	    	}
+		}
+	}
+}
+
+// steal key based on index number
+//----------------------------------------------------------------------
+
+@function steal-key($index) {
+	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
+		@each $key in nth(map-get($flint, config), $index) {
+			@return $key;
+		}
+	}
+}
+
+// steal value based on index number
+//----------------------------------------------------------------------
+
+@function steal-values($index, $value) {
+	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
+		@each $key in nth(map-get($flint, config), $index) {
+			@return get-value($key, $value);
+		}
+	}
+}
+
+// gets the index of the passed key
+//----------------------------------------------------------------------
+
+@function get-index($key) {
+  	@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
+		@if steal-key($i) == $key {
+			@return $i;
+		}
+	}
+}
+
+// returns next indexed key based on passed number
+//----------------------------------------------------------------------
+
+@function next-index($index) {
+	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
+		@each $key in nth(map-get($flint, config), $index + 1) {
+			@return $key;
+		}
+	}
+}
+
+// gets all breakpoints
+//----------------------------------------------------------------------
+
+@function get-all-breakpoints() {
+	$all-breakpoints: ();
+
+	@each $map, $keys in map-get($flint, config) {
+		@each $key, $value in $keys {
+			@if $key == "breakpoint" {
+				$all-breakpoints: append($all-breakpoints, $value, 'comma');
+			}
+		}
+	} @return $all-breakpoints;
+}
+
+// grabs highest breakpoint
+//----------------------------------------------------------------------
+
+@function is-highest-breakpoint($key) {
+	@if get-value($key, breakpoint) == max(get-all-breakpoints()...) {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
+// gets all breakpoint column values
+//----------------------------------------------------------------------
+
+@function get-all-columns() {
+	$all-columns: ();
+
+	@each $map, $keys in map-get($flint, config) {
+		@each $key, $value in $keys {
+			@if $key == "columns" {
+				$all-columns: append($all-columns, $value, 'comma');
+			}
+		}
+	} @return $all-columns;
+}
+
+// gets all keys
+//----------------------------------------------------------------------
+
+@function get-all-keys() {
+	$all-keys: ();
+  
+	@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
+		$key: steal-key($i);
+		$all-keys: append($all-keys, $key, 'comma');
+	}
+
+	@return $all-keys;
+}
+
+// keeps count of all instances with arguments, stores in global var
+//----------------------------------------------------------------------
+
+// @function instance($key, $span, $context, $gutter, $shift) {
+//     $instance-count: ($instance-count + 1) !global;
+//     $new__flint__instance: (
+//     	"instance-#{$instance-count}": (
+//       		"key": #{$key},
+//      		"breakpoint": get-value($key, breakpoint),
+//       		"columns": get-value($key, columns),
+// 			"span": #{$span},
+// 			"context": #{$context},
+// 			"gutter": #{$gutter},
+// 		),
+// 	);
+    
+//     @return map-merge($flint__instances, $new__flint__instance);
+// }
