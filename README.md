@@ -163,7 +163,7 @@ styles in media-queries, so that they may be used in non-supported browsers.
 Recursive shorthand with identical context
 ------------------------------------------
 
-Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. **Pro tip:** `$context` can also be used to break out of the usual column count for a specific breakpoint. For example, if one of your breakpoints column count is `16`, you could set use `$context: 24`, and it will calculate its width as if that breakpoint had a column count of `24`.
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. **Pro tip:** `$context` can also be used to break out of the usual column count for a specific breakpoint. For example, if one of your breakpoints column count is `16`, you could use `$context: 24`, and it will calculate its width as if that breakpoint had a column count of `24`.
 
 ```scss
 //  .parent {
