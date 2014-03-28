@@ -95,9 +95,6 @@ You may define containers, which simply act as a row without the `float`
 property. This is really only useful on fixed grid layouts, or if you have a max-width set, but can be
 used elsewhere as a simple wrapper if desired.
 
-If `max-width` is set, it will use your projects settings defined 
-in your config, and apply `margin: 0 auto` to center your row for you.
-
 ```scss
 .container {
 	@include flint(container);
@@ -110,7 +107,6 @@ Outputs,
 	display: block;
 	float: none;
 	width: 100%;
-	margin: 0 auto; // if a max width, or fixed grid is set
 }
 ```
 
