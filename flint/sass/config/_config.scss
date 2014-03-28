@@ -26,11 +26,12 @@ $flint: (
 		// additional grid settings
 
 		"settings": (
-			"default": "desktop", // [any breakpoint's name]
+			"default": "mobile", // [any breakpoint's name, is default]
 			"grid": "fluid", // [fluid, fixed]
 			"gutter": 10px, // [0-infinity]
-			"max-width": false, // [false, or any breakpoint's nane]
 			"float-style": "left", // [left, right]
+			"max-width": false, // [true (uses highest breakpoint), false, or any value]
+			"center-container": true, // [true, false]
 			"border-box-sizing": true, // [true, false]
 		),
 	),

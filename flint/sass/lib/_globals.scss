@@ -8,11 +8,11 @@
 	
 $foundation: "nonexistant" !global;
 
-// set all breakpoints and column counts for JSON
+// gather all keys, breakpoints and column counts
 
-// $flint__json--keys: get-all-keys() !global;
-// $flint__json--breakpoints: get-all-breakpoints() !global;
-// $flint__json--columns: get-all-columns() !global;
+$flint__all--keys: get-all-keys() !global;
+$flint__all--breakpoints: get-all-breakpoints() !global;
+$flint__all--columns: get-all-columns() !global;
 
 // // keep track of all instances of mixin for class output
 
