@@ -158,12 +158,12 @@ the output for desktop as the base styles. You can set this to any
 breakpoint you like. **So if you like mobile-first, you can do that.**
 
 Whatever your `default` is set to, **flint** will not wrap those
-styles in media-queries, so that they may be used in non-supported brwosers.
+styles in media-queries, so that they may be used in non-supported browsers.
 
 Recursive shorthand with identical context
 ------------------------------------------
 
-Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent.
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. **Pro tip: `$context` can also be used to break out of the usual column count for a specific breakpoint. For example, if one of your breakpoints column count is `16`, you could set use `$context: 24`, and it will calculate its width as if that breakpoint had a column count of `24`.**
 
 ```scss
 //  .parent {
