@@ -81,13 +81,12 @@ If you selected `border-box-sizing: true`, then it is
 *advised* to create a global foundation instance like so,
 
 ```scss
-* {
-	@include flint(foundation);
-}
+@include flint(foundation);
 ```
 
 That way your output won't be riddled with `box-sizing`
-declarations everytime you define a span.
+declarations everytime you define a span. This will automatically
+output the rules onto the global selector `*`.
 
 Container
 ---------
