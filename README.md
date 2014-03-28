@@ -8,7 +8,7 @@ settings are housed in a simple config file. Flint will only
 output the code you need, and nothing else. Flint handles the 
 hard stuff, you do the rest. 
 
-Here's a small [demo on Sassmeister](http://sassmeister.com/gist/9657552)
+Here's a small [demo on Sassmeister (v0.0.3.alpha)](http://sassmeister.com/gist/9657552)
 to show what Flint is capable of. This is only the alpha, so let
 me know if you find any bugs, if you think the code could be
 more efficient, or if you would just like to help out.
@@ -42,9 +42,9 @@ $flint: (
 
 		// define breakpoints
 
-		"desktop": ( // the breakpoint keys can be renamed to anything you like
-			"columns": 16, // can be any column count
-			"breakpoint": 1280px, // the minimum width for this break to be active
+		"desktop": ( // [anything you like, aside from reserved Sass/Flint words]
+			"columns": 16, // [0-infinity]
+			"breakpoint": 1280px, // [0-infinity]
 		),
 		"laptop": (
 			"columns": 12,
@@ -62,13 +62,13 @@ $flint: (
 		// additional grid settings
 
 		"settings": (
-			"default": "desktop", // one of your breakpoint's name
-			"grid": "fluid", // fixed or fluid
-			"gutter": 10px, // any unit
-			"max-width": false, // either a breakpoint's name, a value or false
-			"float-style": "left", // left or right
-			"border-box-sizing": true, // true or false
-			"debug-mode": true, // in progress
+			"default": "mobile", // [any breakpoint's name, is default]
+			"grid": "fluid", // [fluid, fixed]
+			"gutter": 10px, // [0-infinity]
+			"float-style": "left", // [left, right]
+			"max-width": false, // [true (uses highest breakpoint), false, or any value]
+			"center-container": true, // [true, false]
+			"border-box-sizing": true, // [true, false]
 		),
 	),
 );
@@ -132,24 +132,28 @@ recursive {
 	display: block;
 	float: left;
 	width: 17.1875%;
-	margin: 0 0.78125%;
+	margin-right: 0.78125%;
+	margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
 	.recursive {
 		width: 22.9166666667%;
-		margin: 0 1.0416666667%;
+		margin-right: 1.0416666667%;
+		margin-left: 1.0416666667%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
 	.recursive {
 		width: 34.375%;
-		margin: 0 1.5625%;
+		margin-right: 1.5625%;
+		margin-left: 1.5625%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
 	.recursive {
 		width: 68.75%;
-		margin: 0 3.125%;
+		margin-right: 3.125%;
+		margin-left: 3.125%;
 	}
 }
 ```
@@ -182,24 +186,28 @@ Outputs,
 	display: block;
 	float: left;
 	width: 45.8333333333%;
-	margin: 0 2.0833333333%;
+	margin-right: 2.0833333333%;
+	margin-left: 2.0833333333%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
 	.recursive {
 		width: 45.8333333333%;
-		margin: 0 2.0833333333%;
+		margin-right: 2.0833333333%;
+		margin-left: 2.0833333333%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
 	.recursive {
 		width: 45.8333333333%;
-		margin: 0 2.0833333333%;
+		margin-right: 2.0833333333%;
+		margin-left: 2.0833333333%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
 	.recursive {
 		width: 45.8333333333%;
-		margin: 0 2.0833333333%;
+		margin-right: 2.0833333333%;
+		margin-left: 2.0833333333%;
 	}
 }
 ```
@@ -227,24 +235,28 @@ recursive {
 	display: block;
 	float: left;
 	width: 17.5%;
-	margin: 0 1.25%;
+	margin-right: 1.25%;
+	margin-left: 1.25%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
 	.recursive {
 		width: 21.875%;
-		margin: 0 1.5625%;
+		margin-right: 1.5625%;
+		margin-left: 1.5625%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
 	.recursive {
 		width: 29.1666666667%;
-		margin: 0 2.0833333333%;
+		margin-right: 2.0833333333%;
+		margin-left: 2.0833333333%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
 	.recursive {
 		width: 43.75%;
-		margin: 0 3.125%;
+		margin-right: 3.125%;
+		margin-left: 3.125%;
 	}
 }
 ```
@@ -269,24 +281,28 @@ Outputs,
 	display: block;
 	float: left;
 	width: 48.4375%;
-	margin: 0 0.78125%;
+	margin-right: 0.78125%;
+	margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
 	.variable {
 		width: 47.91667%;
-		margin: 0 1.04167%;
+		margin-right: 1.04167%;
+		margin-left: 1.04167%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
 	.variable {
 		width: 46.875%;
-		margin: 0 1.5625%;
+		margin-right: 1.5625%;
+		margin-left: 1.5625%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
 	.variable {
 		width: 93.75%;
-		margin: 0 3.125%;
+		margin-right: 3.125%;
+		margin-left: 3.125%;
 	}
 }
 ```
@@ -312,24 +328,28 @@ Outputs,
 	display: block;
 	float: left;
 	width: 85.9375%;
-	margin: 0 0.78125%;
+	margin-right: 0.78125%;
+	margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
 	.variable {
 		width: 81.25%;
-		margin: 0 1.0416666667%;
+		margin-right: 1.0416666667%;
+		margin-left: 1.0416666667%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
 	.variable {
 		width: 71.875%;
-		margin: 0 1.5625%;
+		margin-right: 1.5625%;
+		margin-left: 1.5625%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
 	.variable {
 		width: 43.75%;
-		margin: 0 3.125%;
+		margin-right: 3.125%;
+		margin-left: 3.125%;
 	}
 }
 ```
@@ -404,7 +424,8 @@ Outputs,
 	display: block;
 	float: left;
 	width: 23.4375%;
-	margin: 0 0.78125%;
+	margin-right: 0.78125%;
+	margin-left: 0.78125%;
 }
 ```
 
@@ -461,7 +482,7 @@ the grid you define. Feel free to use decimals in your arguments
 for extra fine tuned control over your layouts.
 
 ```scss
-.so-much-control {
+.break-the-grid {
 	@include flint(16 12.1 8.9 4, $shift: 1.2 0 2 0, $gutter: row);
 }
 ```
