@@ -4,7 +4,7 @@
 //
 //----------------------------------------------------------------------
 
-@mixin flint (
+@mixin _ (
 	$key: NULL,
 	$span: NULL,
 	$context: NULL,
@@ -80,7 +80,7 @@
 
 		@if $key == "container" {
 			float: none;
-			
+
 			@if get-value(settings, center-container) == true {
 				margin-right: auto;
 				margin-left: auto;
@@ -1018,7 +1018,7 @@
 	//----------------------------------------------------------------------
 	// flint($key, $span)
 
-	} @else if exists($flint, $key) and $context == NULL { 
+	} @else if exists($flint, $key) and $span != NULL and $context == NULL { 
 	  
 	    @if get-value(settings, default) == $key {
 	      
@@ -1149,7 +1149,7 @@
 	//----------------------------------------------------------------------
 	// flint($key, $span, $context)
 
-	} @else if exists($flint, $key) and $context != NULL {
+	} @else if exists($flint, $key) and $span != NULL and $context != NULL {
 	  
 		  @if get-value(settings, default) == $key {
 	      
