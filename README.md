@@ -81,7 +81,7 @@ If you selected `border-box-sizing: true`, then it is
 *advised* to create a global foundation instance like so,
 
 ```scss
-@include flint(foundation);
+@include _(foundation);
 ```
 
 That way your output won't be riddled with `box-sizing`
