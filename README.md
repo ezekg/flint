@@ -93,7 +93,8 @@ Container
 
 You may define containers, which simply act as a row without the `float`
 property. This is really only useful on fixed grid layouts, or if you have a max-width set, but can be
-used elsewhere as a simple wrapper if desired.
+used elsewhere as a simple wrapper if desired. If you have `center-container` set to `true`, then it will
+also center your element using `auto` left and right margins.
 
 ```scss
 .container {
