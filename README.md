@@ -97,7 +97,7 @@ used elsewhere as a simple wrapper if desired.
 
 ```scss
 .container {
-	@include flint(container);
+	@include _(container);
 }
 ```
 
@@ -117,7 +117,7 @@ Use this if you want *identical* column spans across all breakpoints.
 
 ```scss
 .recursive {
-	@include flint(3);
+	@include _(3);
 }
 ```
 
@@ -167,11 +167,11 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 
 ```scss
 //  .parent {
-//  	   @include flint(6);
+//  	   @include _(6);
 //  }
 
 .recursive {
-	@include flint(3, 6);
+	@include _(3, 6);
 }
 ```
 
@@ -216,11 +216,11 @@ Use this if your context is *not* indentical across breakpoints. The `context` i
 
 ```scss
 //  .parent {
-//	   @include flint(10 8 6 4);
+//	   @include _(10 8 6 4);
 //  }
 
 .recursive {
-	@include flint(2, 10 8 6 4);
+	@include _(2, 10 8 6 4);
 }
 ```
 
@@ -266,7 +266,7 @@ The *order of operations* for this matches the order entered in your `config`.
 
 ```scss
 .variable {
-	@include flint(8 6 4 4);
+	@include _(8 6 4 4);
 }
 ```
 
@@ -309,11 +309,11 @@ Use this if you're *nesting* columns using the variable shorthand. The `context`
 
 ```scss
 //  .parent {
-//	   @include flint(16 12 8 4);
+//	   @include _(16 12 8 4);
 //  }
 
 .variable {
-	@include flint(14 10 6 2, 16 12 8 4);
+	@include _(14 10 6 2, 16 12 8 4);
 }
 ```
 
@@ -356,42 +356,42 @@ Use these if you need to apply breakpoint specific styling.
 
 ```scss
 .wrap {
-	@include flint(desktop) {
+	@include _(desktop) {
 		// only desktop
 	}
 }
 .wrap {
-	@include flint(greater than mobile) {
+	@include _(greater than mobile) {
 		// all sizes above mobile's breakpoint
 	}
 }
 .wrap {
-	@include flint(10em greater than tablet) {
+	@include _(10em greater than tablet) {
 		// all sizes 10em above tablet's breakpoint
 	}
 }
 .wrap {
-	@include flint(less than tablet) {
+	@include _(less than tablet) {
 		// all sizes under tablet
 	}
 }
 .wrap {
-	@include flint(1em less than laptop) {
+	@include _(1em less than laptop) {
 		// all sizes 1em under laptop
 	}
 }
 .wrap {
-	@include flint(for desktop tablet) {
+	@include _(for desktop tablet) {
 		// only for desktop and tablet
 	}
 }
 .wrap {
-	@include flint(from mobile to laptop) {
+	@include _(from mobile to laptop) {
 		// all sizes from mobile to laptop
 	}
 }
 .wrap {
-	@include flint(from desktop to infinity) {
+	@include _(from desktop to infinity) {
 		// all sizes from desktop to infinity
 	}
 }
@@ -404,12 +404,12 @@ Use if you want to define each span without shorthands.
 
 ```scss
 .name {
-	@include flint(desktop, 4);
+	@include _(desktop, 4);
 }
 
 // with context,
 // .name {
-//	  @include flint(desktop, 4, 16);
+//	  @include _(desktop, 4, 16);
 // }
 ```
 
@@ -435,17 +435,17 @@ across all breakpoints.
 ```scss
 // no left margin
 .name {
-	@include flint(desktop, 4, $gutter: alpha);
+	@include _(desktop, 4, $gutter: alpha);
 }
 
 // no right margin
 .name {
-	@include flint(desktop, 4, $gutter: omega);
+	@include _(desktop, 4, $gutter: omega);
 }
 
 // no margins
 .name {
-	@include flint(desktop, 4, $gutter: row);
+	@include _(desktop, 4, $gutter: row);
 }
 ```
 
@@ -463,12 +463,12 @@ left margins.
 ```scss
 // shift 4 columns to the right across all breakpoints
 .name {
-	@include flint(12 12 8 4, $shift: 4);
+	@include _(12 12 8 4, $shift: 4);
 }
 
 // shift 2 columns to the left across specified breakpoints
 .name {
-	@include flint(12 12 8 4, $shift: -2 -2 0 0);
+	@include _(12 12 8 4, $shift: -2 -2 0 0);
 }
 ```
 
@@ -478,7 +478,7 @@ for extra fine tuned control over your layouts.
 
 ```scss
 .break-the-grid {
-	@include flint(16 12.1 8.9 4, $shift: 1.2 0 2 0, $gutter: row);
+	@include _(16 12.1 8.9 4, $shift: 1.2 0 2 0, $gutter: row);
 }
 ```
 
