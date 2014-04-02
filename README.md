@@ -111,6 +111,33 @@ Outputs,
 }
 ```
 
+Clear
+---------
+
+Given that Flint is float based, you might find yourself needing to use a clearfix. Flint comes packaged with a micro-clearfix function.
+
+```scss
+.clear {
+	@include _(clear);
+}
+```
+
+Outputs,
+```scss
+.clear {
+	zoom: 1;
+}
+.clear:before, .clear:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
+.clear:after {
+	clear: both;
+}
+```
+
 Recursive shorthand
 -------------------
 
@@ -401,11 +428,14 @@ Use these if you need to apply breakpoint specific styling.
 Call by name
 ------------
 
-Use if you want to define each span without shorthands.
+Use if you want to define each span without shorthands. This is useful if you need variable `gutter` modifiers.
 
 ```scss
 .name {
-	@include _(desktop, 4);
+	@include _(desktop, 8, $gutter: omega);
+	@include _(laptop, 4, $gutter: omega);
+	@include _(tablet, 8, $gutter: row);
+	@include _(mobile, 4, $gutter: row);
 }
 
 // with context,
@@ -417,11 +447,32 @@ Use if you want to define each span without shorthands.
 Outputs,
 ```scss
 .name {
-	display: block;
-	float: left;
-	width: 23.4375%;
-	margin-right: 0.78125%;
-	margin-left: 0.78125%;
+    display: block;
+    float: left;
+    width: 48.4375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+}
+@media only screen and (min-width: 641px) and (max-width: 960px) {
+    .name {
+        width: 31.25%;
+        margin-right: 1.04167%;
+        margin-left: 1.04167%;
+    }
+}
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+    .name {
+        width: 96.875%;
+        margin-right: 1.5625%;
+        margin-left: 1.5625%;
+    }
+}
+@media only screen and (min-width: 0) and (max-width: 320px) {
+    .name {
+        width: 93.75%;
+        margin-right: 3.125%;
+        margin-left: 3.125%;
+    }
 }
 ```
 
