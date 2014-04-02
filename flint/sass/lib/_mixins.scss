@@ -1,8 +1,23 @@
 //----------------------------------------------------------------------
 //
-// Magic mixin
+// Magic mixins
 //
 //----------------------------------------------------------------------
+
+@mixin clearfix {
+    zoom: 1;
+
+    &:before, &:after {
+        content: "\0020"; 
+        display: block; 
+        height: 0; 
+        overflow: hidden; 
+    }
+
+    &:after {
+        clear: both;
+    }
+}
 
 @mixin _ (
 	$key: NULL,
@@ -35,6 +50,10 @@
 			}
 		}
 
+	} @else if $key == "clear" {
+
+		@include clearfix();
+		
 	} @else if $key == "container"
 		or exists($flint, $key) and $span != NULL
 		or length($key) == 1 and exists($flint, $key) == false
@@ -46,13 +65,21 @@
 
 		// gotta make em block level
 
-		display: block;
+		@if $key == get-value(settings, default) or $key == "container" {
+			display: block;
+		} @else if length($key) > 1 or type-of($key) != "string" {
+			@for $i from 1 through length($flint__all--keys) {
+				$sh_key: steal-key($i);
+
+				@if $sh_key == get-value(settings, default) {
+					display: block;
+				}
+			}
+		}
 		
 		// apply individually if foundation is not set globally, but is set to true in config
 		
 		@if get-value(settings, border-box-sizing) == true and $foundation == "nonexistant" {
-
-			
   			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
@@ -60,7 +87,7 @@
 			// warn to either set a global foundation, or turn border-box-sizing off
 
 			@if global-variable-exists(global-foundation-is-set) == false {
-				@warn "Global foundation is #{$foundation}. To avoid repeated box-sizing incidents, set a global flint(foundation) rule using the * selector, or turn border-box-sizing to false in your config file.";
+				@warn "Global foundation is #{$foundation}. To avoid repeated box-sizing incidents, set a global flint(foundation) rule, or turn border-box-sizing to false in your config file.";
 
 				// declare global variable so only a single warning prints out
 
@@ -88,8 +115,20 @@
 				margin-right: 0;
 				margin-left: 0;
 			}
-		} @else { 
-			float: unquote(get-value(settings, float-style));
+
+		} @else {
+
+			@if $key == get-value(settings, default) {
+				float: unquote(get-value(settings, float-style));
+			} @else if length($key) > 1 or type-of($key) != "string" {
+				@for $i from 1 through length($flint__all--keys) {
+					$sh_key: steal-key($i);
+
+					@if $sh_key == get-value(settings, default) {
+						float: unquote(get-value(settings, float-style));
+					}
+				}
+			}
 		}
 	}
 
