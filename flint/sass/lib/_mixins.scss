@@ -170,9 +170,9 @@
 
 		@if $calcGutter == NULL and get-value(settings, gutter) != false {
 
-			$outputWidth: (calc-width($calcKey, $calcContext)) - ((calc-margin($calcKey, $calcContext))*2);
-			$outputMarginRight: calc-margin($calcKey, $calcContext);
-			$outputMarginLeft: calc-margin($calcKey, $calcContext);
+			$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
+			$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+			$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
 
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
@@ -185,8 +185,8 @@
 
 		} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
 
-			$outputWidth: (calc-width($calcKey, $calcContext)) - (calc-margin($calcKey, $calcContext));
-			$outputMarginRight: calc-margin($calcKey, $calcContext);
+			$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
+			$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
 			$outputMarginLeft: 0;
 
 			width: $outputWidth;
@@ -200,9 +200,9 @@
 
 		} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
 
-			$outputWidth: (calc-width($calcKey, $calcContext)) - (calc-margin($calcKey, $calcContext));
+			$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
 			$outputMarginRight: 0;
-			$outputMarginLeft: calc-margin($calcKey, $calcContext);
+			$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
 
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
@@ -215,7 +215,7 @@
 
 		} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
 
-			$outputWidth: calc-width($calcKey, $calcContext);
+			$outputWidth: calc-width($calcKey, $calcSpan, $calcContext);
 			$outputMarginRight: 0;
 			$outputMarginLeft: 0;
 
@@ -431,6 +431,8 @@
 
 					$calcKey: steal-key($i);
 					$calcSpan: $key;
+					$calcContext: $context;
+					$calcGutter: $gutter;
 					$calcShift: $shift;
 
 					@if max(get-all-breakpoints()...) == get-value($calcKey, breakpoint) {
