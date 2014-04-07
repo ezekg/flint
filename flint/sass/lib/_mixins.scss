@@ -1,9 +1,4 @@
-//----------------------------------------------------------------------
-//
-// Magic mixins
-//
-//----------------------------------------------------------------------
-
+// Clearfix
 @mixin clearfix {
     zoom: 1;
 
@@ -19,15 +14,297 @@
     }
 }
 
+// Creates a new instance, adds to global instance map
+@mixin newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
+	$flint__instances: 
+		instance(
+			$calcKey,
+			$calcSpan,
+			$calcContext,
+			$calcGutter,
+			$calcShift,
+			$outputWidth,
+			$outputMarginRight,
+			$outputMarginLeft
+		)
+	!global;
+}
+
+// Prints debug output into compiled stylesheet as flagged comments
+@mixin debugPrintInstance($calcKey) {
+	@if get-value(settings, debug-mode) == true {
+		$printKey: "#{selector_string()}" + "::" + "#{$calcKey}";
+		@include printInstance( map-get( $flint__instances, unquote($printKey) ) );
+	}
+}
+
+@mixin printInstance($instance) {
+
+	// Loop through each property in passed instance
+	@each $property, $value in $instance {
+
+		// Check if value is output map
+		@if type-of($value) == map {
+
+			/*! #{selector_string()}::#{$property} { */
+
+				// Dig deeper, print output values as flagged comments
+				@each $mod_property, $mod_value in $value {
+					/*! 	#{$mod_property}: #{$mod_value}; */
+				}
+
+			/*! } */
+
+		// Else, print values as flagged comments
+		} @else {
+			/*! #{$property}: #{$value}; */
+		}
+	}
+}
+
+// Calculates width and margins based on passed arguments
+@mixin calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i: NULL) {
+
+	@if $i != NULL {
+
+		@if length($calcKey) > 1 {
+			$calcKey: nth($calcKey, $i);
+		}
+		@if length($calcSpan) > 1 {
+			$calcSpan: nth($calcSpan, $i);
+		}
+		@if length($calcContext) > 1 {
+			$calcContext: nth($calcContext, $i);
+		}
+		@if length($calcGutter) > 1 {
+			$calcGutter: nth($calcGutter, $i);
+		}
+		@if length($calcShift) > 1 {
+			$calcShift: nth($calcShift, $i);
+		}
+
+	}
+
+	@if $calcShift != NULL {
+
+		@if $calcGutter == NULL and get-value(settings, gutter) != false {
+
+			// Save to variables for instance creation
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
+			$outputMarginRight: calc-margin($calcKey, $calcSpan);
+			$outputMarginLeft: ( if( $calcShift > 0, 
+				(calc-margin($calcKey, $calcSpan)) + (calc-width($calcKey, $calcShift)),
+				(calc-margin($calcKey, -$calcSpan)) + (calc-width($calcKey, $calcShift)) 
+			));
+
+			// Output styles
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			// Output content block
+			@content;
+
+			// Create new instance for memoization
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+
+			// If debug mode, print instance
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
+			$outputMarginRight: calc-margin($calcKey, $calcSpan);
+			$outputMarginLeft: ( if( $calcShift > 0, 
+				calc-width($calcKey, $calcShift),
+				calc-width($calcKey, $calcShift)
+			));
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan)));
+			$outputMarginRight: 0;
+			$outputMarginLeft: ( if( $calcShift > 0, 
+				(calc-margin($calcKey, $calcSpan)) + (calc-width($calcKey, $calcShift)),
+				(calc-margin($calcKey, -$calcSpan)) + (calc-width($calcKey, $calcShift)) 
+			));
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan));
+			$outputMarginRight: 0;
+			$outputMarginLeft: ( if( $calcShift > 0, 
+				calc-width($calcKey, $calcShift),
+				calc-width($calcKey, $calcShift)
+			));
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+		}
+
+	} @else if $calcContext != NULL {
+
+		@if $calcGutter == NULL and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcContext)) - ((calc-margin($calcKey, $calcContext))*2);
+			$outputMarginRight: calc-margin($calcKey, $calcContext);
+			$outputMarginLeft: calc-margin($calcKey, $calcContext);
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcContext)) - (calc-margin($calcKey, $calcContext));
+			$outputMarginRight: calc-margin($calcKey, $calcContext);
+			$outputMarginLeft: 0;
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcContext)) - (calc-margin($calcKey, $calcContext));
+			$outputMarginRight: 0;
+			$outputMarginLeft: calc-margin($calcKey, $calcContext);
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+
+			$outputWidth: calc-width($calcKey, $calcContext);
+			$outputMarginRight: 0;
+			$outputMarginLeft: 0;
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		}
+
+	} @else {
+
+		@if $calcGutter == NULL and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
+			$outputMarginRight: calc-margin($calcKey, $calcSpan);
+			$outputMarginLeft: calc-margin($calcKey, $calcSpan);
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
+			$outputMarginRight: calc-margin($calcKey, $calcSpan);
+			$outputMarginLeft: 0;
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
+			$outputMarginRight: 0;
+			$outputMarginLeft: calc-margin($calcKey, $calcSpan);
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+
+			$outputWidth: calc-width($calcKey, $calcSpan);
+			$outputMarginRight: 0;
+			$outputMarginLeft: 0;
+
+			width: $outputWidth;
+			margin-right: $outputMarginRight;
+			margin-left: $outputMarginLeft;
+
+			@content;
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		}
+	}
+}
+
 @mixin _ (
 	$key: NULL,
 	$span: NULL,
 	$context: NULL,
 	$gutter: NULL,
 	$shift: NULL
-	) {
+) {
 
-	// FOUNDATIONS
+	// FOUNDATION
 	//----------------------------------------------------------------------
 	// flint(foundation) or flint(container)
 
@@ -52,8 +329,8 @@
 
 	} @else if $key == "clear" {
 
-		@include clearfix();
-		
+		@include clearfix;
+
 	} @else if $key == "container"
 		or exists($flint, $key) and $span != NULL
 		or length($key) == 1 and exists($flint, $key) == false
@@ -63,15 +340,18 @@
 		and type-of(nth($key, 2)) != "string"
 	{
 
-		// gotta make em block level
+		// only apply display rule if the key is the default
 
 		@if $key == get-value(settings, default) or $key == "container" {
-			display: block;
-		} @else if length($key) > 1 or type-of($key) != "string" {
-			@for $i from 1 through length($flint__all--keys) {
-				$sh_key: steal-key($i);
 
-				@if $sh_key == get-value(settings, default) {
+			display: block;
+
+		} @else if length($key) > 1 or type-of($key) != "string" {
+
+			@for $i from 1 through length($flint__all--keys) {
+				$calcKey: steal-key($i);
+
+				@if $calcKey == get-value(settings, default) {
 					display: block;
 				}
 			}
@@ -119,12 +399,15 @@
 		} @else {
 
 			@if $key == get-value(settings, default) {
-				float: unquote(get-value(settings, float-style));
-			} @else if length($key) > 1 or type-of($key) != "string" {
-				@for $i from 1 through length($flint__all--keys) {
-					$sh_key: steal-key($i);
 
-					@if $sh_key == get-value(settings, default) {
+				float: unquote(get-value(settings, float-style));
+
+			} @else if length($key) > 1 or type-of($key) != "string" {
+
+				@for $i from 1 through length($flint__all--keys) {
+					$calcKey: steal-key($i);
+
+					@if $calcKey == get-value(settings, default) {
 						float: unquote(get-value(settings, float-style));
 					}
 				}
@@ -146,21 +429,21 @@
 
 				@for $i from 1 through length($flint__all--keys) {
 
-					$sh_key: steal-key($i);
-					$sh_span: $key;
-					$sh_shift: $shift;
+					$calcKey: steal-key($i);
+					$calcSpan: $key;
+					$calcShift: $shift;
 
-					@if max(get-all-breakpoints()...) == get-value($sh_key, breakpoint) {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: calc-width($sh_key, $sh_span);
+					@if max(get-all-breakpoints()...) == get-value($calcKey, breakpoint) {
+						@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
+							width: calc-width($calcKey, $calcSpan);
 							@content;
 						}
-					} @else if get-value(settings, default) == $sh_key {
-						width: calc-width($sh_key, $sh_span);
+					} @else if get-value(settings, default) == $calcKey {
+						width: calc-width($calcKey, $calcSpan);
 						@content;
 					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: calc-width($sh_key, $sh_span);
+						@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
+							width: calc-width($calcKey, $calcSpan);
 							@content;
 						}
 					}
@@ -170,172 +453,34 @@
 		} @else {
 
 			@if length($key) == 1 and $span == NULL {
+
 				@for $i from 1 through length($flint__all--keys) {
-					$sh_key: steal-key($i);
-					$sh_span: $key;
-					$sh_shift: $shift;
 
-					@if get-value(settings, default) == $sh_key {
+					$calcKey: steal-key($i);
+					$calcSpan: $key;
+					$calcContext: $context;
+					$calcGutter: $gutter;
+					$calcShift: $shift;
 
-						@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
+					@if get-value(settings, default) == $calcKey {
 
-							@if length($shift) > 1 {
-								width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-								margin-right: calc-margin($sh_key, $sh_span);
-				  				margin-left: ( if( nth($sh_shift, $i) > 0, 
-										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
-										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
-									) 
-								);
-				  				@content;
-				  			} @else {
-				  				width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-				  				margin-right: calc-margin($sh_key, $sh_span);
-		  						margin-left: ( if( $sh_shift > 0, 
-										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
-										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
-									) 
-								);
-				  			}
-						} @else if $gutter == NULL and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-							margin-right: calc-margin($sh_key, $sh_span);
-							margin-left: calc-margin($sh_key, $sh_span);
-							@content;
-						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin-right: calc-margin($sh_key, $sh_span);
-							margin-left: 0;
-							@content;
-						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin-right: 0;
-							margin-left: calc-margin($sh_key, $sh_span);
-							@content;
-						} @else if $gutter == "row" or get-value(settings, gutter) == false {
-							width: calc-width($sh_key, $sh_span);
-							margin-right: 0;
-							margin-left: 0;
-							@content;
-						}
+						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
 					} @else {
 
-						@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-							@if length($shift) > 1 {
-					  			@if is-highest-breakpoint($sh_key) == true {
-									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-										width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-										margin-right: calc-margin($sh_key, $sh_span);
-										margin-left: ( if( nth($sh_shift, $i) > 0, 
-												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
-												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
-											) 
-										);
-						  				@content;
-						  			}
-					  			} @else {
-						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-					  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-					  					margin-right: calc-margin($sh_key, $sh_span);
-					  					margin-left: ( if( nth($sh_shift, $i) > 0,
-												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
-												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
-											) 
-										);
-						  				@content;
-						  			}
-						  		}
-						  	} @else {
-						  		@if is-highest-breakpoint($sh_key) == true {
-									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-										width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-										margin-right: calc-margin($sh_key, $sh_span);
-										margin-left: ( if( $sh_shift > 0, 
-												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
-												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
-											) 
-										);
-						  				@content;
-						  			}
-					  			} @else {
-						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-					  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-					  					margin-right: calc-margin($sh_key, $sh_span);
-						  				margin-left: ( if( $sh_shift > 0, 
-												(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
-												(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
-											) 
-										);
-						  				@content;
-						  			}
-						  		}
-						  	}
-			  			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-									margin-right: calc-margin($sh_key, $sh_span);
-									margin-left: calc-margin($sh_key, $sh_span);
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-									margin-right: calc-margin($sh_key, $sh_span);
-									margin-left: calc-margin($sh_key, $sh_span);
-									@content;
-								}
-							}
-						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin-right: calc-margin($sh_key, $sh_span);
-									margin-left: 0;
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin-right: calc-margin($sh_key, $sh_span);
-									margin-left: 0;
-									@content;
-								}
-							}
-						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin-right: 0;
-									margin-left: calc-margin($sh_key, $sh_span);
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-									margin-right: 0;
-									margin-left: calc-margin($sh_key, $sh_span);
-									@content;
-								}
-							}
-						} @else if $gutter == "row" or get-value(settings, gutter) == false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: calc-width($sh_key, $sh_span);
-									margin-right: 0;
-									margin-left: 0;
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: calc-width($sh_key, $sh_span);
-									margin-right: 0;
-									margin-left: 0;
-									@content;
-								}
-							}
-						}
+			  			@if is-highest-breakpoint($calcKey) == true {
+
+							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
+								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  			}
+
+			  			} @else {
+
+				  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
+				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  			}
+
+				  		}
 					}
 				}
 
@@ -347,172 +492,31 @@
 
 				@for $i from 1 through length($flint__all--keys) {
 
-					$sh_key: steal-key($i);
-					$sh_span: $key;
-					$sh_context: $span;
-					$sh_shift: $shift;
+					$calcKey: steal-key($i);
+					$calcSpan: $key;
+					$calcContext: $context;
+					$calcGutter: $gutter;
+					$calcShift: $shift;
 
-					@if get-value(settings, default) == $sh_key {
+					@if get-value(settings, default) == $calcKey {
 
-						@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-							@if length($shift) > 1 {
-								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-								margin-left: ( if( nth($sh_shift, $i) > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			} @else {
-				  				width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-				  				margin-left: ( if( $sh_shift > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			}
-						} @else if $gutter == NULL and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							margin-left: 0;
-							@content;
-						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-right: 0;
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						} @else if $gutter == "row" or get-value(settings, gutter) == false {
-							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin-right: 0;
-							margin-left: 0;
-							@content;
-						}
+						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
 					} @else {
 
-						@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-							@if length($shift) > 1 {
-					  			@if is-highest-breakpoint($sh_key) == true {
-									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-										margin-left: ( if( nth($sh_shift, $i) > 0, 
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-					  			} @else {
-						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-					  					margin-left: ( if( nth($sh_shift, $i) > 0,
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-						  		}
-						  	} @else {
-						  		@if is-highest-breakpoint($sh_key) == true {
-									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-										margin-left: ( if( $sh_shift > 0, 
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-					  			} @else {
-						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-					  					margin-left: ( if( $sh_shift > 0, 
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-						  		}
-						  	}
-			  			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							}
-						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: 0;
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: 0;
-									@content;
-								}
-							}
-						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: 0;
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: 0;
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							}
-						} @else if $gutter == "row" or get-value(settings, gutter) == false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin-right: 0;
-									margin-left: 0;
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin-right: 0;
-									margin-left: 0;
-									@content;
-								}
-							}
-						}
+			  			@if is-highest-breakpoint($calcKey) == true {
+
+							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
+								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  			}
+
+			  			} @else {
+
+				  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
+				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  			}
+
+				  		}
 					}
 				}
 
@@ -524,170 +528,31 @@
 
 				@for $i from 1 through length($flint__all--keys) {
 
-					$sh_key: steal-key($i);
-					$sh_span: $key;
-					$sh_context: nth($span, $i);
-					$sh_shift: $shift;
+					$calcKey: steal-key($i);
+					$calcSpan: $key;
+					$calcContext: $span;
+					$calcGutter: $gutter;
+					$calcShift: $shift;
 
-					@if get-value(settings, default) == $sh_key {
+					@if get-value(settings, default) == $calcKey {
 
-						@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-							@if length($shift) > 1 {
-								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-				  				margin-left: ( if( nth($sh_shift, $i) > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			} @else {
-				  				width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-				  				margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-				  				margin-left: ( if( $sh_shift > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			}
-						} @else if $gutter == NULL and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						} @else if $gutter == "row" or get-value(settings, gutter) == false {
-							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin-right: 0;
-							margin-left: 0;
-							@content;
-						}
+						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
 					} @else {
 
-						@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-							@if length($shift) > 1 {
-					  			@if is-highest-breakpoint($sh_key) == true {
-									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-										margin-left: ( if( nth($sh_shift, $i) > 0, 
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-					  			} @else {
-						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-						  				margin-left: ( if( nth($sh_shift, $i) > 0,
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-						  		}
-						  	} @else {
-						  		@if is-highest-breakpoint($sh_key) == true {
-									@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-										width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-										margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-						  				margin-left: ( if( $sh_shift > 0, 
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-					  			} @else {
-						  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-					  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-					  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-						  				margin-left: ( if( $sh_shift > 0, 
-												(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-												(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-											) 
-										);
-						  				@content;
-						  			}
-						  		}
-						  	}
-			  			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							}
-						} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: 0;
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-									margin-left: 0;
-									@content;
-								}
-							}
-						} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: 0;
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-									margin-right: 0;
-									margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-									@content;
-								}
-							}
-						} @else if $gutter == "row" or get-value(settings, gutter) == false {
-							@if is-highest-breakpoint($sh_key) == true {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin-right: 0;
-									margin-left: 0;
-									@content;
-								}
-							} @else {
-								@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-									width: calc-width($sh_key, $sh_span, $sh_context);
-									margin-right: 0;
-									margin-left: 0;
-									@content;
-								}
-							}
-						}
+						@if is-highest-breakpoint($calcKey) == true {
+
+							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
+								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  			}
+
+			  			} @else {
+
+				  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
+				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  			}
+				  			
+				  		}
 					}
 				}
 			}
@@ -706,171 +571,32 @@
 		and type-of(nth($key, 2)) != "string" 
 	{
 		@for $i from 1 through length($flint__all--keys) {
-			$sh_key: steal-key($i);
-			$sh_span: nth($key, $i);
-			$sh_shift: $shift;
 
-			@if get-value(settings, default) == $sh_key and $sh_key != 0 and $sh_span != 0 {
+			$calcKey: steal-key($i);
+			$calcSpan: $key;
+			$calcContext: $context;
+			$calcGutter: $gutter;
+			$calcShift: $shift;
 
-				@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-					@if length($shift) > 1 {
-						width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-						margin-right: calc-margin($sh_key, $sh_span);
-						margin-left: ( if( nth($sh_shift, $i) > 0, 
-								(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
-								(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
-							) 
-						);
-						@content;
-					} @else {
-		  				width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-		  				margin-right: calc-margin($sh_key, $sh_span);
-		  				margin-left: ( if( $sh_shift > 0, 
-								(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
-								(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
-							) 
-						);
-						@content;
-					}
-				} @else if $gutter == NULL and get-value(settings, gutter) != false {
-					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-					margin-right: calc-margin($sh_key, $sh_span);
-					margin-left: calc-margin($sh_key, $sh_span);
-					@content;
-				} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-					width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-					margin-right: calc-margin($sh_key, $sh_span);
-					margin-left: 0;
-					@content;
-				} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-					width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-					margin-right: 0;
-					margin-left: calc-margin($sh_key, $sh_span);
-					@content;
-				} @else if $gutter == "row" or get-value(settings, gutter) == false {
-					width: calc-width($sh_key, $sh_span);
-					margin-right: 0;
-					margin-left: 0;
-					@content;
-				}
+			@if get-value(settings, default) == $calcKey {
+
+				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
 			} @else {
 
-				@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-					@if length($shift) > 1 {
-			  			@if is-highest-breakpoint($sh_key) == true {
-							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-								width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-								margin-right: calc-margin($sh_key, $sh_span);
-								margin-left: ( if( nth($sh_shift, $i) > 0, 
-										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
-										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
-									) 
-								);
-				  				@content;
-				  			}
-			  			} @else {
-				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-			  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-			  					margin-right: calc-margin($sh_key, $sh_span);
-			  					margin-left: ( if( nth($sh_shift, $i) > 0, 
-										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))),
-										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, nth($sh_shift, $i))) 
-									) 
-								);
-				  				@content;
-				  			}
-				  		}
-				  	} @else {
-				  		@if is-highest-breakpoint($sh_key) == true {
-							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-								width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-								margin-right: calc-margin($sh_key, $sh_span);
-				  				margin-left: ( if( $sh_shift > 0, 
-										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
-										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
-									) 
-								);
-				  				@content;
-				  			}
-			  			} @else {
-				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-			  					width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-			  					margin-right: calc-margin($sh_key, $sh_span);
-			  					margin-left: ( if( $shift > 0, 
-										(calc-margin($sh_key, $sh_span)) + (calc-width($sh_key, $sh_shift)),
-										(calc-margin($sh_key, -$sh_span)) + (calc-width($sh_key, $sh_shift)) 
-									) 
-								);
-				  				@content;
-				  			}
-				  		}
-				  	}
-	  			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-							margin-right: calc-margin($sh_key, $sh_span);
-							margin-left: calc-margin($sh_key, $sh_span);
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span)) - ((calc-margin($sh_key, $sh_span))*2);
-							margin-right: calc-margin($sh_key, $sh_span);
-							margin-left: calc-margin($sh_key, $sh_span);
-							@content;
-						}
-					}	
-				} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin-right: calc-margin($sh_key, $sh_span);
-							margin-left: 0;
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin-right: calc-margin($sh_key, $sh_span);
-							margin-left: 0;
-							@content;
-						}
-					}
-				} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin-right: 0;
-							margin-left: calc-margin($sh_key, $sh_span);
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span)) - (calc-margin($sh_key, $sh_span));
-							margin-right: 0;
-							margin-left: calc-margin($sh_key, $sh_span);
-							@content;
-						}
-					}
-				} @else if $gutter == "row" or get-value(settings, gutter) == false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: calc-width($sh_key, $sh_span);
-							margin-right: 0;
-							margin-left: 0;
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: calc-width($sh_key, $sh_span);
-							margin-right: 0;
-							margin-left: 0;
-							@content;
-						}
-					}
-				}
+				@if is-highest-breakpoint($calcKey) == true {
+
+					@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
+						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+		  			}
+
+	  			} @else {
+
+		  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
+		  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+		  			}
+		  			
+		  		}
 			}
 		}
 
@@ -884,172 +610,32 @@
 		and type-of(nth($key, 2)) != "string"
 	{
 		@for $i from 1 through length($flint__all--keys) {
-			$sh_key: steal-key($i);
-			$sh_span: nth($key, $i);
-			$sh_context: nth($span, $i);
-			$sh_shift: $shift;
 
-			@if get-value(settings, default) == $sh_key {
+			$calcKey: steal-key($i);
+			$calcSpan: $key;
+			$calcContext: $span;
+			$calcGutter: $gutter;
+			$calcShift: $shift;
 
-				@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-					@if length($shift) > 1 {
-						width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-						margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-						margin-left: ( if( nth($sh_shift, $i) > 0, 
-								(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-								(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-							) 
-						);
-		  				@content;
-		  			} @else {
-		  				width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-		  				margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-		  				margin-left: ( if( $sh_shift > 0, 
-								(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-								(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-							) 
-						);
-		  				@content;
-		  			}
-				} @else if $gutter == NULL and get-value(settings, gutter) != false {
-					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-					margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-					@content;
-				} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-					width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-					margin-left: 0;
-					@content;
-				} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-					width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-					margin-right: 0;
-					margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-					@content;
-				} @else if $gutter == "row" or get-value(settings, gutter) == false {
-					width: calc-width($sh_key, $sh_span, $sh_context);
-					margin-right: 0;
-					margin-left: 0;
-					@content;
-				}
+			@if get-value(settings, default) == $calcKey {
+
+				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
 			} @else {
 
-				@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-					@if length($shift) > 1 {
-			  			@if is-highest-breakpoint($sh_key) == true {
-							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-								margin-left: ( if( nth($sh_shift, $i) > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			}
-			  			} @else {
-				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-			  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-			  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-			  					margin-left: ( if( nth($sh_shift, $i) > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, nth($sh_shift, $i), $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			}
-				  		}
-				  	} @else {
-				  		@if is-highest-breakpoint($sh_key) == true {
-							@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-								width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-								margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-				  				margin-left: ( if( $sh_shift > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			}
-			  			} @else {
-				  			@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-			  					width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-			  					margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-			  					margin-left: ( if( $sh_shift > 0, 
-										(calc-margin($sh_key, $sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)),
-										(calc-margin($sh_key, -$sh_span, $sh_context)) + (calc-width($sh_key, $sh_shift, $sh_context)) 
-									) 
-								);
-				  				@content;
-				  			}
-				  		}
-				  	}
-	  			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - ((calc-margin($sh_key, $sh_span, $sh_context))*2);
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						}
-					}
-				} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							margin-left: 0;
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-right: calc-margin($sh_key, $sh_span, $sh_context);
-							margin-left: 0;
-							@content;
-						}
-					}
-				} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-right: 0;
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: (calc-width($sh_key, $sh_span, $sh_context)) - (calc-margin($sh_key, $sh_span, $sh_context));
-							margin-right: 0;
-							margin-left: calc-margin($sh_key, $sh_span, $sh_context);
-							@content;
-						}
-					}
-				} @else if $gutter == "row" or get-value(settings, gutter) == false {
-					@if is-highest-breakpoint($sh_key) == true {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) {
-							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin-right: 0;
-							margin-left: 0;
-							@content;
-						}
-					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $sh_key, $i) ) and ( max-width: calc-breakpoint(to, $sh_key, $i) ) {
-							width: calc-width($sh_key, $sh_span, $sh_context);
-							margin-right: 0;
-							margin-left: 0;
-							@content;
-						}
-					}
-				}
+				@if is-highest-breakpoint($calcKey) == true {
+
+					@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
+						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+		  			}
+
+	  			} @else {
+
+		  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
+		  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+		  			}
+		  			
+		  		}
 			}
 		}
 
@@ -1058,131 +644,33 @@
 	// flint($key, $span)
 
 	} @else if exists($flint, $key) and $span != NULL and $context == NULL { 
-	  
-	    @if get-value(settings, default) == $key {
-	      
-			@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-				width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-				margin-right: calc-margin($key, $span);
-				margin-left: ( if( $shift > 0, 
-						(calc-margin($key, $span)) + (calc-width($key, $shift)),
-						(calc-margin($key, -$span)) + (calc-width($key, $shift)) 
-					) 
-				);
-			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-				width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-				margin-right: calc-margin($key, $span);
-				margin-left: calc-margin($key, $span);
-				@content;
-			} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-				margin-right: calc-margin($key, $span);
-				margin-left: 0;
-				@content;
-			} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-				margin-right: 0;
-				margin-left: calc-margin($key, $span);
-				@content;
-			} @else if $gutter == "row" or get-value(settings, gutter) == false {
-				width: calc-width($key, $span);
-				margin-right: 0;
-				margin-left: 0;
-				@content;
-			}
-				
-	    } @else {
 
-	  		@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-						margin-right: calc-margin($key, $span);
-						margin-left: ( if( $shift > 0, 
-								(calc-margin($key, $span)) + (calc-width($key, $shift)),
-								(calc-margin($key, -$span)) + (calc-width($key, $shift)) 
-							) 
-						);
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-	  					width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-	  					margin-right: calc-margin($key, $span);
-						margin-left: ( if( $shift > 0, 
-								(calc-margin($key, $span)) + (calc-width($key, $shift)),
-								(calc-margin($key, -$span)) + (calc-width($key, $shift)) 
-							) 
-						);
-		  				@content;
-		  			}
-		  		}
-  			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-		  				margin-right: calc-margin($key, $span);
-						margin-left: calc-margin($key, $span);
-		  				@content;
-					}
-				} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: (calc-width($key, $span)) - ((calc-margin($key, $span))*2);
-		  				margin-right: calc-margin($key, $span);
-						margin-left: calc-margin($key, $span);
-		  				@content;
-		  			}
-		  		}
-	  		} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin-right: calc-margin($key, $span);
-						margin-left: 0;
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin-right: calc-margin($key, $span);
-						margin-left: 0;
-		  				@content;
-		  			}
-		  		}
-	  		} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin-right: 0;
-						margin-left: calc-margin($key, $span);
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: (calc-width($key, $span)) - (calc-margin($key, $span));
-		  				margin-right: 0;
-						margin-left: calc-margin($key, $span);
-		  				@content;
-		  			}
-		  		}
-	  		} @else if $gutter == "row" or get-value(settings, gutter) == false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: calc-width($key, $span);
-		  				margin-right: 0;
-						margin-left: 0;
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: calc-width($key, $span);
-		  				margin-right: 0;
-						margin-left: 0;
-		  				@content;
-		  			}
-		  		}
+		$calcKey: $key;
+		$calcSpan: $span;
+		$calcContext: $context;
+		$calcGutter: $gutter;
+		$calcShift: $shift;
+
+		@if get-value(settings, default) == $calcKey {
+
+			@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+
+		} @else {
+
+			@if is-highest-breakpoint($calcKey) == true {
+
+				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) {
+					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+	  			}
+
+  			} @else {
+
+	  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) and ( max-width: calc-breakpoint(to, $calcKey, get-index($calcKey)) ) {
+	  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+	  			}
+	  			
 	  		}
-	    }
+		}
 
 	// HAS CONTEXT
 	//----------------------------------------------------------------------
@@ -1190,127 +678,30 @@
 
 	} @else if exists($flint, $key) and $span != NULL and $context != NULL {
 	  
-		  @if get-value(settings, default) == $key {
-	      
-			@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-				margin-right: calc-margin($key, $span, $context);
-				margin-left: ( if( $shift > 0, 
-						(calc-margin($key, $span, $context)) + (calc-width($key, $shift, $context)),
-						(calc-margin($key, -$span, $context)) + (calc-width($key, $shift, $context)) 
-					) 
-				);
-			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-				width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-				margin-right: calc-margin($key, $span, $context);
-				margin-left: calc-margin($key, $span, $context);
-				@content;
-			} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-				margin-right: calc-margin($key, $span, $context);
-				margin-left: 0;
-				@content;
-			} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-				margin-right: 0;
-				margin-left: calc-margin($key, $span, $context);
-				@content;
-			} @else if $gutter == "row" or get-value(settings, gutter) == false {
-				width: calc-width($key, $span, $context);
-				margin-right: 0;
-				margin-left: 0;
-				@content;
-			}
-				
-	    } @else {
+		$calcKey: $key;
+		$calcSpan: $span;
+		$calcContext: $context;
+		$calcGutter: $gutter;
+		$calcShift: $shift;
 
-	  		@if $gutter == NULL and get-value(settings, gutter) != false and $shift != NULL {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-						margin-right: calc-margin($key, $span, $context);
-						margin-left: ( if( $shift > 0, 
-								(calc-margin($key, $span, $context)) + (calc-width($key, $shift, $context)),
-								(calc-margin($key, -$span, $context)) + (calc-width($key, $shift, $context)) 
-							) 
-						);
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-		  				margin-right: calc-margin($key, $span, $context);
-						margin-left: ( if( $shift > 0, 
-								(calc-margin($key, $span, $context)) + (calc-width($key, $shift, $context)),
-								(calc-margin($key, -$span, $context)) + (calc-width($key, $shift, $context)) 
-							) 
-						);
-		  				@content;
-		  			}
-		  		}
-  			} @else if $gutter == NULL and get-value(settings, gutter) != false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-		  				margin-right: calc-margin($key, $span, $context);
-						margin-left: calc-margin($key, $span, $context);
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: (calc-width($key, $span, $context)) - ((calc-margin($key, $span, $context))*2);
-		  				margin-right: calc-margin($key, $span, $context);
-						margin-left: calc-margin($key, $span, $context);
-		  				@content;
-		  			}
-		  		}
-	  		} @else if $gutter == "alpha" and get-value(settings, gutter) != false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin-right: calc-margin($key, $span, $context);
-						margin-left: 0;
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin-right: calc-margin($key, $span, $context);
-						margin-left: 0;
-		  				@content;
-		  			}
-		  		}
-	  		} @else if $gutter == "omega" and get-value(settings, gutter) != false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin-right: 0;
-						margin-left: calc-margin($key, $span, $context);
-		  				@content;
-		  			}
-	  			} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: (calc-width($key, $span, $context)) - (calc-margin($key, $span, $context));
-		  				margin-right: 0;
-						margin-left: calc-margin($key, $span, $context);
-		  				@content;
-		  			}
-		  		}
-	  		} @else if $gutter == "row" or get-value(settings, gutter) == false {
-	  			@if is-highest-breakpoint($key) == true {
-					@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) {
-						width: calc-width($key, $span, $context);
-		  				margin-right: 0;
-						margin-left: 0;
-		  				@content;
-		  			}
-				} @else {
-		  			@media only screen and ( min-width: calc-breakpoint(from, $key, get-index($key)) ) and ( max-width: calc-breakpoint(to, $key, get-index($key)) ) {
-		  				width: calc-width($key, $span, $context);
-		  				margin-right: 0;
-						margin-left: 0;
-		  				@content;
-		  			}
-		  		}
+		@if get-value(settings, default) == $calcKey {
+
+			@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+
+		} @else {
+
+			@if is-highest-breakpoint($calcKey) == true {
+
+				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) {
+					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+				}
+
+			} @else {
+
+				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) and ( max-width: calc-breakpoint(to, $calcKey, get-index($calcKey)) ) {
+					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+				}
+				
 			}
 		}
 

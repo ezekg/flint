@@ -26,13 +26,14 @@ $flint: (
 		// additional grid settings
 
 		"settings": (
-			"default": "mobile", // [any breakpoint's name, is default]
-			"grid": "fluid", // [fluid, fixed]
+			"default": "desktop", // [any breakpoint's name, is default]
+			"grid": "fixed", // [fluid, fixed]
 			"gutter": 10px, // [0-infinity]
 			"float-style": "left", // [left, right]
 			"max-width": false, // [true (uses highest breakpoint), false, or any value]
 			"center-container": true, // [true, false]
 			"border-box-sizing": true, // [true, false]
+			"debug-mode": true, // [true, false]
 		),
 	),
 );

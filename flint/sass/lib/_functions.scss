@@ -1,9 +1,3 @@
-//----------------------------------------------------------------------
-//
-// Utility functions
-//
-//----------------------------------------------------------------------
-
 // fetch value from key in map
 //----------------------------------------------------------------------
 
@@ -255,18 +249,25 @@ $flint__all--keys--funct: get-all-keys();
 // keeps count of all instances with arguments, stores in global var
 //----------------------------------------------------------------------
 
-// @function instance($key, $span, $context, $gutter, $shift) {
-//     $instance-count: ($instance-count + 1) !global;
-//     $new__flint__instance: (
-//     	"instance-#{$instance-count}": (
-//       		"key": #{$key},
-//      		"breakpoint": get-value($key, breakpoint),
-//       		"columns": get-value($key, columns),
-// 			"span": #{$span},
-// 			"context": #{$context},
-// 			"gutter": #{$gutter},
-// 		),
-// 	);
+@function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
+    $instance-count: $instance-count + 1 !global;
+    $flint__instance: (
+		"#{selector_string()}::#{$key}": (
+			"instance-count": #{$instance-count},
+			"key": #{$key},
+			"breakpoint": get-value($key, breakpoint),
+			"columns": get-value($key, columns),
+			"span": #{$span},
+			"context": #{$context},
+			"gutter": #{$gutter},
+			"shift": #{$shift},
+			"outputted": (
+				"width": #{$outputWidth},
+				"margin-right": #{$outputMarginRight},
+				"margin-left": #{$outputMarginLeft},
+			),
+		),
+    );
     
-//     @return map-merge($flint__instances, $new__flint__instance);
-// }
+    @return map-merge($flint__instances, $flint__instance);
+}

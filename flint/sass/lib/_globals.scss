@@ -1,9 +1,3 @@
-//----------------------------------------------------------------------
-//
-// Global variables
-//
-//----------------------------------------------------------------------
-
 // set global variable to check if foundation has been applied globally
 	
 $foundation: "nonexistant" !global;
@@ -14,7 +8,7 @@ $flint__all--keys: get-all-keys() !global;
 $flint__all--breakpoints: get-all-breakpoints() !global;
 $flint__all--columns: get-all-columns() !global;
 
-// // keep track of all instances of mixin for class output
+// keep track of all instances of mixin
 
-// $instance-count: 0 !global;
-// $flint__instances: () !global;
+$instance-count: 0 !global;
+$flint__instances: () !global;
