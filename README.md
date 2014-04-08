@@ -1,5 +1,9 @@
-Flint
-=====
+#Flint
+
+***We are currently in the process of overhauling the codebase to be more effient***
+***(by using some pretty cool technologies, such as memoization and a little custom SassScript)***
+***and adding in some killer functionality to make yours, and our lives easier***
+***moving forward. Watch the repo to stay up to date.***
 
 **Flint is a seemingly simple Sass based grid-system** built on
 **Sass 3.3** capable of complex responsive layouts customized at each 
@@ -15,10 +19,9 @@ more efficient, or if you would just like to help out.
 
 Enjoy.
 
------
+##Documentation
 
-Config
-------
+###Config
 
 Flint's `config map` is unique in the ability that you may
 define an unlimited number of breakpoints for your project. 
@@ -74,8 +77,7 @@ $flint: (
 );
 ```
 
-Foundation
-----------
+###Foundation
 
 If you selected `border-box-sizing: true`, then it is 
 *advised* to create a global foundation instance like so,
@@ -88,8 +90,7 @@ That way your output won't be riddled with `box-sizing`
 declarations everytime you define a span. This will automatically
 output the rules onto the global selector `*`.
 
-Container
----------
+###Container
 
 You may define containers, which simply act as a row without the `float`
 property. This is really only useful on fixed grid layouts, or if you have a max-width set, but can be
@@ -111,8 +112,7 @@ Outputs,
 }
 ```
 
-Clear
----------
+###Clear
 
 Given that Flint is float based, you might find yourself needing to use a clearfix. Flint comes packaged with a micro-clearfix function.
 
@@ -138,8 +138,7 @@ Outputs,
 }
 ```
 
-Recursive shorthand
--------------------
+###Recursive shorthand
 
 Use this if you want *identical* column spans across all breakpoints.
 
@@ -188,8 +187,7 @@ breakpoint you like. **So if you like mobile-first, you can do that.**
 Whatever your `default` is set to, **flint** will not wrap those
 styles in media-queries, so that they may be used in non-supported browsers.
 
-Recursive shorthand with identical context
-------------------------------------------
+###Recursive shorthand with identical context
 
 Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. **Pro tip:** `$context` can also be used to break out of the usual column count for a specific breakpoint. For example, if one of your breakpoints column count is `16`, you could use `$context: 24`, and it will calculate its width as if that breakpoint had a column count of `24`.
 
@@ -235,8 +233,7 @@ Outputs,
 }
 ```
 
-Recursive shorthand with variable context
------------------------------------------
+###Recursive shorthand with variable context
 
 Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent.
 
@@ -284,8 +281,7 @@ recursive {
 }
 ```
 
-Variable shorthand
-------------------
+###Variable shorthand
 
 Use this if your content needs different spans across each breakpoints.
 The *order of operations* for this matches the order entered in your `config`.
@@ -330,8 +326,7 @@ Outputs,
 }
 ```
 
-Variable shorthand with context
--------------------------------
+###Variable shorthand with context
 
 Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent.
 
@@ -377,8 +372,7 @@ Outputs,
 }
 ```
 
-Wrapping in media queries
--------------------------
+###Wrapping in media queries
 
 Use these if you need to apply breakpoint specific styling.
 
@@ -425,8 +419,7 @@ Use these if you need to apply breakpoint specific styling.
 }
 ```
 
-Call by name
-------------
+###Call by name
 
 Use if you want to define each span without shorthands. This is useful if you need variable `gutter` modifiers.
 
@@ -476,8 +469,7 @@ Outputs,
 }
 ```
 
-Gutter modifiers
-----------------
+###Gutter modifiers
 
 Here are different gutter modifiers that may be called in when
 defining spans using the `$gutter` variable. **You should note**, 
@@ -501,8 +493,7 @@ across all breakpoints.
 }
 ```
 
-Shift
------
+###Shift
 
 Much like the gutter modifiers, you may also call in a shift
 parameter using the `$shift` variable. This will cause the element 
@@ -524,7 +515,7 @@ left margins.
 }
 ```
 
-One more cool thing about flint is that you are not bound to
+**One more** cool thing about flint is that you are not bound to
 the grid you define. Feel free to use decimals in your arguments
 for extra fine tuned control over your layouts.
 
