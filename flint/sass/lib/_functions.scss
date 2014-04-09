@@ -1,3 +1,58 @@
+// Checks if item is map
+//----------------------------------------------------------------------
+
+@function is-map($n) {
+	@if type-of($n) == "map" {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
+// Checks if item is list
+//----------------------------------------------------------------------
+
+@function is-list($n) {
+	@if type-of($n) == "list" {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
+// Checks if item is number
+//----------------------------------------------------------------------
+
+@function is-number($n) {
+	@if type-of($n) == "number" {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
+// Checks if item is string
+//----------------------------------------------------------------------
+
+@function is-string($n) {
+	@if type-of($n) == "string" {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
+// Checks if item is not string
+//----------------------------------------------------------------------
+
+@function is-not-string($n) {
+	@if type-of($n) != "string" {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
 // fetch value from key in map
 //----------------------------------------------------------------------
 
@@ -9,16 +64,20 @@
 	// check if value equals NULL
 	// return message so that sass still compiles without errors
 
-	@if $value == NULL { @return "Oops! Something went wrong. Good thing SASS still compiles so that you can debug this." }
+	@if $value == NULL {
+		@return "Oops! Something went wrong. Good thing SASS still compiles so that you can debug this."
+	}
 
 	@else {
-		@if ($length > 1) {
+		@if $length > 1 {
 			$rest: ();
 
 			@for $i from 2 through $length {
 				$rest: append($rest, nth($keys, $i))
-			} @return map-fetch($value, $rest);
+			} 
 
+			@return map-fetch($value, $rest);
+			
 		} @else {
 			@return $value;
 		}
@@ -39,10 +98,7 @@
 	@return $all-keys;
 }
 
-// now assign variable to run on other functions
-//----------------------------------------------------------------------
-
-$flint__all--keys--funct: get-all-keys();
+$flint__function__all--keys: get-all-keys();
 
 // get single value from key in map
 //----------------------------------------------------------------------
@@ -59,7 +115,7 @@ $flint__all--keys--funct: get-all-keys();
 //----------------------------------------------------------------------
 
 @function exists($map, $value){
-	@if type-of($map) == map {
+	@if is-map($map) {
 		@if map-has-key($map, $value) {
 			@return true;
 		}
@@ -163,7 +219,7 @@ $flint__all--keys--funct: get-all-keys();
 //----------------------------------------------------------------------
 
 @function steal-key($index) {
-	@for $n from 1 through length($flint__all--keys--funct) {
+	@for $n from 1 through length($flint__function__all--keys) {
 		@each $key in nth(map-get($flint, config), $index) {
 			@return $key;
 		}
@@ -174,7 +230,7 @@ $flint__all--keys--funct: get-all-keys();
 //----------------------------------------------------------------------
 
 @function steal-values($index, $value) {
-	@for $n from 1 through length($flint__all--keys--funct) {
+	@for $n from 1 through length($flint__function__all--keys) {
 		@each $key in nth(map-get($flint, config), $index) {
 			@return get-value($key, $value);
 		}
@@ -185,7 +241,7 @@ $flint__all--keys--funct: get-all-keys();
 //----------------------------------------------------------------------
 
 @function get-index($key) {
-  	@for $i from 1 through length($flint__all--keys--funct) {
+  	@for $i from 1 through length($flint__function__all--keys) {
 		@if steal-key($i) == $key {
 			@return $i;
 		}
@@ -196,7 +252,7 @@ $flint__all--keys--funct: get-all-keys();
 //----------------------------------------------------------------------
 
 @function next-index($index) {
-	@if $index != length($flint__all--keys--funct) {
+	@if $index != length($flint__function__all--keys) {
 		@each $key in nth(map-get($flint, config), $index + 1) {
 			@return $key;
 		}
@@ -251,12 +307,13 @@ $flint__all--keys--funct: get-all-keys();
 
 @function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
     $instance-count: $instance-count + 1 !global;
+
     $flint__instance: (
 		"#{selector_string()}::#{$key}": (
 			"instance-count": #{$instance-count},
 			"key": #{$key},
-			"breakpoint": get-value($key, breakpoint),
-			"columns": get-value($key, columns),
+			"breakpoint": #{get-value($key, breakpoint)},
+			"columns": #{get-value($key, columns)},
 			"span": #{$span},
 			"context": #{$context},
 			"gutter": #{$gutter},
@@ -270,4 +327,10 @@ $flint__all--keys--funct: get-all-keys();
     );
     
     @return map-merge($flint__instances, $flint__instance);
+}
+
+@function parent-selector($selector) {
+	@if exists($flint__instances, "#{selector_string()}::#{$key}") {
+		
+	}
 }

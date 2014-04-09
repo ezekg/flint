@@ -1,5 +1,3 @@
-require 'sass'
-
 module Sass::Script::Functions
 	
 	def selector_string()

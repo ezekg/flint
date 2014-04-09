@@ -27,7 +27,7 @@ $flint: (
 
 		"settings": (
 			"default": "desktop", // [any breakpoint's name, is default]
-			"grid": "fixed", // [fluid, fixed]
+			"grid": "fluid", // [fluid, fixed]
 			"gutter": 10px, // [0-infinity]
 			"float-style": "left", // [left, right]
 			"max-width": false, // [true (uses highest breakpoint), false, or any value]

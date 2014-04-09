@@ -44,15 +44,12 @@
 	@each $property, $value in $instance {
 
 		// Check if value is output map
-		@if type-of($value) == map {
+		@if is_map($value) {
 
 			/*! #{selector_string()}::#{$property} { */
-
-				// Dig deeper, print output values as flagged comments
 				@each $mod_property, $mod_value in $value {
 					/*! 	#{$mod_property}: #{$mod_value}; */
 				}
-
 			/*! } */
 
 		// Else, print values as flagged comments
@@ -421,7 +418,7 @@
 	//----------------------------------------------------------------------
 	// flint($span), applies across all sizes.
 
-	@if type-of($key) == number and length($key) == 1 or $key == "container" {
+	@if is-number($key) and length($key) == 1 or $key == "container" {
 
 		@if $key == "container" {
 
@@ -569,8 +566,8 @@
 
 	@if length($key) > 1
 		and $span == NULL
-		and type-of(nth($key, 1)) != "string"
-		and type-of(nth($key, 2)) != "string" 
+		and is-not-string(nth($key, 1))
+		and is-not-string(nth($key, 2))
 	{
 		@for $i from 1 through length($flint__all--keys) {
 
@@ -608,8 +605,8 @@
 
 	} @else if length($key) > 1
 		and length($span) > 1
-		and type-of(nth($key, 1)) != "string"
-		and type-of(nth($key, 2)) != "string"
+		and is-not-string(nth($key, 1))
+		and is-not-string(nth($key, 2))
 	{
 		@for $i from 1 through length($flint__all--keys) {
 
