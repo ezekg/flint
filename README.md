@@ -21,6 +21,12 @@ Enjoy.
 
 ##Documentation
 
+###Installation
+
+To use the current **alpha** build, use the starter `config.rb` to require the any custom functions Flint uses.
+Currently, this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns
+to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+
 ###Config
 
 Flint's `config map` is unique in the ability that you may
