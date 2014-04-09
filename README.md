@@ -5,10 +5,6 @@
 ***and adding in some killer functionality to make yours, and our lives easier***
 ***moving forward. Watch the repo to stay up to date.***
 
-To use the current **alpha** build, include the contents of `selector_string.rb` in your Compass `config.rb`.
-Currently, this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns
-to Sass](https://gist.github.com/nex3/8050187) -- *(Requires Compass --pre).*
-
 **Flint is a seemingly simple Sass based grid-system** built on
 **Sass 3.3** capable of complex responsive layouts customized at each 
 breakpoint, all while using a single mixin. All of your layout
