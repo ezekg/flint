@@ -1,5 +1,8 @@
 // Checks if item is map
-//----------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+// @param $n [Value] : value
+// -------------------------------------------------------------------------------
+// @return [True | False]
 
 @function is-map($n) {
 	@if type-of($n) == "map" {
@@ -10,7 +13,10 @@
 }
 
 // Checks if item is list
-//----------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+// @param $n [Value] : value
+// -------------------------------------------------------------------------------
+// @return [True | False]
 
 @function is-list($n) {
 	@if type-of($n) == "list" {
@@ -21,7 +27,10 @@
 }
 
 // Checks if item is number
-//----------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+// @param $n [Value] : value
+// -------------------------------------------------------------------------------
+// @return [True | False]
 
 @function is-number($n) {
 	@if type-of($n) == "number" {
@@ -32,7 +41,10 @@
 }
 
 // Checks if item is string
-//----------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+// @param $n [Value] : value
+// -------------------------------------------------------------------------------
+// @return [True | False]
 
 @function is-string($n) {
 	@if type-of($n) == "string" {
@@ -43,7 +55,10 @@
 }
 
 // Checks if item is not string
-//----------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+// @param $n [Value] : value
+// -------------------------------------------------------------------------------
+// @return [True | False]
 
 @function is-not-string($n) {
 	@if type-of($n) != "string" {
@@ -53,8 +68,14 @@
 	}
 }
 
-// fetch value from key in map
-//----------------------------------------------------------------------
+// Fetch value from key in map
+// -------------------------------------------------------------------------------
+// @dependence `map-fetche()`
+// -------------------------------------------------------------------------------
+// @param $i [Map] : map
+// @param $n [Keys...] : keys
+// -------------------------------------------------------------------------------
+// @return [Value]
 
 @function map-fetch($map, $keys) {
 	$key: nth($keys, 1);
@@ -84,8 +105,14 @@
 	}
 }
 
-// get single value from key in map
-//----------------------------------------------------------------------
+// Get single value from key in map
+// -------------------------------------------------------------------------------
+// @dependence `map-fetche()`
+// -------------------------------------------------------------------------------
+// @param $i [Key] : key
+// @param $n [Value] : value
+// -------------------------------------------------------------------------------
+// @return [Value]
 
 @function get-value($i, $n: NULL) {
 	@if $n == NULL {
@@ -95,8 +122,9 @@
 	}
 }
 
-// gets each breakpoint's key
-//----------------------------------------------------------------------
+// Gets each breakpoint's key
+// -------------------------------------------------------------------------------
+// @return [List]
 
 @function get-all-keys() {
 	$all-keys: ();
@@ -109,8 +137,11 @@
 	@return $all-keys;
 }
 
-// steal key based on index number
-//----------------------------------------------------------------------
+// Cteal key based on index number
+//--------------------------------------------------------------------------------
+// @param $index [Integer] : index of key
+// -------------------------------------------------------------------------------
+// @return [String]
 
 @function steal-key($index) {
 	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
@@ -120,8 +151,12 @@
 	}
 }
 
-// check if key exists in map
-//----------------------------------------------------------------------
+// Check if key exists in map
+//--------------------------------------------------------------------------------
+// @param $map [Map] : map that contains $value
+// @param $value [Map] : key to search for
+// -------------------------------------------------------------------------------
+// @return [True | False]
 
 @function exists($map, $value){
 	@if is-map($map) {
@@ -136,15 +171,27 @@
 	} @return false;
 }
 
-// convert fixed to fluid width
-//----------------------------------------------------------------------
+// Convert fixed to fluid width
+//--------------------------------------------------------------------------------
+// @param $target [Value] : target
+// @param $context [Value] : context
+// -------------------------------------------------------------------------------
+// @return [Value]
 
 @function fluid-width($target, $context) {
 	@return ($target / $context) * 100%;
 }
 
-// calculate width
-//----------------------------------------------------------------------
+// Calculate width
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// @dependence `fluid-width()`
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint | "container"] : how to calculate value 
+// @param $span [Value] : span
+// @param $context [Value] : if context is needed
+// -------------------------------------------------------------------------------
+// @return [Value]
 
 @function calc-width($key, $span, $context: NULL) {
 	@if get-value(settings, grid) == "fluid" {
@@ -168,8 +215,16 @@
 	}
 }
 
-// calculate margin
-//----------------------------------------------------------------------
+// Calculate margin
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// @dependence `fluid-width()`
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint | "container"] : how to calculate value 
+// @param $span [Value] : span
+// @param $context [Value] : if context is needed
+// -------------------------------------------------------------------------------
+// @return [Value]
 
 @function calc-margin($key, $span, $context: NULL) {
 	@if get-value(settings, grid) == "fluid" {
@@ -193,8 +248,16 @@
 	}
 }
 
-// calculate from-to breakpoints
-//----------------------------------------------------------------------
+// Calculate from-to breakpoints
+// -------------------------------------------------------------------------------
+// @dependence `map-fetch()`
+// @dependence `get-value()`
+// -------------------------------------------------------------------------------
+// @param $n ["from | "to"] : how to calculate breakpoint 
+// @param $key [Value] : key of breakpoint
+// @param $i [Value] : index of current breakpoint
+// -------------------------------------------------------------------------------
+// @return [Value]
 
 @function calc-breakpoint($n, $key, $i) {
 	@if get-value(settings, grid) == "fluid" {
@@ -224,8 +287,15 @@
 	}
 }
 
-// steal value based on index number
-//----------------------------------------------------------------------
+// Steal value based on index number
+// -------------------------------------------------------------------------------
+// @dependence `map-fetch()`
+// @dependence `get-value()`
+// -------------------------------------------------------------------------------
+// @param $index [Integer] : index of breakpoint key in config
+// @param $value [Value] : value
+// -------------------------------------------------------------------------------
+// @return [Value]
 
 @function steal-values($index, $value) {
 	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
@@ -235,8 +305,13 @@
 	}
 }
 
-// gets the index of the passed key
-//----------------------------------------------------------------------
+// Gets the index of the passed key
+// -------------------------------------------------------------------------------
+// @dependence `steal-key()`
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint] : breakpoint key
+// -------------------------------------------------------------------------------
+// @return [Integer]
 
 @function get-index($key) {
   	@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
@@ -246,8 +321,11 @@
 	}
 }
 
-// returns next indexed key based on passed number
-//----------------------------------------------------------------------
+// Returns next indexed key based on passed number
+// -------------------------------------------------------------------------------
+// @param $index [Integer] : index
+// -------------------------------------------------------------------------------
+// @return [Integer]
 
 @function next-index($index) {
 	@if $index != length($flint__function__all--keys) {
@@ -259,8 +337,9 @@
 	}
 }
 
-// gets all breakpoints
-//----------------------------------------------------------------------
+// Gets all breakpoints
+// -------------------------------------------------------------------------------
+// @return [List]
 
 @function get-all-breakpoints() {
 	$all-breakpoints: ();
@@ -271,11 +350,16 @@
 				$all-breakpoints: append($all-breakpoints, $value, 'comma');
 			}
 		}
-	} @return $all-breakpoints;
+	} 
+
+	@return $all-breakpoints;
 }
 
-// grabs highest breakpoint
-//----------------------------------------------------------------------
+// Grabs highest breakpoint
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// -------------------------------------------------------------------------------
+// @return [Breakpoint]
 
 @function is-highest-breakpoint($key) {
 	@if get-value($key, breakpoint) == max(get-all-breakpoints()...) {
@@ -285,8 +369,9 @@
 	}
 }
 
-// gets all breakpoint column values
-//----------------------------------------------------------------------
+// Gets all breakpoint column values
+// -------------------------------------------------------------------------------
+// @return [List]
 
 @function get-all-columns() {
 	$all-columns: ();
@@ -300,8 +385,20 @@
 	} @return $all-columns;
 }
 
-// keeps count of all instances with arguments, stores in global var
-//----------------------------------------------------------------------
+// Keeps count of all instances with arguments, stores in global var
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// -------------------------------------------------------------------------------
+// @param $key [Value] : computed breakpoint of instance
+// @param $span [Value] : computed span of instance
+// @param $context [Value] : computed context of instance
+// @param $gutter [Value] : computed gutter of instance
+// @param $shift [Value] : computed shift of instance
+// @param $outputWidth [Value] : computed width of instance
+// @param $outputMarginRight [Value] : computed right margin of instance
+// @param $outputMarginLeft [Value] : computed left margin of instance
+// -------------------------------------------------------------------------------
+// @return [Map]
 
 @function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
     $instance-count: $instance-count + 1 !global;
@@ -326,6 +423,12 @@
     
     @return map-merge($flint__instances, $flint__instance);
 }
+
+// Turns string into a flat list
+// -------------------------------------------------------------------------------
+// @param $string [String] : string
+// -------------------------------------------------------------------------------
+// @return [List]
 
 @function string-to-list($string) {
 	@if is-string($string) {
@@ -367,22 +470,171 @@
 	}
 }
 
+// Gets substring from string
+// -------------------------------------------------------------------------------
+// @dependence `string-to-list()`
+// -------------------------------------------------------------------------------
+// @param $full-string [String] : string that contains substring
+// @param $depth [Integer | "last | "first"] : depth of substring
+// -------------------------------------------------------------------------------
+// @return [String]
+
 @function get-substring($full-string, $depth) {
-	$get-substring: string-to-list($full-string);
-	@if $depth == "last" {
-		@return nth($get-substring, length($get-substring));
-	} @else if $depth == "first" {
-		@return nth($get-substring, 1);
+	@if is-string($full-string) {
+		$get-substring: string-to-list($full-string);
+
+		@if $depth == "last" {
+			@return nth($get-substring, length($get-substring));
+		} @else if $depth == "first" {
+			@return nth($get-substring, 1);
+		} @else {
+			@return nth($get-substring, $depth);
+		}
 	} @else {
-		@return nth($get-substring, $depth);
+		@return "You did not input a valid string: #{$full-string}";
 	}
 }
 
-@function instance-property-exists($property, $key) {
-	$parent: "#{get-substring(selector_string(), first)}::#{$key}";
-	@if exists($flint__instances, $parent) {
-		@return true;
-	} @else {
-		@return false;
+// Get last item in list
+// -------------------------------------------------------------------------------
+// @param $list [List] : list
+// -------------------------------------------------------------------------------
+// @return [List]
+
+@function last($list) {
+	@return nth($list, length($list));
+}
+
+// Joins all elements of $list with $glue
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation/#to-string
+// -------------------------------------------------------------------------------
+// @alias `stringify()`
+// -------------------------------------------------------------------------------
+// @param $list [List] : list
+// @param $glue [String] : value to use as a join string
+// -------------------------------------------------------------------------------
+// @return [String]
+
+@function list-to-string($list, $glue: "", $is-nested: false) {
+	$result: null;
+	$length: length($list);
+
+	@for $i from 1 through $length {
+		$n: nth($list, $i);
+
+		@if is-list($n) {
+			$result: $result#{list-to-string($n, $glue, true)};
+		} @else {
+			$result: if($i != length($list) or $is-nested, $result#{$n}#{$glue}, $result#{$n});
+		}
 	}
+
+	@return $result;
+}
+
+// Returns truthiness of a value
+// -------------------------------------------------------------------------------
+// @private
+// -------------------------------------------------------------------------------
+// @usage `purge()`
+// -------------------------------------------------------------------------------
+// @param $value [Literal] : value
+// -------------------------------------------------------------------------------
+// @return [Boolean]
+
+@function is-true($value) {
+	@return if($value == null, false, $value and $value != null and $value != "" and $value != ());
+}
+
+// Removes all false and null values from $list
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation.html#purge
+// -------------------------------------------------------------------------------
+// @alias `clean()`
+// -------------------------------------------------------------------------------
+// @dependence `is-true()`
+// -------------------------------------------------------------------------------
+// @param $list [List] : list
+// -------------------------------------------------------------------------------
+// @return [List]
+
+@function purge($list) {
+	$result: ();
+
+	@each $item in $list {
+		@if is-true($item) {
+			$result: append($result, $item, list-separator($list));
+		}
+	}
+
+	@return $result;
+}
+
+// Replaces $old by $new in $list
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation.html#replace
+// -------------------------------------------------------------------------------
+// @param $list [List] : list
+// @param $old [Literal] : value to replace
+// @param $value [Literal] : new value for $old
+// -------------------------------------------------------------------------------
+// @return [List]
+
+@function replace($list, $old, $value) {
+  $running: true;
+
+	@while $running {
+		$index: index($list, $old);
+
+		@if not $index {
+			$running: false;
+		} @else {
+			$list: set-nth($list, $index, $value);
+		}
+	}
+
+	@return if(not is-true($value), purge($list), $list);
+}
+
+// Removes value(s) $value from $list
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation/#remove
+// -------------------------------------------------------------------------------
+// @dependence `replace()`
+// -------------------------------------------------------------------------------
+// @param $list [List] : list
+// @param $value [Literal] : value to remove
+// @param $recursive [Boolean] : enable / disable recursivity
+// -------------------------------------------------------------------------------
+// @return [List]
+
+@function remove($list, $value) {
+	@return replace($list, $value, null);
+}
+
+// Checks if instance exists in selector tree, falls back from current selector
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint] : breakpoint key to search for matching instance
+// -------------------------------------------------------------------------------
+// @return [Selectors] | false
+
+@function family-instance-exists($key: get-value(settings, default)) {
+	$selector-string: selector_string();
+	$selector-list: string-to-list($selector-string);
+	$length: length($selector-list);
+
+	// Loop through length of list of selectors
+	@for $i from 1 through $length {
+		// Make sure that we're not counting the current selector string
+		@if exists($flint__instances, "#{list-to-string($selector-list, " ")}::#{$key}") and $selector-string != list-to-string($selector-list, " ") {
+			// If true, return the maching instance key
+			@return "#{list-to-string($selector-list, " ")}::#{$key}";
+		} @else {
+			// Else, remove the last selector and loop again
+			$selector-list: remove($selector-list, last($selector-list));
+		}
+	}
+
+	@return false;
 }
