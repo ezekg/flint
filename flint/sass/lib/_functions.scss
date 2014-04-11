@@ -327,8 +327,8 @@
 // -------------------------------------------------------------------------------
 // @return [Key] | NULL
 
-@function next-index($index) {
-	@if $index != length($flint__function__all--keys) {
+@function next-index($index) { 
+	@if $index != (length(map-fetch($flint, config)) - 1) {
 		@each $key in nth(map-get($flint, config), $index + 1) {
 			@return $key;
 		}
@@ -648,16 +648,16 @@
 // -------------------------------------------------------------------------------
 // @dependence `map-fetch()`
 // -------------------------------------------------------------------------------
-// @param $selector [Selector] : selector to search for matching instance
+// @param $key [Breakpoint] : key
 // @param $value [Value] : value
 // @param $deep [Value] : fetch deep value
 // -------------------------------------------------------------------------------
 // @return [Value]
 
-@function get-instance-value($selector, $value, $deep: NULL) {
+@function get-instance-value($key, $value, $deep: NULL) {
 	@if $deep == NULL {
-		@return map-fetch($flint__instances, $selector $value);
+		@return map-fetch($flint__instances, family-instance-exists($key) $value);
 	} @else {
-		@return map-fetch($flint__instances, $selector $value $deep);
+		@return map-fetch($flint__instances, family-instance-exists($key) $value $deep);
 	}
 }

@@ -137,8 +137,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
-			// Output content block
 			@content;
 
 			// Create new instance for memoization
@@ -159,7 +157,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
 			@content;
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
@@ -177,7 +174,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
 			@content;
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
@@ -195,7 +191,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
 			@content;
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
@@ -203,63 +198,116 @@
 		}
 
 	} @else if $calcContext != NULL {
+		// Check if context of parent instance exists
+		$exists: family-instance-exists($calcKey);
 
 		@if $calcGutter == NULL and get-value(settings, gutter) != false {
-
-			$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
-			$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-			$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
-
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-
-			@content;
+			// Check if context is set to auto
+			@if $calcContext == "auto" {
+				// Did it exist?
+				@if $exists != false {
+					$outputWidth: (calc-width($calcKey, $calcSpan, get-instance-value($calcKey, span))) - ((calc-margin($calcKey, $calcSpan, get-instance-value($calcKey, span)))*2);
+					$outputMarginRight: calc-margin($calcKey, $calcSpan, get-instance-value($calcKey, span));
+					$outputMarginLeft: calc-margin($calcKey, $calcSpan, get-instance-value($calcKey, span));
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+				} @else {
+					// Else warn that context should not be set to `auto`
+					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+				}
+				// Output styles normally if not set to auto
+			} @else {
+				$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
+				$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+				$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
+				width: $outputWidth;
+				margin-right: $outputMarginRight;
+				margin-left: $outputMarginLeft;
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
 
 		} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
 
-			$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
-			$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-			$outputMarginLeft: 0;
-
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-
-			@content;
+			@if $calcContext == "auto" {
+				@if $exists != false {
+					$outputWidth: (calc-width($calcKey, $calcSpan, get-instance-value($calcKey, span))) - (calc-margin($calcKey, $calcSpan, get-instance-value($calcKey, span)));
+					$outputMarginRight: calc-margin($calcKey, $calcSpan, get-instance-value($calcKey, span));
+					$outputMarginLeft: 0;
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+				} @else {
+					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+				}
+			} @else {
+				$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
+				$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+				$outputMarginLeft: 0;
+				width: $outputWidth;
+				margin-right: $outputMarginRight;
+				margin-left: $outputMarginLeft;
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
 
 		} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
 
-			$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
-			$outputMarginRight: 0;
-			$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
-
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-
-			@content;
+			@if $calcContext == "auto" {
+				@if $exists != false {
+					$outputWidth: (calc-width($calcKey, $calcSpan, get-instance-value($calcKey, span))) - (calc-margin($calcKey, $calcSpan, get-instance-value($calcKey, span)));
+					$outputMarginRight: 0;
+					$outputMarginLeft: calc-margin($calcKey, $calcSpan, get-instance-value($calcKey, span));
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+				} @else {
+					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+				}
+			} @else {
+				$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
+				$outputMarginRight: 0;
+				$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
+				width: $outputWidth;
+				margin-right: $outputMarginRight;
+				margin-left: $outputMarginLeft;
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
 
 		} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
 
-			$outputWidth: calc-width($calcKey, $calcSpan, $calcContext);
-			$outputMarginRight: 0;
-			$outputMarginLeft: 0;
-
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-
-			@content;
+			@if $calcContext == "auto" {
+				@if $exists != false {
+					$outputWidth: calc-width($calcKey, $calcSpan, get-instance-value($calcKey, span));
+					$outputMarginRight: 0;
+					$outputMarginLeft: 0;
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+				} @else {
+					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+				}
+			} @else {
+				$outputWidth: calc-width($calcKey, $calcSpan, $calcContext);
+				$outputMarginRight: 0;
+				$outputMarginLeft: 0;
+				width: $outputWidth;
+				margin-right: $outputMarginRight;
+				margin-left: $outputMarginLeft;
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
@@ -277,7 +325,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
 			@content;
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
@@ -292,7 +339,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
 			@content;
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
@@ -307,7 +353,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
 			@content;
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
@@ -322,7 +367,6 @@
 			width: $outputWidth;
 			margin-right: $outputMarginRight;
 			margin-left: $outputMarginLeft;
-
 			@content;
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
