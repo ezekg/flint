@@ -42,7 +42,7 @@ Settings may be entered in `px` or `em`, and flint
 will do the rest.
 
 *Keep in mind, whatever unit you choose to use here needs to 
-be used consistently throughout. No mixing `px` and `em` units.*
+be used consistently throughout. No mixing of `px` and `em` units.*
 
 ```scss
 $flint: (
@@ -53,7 +53,7 @@ $flint: (
 
 		// define breakpoints
 
-		"desktop": ( // [anything you like, aside from reserved Sass/Flint words]
+		"desktop": ( // [any alias you like, minus reserved Flint words (i.e. "settings", etc.)]
 			"columns": 16, // [0-infinity]
 			"breakpoint": 1280px, // [0-infinity]
 		),
@@ -73,13 +73,13 @@ $flint: (
 		// additional grid settings
 
 		"settings": (
-			"default": "mobile", // [any breakpoint's name, is default]
-			"grid": "fluid", // [fluid, fixed]
-			"gutter": 10px, // [0-infinity]
+			"default": "mobile", // [any breakpoint's alias : becomes default]
+			"grid": "fluid", // [fluid | fixed]
+			"gutter": 10px, // [0-infinity | false]
 			"float-style": "left", // [left, right]
-			"max-width": false, // [true (uses highest breakpoint), false, or any value]
-			"center-container": true, // [true, false]
-			"border-box-sizing": true, // [true, false]
+			"max-width": false, // [true (uses highest breakpoint) | false | or any value]
+			"center-container": true, // [true | false]
+			"border-box-sizing": true, // [true | false]
 		),
 	),
 );
@@ -205,7 +205,7 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 //  }
 
 .recursive {
-	@include _(3, 6);
+	@include _(3, auto);
 }
 ```
 
