@@ -197,7 +197,7 @@ styles in media-queries, so that they may be used in non-supported browsers.
 
 ###Recursive shorthand with identical context
 
-Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all.
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
 ```scss
 //  .parent {
@@ -243,7 +243,7 @@ Outputs,
 
 ###Recursive shorthand with variable context
 
-Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all.
+Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
 *You must include an argument for each breakpoint in your config.*
 
@@ -336,7 +336,7 @@ Outputs,
 
 ###Variable shorthand with context
 
-Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all.
+Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
 ```scss
 //  .parent {
