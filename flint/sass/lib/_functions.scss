@@ -649,16 +649,15 @@
 // @dependence `map-fetch()`
 // -------------------------------------------------------------------------------
 // @param $selector [Selector] : selector to search for matching instance
-// @param $key [Value] : breakpoint key to search for matching instance
 // @param $value [Value] : value
 // @param $deep [Value] : fetch deep value
 // -------------------------------------------------------------------------------
 // @return [Value]
 
-@function get-instance-value($selector, $key, $value, $deep: NULL) {
+@function get-instance-value($selector, $value, $deep: NULL) {
 	@if $deep == NULL {
-		@return map-fetch($flint__instances, "#{$selector}::#{$key}" $value);
+		@return map-fetch($flint__instances, $selector $value);
 	} @else {
-		@return map-fetch($flint__instances, "#{$selector}::#{$key}" $value $deep);
+		@return map-fetch($flint__instances, $selector $value $deep);
 	}
 }
