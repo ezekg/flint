@@ -27,6 +27,8 @@ To use the current **alpha** build, use the starter `config.rb` to require any c
 Currently, this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns
 to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
 
+*If something is broken, I apologize, but I work on this from 2 locations, so sometimes the files are a work in progress and not always stable. Feel free to open an issue though, just so I can keep a record of things that break.*
+
 ###Config
 
 Flint's `config map` is unique in the ability that you may
@@ -195,7 +197,7 @@ styles in media-queries, so that they may be used in non-supported browsers.
 
 ###Recursive shorthand with identical context
 
-Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. **Pro tip:** `$context` can also be used to break out of the usual column count for a specific breakpoint. For example, if one of your breakpoints column count is `16`, you could use `$context: 24`, and it will calculate its width as if that breakpoint had a column count of `24`.
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all.
 
 ```scss
 //  .parent {
@@ -241,7 +243,7 @@ Outputs,
 
 ###Recursive shorthand with variable context
 
-Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent.
+Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all.
 
 *You must include an argument for each breakpoint in your config.*
 
@@ -251,7 +253,7 @@ Use this if your context is *not* indentical across breakpoints. The `context` i
 //  }
 
 .recursive {
-	@include _(2, 10 8 6 4);
+	@include _(2, auto);
 }
 ```
 
@@ -334,7 +336,7 @@ Outputs,
 
 ###Variable shorthand with context
 
-Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent.
+Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all.
 
 ```scss
 //  .parent {
@@ -540,7 +542,12 @@ for extra fine tuned control over your layouts.
 ***Fork the project if you believe that the code could be more effecient and***
 ***would like to help out.***
 
+##Change Log
 
+Going to start keeping a log of changes starting **today (4/11/14).**
+
+####4/11/14
+You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
 
 
 
