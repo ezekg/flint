@@ -2,7 +2,7 @@
 //--------------------------------------------------------------------------------
 // @param $n [Value] : value
 // -------------------------------------------------------------------------------
-// @return [True | False]
+// @return [Boolean]
 
 @function is-map($n) {
 	@if type-of($n) == "map" {
@@ -16,7 +16,7 @@
 //--------------------------------------------------------------------------------
 // @param $n [Value] : value
 // -------------------------------------------------------------------------------
-// @return [True | False]
+// @return [Boolean]
 
 @function is-list($n) {
 	@if type-of($n) == "list" {
@@ -30,7 +30,7 @@
 //--------------------------------------------------------------------------------
 // @param $n [Value] : value
 // -------------------------------------------------------------------------------
-// @return [True | False]
+// @return [Boolean]
 
 @function is-number($n) {
 	@if type-of($n) == "number" {
@@ -44,7 +44,7 @@
 //--------------------------------------------------------------------------------
 // @param $n [Value] : value
 // -------------------------------------------------------------------------------
-// @return [True | False]
+// @return [Boolean]
 
 @function is-string($n) {
 	@if type-of($n) == "string" {
@@ -58,7 +58,7 @@
 //--------------------------------------------------------------------------------
 // @param $n [Value] : value
 // -------------------------------------------------------------------------------
-// @return [True | False]
+// @return [Boolean]
 
 @function is-not-string($n) {
 	@if type-of($n) != "string" {
@@ -75,18 +75,18 @@
 // @param $i [Map] : map
 // @param $n [Keys...] : keys
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return [Value] | false
 
 @function map-fetch($map, $keys) {
 	$key: nth($keys, 1);
 	$length: length($keys);
 	$value: map-get($map, $key);
 
-	// check if value equals NULL
-	// return message so that sass still compiles without errors
+	// check if value equals NULL (meaning the @param was incorrect)
+	// return false so that sass still compiles without errors
 
 	@if $value == NULL {
-		@return "Oops! Something went wrong. Good thing SASS still compiles so that you can debug this."
+		@return false;
 	}
 
 	@else {
@@ -105,20 +105,20 @@
 	}
 }
 
-// Get single value from key in map
+// Get single value from key in instance map based on $selector::$key
 // -------------------------------------------------------------------------------
-// @dependence `map-fetche()`
+// @dependence `map-fetch()`
 // -------------------------------------------------------------------------------
-// @param $i [Key] : key
-// @param $n [Value] : value
+// @param $key [Value] : breakpoint key
+// @param $value [Value] : fetch value
 // -------------------------------------------------------------------------------
 // @return [Value]
 
-@function get-value($i, $n: NULL) {
-	@if $n == NULL {
-		@return map-fetch($flint, config $i);
+@function get-value($key, $value: NULL) {
+	@if $value == NULL {
+		@return map-fetch($flint, config $key);
 	} @else {
-		@return map-fetch($flint, config $i $n);
+		@return map-fetch($flint, config $key $value);
 	}
 }
 
@@ -141,7 +141,7 @@
 //--------------------------------------------------------------------------------
 // @param $index [Integer] : index of key
 // -------------------------------------------------------------------------------
-// @return [String]
+// @return [Breakpoint]
 
 @function steal-key($index) {
 	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
@@ -156,7 +156,7 @@
 // @param $map [Map] : map that contains $value
 // @param $value [Map] : key to search for
 // -------------------------------------------------------------------------------
-// @return [True | False]
+// @return [Boolean]
 
 @function exists($map, $value){
 	@if is-map($map) {
@@ -191,7 +191,7 @@
 // @param $span [Value] : span
 // @param $context [Value] : if context is needed
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return [Value] | false
 
 @function calc-width($key, $span, $context: NULL) {
 	@if get-value(settings, grid) == "fluid" {
@@ -224,7 +224,7 @@
 // @param $span [Value] : span
 // @param $context [Value] : if context is needed
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return [Value] | false
 
 @function calc-margin($key, $span, $context: NULL) {
 	@if get-value(settings, grid) == "fluid" {
@@ -292,7 +292,7 @@
 // @dependence `map-fetch()`
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @param $index [Integer] : index of breakpoint key in config
+// @param $index [Value] : index of breakpoint key in config
 // @param $value [Value] : value
 // -------------------------------------------------------------------------------
 // @return [Value]
@@ -311,7 +311,7 @@
 // -------------------------------------------------------------------------------
 // @param $key [Breakpoint] : breakpoint key
 // -------------------------------------------------------------------------------
-// @return [Integer]
+// @return [Value]
 
 @function get-index($key) {
   	@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
@@ -323,9 +323,9 @@
 
 // Returns next indexed key based on passed number
 // -------------------------------------------------------------------------------
-// @param $index [Integer] : index
+// @param $index [Value] : index
 // -------------------------------------------------------------------------------
-// @return [Integer]
+// @return [Key] | NULL
 
 @function next-index($index) {
 	@if $index != length($flint__function__all--keys) {
@@ -359,7 +359,7 @@
 // -------------------------------------------------------------------------------
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @return [Breakpoint]
+// @return [Boolean]
 
 @function is-highest-breakpoint($key) {
 	@if get-value($key, breakpoint) == max(get-all-breakpoints()...) {
@@ -389,7 +389,7 @@
 // -------------------------------------------------------------------------------
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @param $key [Value] : computed breakpoint of instance
+// @param $key [Breakpoint] : computed breakpoint of instance
 // @param $span [Value] : computed span of instance
 // @param $context [Value] : computed context of instance
 // @param $gutter [Value] : computed gutter of instance
@@ -398,7 +398,7 @@
 // @param $outputMarginRight [Value] : computed right margin of instance
 // @param $outputMarginLeft [Value] : computed left margin of instance
 // -------------------------------------------------------------------------------
-// @return [Map]
+// @return [Value] | map
 
 @function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
     $instance-count: $instance-count + 1 !global;
@@ -428,7 +428,7 @@
 // -------------------------------------------------------------------------------
 // @param $string [String] : string
 // -------------------------------------------------------------------------------
-// @return [List]
+// @return [List] | error
 
 @function string-to-list($string) {
 	@if is-string($string) {
@@ -451,7 +451,7 @@
 			@if $count == 1 {
 				$matched-string: str-slice($string, 0, ($space - 1));
 				$string-list: append($string-list, $matched-string, "comma");
-			// Else, add a little math to make up for the spaces to do that same
+			// Else, add a little math to make up for the spaces to do the same
 			} @else {
 				$matched-string: str-slice($string, (nth($space-indexes, ($count - 1)) + 1), ($space - 1));
 				$string-list: append($string-list, $matched-string, "comma");
@@ -551,8 +551,6 @@
 // -------------------------------------------------------------------------------
 // @documentation http://sassylists.com/documentation.html#purge
 // -------------------------------------------------------------------------------
-// @alias `clean()`
-// -------------------------------------------------------------------------------
 // @dependence `is-true()`
 // -------------------------------------------------------------------------------
 // @param $list [List] : list
@@ -613,7 +611,14 @@
 	@return replace($list, $value, null);
 }
 
-// Checks if instance exists in selector tree, falls back from current selector
+// Checks if instance exists in selector familiy tree, falls back from current selector
+// -------------------------------------------------------------------------------
+// @dependence `selector_string()`
+// @dependence `string-to-list()`
+// @dependence `list-to-string()`
+// @dependence `get-value()`
+// @dependence `exists()`
+// @dependence `remove()`
 // -------------------------------------------------------------------------------
 // @param $key [Breakpoint] : breakpoint key to search for matching instance
 // -------------------------------------------------------------------------------
@@ -637,4 +642,23 @@
 	}
 
 	@return false;
+}
+
+// Get single value from key in instance map based on $selector::$key
+// -------------------------------------------------------------------------------
+// @dependence `map-fetch()`
+// -------------------------------------------------------------------------------
+// @param $selector [Selector] : selector to search for matching instance
+// @param $key [Value] : breakpoint key to search for matching instance
+// @param $value [Value] : value
+// @param $deep [Value] : fetch deep value
+// -------------------------------------------------------------------------------
+// @return [Value]
+
+@function get-instance-value($selector, $key, $value, $deep: NULL) {
+	@if $deep == NULL {
+		@return map-fetch($flint__instances, "#{$selector}::#{$key}" $value);
+	} @else {
+		@return map-fetch($flint__instances, "#{$selector}::#{$key}" $value $deep);
+	}
 }
