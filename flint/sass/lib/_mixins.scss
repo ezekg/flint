@@ -121,7 +121,7 @@
 
 	}
 
-	@if $calcShift != NULL {
+	@if $calcShift != NULL and $calcContext == NULL {
 
 		@if $calcGutter == NULL and get-value(settings, gutter) != false {
 
@@ -201,14 +201,42 @@
 		// Check if context of parent instance exists
 		$exists: family-instance-exists($calcKey);
 
-		@if $calcGutter == NULL and get-value(settings, gutter) != false {
-			// Check if context is set to auto
-			@if $calcContext == "auto" {
-				// Did it exist?
-				@if $exists != false {
-					$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
+		@if $calcShift != NULL {
+			@if $calcGutter == NULL and get-value(settings, gutter) != false {
+				// Check if context is set to auto
+				@if $calcContext == "auto" {
+					// Did it exist?
+					@if $exists != false {
+
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
+						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						$outputMarginLeft: ( if( $calcShift > 0, 
+							(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
+							(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+						));
+
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+						
+					} @else {
+						// Else warn that context should not be set to `auto`
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+					// Output styles normally if not set to auto
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
 					$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
-					$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+					$outputMarginLeft: ( if( $calcShift > 0, 
+						(calc-margin($calcKey, $calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)),
+						(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
+					));
+
 					width: $outputWidth;
 					margin-right: $outputMarginRight;
 					margin-left: $outputMarginLeft;
@@ -216,31 +244,40 @@
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
-				} @else {
-					// Else warn that context should not be set to `auto`
-					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
 				}
-				// Output styles normally if not set to auto
-			} @else {
-				$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
-				$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-				$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
-				width: $outputWidth;
-				margin-right: $outputMarginRight;
-				margin-left: $outputMarginLeft;
-				@content;
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-			}
+			} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
 
-		} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+				@if $calcContext == "auto" {
+					@if $exists != false {
 
-			@if $calcContext == "auto" {
-				@if $exists != false {
-					$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
-					$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
-					$outputMarginLeft: 0;
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
+						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						$outputMarginLeft: ( if( $calcShift > 0, 
+							calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
+							calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
+						));
+
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
+					$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+					$outputMarginLeft: ( if( $calcShift > 0, 
+						calc-width($calcKey, $calcShift, $calcContext),
+						calc-width($calcKey, $calcShift, $calcContext)
+					));
+
 					width: $outputWidth;
 					margin-right: $outputMarginRight;
 					margin-left: $outputMarginLeft;
@@ -248,29 +285,40 @@
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
-				} @else {
-					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
 				}
-			} @else {
-				$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
-				$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-				$outputMarginLeft: 0;
-				width: $outputWidth;
-				margin-right: $outputMarginRight;
-				margin-left: $outputMarginLeft;
-				@content;
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-			}
+			} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
 
-		} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+				@if $calcContext == "auto" {
+					@if $exists != false {
 
-			@if $calcContext == "auto" {
-				@if $exists != false {
-					$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+						$outputMarginRight: 0;
+						$outputMarginLeft: ( if( $calcShift > 0, 
+							(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
+							(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+						));
+
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext)));
 					$outputMarginRight: 0;
-					$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+					$outputMarginLeft: ( if( $calcShift > 0, 
+						(calc-margin($calcKey, $calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)),
+						(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
+					));
+
 					width: $outputWidth;
 					margin-right: $outputMarginRight;
 					margin-left: $outputMarginLeft;
@@ -278,29 +326,184 @@
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
-				} @else {
-					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
 				}
-			} @else {
-				$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
-				$outputMarginRight: 0;
-				$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
-				width: $outputWidth;
-				margin-right: $outputMarginRight;
-				margin-left: $outputMarginLeft;
-				@content;
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
+			} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+
+				@if $calcContext == "auto" {
+					@if $exists != false {
+
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
+						$outputMarginRight: 0;
+						$outputMarginLeft: ( if( $calcShift > 0, 
+							calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
+							calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
+						));
+
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext));
+					$outputMarginRight: 0;
+					$outputMarginLeft: ( if( $calcShift > 0, 
+						calc-width($calcKey, $calcShift, $calcContext),
+						calc-width($calcKey, $calcShift, $calcContext)
+					));
+
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+
+					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+					@include debugPrintInstance($calcKey);
+				}
 			}
+		} @else {
+			@if $calcGutter == NULL and get-value(settings, gutter) != false {
+				// Check if context is set to auto
+				@if $calcContext == "auto" {
+					// Did it exist?
+					@if $exists != false {
 
-		} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
+						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 
-			@if $calcContext == "auto" {
-				@if $exists != false {
-					$outputWidth: calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						// Else warn that context should not be set to `auto`
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+					// Output styles normally if not set to auto
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
+					$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+					$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
+
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+
+					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+					@include debugPrintInstance($calcKey);
+				}
+
+			} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+
+				@if $calcContext == "auto" {
+					@if $exists != false {
+
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
+						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						$outputMarginLeft: 0;
+
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
+					$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+					$outputMarginLeft: 0;
+
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+
+					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+					@include debugPrintInstance($calcKey);
+				}
+
+			} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+
+				@if $calcContext == "auto" {
+					@if $exists != false {
+
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
+						$outputMarginRight: 0;
+						$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
+					$outputMarginRight: 0;
+					$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
+
+					width: $outputWidth;
+					margin-right: $outputMarginRight;
+					margin-left: $outputMarginLeft;
+					@content;
+
+					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+					@include debugPrintInstance($calcKey);
+				}
+
+			} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+
+				@if $calcContext == "auto" {
+					@if $exists != false {
+
+						$outputWidth: calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						$outputMarginRight: 0;
+						$outputMarginLeft: 0;
+
+						width: $outputWidth;
+						margin-right: $outputMarginRight;
+						margin-left: $outputMarginLeft;
+						@content;
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+				} @else {
+
+					$outputWidth: calc-width($calcKey, $calcSpan, $calcContext);
 					$outputMarginRight: 0;
 					$outputMarginLeft: 0;
+
 					width: $outputWidth;
 					margin-right: $outputMarginRight;
 					margin-left: $outputMarginLeft;
@@ -308,22 +511,8 @@
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
-				} @else {
-					@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
 				}
-			} @else {
-				$outputWidth: calc-width($calcKey, $calcSpan, $calcContext);
-				$outputMarginRight: 0;
-				$outputMarginLeft: 0;
-				width: $outputWidth;
-				margin-right: $outputMarginRight;
-				margin-left: $outputMarginLeft;
-				@content;
-
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
 			}
-
 		}
 
 	} @else {
