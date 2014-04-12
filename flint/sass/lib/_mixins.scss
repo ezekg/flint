@@ -710,7 +710,7 @@
 	// @output [Styles...]
 
 	} @else if length($key) > 1
-		and length($span) > 1
+		and length($span) >= 1
 		and is-not-string(nth($key, 1))
 		and is-not-string(nth($key, 2))
 	{
