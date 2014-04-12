@@ -205,7 +205,7 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 //  }
 
 .recursive {
-	@include _(3, auto);
+	@include _(3, auto); // Equivalent to : _(3, 6)
 }
 ```
 
@@ -253,7 +253,7 @@ Use this if your context is *not* indentical across breakpoints. The `context` i
 //  }
 
 .recursive {
-	@include _(2, auto);
+	@include _(2, auto); // Equivalent to : _(2, 10 8 6 4)
 }
 ```
 
@@ -344,7 +344,7 @@ Use this if you're *nesting* columns using the variable shorthand. The `context`
 //  }
 
 .variable {
-	@include _(14 10 6 2, 16 12 8 4);
+	@include _(14 10 6 2, 16 12 8 4); // Equivalent to : _(14 10 6 2, auto)
 }
 ```
 
@@ -499,6 +499,11 @@ across all breakpoints.
 .name {
 	@include _(desktop, 4, $gutter: row);
 }
+
+// recursive
+.recursive {
+	@include _(16 12 8 4, $gutter: row);
+}
 ```
 
 ###Shift
@@ -507,9 +512,6 @@ Much like the gutter modifiers, you may also call in a shift
 parameter using the `$shift` variable. This will cause the element 
 to shift the desired amount of columns using positive/negative 
 left margins. 
-
-*Currently, `$gutter` modifiers and `$shift` modifiers cannot be used*
-*in conjuction with eachother. This functionality will be added soon*
 
 ```scss
 // shift 4 columns to the right across all breakpoints
@@ -545,6 +547,9 @@ for extra fine tuned control over your layouts.
 ##Change Log
 
 Going to start keeping a log of changes starting **today (4/11/14).**
+
+####4/12/14
+You can now you both `$shift` and `$gutter` modifiers together.
 
 ####4/11/14
 You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
