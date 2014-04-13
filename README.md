@@ -12,11 +12,6 @@ settings are housed in a simple config file. Flint will only
 output the code you need, and nothing else. Flint handles the 
 hard stuff, you do the rest. 
 
-Here's a small [demo on Sassmeister (v0.0.3.alpha)](http://sassmeister.com/gist/9657552)
-to show what Flint is capable of. This is only the alpha, so let
-me know if you find any bugs, if you think the code could be
-more efficient, or if you would just like to help out.
-
 Enjoy.
 
 ##Documentation
