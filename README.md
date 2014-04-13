@@ -598,7 +598,7 @@ for extra fine tuned control over your layouts.
 Going to start keeping a log of changes starting **today (4/11/14).**
 
 ####4/12/14
-You can now you both `$shift` and `$gutter` modifiers together.
+You can now tale advantage of both `$shift` and `$gutter` modifiers together.
 
 ####4/11/14
 You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
