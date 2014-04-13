@@ -1,11 +1,6 @@
 #Flint
 *v0.1.0*
 
-***We are currently in the process of overhauling the codebase to be more effient***
-***(by using some pretty cool technologies, such as memoization and a little custom SassScript)***
-***and adding in some killer functionality to make yours, and our lives easier***
-***moving forward. Watch the repo to stay up to date.***
-
 **Flint is a seemingly simple Sass based grid-system** built on
 **Sass 3.3** capable of complex responsive layouts customized at each 
 breakpoint, all while using a single mixin. All of your layout
