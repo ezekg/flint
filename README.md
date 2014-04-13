@@ -76,10 +76,11 @@ $flint: (
 			"default": "mobile", // [any breakpoint's alias : becomes default]
 			"grid": "fluid", // [fluid | fixed]
 			"gutter": 10px, // [0-infinity | false]
-			"float-style": "left", // [left, right]
-			"max-width": false, // [true (uses highest breakpoint) | false | or any value]
+			"float-style": "left", // [left | right]
+			"max-width": false, // [true (uses highest breakpoint) | false | value]
 			"center-container": true, // [true | false]
 			"border-box-sizing": true, // [true | false]
+			"debug-mode": true, // [true | false]
 		),
 	),
 );
@@ -156,35 +157,87 @@ Use this if you want *identical* column spans across all breakpoints.
 }
 ```
 
-Outputs,
+Outputs, *(with debug mode on)*
 ```scss
-recursive {
-	display: block;
-	float: left;
-	width: 17.1875%;
-	margin-right: 0.78125%;
-	margin-left: 0.78125%;
+.recursive {
+  display: block;
+  float: left;
+  width: 17.1875%;
+  margin-right: 0.78125%;
+  margin-left: 0.78125%;
+  /*! instance-count: 21; */
+  /*! key: desktop; */
+  /*! breakpoint: 1280px; */
+  /*! columns: 16; */
+  /*! span: 3; */
+  /*! context: NULL; */
+  /*! gutter: NULL; */
+  /*! shift: NULL; */
+  /*! .recursive::outputted { */
+  /*! 	width: 17.1875%; */
+  /*! 	margin-right: 0.78125%; */
+  /*! 	margin-left: 0.78125%; */
+  /*! } */
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
-	.recursive {
-		width: 22.9166666667%;
-		margin-right: 1.0416666667%;
-		margin-left: 1.0416666667%;
-	}
+  .recursive {
+    width: 22.91667%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+    /*! instance-count: 22; */
+    /*! key: laptop; */
+    /*! breakpoint: 960px; */
+    /*! columns: 12; */
+    /*! span: 3; */
+    /*! context: NULL; */
+    /*! gutter: NULL; */
+    /*! shift: NULL; */
+    /*! .recursive::outputted { */
+    /*! 	width: 22.91667%; */
+    /*! 	margin-right: 1.04167%; */
+    /*! 	margin-left: 1.04167%; */
+    /*! } */
+  }
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
-	.recursive {
-		width: 34.375%;
-		margin-right: 1.5625%;
-		margin-left: 1.5625%;
-	}
+  .recursive {
+    width: 34.375%;
+    margin-right: 1.5625%;
+    margin-left: 1.5625%;
+    /*! instance-count: 23; */
+    /*! key: tablet; */
+    /*! breakpoint: 640px; */
+    /*! columns: 8; */
+    /*! span: 3; */
+    /*! context: NULL; */
+    /*! gutter: NULL; */
+    /*! shift: NULL; */
+    /*! .recursive::outputted { */
+    /*! 	width: 34.375%; */
+    /*! 	margin-right: 1.5625%; */
+    /*! 	margin-left: 1.5625%; */
+    /*! } */
+  }
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
-	.recursive {
-		width: 68.75%;
-		margin-right: 3.125%;
-		margin-left: 3.125%;
-	}
+  .recursive {
+    width: 68.75%;
+    margin-right: 3.125%;
+    margin-left: 3.125%;
+    /*! instance-count: 24; */
+    /*! key: mobile; */
+    /*! breakpoint: 320px; */
+    /*! columns: 4; */
+    /*! span: 3; */
+    /*! context: NULL; */
+    /*! gutter: NULL; */
+    /*! shift: NULL; */
+    /*! .recursive::outputted { */
+    /*! 	width: 68.75%; */
+    /*! 	margin-right: 3.125%; */
+    /*! 	margin-left: 3.125%; */
+    /*! } */
+  }
 }
 ```
 
