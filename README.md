@@ -1,4 +1,5 @@
 #Flint
+*v0.1.0*
 
 ***We are currently in the process of overhauling the codebase to be more effient***
 ***(by using some pretty cool technologies, such as memoization and a little custom SassScript)***
@@ -10,7 +11,9 @@
 breakpoint, all while using a single mixin. All of your layout
 settings are housed in a simple config file. Flint will only
 output the code you need, and nothing else. Flint handles the 
-hard stuff, you do the rest. 
+hard stuff, you do the rest.
+
+Here's a small [demo on Sassmeister](http://sassmeister.com/gist/9657552) *(older version : v0.0.3)* to show what Flint is capable of. This is only the alpha, so let me know if you find any bugs, if you think the code could be more efficient, or if you would just like to help out.
 
 Enjoy.
 
@@ -18,11 +21,9 @@ Enjoy.
 
 ###Installation
 
-To use the current **alpha** build, use the starter `config.rb` to require any custom functions Flint uses.
-Currently, this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns
-to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+Easiest way to use the current **alpha** build, os to use the starter Compass `config.rb` to require any custom functions Flint uses. Currently, this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
 
-*If something is broken, I apologize, but I work on this from 2 locations, so sometimes the files are a work in progress and not always stable. Feel free to open an issue though, just so I can keep a record of things that break.*
+*If something is broken, I apologize But, I work on this from 2 locations, so sometimes the files are a work in progress and not always stable. Feel free to open an issue though, just so I can keep a record of things that break.*
 
 ###Config
 
