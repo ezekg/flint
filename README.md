@@ -20,12 +20,6 @@ Easiest way to use the current **alpha** build, is to use the starter `config.rb
 
 *If something is broken, I apologize But, I work on this from 2 locations, so sometimes the files are a work in progress and not always stable. Feel free to open an issue though, just so I can keep a record of things that break.*
 
-
-####BEM Users
-
-Due to the way `BEM` is written, the `instance` functions cannot fallback to previous selectors in the family tree to find a `parent instance`. **Update:** this now results in a compile error due to the `instance` functions being used throughout Flint for the `debug-mode` and other features. [Issue #2](https://github.com/ezekg/flint/issues/2).
-
-
 ###Config
 
 Flint's `config map` is unique in the ability that you may
@@ -593,6 +587,44 @@ for extra fine tuned control over your layouts.
 
 ***Fork the project if you believe that the code could be more effecient and***
 ***would like to help out.***
+
+##BEM Users
+
+Due to the way **BEM** is written, the `instance` functions cannot fallback to previous selectors in the family tree to find a `parent instance`, so using `$context: auto` will not work for some BEM users, depending on how you write it.
+
+```scss
+.block {
+	@include _(4);
+	
+	&__element {
+		@include _(2, auto);
+	}
+}
+```
+
+Will result in a` @warning`, and will not compile correctly as `.block` and `.block__element` are not compiled into selectors of the same family tree i.e. `.block .block__element`. But, if you write it like this:
+
+```scss
+.block {
+	@include _(4);
+	
+	.block__element {
+		@include _(2, auto);
+	}
+}
+```
+
+This will allow the `instance` functions to properly fallback from `.block .block__element` to `.block` to check for context. If writing BEM like that just isn't your thing, you can manually enter your context:
+
+```scss
+.block {
+	@include _(4);
+	
+	&__element {
+		@include _(2, 4);
+	}
+}
+```
 
 ##Change Log
 
