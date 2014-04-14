@@ -23,7 +23,7 @@ Easiest way to use the current **alpha** build, is to use the starter `config.rb
 
 ####BEM Users
 
-Due to the way `BEM` is written, the `instance` functions cannot fallback to previous selectors in the family tree to find a `parent instance`. Currently, this outputs a warning. Would like to look into possible solutions for this. If you use `BEM`, you will have to manually enter your `$context` arguments. **Update:** this now results in a compile error due to the `instance` functions being used throughout Flint for the `debug-mode` and other features. [Issue #2](https://github.com/ezekg/flint/issues/2).
+Due to the way `BEM` is written, the `instance` functions cannot fallback to previous selectors in the family tree to find a `parent instance`. **Update:** this now results in a compile error due to the `instance` functions being used throughout Flint for the `debug-mode` and other features. [Issue #2](https://github.com/ezekg/flint/issues/2).
 
 
 ###Config
