@@ -250,12 +250,12 @@ styles in media-queries, so that they may be used in non-supported browsers.
 Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
 ```scss
-//  .parent {
-//  	   @include _(6);
-//  }
+.parent {
+	@include _(6);
 
-.recursive {
-	@include _(3, auto); // Equivalent to : _(3, 6)
+	.recursive {
+		@include _(3, auto); // Equivalent to : _(3, 6)
+	}
 }
 ```
 
@@ -298,12 +298,12 @@ Use this if your context is *not* indentical across breakpoints. The `context` i
 *You must include an argument for each breakpoint in your config.*
 
 ```scss
-//  .parent {
-//	   @include _(10 8 6 4);
-//  }
+.parent {
+	@include _(10 8 6 4);
 
-.recursive {
-	@include _(2, auto); // Equivalent to : _(2, 10 8 6 4)
+	.recursive {
+		@include _(2, auto); // Equivalent to : _(2, 10 8 6 4)
+	}
 }
 ```
 
@@ -389,12 +389,12 @@ Outputs,
 Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
 ```scss
-//  .parent {
-//	   @include _(16 12 8 4);
-//  }
+.parent {
+	@include _(16 12 8 4);
 
-.variable {
-	@include _(14 10 6 2, 16 12 8 4); // Equivalent to : _(14 10 6 2, auto)
+	.variable {
+		@include _(14 10 6 2, 16 12 8 4); // Equivalent to : _(14 10 6 2, auto)
+	}
 }
 ```
 
