@@ -156,38 +156,34 @@ Outputs, *(with debug mode on)*
   width: 17.1875%;
   margin-right: 0.78125%;
   margin-left: 0.78125%;
-  /*! instance-count: 21; */
-  /*! key: desktop; */
-  /*! breakpoint: 1280px; */
-  /*! columns: 16; */
-  /*! span: 3; */
-  /*! context: NULL; */
-  /*! gutter: NULL; */
-  /*! shift: NULL; */
-  /*! .recursive::outputted { */
-  /*! 	width: 17.1875%; */
-  /*! 	margin-right: 0.78125%; */
-  /*! 	margin-left: 0.78125%; */
-  /*! } */
+  -flint-instance-count: 1;
+  -flint-key: desktop;
+  -flint-breakpoint: 1280px;
+  -flint-columns: 16;
+  -flint-span: 3;
+  -flint-context: NULL;
+  -flint-gutter: NULL;
+  -flint-shift: NULL;
+  -flint-outputted-width: 17.1875%;
+  -flint-outputted-margin-right: 0.78125%;
+  -flint-outputted-margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
   .recursive {
     width: 22.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
-    /*! instance-count: 22; */
-    /*! key: laptop; */
-    /*! breakpoint: 960px; */
-    /*! columns: 12; */
-    /*! span: 3; */
-    /*! context: NULL; */
-    /*! gutter: NULL; */
-    /*! shift: NULL; */
-    /*! .recursive::outputted { */
-    /*! 	width: 22.91667%; */
-    /*! 	margin-right: 1.04167%; */
-    /*! 	margin-left: 1.04167%; */
-    /*! } */
+    -flint-instance-count: 2;
+    -flint-key: laptop;
+    -flint-breakpoint: 960px;
+    -flint-columns: 12;
+    -flint-span: 3;
+    -flint-context: NULL;
+    -flint-gutter: NULL;
+    -flint-shift: NULL;
+    -flint-outputted-width: 22.91667%;
+    -flint-outputted-margin-right: 1.04167%;
+    -flint-outputted-margin-left: 1.04167%;
   }
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
@@ -195,19 +191,17 @@ Outputs, *(with debug mode on)*
     width: 34.375%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
-    /*! instance-count: 23; */
-    /*! key: tablet; */
-    /*! breakpoint: 640px; */
-    /*! columns: 8; */
-    /*! span: 3; */
-    /*! context: NULL; */
-    /*! gutter: NULL; */
-    /*! shift: NULL; */
-    /*! .recursive::outputted { */
-    /*! 	width: 34.375%; */
-    /*! 	margin-right: 1.5625%; */
-    /*! 	margin-left: 1.5625%; */
-    /*! } */
+    -flint-instance-count: 3;
+    -flint-key: tablet;
+    -flint-breakpoint: 640px;
+    -flint-columns: 8;
+    -flint-span: 3;
+    -flint-context: NULL;
+    -flint-gutter: NULL;
+    -flint-shift: NULL;
+    -flint-outputted-width: 34.375%;
+    -flint-outputted-margin-right: 1.5625%;
+    -flint-outputted-margin-left: 1.5625%;
   }
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
@@ -215,19 +209,17 @@ Outputs, *(with debug mode on)*
     width: 68.75%;
     margin-right: 3.125%;
     margin-left: 3.125%;
-    /*! instance-count: 24; */
-    /*! key: mobile; */
-    /*! breakpoint: 320px; */
-    /*! columns: 4; */
-    /*! span: 3; */
-    /*! context: NULL; */
-    /*! gutter: NULL; */
-    /*! shift: NULL; */
-    /*! .recursive::outputted { */
-    /*! 	width: 68.75%; */
-    /*! 	margin-right: 3.125%; */
-    /*! 	margin-left: 3.125%; */
-    /*! } */
+    -flint-instance-count: 4;
+    -flint-key: mobile;
+    -flint-breakpoint: 320px;
+    -flint-columns: 4;
+    -flint-span: 3;
+    -flint-context: NULL;
+    -flint-gutter: NULL;
+    -flint-shift: NULL;
+    -flint-outputted-width: 68.75%;
+    -flint-outputted-margin-right: 3.125%;
+    -flint-outputted-margin-left: 3.125%;
   }
 }
 ```
