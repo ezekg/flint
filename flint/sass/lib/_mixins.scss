@@ -73,16 +73,12 @@
 
 		// Check if value is output map
 		@if is_map($value) {
-
-			/*! #{selector_string()}::#{$property} { */
-				@each $mod_property, $mod_value in $value {
-					/*! 	#{$mod_property}: #{$mod_value}; */
-				}
-			/*! } */
-
+			@each $mod_property, $mod_value in $value {
+				-flint-outputted-#{$mod_property}: #{$mod_value};
+			}
 		// Else, print values as flagged comments
 		} @else {
-			/*! #{$property}: #{$value}; */
+			-flint-#{$property}: #{$value};
 		}
 	}
 }
