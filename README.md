@@ -236,6 +236,7 @@ styles in media-queries, so that they may be used in non-supported browsers.
 Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
 ```scss
+// `auto` will work
 .parent {
 	@include _(6);
 
@@ -243,6 +244,25 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 		@include _(3, auto); // Equivalent to : _(3, 6)
 	}
 }
+
+// Will also work
+.parent {
+	@include _(6);
+}
+.parent .recursive {
+	@include _(3, auto); // Equivalent to : _(3, 6)
+}
+
+// Will not work, as the child has no relation to the parent within the stylesheet
+.parent {
+	@include _(6);
+}
+.recursive {
+	@include _(3, auto); // Equivalent to : _(3, 6)
+}
+
+// When using `auto`, Flint 'falls back' from the topmost selector until one is found that has an
+// instance, and it will calculate it's context based on that instances span for the current breakpoint.
 ```
 
 Outputs,
