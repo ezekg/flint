@@ -10,9 +10,9 @@ Enjoy.
 
 ###Installation
 
-[1] `gem install flint-gs`
-[2] Add `require "flint"` to your `config.rb`
-[3] Import it in your stylesheets with `@import "flint";`
+1. `gem install flint-gs`
+2. Add `require "flint"` to your `config.rb`
+3. Import it in your stylesheets with `@import "flint";`
 
 If you don't want to install the gem, download/clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
 
@@ -138,34 +138,34 @@ Outputs, *(with debug mode on)*
   width: 17.1875%;
   margin-right: 0.78125%;
   margin-left: 0.78125%;
-  -flint-instance-count: 1;
-  -flint-key: desktop;
-  -flint-breakpoint: 1280px;
-  -flint-columns: 16;
-  -flint-span: 3;
-  -flint-context: NULL;
-  -flint-gutter: NULL;
-  -flint-shift: NULL;
-  -flint-output-width: 17.1875%;
-  -flint-output-margin-right: 0.78125%;
-  -flint-output-margin-left: 0.78125%;
+  -flint--instance-count: 1;
+  -flint--key: desktop;
+  -flint--breakpoint: 1280px;
+  -flint--columns: 16;
+  -flint--span: 3;
+  -flint--context: NULL;
+  -flint--gutter: NULL;
+  -flint--shift: NULL;
+  -flint--output-width: 17.1875%;
+  -flint--output-margin-right: 0.78125%;
+  -flint--output-margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
   .recursive {
     width: 22.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
-    -flint-instance-count: 2;
-    -flint-key: laptop;
-    -flint-breakpoint: 960px;
-    -flint-columns: 12;
-    -flint-span: 3;
-    -flint-context: NULL;
-    -flint-gutter: NULL;
-    -flint-shift: NULL;
-    -flint-output-width: 22.91667%;
-    -flint-output-margin-right: 1.04167%;
-    -flint-output-margin-left: 1.04167%;
+    -flint--instance-count: 2;
+    -flint--key: laptop;
+    -flint--breakpoint: 960px;
+    -flint--columns: 12;
+    -flint--span: 3;
+    -flint--context: NULL;
+    -flint--gutter: NULL;
+    -flint--shift: NULL;
+    -flint--output-width: 22.91667%;
+    -flint--output-margin-right: 1.04167%;
+    -flint--output-margin-left: 1.04167%;
   }
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
@@ -173,17 +173,17 @@ Outputs, *(with debug mode on)*
     width: 34.375%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
-    -flint-instance-count: 3;
-    -flint-key: tablet;
-    -flint-breakpoint: 640px;
-    -flint-columns: 8;
-    -flint-span: 3;
-    -flint-context: NULL;
-    -flint-gutter: NULL;
-    -flint-shift: NULL;
-    -flint-output-width: 34.375%;
-    -flint-output-margin-right: 1.5625%;
-    -flint-output-margin-left: 1.5625%;
+    -flint--instance-count: 3;
+    -flint--key: tablet;
+    -flint--breakpoint: 640px;
+    -flint--columns: 8;
+    -flint--span: 3;
+    -flint--context: NULL;
+    -flint--gutter: NULL;
+    -flint--shift: NULL;
+    -flint--output-width: 34.375%;
+    -flint--output-margin-right: 1.5625%;
+    -flint--output-margin-left: 1.5625%;
   }
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
@@ -191,17 +191,17 @@ Outputs, *(with debug mode on)*
     width: 68.75%;
     margin-right: 3.125%;
     margin-left: 3.125%;
-    -flint-instance-count: 4;
-    -flint-key: mobile;
-    -flint-breakpoint: 320px;
-    -flint-columns: 4;
-    -flint-span: 3;
-    -flint-context: NULL;
-    -flint-gutter: NULL;
-    -flint-shift: NULL;
-    -flint-output-width: 68.75%;
-    -flint-output-margin-right: 3.125%;
-    -flint-output-margin-left: 3.125%;
+    -flint--instance-count: 4;
+    -flint--key: mobile;
+    -flint--breakpoint: 320px;
+    -flint--columns: 4;
+    -flint--span: 3;
+    -flint--context: NULL;
+    -flint--gutter: NULL;
+    -flint--shift: NULL;
+    -flint--output-width: 68.75%;
+    -flint--output-margin-right: 3.125%;
+    -flint--output-margin-left: 3.125%;
   }
 }
 ```
