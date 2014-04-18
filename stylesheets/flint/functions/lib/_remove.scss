@@ -1,0 +1,15 @@
+// Removes value(s) $value from $list
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation/#remove
+// -------------------------------------------------------------------------------
+// @dependence `replace()`
+// -------------------------------------------------------------------------------
+// @param $list [List] : list
+// @param $value [Literal] : value to remove
+// @param $recursive [Boolean] : enable / disable recursivity
+// -------------------------------------------------------------------------------
+// @return [List]
+
+@function remove($list, $value) {
+	@return replace($list, $value, null);
+}

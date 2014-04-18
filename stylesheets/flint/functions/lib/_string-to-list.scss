@@ -1,0 +1,49 @@
+// Turns string into a flat list
+// -------------------------------------------------------------------------------
+// @param $string [String] : string
+// -------------------------------------------------------------------------------
+// @return [List] | error
+
+@function string-to-list($string) {
+	@if is-string($string) {
+		$string-list: ();
+		$space-indexes: ();
+		$find: " ";
+		$length: str-length($string);
+		// Find all spaces and their indices by looking over each character in string
+		@for $i from 1 through $length {
+			$slice: str-slice($string, $i, $i);
+			@if $slice == $find {
+				$space-indexes: append($space-indexes, $i, "comma");
+			}
+		}
+		@if length($space-indexes) >= 1 {
+			// Keep a count of number of spaces
+			$count: 1;
+			// Loop through each space
+			@each $space in $space-indexes {
+				// If is initial count, grab first substring and store in list
+				@if $count == 1 {
+					$matched-string: str-slice($string, 0, ($space - 1));
+					$string-list: append($string-list, $matched-string, "comma");
+				// Else, add a little math to make up for the spaces to do the same
+				} @else {
+					$matched-string: str-slice($string, (nth($space-indexes, ($count - 1)) + 1), ($space - 1));
+					$string-list: append($string-list, $matched-string, "comma");
+				}
+				// Increase count
+				$count: $count + 1;
+			}
+			// Now grab that last selector
+			$last-space: nth($space-indexes, length($space-indexes));
+			$matched-string: str-slice($string, ($last-space + 1), $length);
+			$string-list: append($string-list, $matched-string, "comma");
+			// Finally, return comma separated list of selectors
+			@return $string-list;
+		} @else {
+			@return false;
+		}
+	} @else {
+		@return "You did not input a valid string: #{$string}";
+	}
+}

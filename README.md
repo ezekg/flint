@@ -1,14 +1,8 @@
-#Flint
-*v0.1.0*
+#Flint [![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
 
-**Flint is a seemingly simple Sass based grid-system** built on
-**Sass 3.3** capable of complex responsive layouts customized at each 
-breakpoint, all while using a single mixin. All of your layout
-settings are housed in a simple config file. Flint will only
-output the code you need, and nothing else. Flint handles the 
-hard stuff, you do the rest.
+**Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on *Sass 3.3*, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file and is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
 
-Here's a small [demo on Sassmeister](http://sassmeister.com/gist/9657552) *(older version : v0.0.3)* to show what Flint is capable of. This is only the alpha, so let me know if you find any bugs, if you think the code could be more efficient, or if you would just like to help out.
+Here's a small [demo on Sassmeister](http://sassmeister.com/gist/9657552) *(older version : v0.0.3)* to show what Flint is capable of.
 
 Enjoy.
 
@@ -16,86 +10,72 @@ Enjoy.
 
 ###Installation
 
-Easiest way to use the current **alpha** build, is to use the starter `config.rb` to require any custom functions Flint uses. Currently, this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+[1] `gem install flint-gs`
+[2] Add `require "flint"` to your `config.rb`
+[3] Import it in your stylesheets with `@import "flint";`
 
-*If something is broken, I apologize But, I work on this from 2 locations, so sometimes the files are a work in progress and not always stable. Feel free to open an issue though, just so I can keep a record of things that break.*
+If you don't want to install the gem, download/clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
 
 ###Config
 
-Flint's `config map` is unique in the ability that you may
-define an unlimited number of breakpoints for your project. 
-Whether that be 2 breakpoints, or even 12. You're in full 
-control of your columns as well. Also, unlike most frameworks, 
-you may name these anything that you like. Flint is smart and 
-will figure out which one you're talking about.
+Flint's `config map` is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12. You're in full control of your columns as well. Also, unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about.
 
-Settings may be entered in `px` or `em`, and flint
-will do the rest.
+Settings may be entered in `px` or `em`, and Flint will do the rest.
 
-*Keep in mind, whatever unit you choose to use here needs to 
-be used consistently throughout. No mixing of `px` and `em` units.*
+*Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint. No mixing of `px` and `em` units.*
 
 ```scss
 $flint: (
 
-	// grid configuration
+    // grid configuration
+    "config": (
 
-	"config": (
+        // define breakpoints
+        "desktop": ( // [any alias you like, minus reserved flint words (i.e. "settings", etc.)]
+            "columns": 16, // [0-infinity]
+            "breakpoint": 1280px, // [0-infinity(unit)]
+        ),
+        "laptop": (
+            "columns": 12,
+            "breakpoint": 960px,
+        ),
+        "tablet": (
+            "columns": 8,
+            "breakpoint": 640px,
+        ),
+        "mobile": (
+            "columns": 4,
+            "breakpoint": 320px,
+        ),
 
-		// define breakpoints
-
-		"desktop": ( // [any alias you like, minus reserved Flint words (i.e. "settings", etc.)]
-			"columns": 16, // [0-infinity]
-			"breakpoint": 1280px, // [0-infinity]
-		),
-		"laptop": (
-			"columns": 12,
-			"breakpoint": 960px,
-		),
-		"tablet": (
-			"columns": 8,
-			"breakpoint": 640px,
-		),
-		"mobile": (
-			"columns": 4,
-			"breakpoint": 320px,
-		),
-
-		// additional grid settings
-
-		"settings": (
-			"default": "mobile", // [any breakpoint's alias : becomes default]
-			"grid": "fluid", // [fluid | fixed]
-			"gutter": 10px, // [0-infinity | false]
-			"float-style": "left", // [left | right]
-			"max-width": false, // [true (uses highest breakpoint) | false | value]
-			"center-container": true, // [true | false]
-			"border-box-sizing": true, // [true | false]
-			"debug-mode": true, // [true | false]
-		),
-	),
+        // additional grid settings
+        "settings": (
+            "default": "mobile", // [any breakpoint's alias : becomes main output]
+            "grid": "fluid", // [fluid | fixed]
+            "gutter": 10px, // [0-infinity(unit) | false]
+            "float-style": "left", // [left | right]
+            "max-width": false, // [true : uses highest breakpoint | false | value(unit)]
+            "center-container": true, // [true | false]
+            "border-box-sizing": true, // [true | false]
+            "debug-mode": true, // [true | false]
+        ),
+    ),
 );
 ```
 
 ###Foundation
 
-If you selected `border-box-sizing: true`, then it is 
-*advised* to create a global foundation instance like so,
+If you selected `border-box-sizing: true`, then it is *advised* to create a global foundation instance like so,
 
 ```scss
 @include _(foundation);
 ```
 
-That way your output won't be riddled with `box-sizing`
-declarations everytime you define a span. This will automatically
-output the rules onto the global selector `*`.
+That way your output won't be riddled with `box-sizing` declarations everytime you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
 
 ###Container
 
-You may define containers, which simply act as a row without the `float`
-property. This is really only useful on fixed grid layouts, or if you have a max-width set, but can be
-used elsewhere as a simple wrapper if desired. If you have `center-container` set to `true`, then it will
-also center your element using `auto` left and right margins.
+You may define containers, which simply act as a row without the `float` property. This is really only useful on fixed grid layouts, or if you have a max-width set, but can be used elsewhere as a simple wrapper if desired. If you have `center-container` set to `true`, then it will also center your element using `auto` left and right margins.
 
 ```scss
 .container {
@@ -109,6 +89,8 @@ Outputs,
 	display: block;
 	float: none;
 	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
 }
 ```
 
@@ -164,9 +146,9 @@ Outputs, *(with debug mode on)*
   -flint-context: NULL;
   -flint-gutter: NULL;
   -flint-shift: NULL;
-  -flint-outputted-width: 17.1875%;
-  -flint-outputted-margin-right: 0.78125%;
-  -flint-outputted-margin-left: 0.78125%;
+  -flint-output-width: 17.1875%;
+  -flint-output-margin-right: 0.78125%;
+  -flint-output-margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
   .recursive {
@@ -181,9 +163,9 @@ Outputs, *(with debug mode on)*
     -flint-context: NULL;
     -flint-gutter: NULL;
     -flint-shift: NULL;
-    -flint-outputted-width: 22.91667%;
-    -flint-outputted-margin-right: 1.04167%;
-    -flint-outputted-margin-left: 1.04167%;
+    -flint-output-width: 22.91667%;
+    -flint-output-margin-right: 1.04167%;
+    -flint-output-margin-left: 1.04167%;
   }
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
@@ -199,9 +181,9 @@ Outputs, *(with debug mode on)*
     -flint-context: NULL;
     -flint-gutter: NULL;
     -flint-shift: NULL;
-    -flint-outputted-width: 34.375%;
-    -flint-outputted-margin-right: 1.5625%;
-    -flint-outputted-margin-left: 1.5625%;
+    -flint-output-width: 34.375%;
+    -flint-output-margin-right: 1.5625%;
+    -flint-output-margin-left: 1.5625%;
   }
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
@@ -217,19 +199,16 @@ Outputs, *(with debug mode on)*
     -flint-context: NULL;
     -flint-gutter: NULL;
     -flint-shift: NULL;
-    -flint-outputted-width: 68.75%;
-    -flint-outputted-margin-right: 3.125%;
-    -flint-outputted-margin-left: 3.125%;
+    -flint-output-width: 68.75%;
+    -flint-output-margin-right: 3.125%;
+    -flint-output-margin-left: 3.125%;
   }
 }
 ```
 
-As you can see, since `desktop` is the framework `default`, it uses
-the output for desktop as the base styles. You can set this to any
-breakpoint you like. **So if you like mobile-first, you can do that.**
+As you can see, since `desktop` is the framework `default`, it uses the output for desktop as the base styles. You can set this to any breakpoint you like. **So if you like mobile-first, you can do that.**
 
-Whatever your `default` is set to, **flint** will not wrap those
-styles in media-queries, so that they may be used in non-supported browsers.
+Whatever your `default` is set to, **flint** will not wrap those styles in media-queries, so that they may be used in non-supported browsers.
 
 ###Recursive shorthand with identical context
 
@@ -347,8 +326,7 @@ recursive {
 
 ###Variable shorthand
 
-Use this if your content needs different spans across each breakpoints.
-The *order of operations* for this matches the order entered in your `config`.
+Use this if your content needs different spans across each breakpoints. The *order of operations* for this matches the order entered in your `config`.
 
 *You must include an argument for each breakpoint in your config.*
 
@@ -535,10 +513,7 @@ Outputs,
 
 ###Gutter modifiers
 
-Here are different gutter modifiers that may be called in when
-defining spans using the `$gutter` variable. **You should note**, 
-that when using shorthands the gutter modifiers are recursive
-across all breakpoints.
+Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. **You should note**, that when using shorthands the gutter modifiers are recursive across all breakpoints.
 
 ```scss
 // no left margin
@@ -564,10 +539,7 @@ across all breakpoints.
 
 ###Shift
 
-Much like the gutter modifiers, you may also call in a shift
-parameter using the `$shift` variable. This will cause the element 
-to shift the desired amount of columns using positive/negative 
-left margins. 
+Much like the gutter modifiers, you may also call in a shift parameter using the `$shift` variable. This will cause the element to shift the desired amount of columns using positive/negative left margins. 
 
 ```scss
 // shift 4 columns to the right across all breakpoints
@@ -590,15 +562,6 @@ for extra fine tuned control over your layouts.
 	@include _(16 12.1 8.9 4, $shift: 1.2 0 2 0, $gutter: row);
 }
 ```
-
-----
-
-**More features coming soon.**
-
-*Let me know if you find any bugs, or think of a feature that would be useful.*
-
-***Fork the project if you believe that the code could be more effecient and***
-***would like to help out.***
 
 ##BEM Users
 
@@ -642,8 +605,13 @@ This will allow the `instance` functions to properly fallback from `.block .bloc
 
 Going to start keeping a log of changes starting **today (4/11/14).**
 
+####4/21/14
+* Built `.gemspec` so that Flint can be installed via `gem install flint-gs`
+* Added `bower.json` so that Flint can be installed via Bower
+* Organized file structure by splitting functions/mixins into separate files for easier modifications/version control moving forward.
+
 ####4/12/14
-You can now tale advantage of both `$shift` and `$gutter` modifiers together.
+You can now take advantage of both `$shift` and `$gutter` modifiers together.
 
 ####4/11/14
 You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.

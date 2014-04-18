@@ -1,0 +1,32 @@
+// Calculate margin
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// @dependence `fluid-width()`
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint | "container"] : how to calculate value 
+// @param $span [Value] : span
+// @param $context [Value] : if context is needed
+// -------------------------------------------------------------------------------
+// @return [Value] | false
+
+@function calc-margin($key, $span, $context: NULL) {
+	@if get-value(settings, grid) == "fluid" {
+		@if $key == "container" or $span == "container" {
+			@return 0;
+		} @else if $context == NULL {
+			@return fluid-width(get-value(settings, gutter), get-value($key, breakpoint));
+		} @else {
+			@return fluid-width(get-value(settings, gutter), ((get-value($key, breakpoint) / get-value($key, columns) * $context)));
+		}
+	} @if get-value(settings, grid) == "fixed" {
+		@if $key == "container" or $span == "container" {
+			@return 0;
+		} @if $context == NULL {
+			@return get-value(settings, gutter);
+		} @else {
+			@return get-value(settings, gutter);
+		}
+	} @else {
+		@return false;
+	}
+}

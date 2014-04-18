@@ -1,0 +1,16 @@
+// Get single value from key in instance map based on $selector::$key
+// -------------------------------------------------------------------------------
+// @dependence `map-fetch()`
+// -------------------------------------------------------------------------------
+// @param $key [Value] : breakpoint key
+// @param $value [Value] : fetch value
+// -------------------------------------------------------------------------------
+// @return [Value]
+
+@function get-value($key, $value: NULL) {
+	@if $value == NULL {
+		@return map-fetch($flint, config $key);
+	} @else {
+		@return map-fetch($flint, config $key $value);
+	}
+}

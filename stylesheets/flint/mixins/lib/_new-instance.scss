@@ -1,0 +1,27 @@
+// Creates a new instance, adds to global instance map
+// -------------------------------------------------------------------------------
+// @param $calcKey [Values...] : breakpoint key
+// @param $calcSpan [Values...] : span
+// @param $calcContext [Values...] : context
+// @param $calcGutter [Values...] : gutter
+// @param $calcShift [Values...] : shift 
+// @param $outputWidth [Values...] : width
+// @param $outputMarginRight [Values...] : right margin
+// @param $outputMarginLeft [Values...] : left margin 
+// -------------------------------------------------------------------------------
+// @output [Map]
+
+@mixin newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
+	$flint__instances: 
+		instance(
+			$calcKey,
+			$calcSpan,
+			$calcContext,
+			$calcGutter,
+			$calcShift,
+			$outputWidth,
+			$outputMarginRight,
+			$outputMarginLeft
+		)
+	!global;
+}

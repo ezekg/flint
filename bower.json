@@ -1,0 +1,20 @@
+{
+  "name": "flint",
+  "version": "1.0.2",
+  "main": "stylesheets/_flint.scss",
+  "description": "Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.",
+  "authors": ["Ezekiel Gabrielse <ezekg@yahoo.com>", "Jake Chapa <jakechapa@gmail.com>"],
+  "homepage": "https://github.com/ezekg/flint/",
+  "keywords": [
+    "layout", "grid", "sass", "responsive", "rwd", "semantic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "*.json",
+    "*.gemspec",
+    "*.gem"
+  ],
+  "devDependencies": {
+  }
+}

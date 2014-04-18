@@ -1,0 +1,33 @@
+$flint: (
+    // grid configuration
+    "config": (
+        // define breakpoints
+        "desktop": ( // [any alias you like, minus reserved flint words (i.e. "settings", etc.)]
+            "columns": 16, // [0-infinity]
+            "breakpoint": 1280px, // [0-infinity(unit)]
+        ),
+        "laptop": (
+            "columns": 12,
+            "breakpoint": 960px,
+        ),
+        "tablet": (
+            "columns": 8,
+            "breakpoint": 640px,
+        ),
+        "mobile": (
+            "columns": 4,
+            "breakpoint": 320px,
+        ),
+        // additional grid settings
+        "settings": (
+            "default": "mobile", // [any breakpoint's alias : becomes main output]
+            "grid": "fluid", // [fluid | fixed]
+            "gutter": 10px, // [0-infinity(unit) | false]
+            "float-style": "left", // [left | right]
+            "max-width": false, // [true : uses highest breakpoint | false | value(unit)]
+            "center-container": true, // [true | false]
+            "border-box-sizing": true, // [true | false]
+            "debug-mode": true, // [true | false]
+        ),
+    ),
+) !default;

@@ -1,0 +1,36 @@
+// Fetch value from key in map
+// -------------------------------------------------------------------------------
+// @dependence `map-fetche()`
+// -------------------------------------------------------------------------------
+// @param $i [Map] : map
+// @param $n [Keys...] : keys
+// -------------------------------------------------------------------------------
+// @return [Value] | false
+
+@function map-fetch($map, $keys) {
+	$key: nth($keys, 1);
+	$length: length($keys);
+	$value: map-get($map, $key);
+
+	// check if value equals NULL (meaning the @param was incorrect)
+	// return false so that sass still compiles without errors
+
+	@if $value == NULL {
+		@return false;
+	}
+
+	@else {
+		@if $length > 1 {
+			$rest: ();
+
+			@for $i from 2 through $length {
+				$rest: append($rest, nth($keys, $i))
+			} 
+
+			@return map-fetch($value, $rest);
+			
+		} @else {
+			@return $value;
+		}
+	}
+}

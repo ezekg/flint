@@ -1,0 +1,25 @@
+// Replaces $old by $new in $list
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation.html#replace
+// -------------------------------------------------------------------------------
+// @param $list [List] : list
+// @param $old [Literal] : value to replace
+// @param $value [Literal] : new value for $old
+// -------------------------------------------------------------------------------
+// @return [List]
+
+@function replace($list, $old, $value) {
+  $running: true;
+
+	@while $running {
+		$index: index($list, $old);
+
+		@if not $index {
+			$running: false;
+		} @else {
+			$list: set-nth($list, $index, $value);
+		}
+	}
+
+	@return if(not is-true($value), purge($list), $list);
+}

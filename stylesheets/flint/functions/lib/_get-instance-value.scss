@@ -1,0 +1,19 @@
+// Get single value from key in instance map based on $selector::$key
+// -------------------------------------------------------------------------------
+// @dependence `map-fetch()`
+// -------------------------------------------------------------------------------
+// @warning : all [Values] @returned are strings and must be converted with `to-number()`
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint] : key
+// @param $value [Value] : value
+// @param $deep [Value] : fetch deep value
+// -------------------------------------------------------------------------------
+// @return [Value]
+
+@function get-instance-value($key, $value, $deep: NULL) {
+	@if $deep == NULL {
+		@return map-fetch($flint__instances, family-instance-exists($key) $value);
+	} @else {
+		@return map-fetch($flint__instances, family-instance-exists($key) $value $deep);
+	}
+}

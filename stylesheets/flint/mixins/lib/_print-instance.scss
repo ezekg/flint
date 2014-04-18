@@ -1,0 +1,37 @@
+// Prints debug output into compiled stylesheet as flagged comments
+// -------------------------------------------------------------------------------
+// @dependence `printInstance()`
+// -------------------------------------------------------------------------------
+// @param $calcKey [Breakpoint] : breakpoint key to search for instance
+// -------------------------------------------------------------------------------
+// @output [Styles...]
+
+@mixin debugPrintInstance($calcKey) {
+	@if get-value(settings, debug-mode) == true {
+		$printKey: "#{selector_string()}" + "::" + "#{$calcKey}";
+		@include printInstance( map-get( $flint__instances, unquote($printKey) ) );
+	}
+}
+
+// Prints all contents of instance as flagged comments
+// -------------------------------------------------------------------------------
+// @param $instance [Map] : instance
+// -------------------------------------------------------------------------------
+// @output [Styles...]
+
+@mixin printInstance($instance) {
+
+	// Loop through each property in passed instance
+	@each $property, $value in $instance {
+
+		// Check if value is output map
+		@if is_map($value) {
+			@each $mod_property, $mod_value in $value {
+				-flint--output-#{$mod_property}: #{$mod_value};
+			}
+		// Else, print values as flagged comments
+		} @else {
+			-flint-#{$property}: #{$value};
+		}
+	}
+}

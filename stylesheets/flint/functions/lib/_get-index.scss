@@ -1,0 +1,15 @@
+// Gets the index of the passed key
+// -------------------------------------------------------------------------------
+// @dependence `steal-key()`
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint] : breakpoint key
+// -------------------------------------------------------------------------------
+// @return [Value]
+
+@function get-index($key) {
+  	@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
+		@if steal-key($i) == $key {
+			@return $i;
+		}
+	}
+}

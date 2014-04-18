@@ -1,1 +1,2 @@
-_pyrite
+# Ignore gem file
+*.gem

@@ -1,0 +1,38 @@
+// Keeps count of all instances with arguments, stores in global var
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// -------------------------------------------------------------------------------
+// @param $key [Breakpoint] : computed breakpoint of instance
+// @param $span [Value] : computed span of instance
+// @param $context [Value] : computed context of instance
+// @param $gutter [Value] : computed gutter of instance
+// @param $shift [Value] : computed shift of instance
+// @param $outputWidth [Value] : computed width of instance
+// @param $outputMarginRight [Value] : computed right margin of instance
+// @param $outputMarginLeft [Value] : computed left margin of instance
+// -------------------------------------------------------------------------------
+// @return [Value] | map
+
+@function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
+    $instance-count: $instance-count + 1 !global;
+
+    $flint__instance: (
+		"#{selector_string()}::#{$key}": (
+			"instance-count": #{$instance-count},
+			"key": #{$key},
+			"breakpoint": #{get-value($key, breakpoint)},
+			"columns": #{get-value($key, columns)},
+			"span": #{$span},
+			"context": #{$context},
+			"gutter": #{$gutter},
+			"shift": #{$shift},
+			"outputted": (
+				"width": #{$outputWidth},
+				"margin-right": #{$outputMarginRight},
+				"margin-left": #{$outputMarginLeft},
+			),
+		),
+    );
+    
+    @return map-merge($flint__instances, $flint__instance);
+}
