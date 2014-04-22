@@ -12,8 +12,8 @@
 
 @function get-instance-value($key, $value, $deep: NULL) {
 	@if $deep == NULL {
-		@return map-fetch($flint__instances, family-instance-exists($key) $value);
+		@return map-fetch($flint__instances, get-family-instance($key) $value);
 	} @else {
-		@return map-fetch($flint__instances, family-instance-exists($key) $value $deep);
+		@return map-fetch($flint__instances, get-family-instance($key) $value $deep);
 	}
 }

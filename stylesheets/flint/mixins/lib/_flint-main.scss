@@ -15,13 +15,11 @@
 	@if $key == "foundation" {
 
 		// apply global border-box-sizing if true
-
 		@if get-value(settings, border-box-sizing) == true {
 			$foundation: "existant" !global;
 		}
 		
 		// foundation is now globally existant
-		
 		@if $foundation == "existant" {
 			@at-root *, *:before, *:after {
 	  			-moz-box-sizing: border-box;
@@ -45,7 +43,6 @@
 	{
 
 		// only apply display rule if the key is the default
-
 		@if $key == get-value(settings, default) or $key == "container" {
 
 			display: block;
@@ -62,25 +59,21 @@
 		}
 		
 		// apply individually if foundation is not set globally, but is set to true in config
-		
 		@if get-value(settings, border-box-sizing) == true and $foundation == "nonexistant" {
   			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 
 			// warn to either set a global foundation, or turn border-box-sizing off
-
 			@if global-variable-exists(global-foundation-is-set) == false {
 				@warn "Global foundation is #{$foundation}. To avoid repeated box-sizing incidents, set a global flint(foundation) rule, or turn border-box-sizing to false in your config file.";
 
 				// declare global variable so only a single warning prints out
-
 				$global-foundation-is-set: true !global;
 			}
 		}
 
 		// check if max-width is set
-
 		@if get-value(settings, max-width) == true {
 			max-width: max(get-all-breakpoints()...);
 		} @else if type-of(get-value(settings, max-width)) == number {
@@ -88,7 +81,6 @@
 		}
 
 		// check if center container is set to true
-
 		@if $key == "container" {
 			float: none;
 
@@ -437,7 +429,6 @@
 	} @else if exists($flint, $key) and $span == NULL and $context == NULL or length($key) > 1 {
 
 		// only key-x breakpoint
-
 		@if length($key) == 1 {
 			
 			@if is-highest-breakpoint($key) == true {
@@ -450,22 +441,19 @@
 				}
 			}
 
-			// from key breakpoint to infinity
-
+		// from key breakpoint to infinity
 		} @else if length($key) > 1 and nth($key, 1) == "from" and nth($key, 3) == "to" and nth($key, 4) == "infinity" {
 			@media only screen and ( min-width: calc-breakpoint(from, nth($key, 2), get-index(nth($key, 2))) ) {
 				@content;
 			}
 
-			// from key-x breakpoint to key-y breakpoint
-
+		// from key-x breakpoint to key-y breakpoint
 		} @else if length($key) > 1 and nth($key, 1) == "from" and nth($key, 3) == "to" {
 			@media only screen and ( min-width: calc-breakpoint(from, nth($key, 2), get-index(nth($key, 2))) ) and ( max-width: calc-breakpoint(to, nth($key, 4), get-index(nth($key, 4))) ) {
 				@content;
 			}
 
-			// greater than key-x breakpoint
-
+		// greater than key-x breakpoint
 		} @else if length($key) > 1 and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 			@if get-value(settings, grid) == "fluid" {
 				@media only screen and ( min-width: (calc-breakpoint(to, nth($key, 3), get-index(nth($key, 3))) + 1) ) {
@@ -477,15 +465,13 @@
 				}
 			}
 
-			// (y)px greater than key-x breakpoint
-
+		// (y)px greater than key-x breakpoint
 		} @else if length($key) > 1 and nth($key, 2) == "greater" and nth($key, 3) == "than" {
 			@media only screen and ( min-width: (calc-breakpoint(to, nth($key, 4), get-index(nth($key, 4))) + nth($key, 1)) ) {
 				@content;
 			}
 
-			// less than key-x breakpoint
-
+		// less than key-x breakpoint
 		} @else if length($key) > 1 and nth($key, 1) == "less" and nth($key, 2) == "than" {
 			@if get-value(settings, grid) == "fluid" {
 				@media only screen and ( max-width: (calc-breakpoint(to, nth($key, 3), get-index(nth($key, 3))) - 1) ) {
@@ -497,15 +483,13 @@
 				}
 			}
 
-			// (y)px less than key-x breakpoint
-
+		// (y)px less than key-x breakpoint
 		} @else if length($key) > 1 and nth($key, 2) == "less" and nth($key, 3) == "than" {
 			@media only screen and ( max-width: (calc-breakpoint(to, nth($key, 4), get-index(nth($key, 4))) - nth($key, 1)) ) {
 				@content;
 			}
 
-			// for key-x key-y key-z
-
+		// for key-x key-y key-z
 		} @else if length($key) > 1 and nth($key, 1) == "for" {
 			@for $i from 1 through length($key) {
 				@if exists($flint, nth($key, $i)) {

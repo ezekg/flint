@@ -9,7 +9,6 @@
 // -------------------------------------------------------------------------------
 // @output [Styles...]
 
-// Calculates width and margins based on passed arguments
 @mixin calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i: NULL) {
 
 	@if $i != NULL {
@@ -110,13 +109,13 @@
 
 	} @else if $calcContext != NULL {
 		// Check if context of parent instance exists
-		$exists: family-instance-exists($calcKey);
+		$exists: get-family-instance($calcKey);
 
 		@if $calcShift != NULL {
 			@if $calcGutter == NULL and get-value(settings, gutter) != false {
 				// Check if context is set to auto
 				@if $calcContext == "auto" {
-					// Did it exist?
+					// Does parent exist?
 					@if $exists != false {
 
 						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);

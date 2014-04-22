@@ -18,7 +18,7 @@ If you don't want to install the gem, download/clone the current build files and
 
 ###Config
 
-Flint's `config map` is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12. You're in full control of your columns as well. Also, unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about.
+Flint's `config map` is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12. You're in full control of your columns as well. Also, unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about. To begin, you can either use the default config (below) which comes baked in, or you can define your own using the `$flint` variable using the template below.
 
 Settings may be entered in `px` or `em`, and Flint will do the rest.
 

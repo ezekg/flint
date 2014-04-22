@@ -25,7 +25,7 @@
 	@each $property, $value in $instance {
 
 		// Check if value is output map
-		@if is_map($value) {
+		@if is-map($value) {
 			@each $mod_property, $mod_value in $value {
 				-flint--output-#{$mod_property}: #{$mod_value};
 			}

@@ -11,7 +11,7 @@
 // -------------------------------------------------------------------------------
 // @return [Selectors] | false
 
-@function family-instance-exists($key: get-value(settings, default)) {
+@function get-family-instance($key: get-value(settings, default)) {
 	$selector-string: selector_string();
 	$selector-list: string-to-list($selector-string);
 	$length: length($selector-list);

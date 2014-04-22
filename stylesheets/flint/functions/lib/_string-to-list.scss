@@ -1,14 +1,14 @@
 // Turns string into a flat list
 // -------------------------------------------------------------------------------
 // @param $string [String] : string
+// @param $find [Separator] : item to find which separates substrings (default is single space [" "])
 // -------------------------------------------------------------------------------
 // @return [List] | error
 
-@function string-to-list($string) {
+@function string-to-list($string, $find: " ") {
 	@if is-string($string) {
 		$string-list: ();
 		$space-indexes: ();
-		$find: " ";
 		$length: str-length($string);
 		// Find all spaces and their indices by looking over each character in string
 		@for $i from 1 through $length {
