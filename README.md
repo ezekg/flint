@@ -461,7 +461,7 @@ Use these if you need to apply breakpoint specific styling.
 }
 ```
 
-###Call by name
+###Call by alias
 
 Use if you want to define each span without shorthands. This is useful if you need variable `gutter` modifiers.
 
@@ -605,16 +605,16 @@ This will allow the `instance` functions to properly fallback from `.block .bloc
 
 Going to start keeping a log of changes starting **today (4/11/14).**
 
-####4/21/14
+####4/18/14
 * Built `.gemspec` so that Flint can be installed via `gem install flint-gs`
 * Added `bower.json` so that Flint can be installed via Bower
 * Organized file structure by splitting functions/mixins into separate files for easier modifications/version control moving forward.
 
 ####4/12/14
-You can now take advantage of both `$shift` and `$gutter` modifiers together.
+* You can now take advantage of both `$shift` and `$gutter` modifiers together.
 
 ####4/11/14
-You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
+* You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
 
 
 
