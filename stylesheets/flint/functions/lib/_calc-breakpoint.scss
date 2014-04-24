@@ -12,7 +12,7 @@
 @function calc-breakpoint($n, $key, $i) {
 	@if get-value(settings, grid) == "fluid" {
 		@if $n == "from" {
-			@if $i == (length(map-fetch($flint, config)) - 1) {
+			@if is-lowest-breakpoint($key) {
 				@return 0;
 			} @else {
 				@return (get-value(next-index($i), breakpoint) + 1);
@@ -22,7 +22,7 @@
 		}
 	} @else if get-value(settings, grid) == "fixed" {
 		@if $n == "from" {
-			@if $i == (length(map-fetch($flint, config)) - 1) {
+			@if is-lowest-breakpoint($key) {
 				@return 0;
 			} @else {
 				@return get-value($key, breakpoint);

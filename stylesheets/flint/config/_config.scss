@@ -1,7 +1,25 @@
+// Configuration map
+//--------------------------------------------------------------------------------
+// @param [Breakpoints] : Here you can set up your various breakpoints for your
+// project. Any number of breakpoints is acceptable. You must include a column
+// count and breakpoint value for each listed breakpoint. Order does not have
+// to follow `ASC` or `DESC`. Unit chosen here must be used consistently
+// throughout the rest of the config map.
+//--------------------------------------------------------------------------------
+// @param default [Alias] : alias of breakpoint that is your grid default
+// @param grid [Style] : style of grid
+// @param gutter [Value | false] : contextual size of gutter
+// @param float-style [Value | false] : float direction
+// @param max-width [Value | false] : max-width for `containers`
+// @param center-container [Boolean] : if you want a centered container
+// @param border-box-sizing [Boolean] : if you want box-sizing: border-box applied
+// @param debug-mode [Boolean] : ouputs debug properties
+// -------------------------------------------------------------------------------
+
 $flint: (
     // grid configuration
     "config": (
-        // define breakpoints
+        // define breakpoints [any amount of breakpoints]
         "desktop": ( // [any alias you like, minus reserved flint words (i.e. "settings", etc.)]
             "columns": 16, // [0-infinity]
             "breakpoint": 1280px, // [0-infinity(unit)]
@@ -18,9 +36,9 @@ $flint: (
             "columns": 4,
             "breakpoint": 320px,
         ),
-        // additional grid settings
+        // additional grid settings [required]
         "settings": (
-            "default": "mobile", // [any breakpoint's alias : becomes main output]
+            "default": "mobile", // [any breakpoint's alias]
             "grid": "fluid", // [fluid | fixed]
             "gutter": 10px, // [0-infinity(unit) | false]
             "float-style": "left", // [left | right]

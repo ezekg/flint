@@ -6,6 +6,7 @@
 // @return [Boolean]
 
 @function exists($map, $value){
+	
 	@if is-map($map) {
 		@if map-has-key($map, $value) {
 			@return true;
@@ -15,5 +16,7 @@
 				@return true;
 			}
 		}
-	} @return false;
+	} 
+
+	@return false;
 }

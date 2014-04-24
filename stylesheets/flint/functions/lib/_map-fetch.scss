@@ -12,10 +12,10 @@
 	$length: length($keys);
 	$value: map-get($map, $key);
 
-	// check if value equals NULL (meaning the @param was incorrect)
-	// return false so that sass still compiles without errors
+	// check if value equals NULL (meaning the @param was incorrect and the map doesn't exist)
 
 	@if $value == NULL {
+		@warn "Invalid arguments padded to function: `map-fetch(#{$map}, #{$keys})`";
 		@return false;
 	}
 

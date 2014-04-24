@@ -1,3 +1,18 @@
+// Outputs calculated styles
+// -------------------------------------------------------------------------------
+// @param $width [Value] : width
+// @param $margin-right [Value] : right margin
+// @param $margin-left [Value] : left margin
+// -------------------------------------------------------------------------------
+// @output [Styles...]
+
+@mixin outputFlint ($width, $margin-right, $margin-left) {
+	width: $width;
+	margin-right: $margin-right;
+	margin-left: $margin-left;
+	@content;
+}
+
 // Calculate widths, save all variables to instance
 // -------------------------------------------------------------------------------
 // @param $calcKey [Values...] : breakpoint key
@@ -44,15 +59,30 @@
 			));
 
 			// Output styles
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			// Create new instance for memoization
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 
 			// If debug mode, print instance
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*4);
+			$outputMarginRight: calc-margin($calcKey, $calcSpan);
+			$outputMarginLeft: ( if( $calcShift > 0, 
+				(calc-margin($calcKey, $calcSpan)) + (calc-width($calcKey, $calcShift)),
+				(calc-margin($calcKey, -$calcSpan)) + (calc-width($calcKey, $calcShift)) 
+			));
+
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
 
 		} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
@@ -64,10 +94,9 @@
 				calc-width($calcKey, $calcShift)
 			));
 
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
@@ -81,10 +110,9 @@
 				(calc-margin($calcKey, -$calcSpan)) + (calc-width($calcKey, $calcShift)) 
 			));
 
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
@@ -98,10 +126,9 @@
 				calc-width($calcKey, $calcShift)
 			));
 
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
@@ -125,10 +152,9 @@
 							(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
 						));
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -147,10 +173,50 @@
 						(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
 					));
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
+
+					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+					@include debugPrintInstance($calcKey);
+				}
+
+			} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+
+				@if $calcContext == "auto" {
+					@if $exists != false {
+
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
+						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						$outputMarginLeft: ( if( $calcShift > 0, 
+							(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
+							(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+						));
+
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+						
+					} @else {
+						// Else warn that context should not be set to `auto`
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+					// Output styles normally if not set to auto
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
+					$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+					$outputMarginLeft: ( if( $calcShift > 0, 
+						(calc-margin($calcKey, $calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)),
+						(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
+					));
+
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -168,10 +234,9 @@
 							calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
 						));
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -188,10 +253,9 @@
 						calc-width($calcKey, $calcShift, $calcContext)
 					));
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -209,10 +273,9 @@
 							(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
 						));
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -229,10 +292,9 @@
 						(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
 					));
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -250,10 +312,9 @@
 							calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
 						));
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -270,10 +331,9 @@
 						calc-width($calcKey, $calcShift, $calcContext)
 					));
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -290,10 +350,9 @@
 						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 						$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -309,10 +368,42 @@
 					$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
 					$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
+
+					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+					@include debugPrintInstance($calcKey);
+				}
+
+			} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+
+				@if $calcContext == "auto" {
+					@if $exists != false {
+
+						$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
+						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+						$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
+
+						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include debugPrintInstance($calcKey);
+
+					} @else {
+						@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+					}
+				} @else {
+
+					$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
+					$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
+					$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
+
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -327,10 +418,9 @@
 						$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 						$outputMarginLeft: 0;
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -344,10 +434,9 @@
 					$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
 					$outputMarginLeft: 0;
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -362,10 +451,9 @@
 						$outputMarginRight: 0;
 						$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -379,10 +467,9 @@
 					$outputMarginRight: 0;
 					$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -397,10 +484,9 @@
 						$outputMarginRight: 0;
 						$outputMarginLeft: 0;
 
-						width: $outputWidth;
-						margin-right: $outputMarginRight;
-						margin-left: $outputMarginLeft;
-						@content;
+						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+							@content;
+						}
 
 						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
@@ -414,10 +500,9 @@
 					$outputMarginRight: 0;
 					$outputMarginLeft: 0;
 
-					width: $outputWidth;
-					margin-right: $outputMarginRight;
-					margin-left: $outputMarginLeft;
-					@content;
+					@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+						@content;
+					}
 
 					@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 					@include debugPrintInstance($calcKey);
@@ -433,10 +518,22 @@
 			$outputMarginRight: calc-margin($calcKey, $calcSpan);
 			$outputMarginLeft: calc-margin($calcKey, $calcSpan);
 
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
+
+			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			@include debugPrintInstance($calcKey);
+
+		} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+
+			$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*4);
+			$outputMarginRight: calc-margin($calcKey, $calcSpan);
+			$outputMarginLeft: calc-margin($calcKey, $calcSpan);
+
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
@@ -447,10 +544,9 @@
 			$outputMarginRight: calc-margin($calcKey, $calcSpan);
 			$outputMarginLeft: 0;
 
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
@@ -461,10 +557,9 @@
 			$outputMarginRight: 0;
 			$outputMarginLeft: calc-margin($calcKey, $calcSpan);
 
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);
@@ -475,10 +570,9 @@
 			$outputMarginRight: 0;
 			$outputMarginLeft: 0;
 
-			width: $outputWidth;
-			margin-right: $outputMarginRight;
-			margin-left: $outputMarginLeft;
-			@content;
+			@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
+				@content;
+			}
 
 			@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 			@include debugPrintInstance($calcKey);

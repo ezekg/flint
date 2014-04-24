@@ -14,11 +14,11 @@
 // @return [Value] | map
 
 @function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
-    $instance-count: $instance-count + 1 !global;
+    $flint__instance-count: $flint__instance-count + 1 !global;
 
     $flint__instance: (
 		"#{selector_string()}::#{$key}": (
-			"instance-count": #{$instance-count},
+			"instance-count": #{$flint__instance-count},
 			"key": #{$key},
 			"breakpoint": #{get-value($key, breakpoint)},
 			"columns": #{get-value($key, columns)},

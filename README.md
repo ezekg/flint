@@ -25,12 +25,28 @@ Settings may be entered in `px` or `em`, and Flint will do the rest.
 *Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint. No mixing of `px` and `em` units.*
 
 ```scss
-$flint: (
+// Configuration map
+//--------------------------------------------------------------------------------
+// @param [Breakpoints] : Here you can set up your various breakpoints for your
+// project. Any number of breakpoints is acceptable. You must include a column
+// count and breakpoint value for each listed breakpoint. Order does not have
+// to follow `ASC` or `DESC`. Unit chosen here must be used consistently
+// throughout the rest of the config map.
+//--------------------------------------------------------------------------------
+// @param default [Alias] : alias of breakpoint that is your grid default
+// @param grid [Style] : style of grid
+// @param gutter [Value | false] : contextual size of gutter
+// @param float-style [Value | false] : float direction
+// @param max-width [Value | false] : max-width for `containers`
+// @param center-container [Boolean] : if you want a centered container
+// @param border-box-sizing [Boolean] : if you want box-sizing: border-box applied
+// @param debug-mode [Boolean] : ouputs debug properties
+// -------------------------------------------------------------------------------
 
+$flint: (
     // grid configuration
     "config": (
-
-        // define breakpoints
+        // define breakpoints [any amount of breakpoints]
         "desktop": ( // [any alias you like, minus reserved flint words (i.e. "settings", etc.)]
             "columns": 16, // [0-infinity]
             "breakpoint": 1280px, // [0-infinity(unit)]
@@ -47,17 +63,16 @@ $flint: (
             "columns": 4,
             "breakpoint": 320px,
         ),
-
-        // additional grid settings
+        // additional grid settings [required]
         "settings": (
-            "default": "mobile", // [any breakpoint's alias : becomes main output]
+            "default": "desktop", // [any breakpoint's alias]
             "grid": "fluid", // [fluid | fixed]
             "gutter": 10px, // [0-infinity(unit) | false]
             "float-style": "left", // [left | right]
             "max-width": false, // [true : uses highest breakpoint | false | value(unit)]
             "center-container": true, // [true | false]
             "border-box-sizing": true, // [true | false]
-            "debug-mode": true, // [true | false]
+            "debug-mode": true, // [true | false ]
         ),
     ),
 );
@@ -212,7 +227,7 @@ Whatever your `default` is set to, **flint** will not wrap those styles in media
 
 ###Recursive shorthand with identical context
 
-Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all. **Context is not needed on `fixed` grids.**
 
 ```scss
 // `auto` will work
@@ -467,15 +482,15 @@ Use if you want to define each span without shorthands. This is useful if you ne
 
 ```scss
 .name {
-	@include _(desktop, 8, $gutter: omega);
-	@include _(laptop, 4, $gutter: omega);
-	@include _(tablet, 8, $gutter: row);
-	@include _(mobile, 4, $gutter: row);
+	@include _(desktop, 8);
+	@include _(laptop, 4);
+	@include _(tablet, 8);
+	@include _(mobile, 4);
 }
 
 // with context,
 // .name {
-//	  @include _(desktop, 4, 16);
+//	  @include _(desktop, 4, 16, $gutter: alpha);
 // }
 ```
 
@@ -517,23 +532,88 @@ Here are different gutter modifiers that may be called in when defining spans us
 
 ```scss
 // no left margin
-.name {
+.gutter {
 	@include _(desktop, 4, $gutter: alpha);
 }
 
 // no right margin
-.name {
+.gutter {
 	@include _(desktop, 4, $gutter: omega);
 }
 
 // no margins
-.name {
+.gutter {
 	@include _(desktop, 4, $gutter: row);
 }
 
+// places gutters on inside by reducing column width by [gutter*2]
+// useful for nesting children inside of parents that have normal gutters on fixed grid layouts
+.gutter {
+	@include _(desktop, 4, $gutter: inside);
+}
+
 // recursive
-.recursive {
+.recursive-gutter {
 	@include _(16 12 8 4, $gutter: row);
+}
+```
+Outputs,
+```scss
+.gutter {
+	display: block;
+	float: left;
+	width: 24.21875%;
+	margin-right: 0.78125%;
+	margin-left: 0;
+}
+.gutter {
+	display: block;
+	float: left;
+	width: 24.21875%;
+	margin-right: 0;
+	margin-left: 0.78125%;
+}
+.gutter {
+	display: block;
+	float: left;
+	width: 25%;
+	margin-right: 0;
+	margin-left: 0;
+}
+.gutter {
+	display: block;
+	float: left;
+	width: 21.875%;
+	margin-right: 0.78125%;
+	margin-left: 0.78125%;
+}
+.recursive-gutter {
+	display: block;
+	float: left;
+	width: 100%;
+	margin-right: 0;
+	margin-left: 0;
+}
+@media only screen and (min-width: 641px) and (max-width: 960px) {
+	.recursive-gutter {
+		width: 100%;
+		margin-right: 0;
+		margin-left: 0;
+	}
+}
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+	.recursive-gutter {
+		width: 100%;
+		margin-right: 0;
+		margin-left: 0;
+	}
+}
+@media only screen and (min-width: 0) and (max-width: 320px) {
+	.recursive-gutter {
+		width: 100%;
+		margin-right: 0;
+		margin-left: 0;
+	}
 }
 ```
 
@@ -559,13 +639,88 @@ for extra fine tuned control over your layouts.
 
 ```scss
 .break-the-grid {
-	@include _(16 12.1 8.9 4, $shift: 1.2 0 2 0, $gutter: row);
+	@include _(16/3 12.1 8.9 4, $shift: 1.2 0 2 0, $gutter: row);
+}
+```
+Outputs,
+```scss
+.break-the-grid {
+	display: block;
+	float: left;
+	width: 33.33333%;
+	margin-right: 0;
+	margin-left: 7.5%;
+	-flint-instance-count: 9;
+	-flint-key: desktop;
+	-flint-breakpoint: 1280px;
+	-flint-columns: 16;
+	-flint-span: 5.33333;
+	-flint-context: NULL;
+	-flint-gutter: row;
+	-flint-shift: 1.2;
+	-flint--output-width: 33.33333%;
+	-flint--output-margin-right: 0;
+	-flint--output-margin-left: 7.5%;
+}
+@media only screen and (min-width: 641px) and (max-width: 960px) {
+	.break-the-grid {
+		width: 100.83333%;
+		margin-right: 0;
+		margin-left: 0%;
+		-flint-instance-count: 10;
+		-flint-key: laptop;
+		-flint-breakpoint: 960px;
+		-flint-columns: 12;
+		-flint-span: 12.1;
+		-flint-context: NULL;
+		-flint-gutter: row;
+		-flint-shift: 0;
+		-flint--output-width: 100.83333%;
+		-flint--output-margin-right: 0;
+		-flint--output-margin-left: 0%;
+	}
+}
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+	.break-the-grid {
+		width: 111.25%;
+		margin-right: 0;
+		margin-left: 25%;
+		-flint-instance-count: 11;
+		-flint-key: tablet;
+		-flint-breakpoint: 640px;
+		-flint-columns: 8;
+		-flint-span: 8.9;
+		-flint-context: NULL;
+		-flint-gutter: row;
+		-flint-shift: 2;
+		-flint--output-width: 111.25%;
+		-flint--output-margin-right: 0;
+		-flint--output-margin-left: 25%;
+	}
+}
+@media only screen and (min-width: 0) and (max-width: 320px) {
+	.break-the-grid {
+		width: 100%;
+		margin-right: 0;
+		margin-left: 0%;
+		-flint-instance-count: 12;
+		-flint-key: mobile;
+		-flint-breakpoint: 320px;
+		-flint-columns: 4;
+		-flint-span: 4;
+		-flint-context: NULL;
+		-flint-gutter: row;
+		-flint-shift: 0;
+		-flint--output-width: 100%;
+		-flint--output-margin-right: 0;
+		-flint--output-margin-left: 0%;
+	}
 }
 ```
 
 ##BEM Users
 
-Due to the way **BEM** is written, the `instance` functions cannot fallback to previous selectors in the family tree to find a `parent instance`, so using `$context: auto` will not work for some BEM users, depending on how you write it.
+Due to the way **BEM** is written, the instance functions cannot fallback to previous selectors in the family tree to find a parent instance, so using `$context: auto` will not work for some BEM users, depending on how you write it.
 
 ```scss
 .block {
@@ -587,9 +742,20 @@ Will result in a` @warning`, and will not compile correctly as `.block` and `.bl
 		@include _(2, auto);
 	}
 }
+
+// Or...
+
+.block {
+	@include _(4);
+
+	// Double your ampersands
+	& &__element {
+		@include _(2, auto);
+	}
+}
 ```
 
-This will allow the `instance` functions to properly fallback from `.block .block__element` to `.block` to check for context. If writing BEM like that just isn't your thing, you can manually enter your context:
+This will allow the instance functions to properly fallback from `.block .block__element` to `.block` to check for context. If writing BEM like that just isn't your thing, you can manually enter your context:
 
 ```scss
 .block {
@@ -604,6 +770,11 @@ This will allow the `instance` functions to properly fallback from `.block .bloc
 ##Change Log
 
 Going to start keeping a log of changes starting **today (4/11/14).**
+
+####4/24/14
+* Added `$gutter: inside` modifier
+* Cleaned up variable/function names
+* Added detailed comments to all mixins/functions
 
 ####4/18/14
 * Built `.gemspec` so that Flint can be installed via `gem install flint-gs`

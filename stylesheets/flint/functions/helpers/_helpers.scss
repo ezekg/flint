@@ -125,6 +125,20 @@
 	}
 }
 
+// Grabs highest breakpoint
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// -------------------------------------------------------------------------------
+// @return [Boolean]
+
+@function is-lowest-breakpoint($key) {
+	@if get-value($key, breakpoint) == min(get-all-breakpoints()...) {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
 // Gets all breakpoint column values
 // -------------------------------------------------------------------------------
 // @return [List]

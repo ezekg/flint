@@ -16,11 +16,11 @@
 
 		// apply global border-box-sizing if true
 		@if get-value(settings, border-box-sizing) == true {
-			$foundation: "existant" !global;
+			$flint__foundation: "existant" !global;
 		}
 		
 		// foundation is now globally existant
-		@if $foundation == "existant" {
+		@if $flint__foundation == "existant" {
 			@at-root *, *:before, *:after {
 	  			-moz-box-sizing: border-box;
 				-webkit-box-sizing: border-box;
@@ -49,7 +49,7 @@
 
 		} @else if length($key) > 1 or type-of($key) != "string" {
 
-			@for $i from 1 through length($flint__all--keys) {
+			@for $i from 1 through length($flint__all__keys) {
 				$calcKey: steal-key($i);
 
 				@if $calcKey == get-value(settings, default) {
@@ -59,14 +59,14 @@
 		}
 		
 		// apply individually if foundation is not set globally, but is set to true in config
-		@if get-value(settings, border-box-sizing) == true and $foundation == "nonexistant" {
+		@if get-value(settings, border-box-sizing) == true and $flint__foundation == "nonexistant" {
   			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 
 			// warn to either set a global foundation, or turn border-box-sizing off
 			@if global-variable-exists(global-foundation-is-set) == false {
-				@warn "Global foundation is #{$foundation}. To avoid repeated box-sizing incidents, set a global flint(foundation) rule, or turn border-box-sizing to false in your config file.";
+				@warn "Global foundation is #{$flint__foundation}. To avoid repeated box-sizing incidents, set a global flint(foundation) rule, or turn border-box-sizing to false in your config file.";
 
 				// declare global variable so only a single warning prints out
 				$global-foundation-is-set: true !global;
@@ -100,7 +100,7 @@
 
 			} @else if length($key) > 1 or type-of($key) != "string" {
 
-				@for $i from 1 through length($flint__all--keys) {
+				@for $i from 1 through length($flint__all__keys) {
 					$calcKey: steal-key($i);
 
 					@if $calcKey == get-value(settings, default) {
@@ -123,7 +123,7 @@
 
 			@if get-value(settings, grid) == "fixed" {
 
-				@for $i from 1 through length($flint__all--keys) {
+				@for $i from 1 through length($flint__all__keys) {
 
 					$calcKey: steal-key($i);
 					$calcSpan: $key;
@@ -131,7 +131,7 @@
 					$calcGutter: $gutter;
 					$calcShift: $shift;
 
-					@if max(get-all-breakpoints()...) == get-value($calcKey, breakpoint) {
+					@if is-highest-breakpoint($calcKey) {
 						@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
 							width: calc-width($calcKey, $calcSpan);
 							@content;
@@ -152,7 +152,7 @@
 
 			@if length($key) == 1 and $span == NULL {
 
-				@for $i from 1 through length($flint__all--keys) {
+				@for $i from 1 through length($flint__all__keys) {
 
 					$calcKey: steal-key($i);
 					$calcSpan: $key;
@@ -166,7 +166,7 @@
 
 					} @else {
 
-			  			@if is-highest-breakpoint($calcKey) == true {
+			  			@if is-highest-breakpoint($calcKey) {
 
 							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
 								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
@@ -191,7 +191,7 @@
 
 			} @else if length($key) == 1 and length($span) == 1 {
 
-				@for $i from 1 through length($flint__all--keys) {
+				@for $i from 1 through length($flint__all__keys) {
 
 					$calcKey: steal-key($i);
 					$calcSpan: $key;
@@ -205,7 +205,7 @@
 
 					} @else {
 
-			  			@if is-highest-breakpoint($calcKey) == true {
+			  			@if is-highest-breakpoint($calcKey) {
 
 							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
 								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
@@ -230,7 +230,7 @@
 
 			} @else if length($key) == 1 and length($span) > 1 {
 
-				@for $i from 1 through length($flint__all--keys) {
+				@for $i from 1 through length($flint__all__keys) {
 
 					$calcKey: steal-key($i);
 					$calcSpan: $key;
@@ -244,7 +244,7 @@
 
 					} @else {
 
-						@if is-highest-breakpoint($calcKey) == true {
+						@if is-highest-breakpoint($calcKey) {
 
 							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
 								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
@@ -274,7 +274,7 @@
 		and is-not-string(nth($key, 1))
 		and is-not-string(nth($key, 2))
 	{
-		@for $i from 1 through length($flint__all--keys) {
+		@for $i from 1 through length($flint__all__keys) {
 
 			$calcKey: steal-key($i);
 			$calcSpan: $key;
@@ -288,7 +288,7 @@
 
 			} @else {
 
-				@if is-highest-breakpoint($calcKey) == true {
+				@if is-highest-breakpoint($calcKey) {
 
 					@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
 						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
@@ -316,7 +316,7 @@
 		and is-not-string(nth($key, 1))
 		and is-not-string(nth($key, 2))
 	{
-		@for $i from 1 through length($flint__all--keys) {
+		@for $i from 1 through length($flint__all__keys) {
 
 			$calcKey: steal-key($i);
 			$calcSpan: $key;
@@ -330,7 +330,7 @@
 
 			} @else {
 
-				@if is-highest-breakpoint($calcKey) == true {
+				@if is-highest-breakpoint($calcKey) {
 
 					@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
 						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
@@ -367,7 +367,7 @@
 
 		} @else {
 
-			@if is-highest-breakpoint($calcKey) == true {
+			@if is-highest-breakpoint($calcKey) {
 
 				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) {
 					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
@@ -404,7 +404,7 @@
 
 		} @else {
 
-			@if is-highest-breakpoint($calcKey) == true {
+			@if is-highest-breakpoint($calcKey) {
 
 				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) {
 					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);

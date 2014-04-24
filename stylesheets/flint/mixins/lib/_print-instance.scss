@@ -1,10 +1,10 @@
-// Prints debug output into compiled stylesheet as flagged comments
+// Prints debug properties
 // -------------------------------------------------------------------------------
 // @dependence `printInstance()`
 // -------------------------------------------------------------------------------
 // @param $calcKey [Breakpoint] : breakpoint key to search for instance
 // -------------------------------------------------------------------------------
-// @output [Styles...]
+// @output [Properties...]
 
 @mixin debugPrintInstance($calcKey) {
 	@if get-value(settings, debug-mode) == true {
@@ -13,11 +13,11 @@
 	}
 }
 
-// Prints all contents of instance as flagged comments
+// Prints all contents of instance
 // -------------------------------------------------------------------------------
 // @param $instance [Map] : instance
 // -------------------------------------------------------------------------------
-// @output [Styles...]
+// @output [Properties...]
 
 @mixin printInstance($instance) {
 
