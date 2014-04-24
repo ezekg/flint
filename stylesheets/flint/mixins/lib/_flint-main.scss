@@ -43,7 +43,7 @@
 	{
 
 		// only apply display rule if the key is the default
-		@if $key == get-value(settings, default) or $key == "container" {
+		@if is-default($key) or $key == "container" {
 
 			display: block;
 
@@ -52,7 +52,7 @@
 			@for $i from 1 through length($flint__all__keys) {
 				$calcKey: steal-key($i);
 
-				@if $calcKey == get-value(settings, default) {
+				@if is-default($calcKey) {
 					display: block;
 				}
 			}
@@ -94,7 +94,7 @@
 
 		} @else {
 
-			@if $key == get-value(settings, default) {
+			@if is-default($key) {
 
 				float: unquote(get-value(settings, float-style));
 
@@ -103,7 +103,7 @@
 				@for $i from 1 through length($flint__all__keys) {
 					$calcKey: steal-key($i);
 
-					@if $calcKey == get-value(settings, default) {
+					@if is-default($calcKey) {
 						float: unquote(get-value(settings, float-style));
 					}
 				}
@@ -136,7 +136,7 @@
 							width: calc-width($calcKey, $calcSpan);
 							@content;
 						}
-					} @else if get-value(settings, default) == $calcKey {
+					} @else if is-default($calcKey) {
 						width: calc-width($calcKey, $calcSpan);
 						@content;
 					} @else {
@@ -160,7 +160,7 @@
 					$calcGutter: $gutter;
 					$calcShift: $shift;
 
-					@if get-value(settings, default) == $calcKey {
+					@if is-default($calcKey) {
 
 						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
@@ -199,7 +199,7 @@
 					$calcGutter: $gutter;
 					$calcShift: $shift;
 
-					@if get-value(settings, default) == $calcKey {
+					@if is-default($calcKey) {
 
 						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
@@ -238,7 +238,7 @@
 					$calcGutter: $gutter;
 					$calcShift: $shift;
 
-					@if get-value(settings, default) == $calcKey {
+					@if is-default($calcKey) {
 
 						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
@@ -282,7 +282,7 @@
 			$calcGutter: $gutter;
 			$calcShift: $shift;
 
-			@if get-value(settings, default) == $calcKey {
+			@if is-default($calcKey) {
 
 				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
@@ -324,7 +324,7 @@
 			$calcGutter: $gutter;
 			$calcShift: $shift;
 
-			@if get-value(settings, default) == $calcKey {
+			@if is-default($calcKey) {
 
 				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
 
@@ -361,7 +361,7 @@
 		$calcGutter: $gutter;
 		$calcShift: $shift;
 
-		@if get-value(settings, default) == $calcKey {
+		@if is-default($calcKey) {
 
 			@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
 
@@ -398,7 +398,7 @@
 		$calcGutter: $gutter;
 		$calcShift: $shift;
 
-		@if get-value(settings, default) == $calcKey {
+		@if is-default($calcKey) {
 
 			@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
 
@@ -456,19 +456,25 @@
 		// greater than key-x breakpoint
 		} @else if length($key) > 1 and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 			@if get-value(settings, grid) == "fluid" {
-				@media only screen and ( min-width: (calc-breakpoint(to, nth($key, 3), get-index(nth($key, 3))) + 1) ) {
+				@media only screen and ( min-width: (calc-breakpoint(to, nth($key, 3), get-index(nth($key, 3)))) ) {
 					@content;
 				}
 			} @else if get-value(settings, grid) == "fixed" {
-				@media only screen and ( min-width: (calc-breakpoint(to, nth($key, 3), get-index(nth($key, 3)))) ) {
+				@media only screen and ( min-width: (calc-breakpoint(alt-to, nth($key, 3), get-index(nth($key, 3)))) ) {
 					@content;
 				}
 			}
 
 		// (y)px greater than key-x breakpoint
 		} @else if length($key) > 1 and nth($key, 2) == "greater" and nth($key, 3) == "than" {
-			@media only screen and ( min-width: (calc-breakpoint(to, nth($key, 4), get-index(nth($key, 4))) + nth($key, 1)) ) {
-				@content;
+			@if get-value(settings, grid) == "fluid" {
+				@media only screen and ( min-width: (calc-breakpoint(to, nth($key, 4), get-index(nth($key, 4))) + nth($key, 1)) ) {
+					@content;
+				}
+			} @else if get-value(settings, grid) == "fixed" {
+				@media only screen and ( min-width: (calc-breakpoint(alt-to, nth($key, 4), get-index(nth($key, 4))) + nth($key, 1)) ) {
+					@content;
+				}
 			}
 
 		// less than key-x breakpoint
@@ -478,15 +484,21 @@
 					@content;
 				}
 			} @else if get-value(settings, grid) == "fixed" {
-				@media only screen and ( max-width: (calc-breakpoint(to, nth($key, 3), get-index(nth($key, 3)))) ) {
+				@media only screen and ( max-width: (calc-breakpoint(alt-from, nth($key, 3), get-index(nth($key, 3)))) ) {
 					@content;
 				}
 			}
 
 		// (y)px less than key-x breakpoint
 		} @else if length($key) > 1 and nth($key, 2) == "less" and nth($key, 3) == "than" {
-			@media only screen and ( max-width: (calc-breakpoint(to, nth($key, 4), get-index(nth($key, 4))) - nth($key, 1)) ) {
-				@content;
+			@if get-value(settings, grid) == "fluid" {
+				@media only screen and ( max-width: (calc-breakpoint(to, nth($key, 4), get-index(nth($key, 4))) - nth($key, 1)) ) {
+					@content;
+				}
+			} @else if get-value(settings, grid) == "fixed" {
+				@media only screen and ( max-width: (calc-breakpoint(alt-to, nth($key, 4), get-index(nth($key, 4))) - nth($key, 1)) ) {
+					@content;
+				}
 			}
 
 		// for key-x key-y key-z

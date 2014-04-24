@@ -27,12 +27,20 @@
 			} @else {
 				@return get-value($key, breakpoint);
 			}
-		} @else if $n == "to" {
+		} @else if $n == "alt-from" {
+			@if is-lowest-breakpoint($key) {
+				@return 0;
+			} @else {
+				@return get-value($key, breakpoint) - 1;
+			}
+		}@else if $n == "to" {
 		  	@if steal-key($i) != steal-key(1) {
 			 	@return (get-value(steal-key(($i - 1)), breakpoint) - 1);
 		 	 } @else {
 		    	@return (get-value(steal-key($i), breakpoint) - 1);
 	    	}
+		} @else if $n == "alt-to" {
+			@return (get-value(steal-key($i), breakpoint));
 		}
 	}
 }

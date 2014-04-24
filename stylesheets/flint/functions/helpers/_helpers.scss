@@ -139,6 +139,20 @@
 	}
 }
 
+// Checks if $key is grid default
+// -------------------------------------------------------------------------------
+// @dependence `get-value()`
+// -------------------------------------------------------------------------------
+// @return [Boolean]
+
+@function is-default($key) {
+	@if $key == get-value(settings, default) {
+		@return true;
+	} @else {
+		@return false;
+	}
+}
+
 // Gets all breakpoint column values
 // -------------------------------------------------------------------------------
 // @return [List]
