@@ -353,7 +353,7 @@ To hide an element on a specific breakpoint, input `0` as its span.
 
 ```scss
 .variable {
-	@include _(8 6 4 4);
+	@include _(8 6 0 4);
 }
 ```
 
@@ -375,9 +375,7 @@ Outputs,
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
 	.variable {
-		width: 46.875%;
-		margin-right: 1.5625%;
-		margin-left: 1.5625%;
+		display: none;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
