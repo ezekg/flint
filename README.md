@@ -347,6 +347,8 @@ recursive {
 
 Use this if your content needs different spans across each breakpoints. The *order of operations* for this matches the order entered in your `config`.
 
+To hide an element on a specific breakpoint, input `0` as its span.
+
 *You must include an argument for each breakpoint in your config.*
 
 ```scss
