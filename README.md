@@ -808,6 +808,8 @@ Going to start keeping a log of changes starting **today (4/11/14).**
 
 ####4/24/14
 * Added `$gutter: inside` modifier
+* Adjusted `$span: 0` to hide element instead of compiling with no width
+* Corrected small issue with `less than x`, `greater than x` on fixed grids
 * Cleaned up variable/function names
 * Added detailed comments to all mixins/functions
 
