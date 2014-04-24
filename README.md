@@ -2,7 +2,7 @@
 
 **Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on *Sass 3.3*, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file and is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
 
-Here's a small [demo on Sassmeister](http://sassmeister.com/gist/9657552) *(older version : v0.0.3)* to show what Flint is capable of.
+Here's a small [demo on Sassmeister](http://sassmeister.com/gist/9657552) to show what Flint is capable of. *This demo is outdated, and shows a pre-release version (0.0.3) of Flint.*
 
 Enjoy.
 
@@ -18,19 +18,23 @@ If you don't want to install the gem, download/clone the current build files and
 
 ###Config
 
-Flint's `config map` is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12. You're in full control of your columns as well. Also, unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about. To begin, you can either use the default config (below) which comes baked in, or you can define your own using the `$flint` variable using the template below.
+Flint's `config map` is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12 breakpoints. Flint gives you full control over the column count on each breakpoint, and unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about.
+
+Speaking of not being like most frameworks, Flint does not require you to set a ridiculous amount of variables just to use a single breakpoint. It actually doesn't require you to set *any* variables. It also doesn't require you to install a seperate extension so that you can define your breakpoints; *all of these features are baked into Flint.* Your columns are fully related to your breakpoints, so that there is never any confusion and everything is kept nice and simple.
+
+To begin, you can either use the default config (below) which comes baked in, or you can define your own using the `$flint` variable, using the default config as a template.
 
 Settings may be entered in `px` or `em`, and Flint will do the rest.
 
-*Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint. No mixing of `px` and `em` units.*
+*Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint. No mixing of `px` and `em` units. Also, Flint does require that you follow a `DESC` order for your breakpoint configuration, this way it can traverse the config map correctly to output valid media queries.*
 
 ```scss
 // Configuration map
 //--------------------------------------------------------------------------------
 // @param [Breakpoints] : Here you can set up your various breakpoints for your
 // project. Any number of breakpoints is acceptable. You must include a column
-// count and breakpoint value for each listed breakpoint. Order does not have
-// to follow `ASC` or `DESC`. Unit chosen here must be used consistently
+// count and breakpoint value for each listed breakpoint. Flint does require that
+// you follow a `DESC` order. Unit chosen here must be used consistently
 // throughout the rest of the config map.
 //--------------------------------------------------------------------------------
 // @param default [Alias] : alias of breakpoint that is your grid default
