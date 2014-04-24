@@ -532,24 +532,29 @@ Here are different gutter modifiers that may be called in when defining spans us
 
 ```scss
 // no left margin
-.gutter {
+.gutter-alpha {
 	@include _(desktop, 4, $gutter: alpha);
 }
 
 // no right margin
-.gutter {
+.gutter-omega {
 	@include _(desktop, 4, $gutter: omega);
 }
 
 // no margins
-.gutter {
+.gutter-row {
 	@include _(desktop, 4, $gutter: row);
 }
 
 // places gutters on inside by reducing column width by [gutter*2]
 // useful for nesting children inside of parents that have normal gutters on fixed grid layouts
-.gutter {
+.gutter-inside {
 	@include _(desktop, 4, $gutter: inside);
+}
+
+// variable gutter
+.variable-gutter {
+	@include _(16 12 8 4, $gutter: row alpha omega inside);
 }
 
 // recursive
@@ -559,33 +564,61 @@ Here are different gutter modifiers that may be called in when defining spans us
 ```
 Outputs,
 ```scss
-.gutter {
+.gutter-alpha {
 	display: block;
 	float: left;
 	width: 24.21875%;
 	margin-right: 0.78125%;
 	margin-left: 0;
 }
-.gutter {
+.gutter-omega {
 	display: block;
 	float: left;
 	width: 24.21875%;
 	margin-right: 0;
 	margin-left: 0.78125%;
 }
-.gutter {
+.gutter-row {
 	display: block;
 	float: left;
 	width: 25%;
 	margin-right: 0;
 	margin-left: 0;
 }
-.gutter {
+.gutter-inside {
 	display: block;
 	float: left;
 	width: 21.875%;
 	margin-right: 0.78125%;
 	margin-left: 0.78125%;
+}
+.variable-gutter {
+	display: block;
+	float: left;
+	width: 100%;
+	margin-right: 0;
+	margin-left: 0;
+}
+@media only screen and (min-width: 641px) and (max-width: 960px) {
+	.variable-gutter {
+		width: 98.95833%;
+		margin-right: 1.04167%;
+		margin-left: 0;
+	}
+}
+@media only screen and (min-width: 321px) and (max-width: 640px) {
+	.variable-gutter {
+		width: 98.4375%;
+		margin-right: 0;
+		margin-left: 1.5625%;
+	}
+}
+@media only screen and (min-width: 0) and (max-width: 320px) {
+	.variable-gutter {
+		width: 87.5%;
+		margin-right: 3.125%;
+		margin-left: 3.125%;
+	}
 }
 .recursive-gutter {
 	display: block;
@@ -633,13 +666,11 @@ Much like the gutter modifiers, you may also call in a shift parameter using the
 }
 ```
 
-**One more** cool thing about flint is that you are not bound to
-the grid you define. Feel free to use decimals in your arguments
-for extra fine tuned control over your layouts.
+**One more** cool thing about flint is that you are not bound to the grid you define. Feel free to use decimals, math or ratios in your arguments for extra fine tuned control over your layouts.
 
 ```scss
 .break-the-grid {
-	@include _(16/3 12.1 8.9 4, $shift: 1.2 0 2 0, $gutter: row);
+	@include _(16/3 12.1 8.9 (5 - 1), $shift: 1.2 0 2 0, $gutter: row);
 }
 ```
 Outputs,
