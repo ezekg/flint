@@ -812,6 +812,14 @@ This will allow the instance functions to properly fallback from `.block .block_
 Going to start keeping a log of changes starting **today (4/11/14).**
 
 ####4/24/14
+* Added aliases for `$gutter` modifiers
+	* `NULL > default | regular | normal`
+	* `alpha > no-left`
+	* `omega > no-right`
+	* `row > none`
+* Removed option for 'gutter: false' in config. Use `0(unit)` from now on.
+
+####4/24/14
 * Added `$gutter: inside` modifier
 * Adjusted `$span: 0` to hide element instead of compiling with no width
 * Corrected small issue with `less than x`, `greater than x` on fixed grids
