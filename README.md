@@ -536,23 +536,23 @@ Here are different gutter modifiers that may be called in when defining spans us
 
 ```scss
 // default margins
-.gutter-default { // other alias : `normal` | `regular`
-	@include _(desktop, 4, $gutter: default);
+.gutter-default {
+	@include _(desktop, 4, $gutter: default); // other aliases : `normal` | `regular`
 }
 
 // no left margin
-.gutter-alpha { // other alias : `no-left`
-	@include _(desktop, 4, $gutter: alpha);
+.gutter-alpha {
+	@include _(desktop, 4, $gutter: alpha); // other alias : `no-left`
 }
 
 // no right margin
-.gutter-omega { // other alias : `no-right`
-	@include _(desktop, 4, $gutter: omega);
+.gutter-omega {
+	@include _(desktop, 4, $gutter: omega); // other alias : `no-right`
 }
 
 // no margins
-.gutter-row { // other alias : `none`
-	@include _(desktop, 4, $gutter: row);
+.gutter-row {
+	@include _(desktop, 4, $gutter: row); // other alias : `none`
 }
 
 // places gutters on inside by reducing column width by [gutter*2]
