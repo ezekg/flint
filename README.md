@@ -817,7 +817,7 @@ Going to start keeping a log of changes starting **today (4/11/14).**
 	* `alpha > no-left`
 	* `omega > no-right`
 	* `row > none`
-* Removed option for 'gutter: false' in config. Use `0(unit)` from now on.
+* Removed option for `gutter: false` in config. Use `0(unit)` from now on.
 
 ####4/24/14
 * Added `$gutter: inside` modifier
