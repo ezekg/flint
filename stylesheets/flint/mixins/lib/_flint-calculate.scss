@@ -61,7 +61,7 @@
 
 		@if $calcShift != NULL and $calcContext == NULL {
 
-			@if $calcGutter == NULL and get-value(settings, gutter) != false {
+			@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
 
 				// Save to variables for instance creation
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
@@ -98,7 +98,7 @@
 				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" and get-value(settings, gutter) != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -114,7 +114,7 @@
 				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "omega" or $calcGutter == "no-right" and get-value(settings, gutter) != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan)));
 				$outputMarginRight: 0;
@@ -130,7 +130,7 @@
 				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan));
 				$outputMarginRight: 0;
@@ -152,7 +152,7 @@
 			$exists: get-family-instance($calcKey);
 
 			@if $calcShift != NULL {
-				@if $calcGutter == NULL and get-value(settings, gutter) != false {
+				@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
 					// Check if context is set to auto
 					@if $calcContext == "auto" {
 						// Does parent exist?
@@ -235,7 +235,7 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" and get-value(settings, gutter) != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
@@ -274,7 +274,7 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "omega" or $calcGutter == "no-right" and get-value(settings, gutter) != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
@@ -313,7 +313,7 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
@@ -353,7 +353,7 @@
 					}
 				}
 			} @else {
-				@if $calcGutter == NULL and get-value(settings, gutter) != false {
+				@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
 					// Check if context is set to auto
 					@if $calcContext == "auto" {
 						// Did it exist?
@@ -422,7 +422,7 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" and get-value(settings, gutter) != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
@@ -455,7 +455,7 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "omega" or $calcGutter =="no-right" and get-value(settings, gutter) != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
@@ -488,7 +488,7 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
@@ -525,7 +525,7 @@
 
 		} @else {
 
-			@if $calcGutter == NULL and get-value(settings, gutter) != false {
+			@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -551,7 +551,7 @@
 				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "alpha" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" and get-value(settings, gutter) != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -564,7 +564,7 @@
 				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "omega" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "omega" or $calcGutter == "no-right" and get-value(settings, gutter) != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
 				$outputMarginRight: 0;
@@ -577,7 +577,7 @@
 				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "row" or get-value(settings, gutter) == false {
+			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
 
 				$outputWidth: calc-width($calcKey, $calcSpan);
 				$outputMarginRight: 0;

@@ -535,18 +535,23 @@ Outputs,
 Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. **You should note**, that when using shorthands the gutter modifiers are recursive across all breakpoints.
 
 ```scss
+// default margins
+.gutter-default { // other alias : `normal` | `regular`
+	@include _(desktop, 4, $gutter: default);
+}
+
 // no left margin
-.gutter-alpha {
+.gutter-alpha { // other alias : `no-left`
 	@include _(desktop, 4, $gutter: alpha);
 }
 
 // no right margin
-.gutter-omega {
+.gutter-omega { // other alias : `no-right`
 	@include _(desktop, 4, $gutter: omega);
 }
 
 // no margins
-.gutter-row {
+.gutter-row { // other alias : `none`
 	@include _(desktop, 4, $gutter: row);
 }
 
@@ -558,7 +563,7 @@ Here are different gutter modifiers that may be called in when defining spans us
 
 // variable gutter
 .variable-gutter {
-	@include _(16 12 8 4, $gutter: row alpha omega inside);
+	@include _(16 12 8 4, $gutter: row alpha omega normal);
 }
 
 // recursive
