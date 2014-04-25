@@ -73,16 +73,16 @@
 			}
 		}
 
-		// check if max-width is set
-		@if get-value(settings, max-width) == true {
-			max-width: max(get-all-breakpoints()...);
-		} @else if type-of(get-value(settings, max-width)) == number {
-			max-width: get-value(settings, max-width);
-		}
-
 		// check if center container is set to true
 		@if $key == "container" {
 			float: none;
+
+			// check if max-width is set
+			@if get-value(settings, max-width) == true {
+				max-width: max(get-all-breakpoints()...);
+			} @else if type-of(get-value(settings, max-width)) == number {
+				max-width: get-value(settings, max-width);
+			}
 
 			@if get-value(settings, center-container) == true {
 				margin-right: auto;
@@ -131,18 +131,20 @@
 					$calcGutter: $gutter;
 					$calcShift: $shift;
 
-					@if is-highest-breakpoint($calcKey) {
-						@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
-							width: calc-width($calcKey, $calcSpan);
-							@content;
-						}
-					} @else if is-default($calcKey) {
+					@if is-default($calcKey) {
 						width: calc-width($calcKey, $calcSpan);
 						@content;
 					} @else {
-						@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
-							width: calc-width($calcKey, $calcSpan);
-							@content;
+						@if is-highest-breakpoint($calcKey) {
+							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
+								width: calc-width($calcKey, $calcSpan);
+								@content;
+							}
+						} @else {
+							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
+								width: calc-width($calcKey, $calcSpan);
+								@content;
+							}
 						}
 					}
 				}
