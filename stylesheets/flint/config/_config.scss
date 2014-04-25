@@ -45,7 +45,7 @@ $flint: (
             "max-width": false, // [true : uses highest breakpoint | false | value(unit)]
             "center-container": true, // [true | false]
             "border-box-sizing": true, // [true | false]
-            "debug-mode": true, // [true | false ]
+            "debug-mode": false, // [true | false ]
         ),
     ),
 ) !default;
