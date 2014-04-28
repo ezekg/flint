@@ -532,7 +532,7 @@ Outputs,
 
 ###Gutter modifiers
 
-Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. **You should note**, that when using shorthands the gutter modifiers are recursive across all breakpoints.
+Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. **You should note**, that when using recursive shorthands the gutter modifiers are also recursive across all breakpoints.
 
 ```scss
 // default margins
@@ -811,7 +811,7 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 Going to start keeping a log of changes starting **today (4/11/14).**
 
-####4/24/14
+####4/25/14
 * Added aliases for `$gutter` modifiers
 	* `NULL > default | regular | normal`
 	* `alpha > no-left`
