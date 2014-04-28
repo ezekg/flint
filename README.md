@@ -30,13 +30,13 @@ Settings may be entered in `px` or `em`, and Flint will do the rest.
 
 ```scss
 // Configuration map
-//--------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 // @param [Breakpoints] : Here you can set up your various breakpoints for your
 // project. Any number of breakpoints is acceptable. You must include a column
 // count and breakpoint value for each listed breakpoint. Flint does require that
 // you follow a `DESC` order. Unit chosen here must be used consistently
 // throughout the rest of the config map.
-//--------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 // @param default [Alias] : alias of breakpoint that is your grid default
 // @param grid [Style] : style of grid
 // @param gutter [Value | false] : contextual size of gutter
@@ -675,7 +675,7 @@ Much like the gutter modifiers, you may also call in a shift parameter using the
 }
 ```
 
-**One more** cool thing about flint is that you are not bound to the grid you define. Feel free to use decimals, math or ratios in your arguments for extra fine tuned control over your layouts.
+**One more** cool thing about flint is that you are not bound to the grid you define. Feel free to use decimals and math based on the breakpoint's column count in your arguments for extra fine tuned control over your layouts. Examples include, `decimals: (1.25), (3.333)`, `math: (3 - 2), (2 + 9), (16 / 3)`.
 
 ```scss
 .break-the-grid {
