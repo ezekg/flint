@@ -1,2 +1,5 @@
-# Ignore gem file
+# Gem file
 *.gem
+
+# Folders
+releases

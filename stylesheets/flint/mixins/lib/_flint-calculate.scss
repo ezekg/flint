@@ -48,6 +48,11 @@
 
 	// Hide if span is zero
 	@if $calcSpan == 0 {
+
+		$outputWidth: 0;
+		$outputMarginRight: 0;
+		$outputMarginLeft: 0;
+
 		// First check if it's the default, so we don't hide the element on all breakpoints
 		@if $calcKey == get-value(settings, default) {
 			@include _($calcKey) {
@@ -56,6 +61,9 @@
 		} @else {
 			display: none;
 		}
+
+		@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+		@include debugPrintInstance($calcKey);
 
 	} @else {
 
@@ -77,7 +85,7 @@
 				}
 
 				// Create new instance for memoization
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 
 				// If debug mode, print instance
 				@include debugPrintInstance($calcKey);
@@ -95,7 +103,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" and get-value(settings, gutter) != false {
@@ -111,7 +119,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			} @else if $calcGutter == "omega" or $calcGutter == "no-right" and get-value(settings, gutter) != false {
@@ -127,7 +135,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
@@ -143,7 +151,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 			}
 
@@ -169,7 +177,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 							
 						} @else {
@@ -190,7 +198,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -210,7 +218,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 							
 						} @else {
@@ -231,7 +239,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -251,7 +259,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -270,7 +278,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -290,7 +298,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -309,7 +317,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -329,7 +337,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -348,7 +356,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 				}
@@ -367,7 +375,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -385,7 +393,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -402,7 +410,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -418,7 +426,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -435,7 +443,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -451,7 +459,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -468,7 +476,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -484,7 +492,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 
@@ -501,7 +509,7 @@
 								@content;
 							}
 
-							@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+							@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 							@include debugPrintInstance($calcKey);
 
 						} @else {
@@ -517,7 +525,7 @@
 							@content;
 						}
 
-						@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 						@include debugPrintInstance($calcKey);
 					}
 				}
@@ -535,7 +543,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
@@ -548,7 +556,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" and get-value(settings, gutter) != false {
@@ -561,7 +569,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			} @else if $calcGutter == "omega" or $calcGutter == "no-right" and get-value(settings, gutter) != false {
@@ -574,7 +582,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
@@ -587,7 +595,7 @@
 					@content;
 				}
 
-				@include newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
 			}

@@ -1,4 +1,4 @@
-@mixin _ (
+@mixin _(
 	$key: NULL,
 	$span: NULL,
 	$context: NULL,
@@ -31,7 +31,7 @@
 
 	} @else if $key == "clear" {
 
-		@include clearfix;
+		@include clearfix();
 
 	} @else if $key == "container"
 		or exists($flint, $key) and $span != NULL
@@ -171,13 +171,17 @@
 			  			@if is-highest-breakpoint($calcKey) {
 
 							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
-								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+									@content;
+								}
 				  			}
 
 			  			} @else {
 
 				  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
-				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+									@content;
+								}
 				  			}
 
 				  		}
@@ -210,13 +214,17 @@
 			  			@if is-highest-breakpoint($calcKey) {
 
 							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
-								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+									@content;
+								}
 				  			}
 
 			  			} @else {
 
 				  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
-				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+									@content;
+								}
 				  			}
 
 				  		}
@@ -249,13 +257,17 @@
 						@if is-highest-breakpoint($calcKey) {
 
 							@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
-								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+								@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+									@content;
+								}
 				  			}
 
 			  			} @else {
 
 				  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
-				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+				  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+									@content;
+								}
 				  			}
 				  			
 				  		}
@@ -293,13 +305,17 @@
 				@if is-highest-breakpoint($calcKey) {
 
 					@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
-						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+							@content;
+						}
 		  			}
 
 	  			} @else {
 
 		  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
-		  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+		  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+							@content;
+						}
 		  			}
 		  			
 		  		}
@@ -335,13 +351,17 @@
 				@if is-highest-breakpoint($calcKey) {
 
 					@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) {
-						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+						@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+							@content;
+						}
 		  			}
 
 	  			} @else {
 
 		  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, $i) ) and ( max-width: calc-breakpoint(to, $calcKey, $i) ) {
-		  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i);
+		  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
+							@content;
+						}
 		  			}
 		  			
 		  		}
@@ -372,13 +392,17 @@
 			@if is-highest-breakpoint($calcKey) {
 
 				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) {
-					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
+						@content;
+					}
 	  			}
 
   			} @else {
 
 	  			@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) and ( max-width: calc-breakpoint(to, $calcKey, get-index($calcKey)) ) {
-	  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+	  				@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
+						@content;
+					}
 	  			}
 	  			
 	  		}
@@ -409,13 +433,17 @@
 			@if is-highest-breakpoint($calcKey) {
 
 				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) {
-					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
+						@content;
+					}
 				}
 
 			} @else {
 
 				@media only screen and ( min-width: calc-breakpoint(from, $calcKey, get-index($calcKey)) ) and ( max-width: calc-breakpoint(to, $calcKey, get-index($calcKey)) ) {
-					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift);
+					@include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
+						@content;
+					}
 				}
 				
 			}

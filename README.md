@@ -2,7 +2,7 @@
 
 **Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on *Sass 3.3*, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file and is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
 
-Here's a small [demo on Sassmeister](http://sassmeister.com/gist/9657552) to show what Flint is capable of. *This demo is outdated, and shows a pre-release version (0.0.3) of Flint.*
+Take it for a spin on [SassMeister.com](http://sassmeister.com/)!
 
 Enjoy.
 
@@ -811,7 +811,10 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 Going to start keeping a log of changes starting **today (4/11/14).**
 
-####4/24/14
+####4/30/14
+* Fixed issue with comma separated child selectors throwing an error. `Fixes #5`
+
+####4/25/14
 * Added aliases for `$gutter` modifiers
 	* `NULL > default | regular | normal`
 	* `alpha > no-left`

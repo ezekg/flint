@@ -2,14 +2,27 @@
 // -------------------------------------------------------------------------------
 // @param $string [String] : string
 // @param $find [Separator] : item to find which separates substrings (default is single space [" "])
+// @param $ignore [Separator] : removes remaining string beyond item (default is comma [","])
 // -------------------------------------------------------------------------------
 // @return [List] | error
 
-@function string-to-list($string, $find: " ") {
+@function string-to-list($string, $find: " ", $ignore: ",") {
 	@if is-string($string) {
 		$string-list: ();
 		$space-indexes: ();
+		$ignore-remainder: ();
 		$length: str-length($string);
+		// Find ignore separator, and remove remainder of string beyond that point
+		@for $i from 1 through $length {
+			$slice: str-slice($string, $i, $i);
+			@if $slice == $ignore {
+				$ignore-remainder: append($ignore-remainder, $i - 1, "comma");
+			}
+		}
+		// Redefine string
+		@if length($ignore-remainder) >= 1 {
+			$string: str-slice($string, 1, nth($ignore-remainder, 1));
+		}
 		// Find all spaces and their indices by looking over each character in string
 		@for $i from 1 through $length {
 			$slice: str-slice($string, $i, $i);
