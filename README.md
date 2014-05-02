@@ -47,8 +47,8 @@ No mixing of `px` and `em` units. Also, Flint does require that you follow a `DE
 // @param default [Alias] : alias of breakpoint that is your grid default
 // @param grid [Style] : style of grid
 // @param gutter [Value] : contextual size of gutter
-// @param float-style [Value | false] : float direction
-// @param max-width [Value | false] : max-width for `containers`
+// @param float-style [Direction] : float direction
+// @param max-width [Alias | Value | false] : max-width for `containers`
 // @param center-container [Boolean] : if you want a centered container
 // @param border-box-sizing [Boolean] : if you want box-sizing: border-box applied
 // @param debug-mode [Boolean] : ouputs debug properties
