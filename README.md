@@ -1,20 +1,25 @@
 #Flint [![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
 
-**Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on *Sass 3.3*, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file and is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
+**Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on Sass 3.3, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file and is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
 
 Take it for a spin on [SassMeister.com](http://sassmeister.com/)!
 
 Enjoy.
 
-##Documentation
+##Requirements
 
-###Installation
+* Sass ~> 3.3.0
+* Compass ~> 0.12.1
+
+##Installation
 
 1. `gem install flint-gs`
 2. Add `require "flint"` to your `config.rb`
 3. Import it in your stylesheets with `@import "flint";`
 
-If you don't want to install the gem, download/clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+If you don't want to install the gem (?!), download/clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+
+##Documentation
 
 ###Config
 
@@ -26,7 +31,9 @@ To begin, you can either use the default config (below) which comes baked in, or
 
 Settings may be entered in `px` or `em`, and Flint will do the rest.
 
-*Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint. No mixing of `px` and `em` units. Also, Flint does require that you follow a `DESC` order for your breakpoint configuration, this way it can traverse the config map correctly to output valid media queries.*
+*Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint.* 
+
+No mixing of `px` and `em` units. Also, Flint does require that you follow a `DESC` order for your breakpoint configuration, this way it can traverse the config map correctly to output valid media queries.
 
 ```scss
 // Configuration map
@@ -39,7 +46,7 @@ Settings may be entered in `px` or `em`, and Flint will do the rest.
 // -------------------------------------------------------------------------------
 // @param default [Alias] : alias of breakpoint that is your grid default
 // @param grid [Style] : style of grid
-// @param gutter [Value | false] : contextual size of gutter
+// @param gutter [Value] : contextual size of gutter
 // @param float-style [Value | false] : float direction
 // @param max-width [Value | false] : max-width for `containers`
 // @param center-container [Boolean] : if you want a centered container
@@ -50,10 +57,10 @@ Settings may be entered in `px` or `em`, and Flint will do the rest.
 $flint: (
     // grid configuration
     "config": (
-        // define breakpoints [any amount of breakpoints]
+        // define breakpoints [any (!!) amount of breakpoints]
         "desktop": ( // [any alias you like, minus reserved flint words (i.e. "settings", etc.)]
             "columns": 16, // [0-infinity]
-            "breakpoint": 1280px, // [0-infinity(unit)]
+            "breakpoint": 1280px, // [value(unit)]
         ),
         "laptop": (
             "columns": 12,
@@ -71,12 +78,12 @@ $flint: (
         "settings": (
             "default": "desktop", // [any breakpoint's alias]
             "grid": "fluid", // [fluid | fixed]
-            "gutter": 10px, // [0-infinity(unit) | false]
+            "gutter": 10px, // [value(unit)]
             "float-style": "left", // [left | right]
-            "max-width": false, // [true : uses highest breakpoint | false | value(unit)]
+            "max-width": false, // [true (uses highest breakpoint) | false | value(unit)]
             "center-container": true, // [true | false]
             "border-box-sizing": true, // [true | false]
-            "debug-mode": true, // [true | false ]
+            "debug-mode": true, // [true | false]
         ),
     ),
 );
@@ -259,8 +266,9 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 	@include _(3, auto); // Equivalent to : _(3, 6)
 }
 
-// When using `auto`, Flint 'falls back' from the topmost selector until one is found that has an
-// instance, and it will calculate it's context based on that instances span for the current breakpoint.
+// When using `auto`, Flint 'falls back' from the topmost selector until one is 
+// found that has an instance, and it will calculate it's context based on that 
+// instances span for the current breakpoint.
 ```
 
 Outputs,
@@ -537,22 +545,26 @@ Here are different gutter modifiers that may be called in when defining spans us
 ```scss
 // default margins
 .gutter-default {
-	@include _(desktop, 4, $gutter: default); // other aliases : `normal` | `regular`
+	// other aliases : `normal` | `regular`
+	@include _(desktop, 4, $gutter: default);
 }
 
 // no left margin
 .gutter-alpha {
-	@include _(desktop, 4, $gutter: alpha); // other alias : `no-left`
+	// other aliases : `no-left` | `first`
+	@include _(desktop, 4, $gutter: alpha);
 }
 
 // no right margin
 .gutter-omega {
-	@include _(desktop, 4, $gutter: omega); // other alias : `no-right`
+	// other aliases : `no-right` | `last`
+	@include _(desktop, 4, $gutter: omega);
 }
 
 // no margins
 .gutter-row {
-	@include _(desktop, 4, $gutter: row); // other alias : `none`
+	// other alias : `none`
+	@include _(desktop, 4, $gutter: row);
 }
 
 // places gutters on inside by reducing column width by [gutter*2]
