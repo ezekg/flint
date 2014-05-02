@@ -811,6 +811,12 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 Going to start keeping a log of changes starting **today (4/11/14).**
 
+####5/02/14
+* Adjusted `$length` variable in `string-to-list()` for better performance.
+* Added 2 additional aliases for `$gutter` modifiers
+	* `alpha > first`
+	* `omega > last`
+
 ####4/30/14
 * Fixed issue with comma separated child selectors throwing an error. `Fixes #5`
 
