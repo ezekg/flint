@@ -3,9 +3,9 @@
 // @dependence `get-value()`
 // @dependence `fluid-width()`
 // -------------------------------------------------------------------------------
-// @param $key [Breakpoint | "container"] : how to calculate value 
-// @param $span [Value] : span
-// @param $context [Value] : if context is needed
+// @param $key [Breakpoint | "container"] : key for lookup
+// @param $span [Value] : span of element
+// @param $context [Value] : context of element
 // -------------------------------------------------------------------------------
 // @return [Value] | false
 
@@ -15,14 +15,14 @@
 			@return 0;
 		} @else if $context == NULL {
 			@return fluid-width(get-value(settings, gutter), get-value($key, breakpoint));
-		} @else {
+		} @else if $context <= get-value($key, columns) {
 			@return fluid-width(get-value(settings, gutter), ((get-value($key, breakpoint) / get-value($key, columns) * $context)));
+		} @else {
+			@return fluid-width(get-value(settings, gutter) / get-value($key, columns) * $context, ((get-value($key, breakpoint) / get-value($key, columns) * $context)));
 		}
 	} @if get-value(settings, grid) == "fixed" {
 		@if $key == "container" or $span == "container" {
 			@return 0;
-		} @if $context == NULL {
-			@return get-value(settings, gutter);
 		} @else {
 			@return get-value(settings, gutter);
 		}

@@ -21,8 +21,6 @@
 	} @if get-value(settings, grid) == "fixed" {
 		@if $key == "container" or $span == "container" {
 			@return get-value($key, breakpoint);
-		} @else if $context == NULL {
-			@return get-value($key, breakpoint) / get-value($key, columns) * $span;
 		} @else {
 			@return get-value($key, breakpoint) / get-value($key, columns) * $span;
 		}

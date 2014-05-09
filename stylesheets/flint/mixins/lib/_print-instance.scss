@@ -27,7 +27,7 @@
 		// Check if value is output map
 		@if is-map($value) {
 			@each $mod_property, $mod_value in $value {
-				-flint--output-#{$mod_property}: #{$mod_value};
+				-flint-output-#{$mod_property}: #{$mod_value};
 			}
 		// Else, print values as flagged comments
 		} @else {

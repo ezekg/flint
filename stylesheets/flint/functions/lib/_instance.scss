@@ -19,11 +19,12 @@
     $flint__instance: (
 		"#{selector_string()}::#{$key}": (
 			"instance-count": #{$flint__instance-count},
+			"parent": #{if(get-family-instance($key) != false, get-family-instance($key), none)},
 			"key": #{$key},
 			"breakpoint": #{get-value($key, breakpoint)},
 			"columns": #{get-value($key, columns)},
 			"span": #{$span},
-			"context": #{$context},
+			"context": #{if($context == "auto", get-instance-value($key, span), $context)},
 			"gutter": #{$gutter},
 			"shift": #{$shift},
 			"outputted": (
