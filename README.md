@@ -823,6 +823,12 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 Going to start keeping a log of changes starting **today (4/11/14).**
 
+####5/09/14
+* Adjusted ability to pass abitrary `$context` while maintaining a consistent gutter
+* Small changes to `debug-mode`
+	* Added parent instance selector to output
+	* Added actual `$context` in place of `auto` in output
+
 ####5/02/14
 * Adjusted `$length` variable in `string-to-list()` for better performance.
 * Added 2 additional aliases for `$gutter` modifiers
