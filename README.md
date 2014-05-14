@@ -821,10 +821,16 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 ##Change Log
 
-Going to start keeping a log of changes starting **today (4/11/14).**
+Going to start keeping a log of changes starting (4/11/14).**
+
+####5/14/14
+* Fixed issue with `_(greater than y)` not outputting the correct calculations on `fixed` grids
+	* Issue was that when you used for example: `_(greater than laptop)`, `laptop` would actually be included, instead of ommitted. It now acts as 'anything above laptops breakpoint', the same way `less than y` works.
+* Adjusted the way breakpoints are calculated for easier modifications moving forward.
+* Optimized `calc-breakpoint()` function
 
 ####5/09/14
-* Added ability to pass abitrary `$context` while maintaining a consistent gutter
+* Added ability to pass an abitrary `$context` while maintaining a consistent gutter
 * Small changes to `debug-mode`
 	* Added parent instance selector to output
 	* Added actual `$context` in place of `auto` in output

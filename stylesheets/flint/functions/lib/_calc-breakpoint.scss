@@ -3,44 +3,34 @@
 // @dependence `map-fetch()`
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @param $n ["from | "to"] : how to calculate breakpoint 
+// @param $n ["alias" | "prev" | "next"] : how to calculate breakpoint 
 // @param $key [Value] : key of breakpoint
 // @param $i [Value] : index of current breakpoint
 // -------------------------------------------------------------------------------
 // @return [Value]
 
 @function calc-breakpoint($n, $key, $i) {
-	@if get-value(settings, grid) == "fluid" {
-		@if $n == "from" {
-			@if is-lowest-breakpoint($key) {
-				@return 0;
-			} @else {
-				@return (get-value(next-index($i), breakpoint) + 1);
-			}
-		} @else if $n == "to" {
-			@return get-value($key, breakpoint);
-		}
-	} @else if get-value(settings, grid) == "fixed" {
-		@if $n == "from" {
-			@if is-lowest-breakpoint($key) {
-				@return 0;
-			} @else {
-				@return get-value($key, breakpoint);
-			}
-		} @else if $n == "alt-from" {
-			@if is-lowest-breakpoint($key) {
-				@return 0;
-			} @else {
-				@return get-value($key, breakpoint) - 1;
-			}
-		}@else if $n == "to" {
-		  	@if steal-key($i) != steal-key(1) {
-			 	@return (get-value(steal-key(($i - 1)), breakpoint) - 1);
-		 	 } @else {
-		    	@return (get-value(steal-key($i), breakpoint) - 1);
-	    	}
-		} @else if $n == "alt-to" {
-			@return (get-value(steal-key($i), breakpoint));
-		}
-	}
+    @if $n == "alias" {
+        @if get-value(settings, grid) == "fixed" {
+            @if is-lowest-breakpoint($key) {
+                @return 0;
+            } @else {
+                @return get-value($key, breakpoint);
+            }
+        } @else if get-value(settings, grid) == "fluid" {
+            @return get-value($key, breakpoint);
+        }
+    } @else if $n == "next" {
+        @if is-lowest-breakpoint($key) {
+            @return 0;
+        } @else {
+            @return get-value(steal-key(($i + 1)), breakpoint);
+        }
+    } @else if $n == "prev" {
+        @if is-highest-breakpoint($key) {
+            @return get-value($key, breakpoint);
+        } @else {
+            @return get-value(steal-key(($i - 1)), breakpoint);
+        }
+    }
 }
