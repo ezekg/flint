@@ -183,7 +183,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 								// Get parent width instead of parent span for fixed grids
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
 								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 								$outputMarginLeft: ( if( $calcShift > 0, 
 									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
@@ -242,7 +242,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
 								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 								$outputMarginLeft: ( if( $calcShift > 0, 
 									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
@@ -301,7 +301,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
 								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 								$outputMarginLeft: ( if( $calcShift > 0, 
 									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
@@ -358,7 +358,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
 								$outputMarginRight: 0;
 								$outputMarginLeft: ( if( $calcShift > 0, 
 									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
@@ -415,7 +415,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan);
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan);
 								$outputMarginRight: 0;
 								$outputMarginLeft: ( if( $calcShift > 0, 
 									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
@@ -469,7 +469,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
 								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 
@@ -517,7 +517,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
 								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 
@@ -566,7 +566,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
 								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 								$outputMarginLeft: 0;
 
@@ -614,7 +614,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
 								$outputMarginRight: 0;
 								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
 
@@ -662,7 +662,7 @@
 
 							} @else if get-value(settings, grid) == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, outputted, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan);
+								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan);
 								$outputMarginRight: 0;
 								$outputMarginLeft: 0;
 
@@ -672,7 +672,7 @@
 
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
-								
+
 							}
 						} @else {
 							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
