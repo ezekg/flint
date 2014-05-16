@@ -238,7 +238,7 @@ Whatever your `default` is set to, **flint** will not wrap those styles in media
 
 ###Recursive shorthand with identical context
 
-Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all. **Context is not needed on `fixed` grids.**
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all. **Using `$context: auto` on fixed grids, the width with will be calculated by the parents width, instead of using the base breakpoints width.**
 
 ```scss
 // `auto` will work
