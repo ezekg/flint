@@ -27,7 +27,7 @@
 			"context": #{if($context == "auto", get-instance-value($key, span), $context)},
 			"gutter": #{$gutter},
 			"shift": #{$shift},
-			"outputted": (
+			"output": (
 				"width": #{$outputWidth},
 				"margin-right": #{$outputMarginRight},
 				"margin-left": #{$outputMarginLeft},

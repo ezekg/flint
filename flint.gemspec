@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.name = "flint-gs"
   s.rubyforge_project = "flint"
   s.licenses = ['MIT']
-  s.authors = ["Ezekiel Gabrielse", "Jake Chapa"]
-  s.email = ["ezekg@yahoo.com", "jakechapa@gmail.com"]
+  s.authors = ["Ezekiel Gabrielse"]
+  s.email = ["ezekg@yahoo.com"]
   s.homepage = "https://github.com/ezekg/flint/"
 
   # Project Description

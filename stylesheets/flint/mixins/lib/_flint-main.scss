@@ -38,8 +38,8 @@
         or length($key) == 1 and exists($flint, $key) == false
         or length($span) > 1
         or length($key) > 1
-        and type-of(nth($key, 1)) != "string"
-        and type-of(nth($key, 2)) != "string"
+        and is-not-string(nth($key, 1))
+        and is-not-string(nth($key, 2))
     {
 
         // only apply display rule if the key is the default
@@ -47,7 +47,7 @@
 
             display: block;
 
-        } @else if length($key) > 1 or type-of($key) != "string" {
+        } @else if length($key) > 1 or is-not-string($key) {
 
             @for $i from 1 through length($flint__all__keys) {
                 $calcKey: steal-key($i);
@@ -78,13 +78,13 @@
             float: none;
 
             // check if max-width is set
-            @if get-value(settings, max-width) == true {
+            @if get-value(settings, max-width) {
                 max-width: max(get-all-breakpoints()...);
-            } @else if type-of(get-value(settings, max-width)) == number {
+            } @else if is-number(get-value(settings, max-width)) {
                 max-width: get-value(settings, max-width);
             }
 
-            @if get-value(settings, center-container) == true {
+            @if get-value(settings, center-container) {
                 margin-right: auto;
                 margin-left: auto;
             } @else {
@@ -98,7 +98,7 @@
 
                 float: unquote(get-value(settings, float-style));
 
-            } @else if length($key) > 1 or type-of($key) != "string" {
+            } @else if length($key) > 1 or is-not-string($key) {
 
                 @for $i from 1 through length($flint__all__keys) {
                     $calcKey: steal-key($i);

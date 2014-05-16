@@ -15,11 +15,7 @@
 // @return [Boolean]
 
 @function is-map($n) {
-	@if type-of($n) == "map" {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return type-of($n) == "map";
 }
 
 // Checks if item is list
@@ -29,11 +25,7 @@
 // @return [Boolean]
 
 @function is-list($n) {
-	@if type-of($n) == "list" {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return type-of($n) == "list";
 }
 
 // Checks if item is number
@@ -43,11 +35,7 @@
 // @return [Boolean]
 
 @function is-number($n) {
-	@if type-of($n) == "number" {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return type-of($n) == "number";
 }
 
 // Checks if item is string
@@ -57,11 +45,7 @@
 // @return [Boolean]
 
 @function is-string($n) {
-	@if type-of($n) == "string" {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return type-of($n) == "string";
 }
 
 // Checks if item is not string
@@ -71,11 +55,7 @@
 // @return [Boolean]
 
 @function is-not-string($n) {
-	@if type-of($n) != "string" {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return type-of($n) != "string";
 }
 
 // Gets each breakpoint's key
@@ -166,5 +146,7 @@
 				$all-columns: append($all-columns, $value, 'comma');
 			}
 		}
-	} @return $all-columns;
+	}
+
+	@return $all-columns;
 }

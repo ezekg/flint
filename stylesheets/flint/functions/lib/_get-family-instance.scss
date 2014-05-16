@@ -20,7 +20,7 @@
 	@for $i from 1 through $length {
 		// Make sure that we're not counting the current selector string
 		@if exists($flint__instances, "#{list-to-string($selector-list, " ")}::#{$key}") and $selector-string != list-to-string($selector-list, " ") {
-			// If true, return the maching instance key
+			// If true, return the matching instance key
 			@return "#{list-to-string($selector-list, " ")}::#{$key}";
 		} @else {
 			// Else, remove the last selector and loop again
