@@ -7,13 +7,14 @@
 // @output [Properties...]
 
 @mixin debugPrintInstance($calcKey) {
-	// Lets clean up the selector a bit...
-	$selector-string: selector_string();
-	$selector-cleaned: nth(string-to-list($selector-string), 1);
-
+  // Lets clean up the selector a bit...
+  $selector-string: selector_string();
+  $selector-list: string-to-list($selector-string);
+  $selector-cleaned: list-to-string($selector-list, " ");
+  
 	@if get-value(settings, debug-mode) == true {
 		$printKey: "#{$selector-cleaned}" + "::" + "#{$calcKey}";
-		@include printInstance(map-get( $flint__instances, unquote($printKey)));
+		@include printInstance( map-get( $flint__instances, unquote($printKey) ) );
 	}
 }
 

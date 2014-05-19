@@ -14,13 +14,14 @@
 // @return [Value] | map
 
 @function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
-	// Increase the instance count
-	$flint__instance-count: $flint__instance-count + 1 !global;
-	// Lets clean up the selector a bit...
-	$selector-string: selector_string();
-	$selector-cleaned: nth(string-to-list($selector-string), 1);
+	  // Increase the instance count
+    $flint__instance-count: $flint__instance-count + 1 !global;
+    // Lets clean up the selector a bit...
+    $selector-string: selector_string();
+    $selector-list: string-to-list($selector-string);
+    $selector-cleaned: list-to-string($selector-list, " ");
 
-	$flint__instance: (
+    $flint__instance: (
 		"#{$selector-cleaned}::#{$key}": (
 			"instance-count": #{$flint__instance-count},
 			"current-selector": #{$selector-cleaned},
@@ -38,7 +39,7 @@
 				"margin-left": #{$outputMarginLeft},
 			),
 		),
-	);
-
-	@return map-merge($flint__instances, $flint__instance);
+    );
+    
+    @return map-merge($flint__instances, $flint__instance);
 }
