@@ -31,6 +31,7 @@
 				$space-indexes: append($space-indexes, $i, "comma");
 			}
 		}
+		// Check if there are any spaces
 		@if length($space-indexes) >= 1 {
 			// Keep a count of number of spaces
 			$count: 1;
@@ -55,7 +56,9 @@
 			// Finally, return comma separated list of selectors
 			@return $string-list;
 		} @else {
-			@return false;
+			// Else, just return the string as a single item list
+			$string-list: append($string-list, $string);
+			@return $string-list;
 		}
 	} @else {
 		@return "You did not input a valid string: #{$string}";

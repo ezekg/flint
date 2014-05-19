@@ -2,14 +2,18 @@
 // -------------------------------------------------------------------------------
 // @dependence `printInstance()`
 // -------------------------------------------------------------------------------
-// @param $calcKey [Breakpoint] : breakpoint key to search for instance
+// @param $calcKey [Alias] : breakpoint key to search for instance
 // -------------------------------------------------------------------------------
 // @output [Properties...]
 
 @mixin debugPrintInstance($calcKey) {
+	// Lets clean up the selector a bit...
+	$selector-string: selector_string();
+	$selector-cleaned: nth(string-to-list($selector-string), 1);
+
 	@if get-value(settings, debug-mode) == true {
-		$printKey: "#{selector_string()}" + "::" + "#{$calcKey}";
-		@include printInstance( map-get( $flint__instances, unquote($printKey) ) );
+		$printKey: "#{$selector-cleaned}" + "::" + "#{$calcKey}";
+		@include printInstance(map-get( $flint__instances, unquote($printKey)));
 	}
 }
 
