@@ -823,6 +823,10 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 Going to start keeping a log of changes starting (4/11/14).**
 
+####5/19/14
+* Fixed issue with comma seperated parent selectors causing errors and other issues.
+	* Added small clean up functions for comma seperated selector strings for various functions.
+
 ####5/16/14
 * Added `$context: auto` to for fixed grids. It will automatically get the parent instance's width, and calculate on that instead of the base breakpoint.
 	* This fixes issues where parents couldn't contain children of the same span, and the further you would nest, the worse the issue would get.
