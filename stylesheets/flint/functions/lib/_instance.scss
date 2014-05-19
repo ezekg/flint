@@ -24,7 +24,6 @@
     $flint__instance: (
 		"#{$selector-cleaned}::#{$key}": (
 			"instance-count": #{$flint__instance-count},
-			"current-selector": #{$selector-cleaned},
 			"parent-selector": #{if(get-family-instance($key) != false, get-family-instance($key), none)},
 			"key": #{$key},
 			"breakpoint": #{get-value($key, breakpoint)},
