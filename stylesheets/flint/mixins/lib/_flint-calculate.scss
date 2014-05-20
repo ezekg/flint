@@ -162,7 +162,7 @@
 			@if $calcShift != NULL {
 				@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
 					// Check if context is set to auto
-					@if $calcContext == "auto"{
+					@if $calcContext == "auto" {
 						// Does parent exist?
 						@if $exists != false {
 							@if get-value(settings, grid) == "fluid" {
