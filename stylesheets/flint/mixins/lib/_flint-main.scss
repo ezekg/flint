@@ -736,22 +736,22 @@
             @for $i from 1 through length($key) {
                 @if exists($flint, nth($key, $i)) {
                     @if get-value(settings, grid) == "fluid" {
-                        @if is-highest-breakpoint(nth($key, $i)) {
-                            @media only screen and ( min-width: (calc-breakpoint(next, nth($key, $i), get-index(nth($key, $i))) + 1) ) {
+                        @if is-highest-breakpoint($calcKey) {
+                            @media only screen and ( min-width: (calc-breakpoint(next, $calcKey, $i) + 1) ) {
                                 @content;
                             }
                         } @else {
-                            @media only screen and ( min-width: (calc-breakpoint(next, nth($key, $i), get-index(nth($key, $i))) + if(is-lowest-breakpoint($key), 0, 1)) ) and ( max-width: calc-breakpoint(alias, nth($key, $i), get-index(nth($key, $i))) ) {
+                            @media only screen and ( min-width: (calc-breakpoint(next, $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint(alias, $calcKey, $i) ) {
                                 @content;
                             }
                         }
                     } @else if get-value(settings, grid) == "fixed" {
-                        @if is-highest-breakpoint(nth($key, $i)) {
-                            @media only screen and ( min-width: calc-breakpoint(alias, nth($key, $i), get-index(nth($key, $i))) ) {
+                        @if is-highest-breakpoint($calcKey) {
+                            @media only screen and ( min-width: calc-breakpoint(alias, $calcKey, $i) ) {
                                 @content;
                             }
                         } @else {
-                            @media only screen and ( min-width: calc-breakpoint(alias, nth($key, $i), get-index(nth($key, $i))) ) and ( max-width: (calc-breakpoint(next, nth($key, $i), get-index(nth($key, $i))) - 1) ) {
+                            @media only screen and ( min-width: calc-breakpoint(alias, $calcKey, $i) ) and ( max-width: (calc-breakpoint(prev, $calcKey, $i) - 1) ) {
                                 @content;
                             }
                         }
