@@ -734,24 +734,26 @@
         // for key-x key-y key-z
         } @else if length($key) > 1 and nth($key, 1) == "for" {
             @for $i from 1 through length($key) {
-                @if exists($flint, nth($key, $i)) {
+                $calcKey: nth($key, $i);
+
+                @if exists($flint, $calcKey) {
                     @if get-value(settings, grid) == "fluid" {
-                        @if is-highest-breakpoint(nth($key, $i)) {
-                            @media only screen and ( min-width: (calc-breakpoint(next, nth($key, $i), $i) + 1) ) {
+                        @if is-highest-breakpoint($calcKey) {
+                            @media only screen and ( min-width: (calc-breakpoint(next, $calcKey, get-index($calcKey)) + 1) ) {
                                 @content;
                             }
                         } @else {
-                            @media only screen and ( min-width: (calc-breakpoint(next, nth($key, $i), $i) + if(is-lowest-breakpoint(nth($key, $i)), 0, 1)) ) and ( max-width: calc-breakpoint(alias, nth($key, $i), $i) ) {
+                            @media only screen and ( min-width: (calc-breakpoint(next, $calcKey, get-index($calcKey)) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint(alias, $calcKey, get-index($calcKey)) ) {
                                 @content;
                             }
                         }
                     } @else if get-value(settings, grid) == "fixed" {
-                        @if is-highest-breakpoint(nth($key, $i)) {
-                            @media only screen and ( min-width: calc-breakpoint(alias, nth($key, $i), $i) ) {
+                        @if is-highest-breakpoint($calcKey) {
+                            @media only screen and ( min-width: calc-breakpoint(alias, $calcKey, get-index($calcKey)) ) {
                                 @content;
                             }
                         } @else {
-                            @media only screen and ( min-width: calc-breakpoint(alias, nth($key, $i), $i) ) and ( max-width: (calc-breakpoint(prev, nth($key, $i), $i) - 1) ) {
+                            @media only screen and ( min-width: calc-breakpoint(alias, $calcKey, get-index($calcKey)) ) and ( max-width: (calc-breakpoint(prev, $calcKey, get-index($calcKey)) - 1) ) {
                                 @content;
                             }
                         }
