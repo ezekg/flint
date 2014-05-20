@@ -823,6 +823,9 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 Going to start keeping a log of changes starting (4/11/14).**
 
+####5/20/14
+* Fixed issue with `(for x y z)` loop not outputting correct breakpoints due to an invalid if statement.
+
 ####5/19/14
 * Fixed issue with comma seperated parent selectors causing errors and other issues.
 	* Added small clean up functions for comma seperated selector strings for various functions.
