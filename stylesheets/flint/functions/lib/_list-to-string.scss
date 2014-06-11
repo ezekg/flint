@@ -2,10 +2,10 @@
 // -------------------------------------------------------------------------------
 // @documentation http://sassylists.com/documentation/#to-string
 // -------------------------------------------------------------------------------
-// @param $list [List] : list
-// @param $glue [String] : value to use as a join string
+// @param $list [list] : list
+// @param $glue [string] : value to use as a join string
 // -------------------------------------------------------------------------------
-// @return [String]
+// @return [string]
 
 @function list-to-string($list, $glue: "", $is-nested: false) {
 	$result: null;

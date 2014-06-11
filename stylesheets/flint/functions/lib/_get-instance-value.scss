@@ -2,16 +2,16 @@
 // -------------------------------------------------------------------------------
 // @dependence `map-fetch()`
 // -------------------------------------------------------------------------------
-// @warning : all [Values] @returned are strings and must be converted with `to-number()`
+// @warning : all values @returned are strings and must be converted with `to-number()`
 // -------------------------------------------------------------------------------
-// @param $key [Breakpoint] : key
-// @param $value [Value] : value
-// @param $deep [Value] : fetch deep value
+// @param $key [string] : key
+// @param $value [integer] : value
+// @param $deep [integer] : fetch deep value
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return [string]
 
-@function get-instance-value($key, $value, $deep: NULL) {
-	@if $deep == NULL {
+@function get-instance-value($key, $value, $deep: null) {
+	@if $deep == null {
 		@return map-fetch($flint__instances, get-family-instance($key) $value);
 	} @else {
 		@return map-fetch($flint__instances, get-family-instance($key) $value $deep);

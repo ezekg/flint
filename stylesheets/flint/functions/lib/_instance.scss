@@ -2,16 +2,16 @@
 // -------------------------------------------------------------------------------
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @param $key [Breakpoint] : computed breakpoint of instance
-// @param $span [Value] : computed span of instance
-// @param $context [Value] : computed context of instance
-// @param $gutter [Value] : computed gutter of instance
-// @param $shift [Value] : computed shift of instance
-// @param $outputWidth [Value] : computed width of instance
-// @param $outputMarginRight [Value] : computed right margin of instance
-// @param $outputMarginLeft [Value] : computed left margin of instance
+// @param $key [string] : computed breakpoint of instance
+// @param $span [integer] : computed span of instance
+// @param $context [integer] : computed context of instance
+// @param $gutter [integer] : computed gutter of instance
+// @param $shift [integer] : computed shift of instance
+// @param $outputWidth [integer] : computed width of instance
+// @param $outputMarginRight [integer] : computed right margin of instance
+// @param $outputMarginLeft [integer] : computed left margin of instance
 // -------------------------------------------------------------------------------
-// @return [Value] | map
+// @return instance map
 
 @function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
 	  // Increase the instance count
@@ -29,7 +29,7 @@
 			"breakpoint": #{get-value($key, breakpoint)},
 			"columns": #{get-value($key, columns)},
 			"span": #{$span},
-			"context": #{if($context == "auto", get-instance-value($key, span), $context)},
+			"context": #{if($context == "auto", get-instance-value($key, "span"), $context)},
 			"gutter": #{$gutter},
 			"shift": #{$shift},
 			"output": (

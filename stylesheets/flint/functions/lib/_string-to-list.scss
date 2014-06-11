@@ -1,10 +1,10 @@
 // Turns string into a flat list
 // -------------------------------------------------------------------------------
-// @param $string [String] : string
-// @param $find [Separator] : item to find which separates substrings (default is single space [" "])
-// @param $ignore [Separator] : removes remaining string beyond item (default is comma [","])
+// @param $string [string] : string
+// @param $find [string] : item to find which separates substrings (default is single space [" "])
+// @param $ignore [string] : removes remaining string beyond item (default is comma [","])
 // -------------------------------------------------------------------------------
-// @return [List] | error
+// @return [list] | error
 
 @function string-to-list($string, $find: " ", $ignore: ",") {
 	@if is-string($string) {

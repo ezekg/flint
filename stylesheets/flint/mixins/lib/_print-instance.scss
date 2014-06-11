@@ -2,9 +2,9 @@
 // -------------------------------------------------------------------------------
 // @dependence `printInstance()`
 // -------------------------------------------------------------------------------
-// @param $calcKey [Alias] : breakpoint key to search for instance
+// @param $calcKey [string] : breakpoint key to search for instance
 // -------------------------------------------------------------------------------
-// @output [Properties...]
+// @output instance map
 
 @mixin debugPrintInstance($calcKey) {
   // Lets clean up the selector a bit...
@@ -20,9 +20,9 @@
 
 // Prints all contents of instance
 // -------------------------------------------------------------------------------
-// @param $instance [Map] : instance
+// @param $instance [map] : instance
 // -------------------------------------------------------------------------------
-// @output [Properties...]
+// @output instance map
 
 @mixin printInstance($instance) {
 

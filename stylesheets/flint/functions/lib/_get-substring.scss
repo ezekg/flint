@@ -2,10 +2,10 @@
 // -------------------------------------------------------------------------------
 // @dependence `string-to-list()`
 // -------------------------------------------------------------------------------
-// @param $full-string [String] : string that contains substring
-// @param $depth [Integer | "last | "first"] : depth of substring
+// @param $full-string [string] : string that contains substring
+// @param $depth [integer | string] : depth of substring
 // -------------------------------------------------------------------------------
-// @return [String]
+// @return [string]
 
 @function get-substring($full-string, $depth) {
 	@if is-string($full-string) {

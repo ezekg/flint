@@ -4,11 +4,11 @@
 // -------------------------------------------------------------------------------
 // @dependence `replace()`
 // -------------------------------------------------------------------------------
-// @param $list [List] : list
-// @param $value [Literal] : value to remove
-// @param $recursive [Boolean] : enable / disable recursivity
+// @param $list [list] : list
+// @param $value [literal] : value to remove
+// @param $recursive [bool] : enable / disable recursivity
 // -------------------------------------------------------------------------------
-// @return [List]
+// @return [list]
 
 @function remove($list, $value) {
 	@return replace($list, $value, null);

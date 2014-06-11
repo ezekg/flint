@@ -1,8 +1,8 @@
 // Get last item in list
 // -------------------------------------------------------------------------------
-// @param $list [List] : list
+// @param $list [list] : list
 // -------------------------------------------------------------------------------
-// @return [List]
+// @return [list]
 
 @function last($list) {
 	@return nth($list, length($list));

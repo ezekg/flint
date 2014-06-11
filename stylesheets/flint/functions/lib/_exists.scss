@@ -1,9 +1,9 @@
 // Check if key exists in map
 //--------------------------------------------------------------------------------
-// @param $map [Map] : map that contains $value
-// @param $value [Map] : key to search for
+// @param $map [map] : map that contains $value
+// @param $value [string] : key to search for
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @return [bool]
 
 @function exists($map, $value){
 	

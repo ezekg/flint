@@ -2,15 +2,15 @@
 // -------------------------------------------------------------------------------
 // @dependence `map-fetch()`
 // -------------------------------------------------------------------------------
-// @param $key [Value] : breakpoint key
-// @param $value [Value] : fetch value
+// @param $key [string] : breakpoint key
+// @param $value [string] : fetch value
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return fetched value
 
-@function get-value($key, $value: NULL) {
-	@if $value == NULL {
-		@return map-fetch($flint, config $key);
+@function get-value($key, $value: null) {
+	@if $value == null {
+		@return map-fetch($flint, "config" $key);
 	} @else {
-		@return map-fetch($flint, config $key $value);
+		@return map-fetch($flint, "config" $key $value);
 	}
 }

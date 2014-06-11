@@ -7,11 +7,11 @@
 // @dependence `exists()`
 // @dependence `remove()`
 // -------------------------------------------------------------------------------
-// @param $key [Breakpoint] : breakpoint key to search for matching instance
+// @param $key [string] : breakpoint key to search for matching instance
 // -------------------------------------------------------------------------------
-// @return [Selectors] | false
+// @return matching instance | false
 
-@function get-family-instance($key: get-value(settings, default)) {
+@function get-family-instance($key: get-value("settings", "default")) {
 	$selector-string: selector_string();
 	$selector-list: string-to-list($selector-string);
 	$length: length($selector-list);

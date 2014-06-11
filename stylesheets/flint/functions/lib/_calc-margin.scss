@@ -3,28 +3,28 @@
 // @dependence `get-value()`
 // @dependence `fluid-width()`
 // -------------------------------------------------------------------------------
-// @param $key [Breakpoint | "container"] : key for lookup
-// @param $span [Value] : span of element
-// @param $context [Value] : context of element
+// @param $key [string] : key for lookup
+// @param $span [integer] : span value of element
+// @param $context [integer] : context value of element
 // -------------------------------------------------------------------------------
-// @return [Value] | false
+// @return calculated value | false
 
-@function calc-margin($key, $span, $context: NULL) {
-	@if get-value(settings, grid) == "fluid" {
+@function calc-margin($key, $span, $context: null) {
+	@if get-value("settings", "grid") == "fluid" {
 		@if $key == "container" or $span == "container" {
 			@return 0;
-		} @else if $context == NULL {
-			@return fluid-width(get-value(settings, gutter), get-value($key, breakpoint));
-		} @else if $context <= get-value($key, columns) {
-			@return fluid-width(get-value(settings, gutter), ((get-value($key, breakpoint) / get-value($key, columns) * $context)));
+		} @else if $context == null {
+			@return fluid-width(get-value("settings", "gutter"), get-value($key, "breakpoint"));
+		} @else if $context <= get-value($key, "columns") {
+			@return fluid-width(get-value("settings", "gutter"), ((get-value($key, "breakpoint") / get-value($key, "columns") * $context)));
 		} @else {
-			@return fluid-width(get-value(settings, gutter) / get-value($key, columns) * $context, ((get-value($key, breakpoint) / get-value($key, columns) * $context)));
+			@return fluid-width(get-value("settings", "gutter") / get-value($key, "columns") * $context, ((get-value($key, "breakpoint") / get-value($key, "columns") * $context)));
 		}
-	} @if get-value(settings, grid) == "fixed" {
+	} @if get-value("settings", "grid") == "fixed" {
 		@if $key == "container" or $span == "container" {
 			@return 0;
 		} @else {
-			@return get-value(settings, gutter);
+			@return get-value("settings", "gutter");
 		}
 	} @else {
 		@return false;

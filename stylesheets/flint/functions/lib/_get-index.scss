@@ -2,12 +2,12 @@
 // -------------------------------------------------------------------------------
 // @dependence `steal-key()`
 // -------------------------------------------------------------------------------
-// @param $key [Breakpoint] : breakpoint key
+// @param $key [string] : breakpoint key
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return [integer]
 
 @function get-index($key) {
-  	@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
+  	@for $i from 1 through (length(map-fetch($flint, "config")) - 1) {
 		@if steal-key($i) == $key {
 			@return $i;
 		}

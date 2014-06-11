@@ -1,15 +1,15 @@
-// Returns next indexed key based on passed number
+// Returns next indexed key based on passed index
 // -------------------------------------------------------------------------------
-// @param $index [Value] : index
+// @param $index [integer] : index
 // -------------------------------------------------------------------------------
-// @return [Key] | NULL
+// @return [string] | null
 
 @function next-index($index) { 
-	@if $index != (length(map-fetch($flint, config)) - 1) {
-		@each $key in nth(map-get($flint, config), $index + 1) {
+	@if $index != (length(map-fetch($flint, "config")) - 1) {
+		@each $key in nth(map-get($flint, "config"), $index + 1) {
 			@return $key;
 		}
 	} @else {
-		@return NULL;
+		@return null;
 	}
 }

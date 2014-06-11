@@ -1,8 +1,8 @@
 // Returns truthiness of a value
 // -------------------------------------------------------------------------------
-// @param $value [Literal] : value
+// @param $value [literal] : value
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @return [bool]
 
 @function is-true($value) {
 	@return if($value == null, false, $value and $value != null and $value != "" and $value != ());
@@ -10,9 +10,9 @@
 
 // Checks if item is map
 //--------------------------------------------------------------------------------
-// @param $n [Value] : value
+// @param $n [map] : value
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @return [bool]
 
 @function is-map($n) {
 	@return type-of($n) == "map";
@@ -20,9 +20,9 @@
 
 // Checks if item is list
 //--------------------------------------------------------------------------------
-// @param $n [Value] : value
+// @param $n [list] : value
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @return [bool]
 
 @function is-list($n) {
 	@return type-of($n) == "list";
@@ -30,9 +30,9 @@
 
 // Checks if item is number
 //--------------------------------------------------------------------------------
-// @param $n [Value] : value
+// @param $n [integer] : value
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @return [bool]
 
 @function is-number($n) {
 	@return type-of($n) == "number";
@@ -40,9 +40,9 @@
 
 // Checks if item is string
 //--------------------------------------------------------------------------------
-// @param $n [Value] : value
+// @param $n [string] : value
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @return [bool]
 
 @function is-string($n) {
 	@return type-of($n) == "string";
@@ -50,40 +50,40 @@
 
 // Checks if item is not string
 //--------------------------------------------------------------------------------
-// @param $n [Value] : value
+// @param $n [string] : value
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @return [bool]
 
 @function is-not-string($n) {
 	@return type-of($n) != "string";
 }
 
-// Gets each breakpoint's key
+// Gets list of each breakpoint's key
 // -------------------------------------------------------------------------------
-// @return [List]
+// @return [list]
 
 @function get-all-keys() {
 	$all-keys: ();
   
-	@for $i from 1 through (length(map-fetch($flint, config)) - 1) {
+	@for $i from 1 through (length(map-fetch($flint, "config")) - 1) {
 		$key: steal-key($i);
-		$all-keys: append($all-keys, $key, 'comma');
+		$all-keys: append($all-keys, $key, "comma");
 	}
 
 	@return $all-keys;
 }
 
-// Gets all breakpoints
+// Gets list of all breakpoints
 // -------------------------------------------------------------------------------
-// @return [List]
+// @return [list]
 
 @function get-all-breakpoints() {
 	$all-breakpoints: ();
 
-	@each $map, $keys in map-get($flint, config) {
+	@each $map, $keys in map-get($flint, "config") {
 		@each $key, $value in $keys {
 			@if $key == "breakpoint" {
-				$all-breakpoints: append($all-breakpoints, $value, 'comma');
+				$all-breakpoints: append($all-breakpoints, $value, "comma");
 			}
 		}
 	} 
@@ -91,28 +91,32 @@
 	@return $all-breakpoints;
 }
 
-// Grabs highest breakpoint
+// Checks if passed $key is the highest breakpoint
 // -------------------------------------------------------------------------------
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @param $key [string] : alias of breakpoint
+// -------------------------------------------------------------------------------
+// @return [bool]
 
 @function is-highest-breakpoint($key) {
-	@if get-value($key, breakpoint) == max(get-all-breakpoints()...) {
+	@if get-value($key, "breakpoint") == max(get-all-breakpoints()...) {
 		@return true;
 	} @else {
 		@return false;
 	}
 }
 
-// Grabs highest breakpoint
+// Checks if passed $key is the lowest breakpoint
 // -------------------------------------------------------------------------------
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @param $key [string] : alias of breakpoint
+// -------------------------------------------------------------------------------
+// @return [bool]
 
 @function is-lowest-breakpoint($key) {
-	@if get-value($key, breakpoint) == min(get-all-breakpoints()...) {
+	@if get-value($key, "breakpoint") == min(get-all-breakpoints()...) {
 		@return true;
 	} @else {
 		@return false;
@@ -123,10 +127,12 @@
 // -------------------------------------------------------------------------------
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @return [Boolean]
+// @param $key [string] : alias of breakpoint
+// -------------------------------------------------------------------------------
+// @return [bool]
 
 @function is-default($key) {
-	@if $key == get-value(settings, default) {
+	@if $key == get-value("settings", "default") {
 		@return true;
 	} @else {
 		@return false;
@@ -135,15 +141,15 @@
 
 // Gets all breakpoint column values
 // -------------------------------------------------------------------------------
-// @return [List]
+// @return [list]
 
 @function get-all-columns() {
 	$all-columns: ();
 
-	@each $map, $keys in map-get($flint, config) {
+	@each $map, $keys in map-get($flint, "config") {
 		@each $key, $value in $keys {
 			@if $key == "columns" {
-				$all-columns: append($all-columns, $value, 'comma');
+				$all-columns: append($all-columns, $value, "comma");
 			}
 		}
 	}

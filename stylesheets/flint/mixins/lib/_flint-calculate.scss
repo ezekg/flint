@@ -1,10 +1,10 @@
 // Outputs calculated styles
 // -------------------------------------------------------------------------------
-// @param $width [Value] : width
-// @param $margin-right [Value] : right margin
-// @param $margin-left [Value] : left margin
+// @param $width [integer] : width
+// @param $margin-right [integer] : right margin
+// @param $margin-left [integer] : left margin
 // -------------------------------------------------------------------------------
-// @output [Styles...]
+// @output outputs styles
 
 @mixin outputFlint ($width, $margin-right, $margin-left) {
 	width: $width;
@@ -15,18 +15,18 @@
 
 // Calculate widths, save all variables to instance
 // -------------------------------------------------------------------------------
-// @param $calcKey [Values...] : breakpoint key
-// @param $calcSpan [Values...] : span
-// @param $calcContext [Values...] : context
-// @param $calcGutter [Values...] : gutter
-// @param $calcShift [Values...] : shift 
-// @param $i [Index] : index if variable length is > 1
+// @param $calcKey [string] : breakpoint key
+// @param $calcSpan [integer] : span value
+// @param $calcContext [integer] : context value
+// @param $calcGutter [integer] : gutter value
+// @param $calcShift [integer] : shift value
+// @param $i [integer] : index if variable length is > 1
 // -------------------------------------------------------------------------------
-// @output [Styles...]
+// @output calculated styles
 
-@mixin calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i: NULL) {
+@mixin calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i: null) {
 
-	@if $i != NULL {
+	@if $i != null {
 
 		@if length($calcKey) > 1 {
 			$calcKey: nth($calcKey, $i);
@@ -54,7 +54,7 @@
 		$outputMarginLeft: 0;
 
 		// First check if it's the default, so we don't hide the element on all breakpoints
-		@if $calcKey == get-value(settings, default) {
+		@if $calcKey == get-value("settings", "default") {
 			@include _($calcKey) {
 				display: none;
 			}
@@ -67,9 +67,9 @@
 
 	} @else {
 
-		@if $calcShift != NULL and $calcContext == NULL {
+		@if $calcShift != null and $calcContext == null {
 
-			@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
+			@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
 
 				// Save to variables for instance creation
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
@@ -90,7 +90,7 @@
 				// If debug mode, print instance
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*4);
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -106,7 +106,7 @@
 				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -122,7 +122,7 @@
 				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan)));
 				$outputMarginRight: 0;
@@ -138,7 +138,7 @@
 				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
+			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan));
 				$outputMarginRight: 0;
@@ -155,23 +155,23 @@
 				@include debugPrintInstance($calcKey);
 			}
 
-		} @else if $calcContext != NULL {
+		} @else if $calcContext != null {
 			// Check if parent instance exists
 			$exists: get-family-instance($calcKey);
 
-			@if $calcShift != NULL {
-				@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
+			@if $calcShift != null {
+				@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
 					// Check if context is set to auto
 					@if $calcContext == "auto" {
 						// Does parent exist?
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
+									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -181,13 +181,13 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 								// Get parent width instead of parent span for fixed grids
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
+									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -220,17 +220,17 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
+									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -240,13 +240,13 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
+									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -279,17 +279,17 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -299,13 +299,13 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -336,17 +336,17 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
 								$outputMarginRight: 0;
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
+									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -356,13 +356,13 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
 								$outputMarginRight: 0;
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, span)))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))) 
+									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
+									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -393,17 +393,17 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
+				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
 								$outputMarginRight: 0;
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -413,13 +413,13 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan);
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan);
 								$outputMarginRight: 0;
 								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, span)))
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
+									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
 								));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -451,14 +451,14 @@
 					}
 				}
 			} @else {
-				@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
+				@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
+								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
 									@content;
@@ -467,11 +467,11 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
+								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
 									@content;
@@ -498,15 +498,15 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
+								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
 									@content;
@@ -515,11 +515,11 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
+								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
 									@content;
@@ -547,14 +547,14 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: 0;
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -564,10 +564,10 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
+								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginLeft: 0;
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
@@ -595,15 +595,15 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "omega" or $calcGutter =="no-right" or $calcGutter == "last" and get-value(settings, gutter) != false {
+				} @else if $calcGutter == "omega" or $calcGutter =="no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span))));
+								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
 								$outputMarginRight: 0;
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
 									@content;
@@ -612,11 +612,11 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)))));
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
 								$outputMarginRight: 0;
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 
 								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
 									@content;
@@ -643,13 +643,13 @@
 						@include debugPrintInstance($calcKey);
 					}
 
-				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
+				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
 
 					@if $calcContext == "auto" {
 						@if $exists != false {
-							@if get-value(settings, grid) == "fluid" {
+							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, span)));
+								$outputWidth: calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
 								$outputMarginRight: 0;
 								$outputMarginLeft: 0;
 
@@ -660,9 +660,9 @@
 								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 								@include debugPrintInstance($calcKey);
 
-							} @else if get-value(settings, grid) == "fixed" {
+							} @else if get-value("settings", "grid") == "fixed" {
 
-								$outputWidth: (to-number(get-instance-value($calcKey, output, width)) / to-number(get-instance-value($calcKey, span)) * $calcSpan);
+								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan);
 								$outputMarginRight: 0;
 								$outputMarginLeft: 0;
 
@@ -695,7 +695,7 @@
 
 		} @else {
 
-			@if $calcGutter == NULL or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value(settings, gutter) != false {
+			@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -708,7 +708,7 @@
 				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "inside" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*4);
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -721,7 +721,7 @@
 				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
 				$outputMarginRight: calc-margin($calcKey, $calcSpan);
@@ -734,7 +734,7 @@
 				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value(settings, gutter) != false {
+			} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
 
 				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
 				$outputMarginRight: 0;
@@ -747,7 +747,7 @@
 				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
 				@include debugPrintInstance($calcKey);
 
-			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value(settings, gutter) == false {
+			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
 
 				$outputWidth: calc-width($calcKey, $calcSpan);
 				$outputMarginRight: 0;

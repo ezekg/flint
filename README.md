@@ -37,30 +37,30 @@ No mixing of `px` and `em` units. Also, Flint does require that you follow a `DE
 
 ```scss
 // Configuration map
-// -------------------------------------------------------------------------------
-// @param [Breakpoints] : Here you can set up your various breakpoints for your
+//--------------------------------------------------------------------------------
+// @param [map] : Here you can set up your various breakpoints for your
 // project. Any number of breakpoints is acceptable. You must include a column
-// count and breakpoint value for each listed breakpoint. Flint does require that
-// you follow a `DESC` order. Unit chosen here must be used consistently
+// count and breakpoint value for each listed breakpoint. Order does not have
+// to follow `ASC` or `DESC`. Unit chosen here must be used consistently
 // throughout the rest of the config map.
-// -------------------------------------------------------------------------------
-// @param default [Alias] : alias of breakpoint that is your grid default
-// @param grid [Style] : style of grid
-// @param gutter [Value] : contextual size of gutter
-// @param float-style [Direction] : float direction
-// @param max-width [Boolean | Value] : max-width for `containers`
-// @param center-container [Boolean] : if you want a centered container
-// @param border-box-sizing [Boolean] : if you want box-sizing: border-box applied
-// @param debug-mode [Boolean] : ouputs debug properties
+//--------------------------------------------------------------------------------
+// @param default [string] : alias of breakpoint that is your grid default
+// @param grid [string] : style of grid
+// @param gutter [integer | false] : contextual size of gutter
+// @param float-style [integer | false] : float direction
+// @param max-width [integer | bool] : max-width for `containers`
+// @param center-container [bool] : if you want a centered container
+// @param border-box-sizing [bool] : if you want box-sizing: border-box applied
+// @param debug-mode [bool] : ouputs debug properties
 // -------------------------------------------------------------------------------
 
 $flint: (
     // grid configuration
     "config": (
-        // define breakpoints [any (!!) amount of breakpoints]
+        // define breakpoints [any amount of breakpoints]
         "desktop": ( // [any alias you like, minus reserved flint words (i.e. "settings", etc.)]
             "columns": 16, // [0-infinity]
-            "breakpoint": 1280px, // [value(unit)]
+            "breakpoint": 1280px, // [0-infinity(unit)]
         ),
         "laptop": (
             "columns": 12,
@@ -76,14 +76,14 @@ $flint: (
         ),
         // additional grid settings [required]
         "settings": (
-            "default": "desktop", // [any breakpoint's alias]
+            "default": "mobile", // [any breakpoint's alias]
             "grid": "fluid", // [fluid | fixed]
-            "gutter": 10px, // [value(unit)]
+            "gutter": 10px, // [0-infinity(unit) | false]
             "float-style": "left", // [left | right]
-            "max-width": false, // [true (uses highest breakpoint) | false | value(unit)]
+            "max-width": true, // [true : uses highest breakpoint | false | value(unit)]
             "center-container": true, // [true | false]
             "border-box-sizing": true, // [true | false]
-            "debug-mode": true, // [true | false]
+            "debug-mode": false, // [true | false ]
         ),
     ),
 );
@@ -97,11 +97,11 @@ If you selected `border-box-sizing: true`, then it is *advised* to create a glob
 @include _(foundation);
 ```
 
-That way your output won't be riddled with `box-sizing` declarations everytime you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
+That way your output won't be riddled with `"box-sizing"` declarations everytime you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
 
 ###Container
 
-You may define containers, which simply act as a row without the `float` property. This is really only useful on fixed grid layouts, or if you have a max-width set, but can be used elsewhere as a simple wrapper if desired. If you have `center-container` set to `true`, then it will also center your element using `auto` left and right margins.
+Containers act as a row for each individual breakpoint, and if set in your config, uses a max-width. They do not float, so if you have `"center-container"` set to `true` then it will also center your element using `auto` left and right margins.
 
 ```scss
 .container {
@@ -164,34 +164,36 @@ Outputs, *(with debug mode on)*
   width: 17.1875%;
   margin-right: 0.78125%;
   margin-left: 0.78125%;
-  -flint--instance-count: 1;
-  -flint--key: desktop;
-  -flint--breakpoint: 1280px;
-  -flint--columns: 16;
-  -flint--span: 3;
-  -flint--context: NULL;
-  -flint--gutter: NULL;
-  -flint--shift: NULL;
-  -flint--output-width: 17.1875%;
-  -flint--output-margin-right: 0.78125%;
-  -flint--output-margin-left: 0.78125%;
+  -flint-instance-count: 1;
+  -flint-parent-instance: none;
+  -flint-key: desktop;
+  -flint-breakpoint: 1280px;
+  -flint-columns: 16;
+  -flint-span: 3;
+  -flint-context: null;
+  -flint-gutter: null;
+  -flint-shift: null;
+  -flint-output-width: 17.1875%;
+  -flint-output-margin-right: 0.78125%;
+  -flint-output-margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
   .recursive {
     width: 22.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
-    -flint--instance-count: 2;
-    -flint--key: laptop;
-    -flint--breakpoint: 960px;
-    -flint--columns: 12;
-    -flint--span: 3;
-    -flint--context: NULL;
-    -flint--gutter: NULL;
-    -flint--shift: NULL;
-    -flint--output-width: 22.91667%;
-    -flint--output-margin-right: 1.04167%;
-    -flint--output-margin-left: 1.04167%;
+    -flint-instance-count: 2;
+    -flint-parent-instance: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 960px;
+    -flint-columns: 12;
+    -flint-span: 3;
+    -flint-context: null;
+    -flint-gutter: null;
+    -flint-shift: null;
+    -flint-output-width: 22.91667%;
+    -flint-output-margin-right: 1.04167%;
+    -flint-output-margin-left: 1.04167%;
   }
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
@@ -199,17 +201,18 @@ Outputs, *(with debug mode on)*
     width: 34.375%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
-    -flint--instance-count: 3;
-    -flint--key: tablet;
-    -flint--breakpoint: 640px;
-    -flint--columns: 8;
-    -flint--span: 3;
-    -flint--context: NULL;
-    -flint--gutter: NULL;
-    -flint--shift: NULL;
-    -flint--output-width: 34.375%;
-    -flint--output-margin-right: 1.5625%;
-    -flint--output-margin-left: 1.5625%;
+    -flint-instance-count: 3;
+    -flint-parent-instance: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 640px;
+    -flint-columns: 8;
+    -flint-span: 3;
+    -flint-context: null;
+    -flint-gutter: null;
+    -flint-shift: null;
+    -flint-output-width: 34.375%;
+    -flint-output-margin-right: 1.5625%;
+    -flint-output-margin-left: 1.5625%;
   }
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
@@ -217,24 +220,25 @@ Outputs, *(with debug mode on)*
     width: 68.75%;
     margin-right: 3.125%;
     margin-left: 3.125%;
-    -flint--instance-count: 4;
-    -flint--key: mobile;
-    -flint--breakpoint: 320px;
-    -flint--columns: 4;
-    -flint--span: 3;
-    -flint--context: NULL;
-    -flint--gutter: NULL;
-    -flint--shift: NULL;
-    -flint--output-width: 68.75%;
-    -flint--output-margin-right: 3.125%;
-    -flint--output-margin-left: 3.125%;
+    -flint-instance-count: 4;
+    -flint-parent-instance: none;
+    -flint-key: mobile;
+    -flint-breakpoint: 320px;
+    -flint-columns: 4;
+    -flint-span: 3;
+    -flint-context: null;
+    -flint-gutter: null;
+    -flint-shift: null;
+    -flint-output-width: 68.75%;
+    -flint-output-margin-right: 3.125%;
+    -flint-output-margin-left: 3.125%;
   }
 }
 ```
 
-As you can see, since `desktop` is the framework `default`, it uses the output for desktop as the base styles. You can set this to any breakpoint you like. **So if you like mobile-first, you can do that.**
+As you can see, since `"desktop"` is the framework `"default"`, it uses the output for desktop as the base styles. You can set this to any breakpoint you like. **So if you like mobile-first, you can do that.**
 
-Whatever your `default` is set to, **flint** will not wrap those styles in media-queries, so that they may be used in non-supported browsers.
+Whatever your `"default"` is set to, **flint** will not wrap those styles in media-queries, so that they may be used in non-supported browsers.
 
 ###Recursive shorthand with identical context
 
@@ -703,11 +707,12 @@ Outputs,
 	margin-right: 0;
 	margin-left: 7.5%;
 	-flint-instance-count: 9;
+	-flint-parent-instance: none;
 	-flint-key: desktop;
 	-flint-breakpoint: 1280px;
 	-flint-columns: 16;
 	-flint-span: 5.33333;
-	-flint-context: NULL;
+	-flint-context: null;
 	-flint-gutter: row;
 	-flint-shift: 1.2;
 	-flint--output-width: 33.33333%;
@@ -720,11 +725,12 @@ Outputs,
 		margin-right: 0;
 		margin-left: 0%;
 		-flint-instance-count: 10;
+		-flint-parent-instance: none;
 		-flint-key: laptop;
 		-flint-breakpoint: 960px;
 		-flint-columns: 12;
 		-flint-span: 12.1;
-		-flint-context: NULL;
+		-flint-context: null;
 		-flint-gutter: row;
 		-flint-shift: 0;
 		-flint--output-width: 100.83333%;
@@ -738,11 +744,12 @@ Outputs,
 		margin-right: 0;
 		margin-left: 25%;
 		-flint-instance-count: 11;
+		-flint-parent-instance: none;
 		-flint-key: tablet;
 		-flint-breakpoint: 640px;
 		-flint-columns: 8;
 		-flint-span: 8.9;
-		-flint-context: NULL;
+		-flint-context: null;
 		-flint-gutter: row;
 		-flint-shift: 2;
 		-flint--output-width: 111.25%;
@@ -756,11 +763,12 @@ Outputs,
 		margin-right: 0;
 		margin-left: 0%;
 		-flint-instance-count: 12;
+		-flint-parent-instance: none;
 		-flint-key: mobile;
 		-flint-breakpoint: 320px;
 		-flint-columns: 4;
 		-flint-span: 4;
-		-flint-context: NULL;
+		-flint-context: null;
 		-flint-gutter: row;
 		-flint-shift: 0;
 		-flint--output-width: 100%;
@@ -823,6 +831,9 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 Going to start keeping a log of changes starting (4/11/14).**
 
+####6/11/14
+* Cleaning house. Cleaned up function definitions and documentation, quoted all strings, and overall just made the code more tidy.
+
 ####5/20/14
 * Fixed issue with `(for x y z)` loop not outputting correct breakpoints due to an invalid if statement.
 
@@ -857,7 +868,7 @@ Going to start keeping a log of changes starting (4/11/14).**
 
 ####4/25/14
 * Added aliases for `$gutter` modifiers
-	* `NULL > default | regular | normal`
+	* `null > default | regular | normal`
 	* `alpha > no-left`
 	* `omega > no-right`
 	* `row > none`

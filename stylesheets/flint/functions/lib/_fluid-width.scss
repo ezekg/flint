@@ -1,9 +1,9 @@
 // Convert fixed to fluid width
 //--------------------------------------------------------------------------------
-// @param $target [Value] : target
-// @param $context [Value] : context
+// @param $target [integer] : target
+// @param $context [integer] : context
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return [integer]
 
 @function fluid-width($target, $context) {
 	@return ($target / $context) * 100%;

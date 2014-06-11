@@ -2,35 +2,38 @@
 // -------------------------------------------------------------------------------
 // @dependence `map-fetch()`
 // @dependence `get-value()`
+// @dependence `steal-key()`
+// @dependence `is-highest-breakpoint()`
+// @dependence `is-lowest-breakpoint()`
 // -------------------------------------------------------------------------------
-// @param $n ["alias" | "prev" | "next"] : how to calculate breakpoint 
-// @param $key [Value] : key of breakpoint
-// @param $i [Value] : index of current breakpoint
+// @param $n [string] : how to calculate breakpoint 
+// @param $key [string] : key of breakpoint
+// @param $i [integer] : index of current breakpoint
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return calculated value
 
 @function calc-breakpoint($n, $key, $i) {
     @if $n == "alias" {
-        @if get-value(settings, grid) == "fixed" {
+        @if get-value("settings", "grid") == "fixed" {
             @if is-lowest-breakpoint($key) {
                 @return 0;
             } @else {
-                @return get-value($key, breakpoint);
+                @return get-value($key, "breakpoint");
             }
-        } @else if get-value(settings, grid) == "fluid" {
-            @return get-value($key, breakpoint);
+        } @else if get-value("settings", "grid") == "fluid" {
+            @return get-value($key, "breakpoint");
         }
     } @else if $n == "next" {
         @if is-lowest-breakpoint($key) {
             @return 0;
         } @else {
-            @return get-value(steal-key(($i + 1)), breakpoint);
+            @return get-value(steal-key(($i + 1)), "breakpoint");
         }
     } @else if $n == "prev" {
         @if is-highest-breakpoint($key) {
-            @return get-value($key, breakpoint);
+            @return get-value($key, "breakpoint");
         } @else {
-            @return get-value(steal-key(($i - 1)), breakpoint);
+            @return get-value(steal-key(($i - 1)), "breakpoint");
         }
     }
 }

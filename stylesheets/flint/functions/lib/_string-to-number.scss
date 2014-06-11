@@ -2,10 +2,10 @@
 // -------------------------------------------------------------------------------
 // @documentation http://hugogiraudel.com/2014/01/15/sass-string-to-number/
 // -------------------------------------------------------------------------------
-// @param $number [Value] : number
-// @param $unit [Value] : unit
+// @param $number [string] : number
+// @param $unit [string] : unit
 // -------------------------------------------------------------------------------
-// @return [Value]
+// @return [integer]
 
 @function num-length($number, $unit) {
 	$strings: 'px' 'cm' 'mm' '%' 'ch' 'pica' 'in' 'em' 'rem' 'pt' 'pc' 'ex' 'vw' 'vh' 'vmin' 'vmax';

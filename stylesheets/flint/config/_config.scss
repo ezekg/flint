@@ -1,19 +1,19 @@
 // Configuration map
 //--------------------------------------------------------------------------------
-// @param [Breakpoints] : Here you can set up your various breakpoints for your
+// @param [map] : Here you can set up your various breakpoints for your
 // project. Any number of breakpoints is acceptable. You must include a column
 // count and breakpoint value for each listed breakpoint. Order does not have
 // to follow `ASC` or `DESC`. Unit chosen here must be used consistently
 // throughout the rest of the config map.
 //--------------------------------------------------------------------------------
-// @param default [Alias] : alias of breakpoint that is your grid default
-// @param grid [Style] : style of grid
-// @param gutter [Value | false] : contextual size of gutter
-// @param float-style [Value | false] : float direction
-// @param max-width [Value | false] : max-width for `containers`
-// @param center-container [Boolean] : if you want a centered container
-// @param border-box-sizing [Boolean] : if you want box-sizing: border-box applied
-// @param debug-mode [Boolean] : ouputs debug properties
+// @param default [string] : alias of breakpoint that is your grid default
+// @param grid [string] : style of grid
+// @param gutter [integer | false] : contextual size of gutter
+// @param float-style [integer | false] : float direction
+// @param max-width [integer | bool] : max-width for `containers`
+// @param center-container [bool] : if you want a centered container
+// @param border-box-sizing [bool] : if you want box-sizing: border-box applied
+// @param debug-mode [bool] : ouputs debug properties
 // -------------------------------------------------------------------------------
 
 $flint: (

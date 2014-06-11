@@ -1,12 +1,12 @@
 // Steal key based on index number
 //--------------------------------------------------------------------------------
-// @param $index [Integer] : index of key
+// @param $index [integer] : index of key
 // -------------------------------------------------------------------------------
-// @return [Breakpoint]
+// @return [string]
 
 @function steal-key($index) {
-	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
-		@each $key in nth(map-get($flint, config), $index) {
+	@for $n from 1 through (length(map-fetch($flint, "config")) - 1) {
+		@each $key in nth(map-get($flint, "config"), $index) {
 			@return $key;
 		}
 	}
