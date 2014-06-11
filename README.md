@@ -55,13 +55,23 @@ No mixing of `px` and `em` units. Also, Flint does require that you follow a `DE
 // -------------------------------------------------------------------------------
 
 $flint: (
-    // grid configuration
+
+    // Grid configuration
     "config": (
-        // define breakpoints [any amount of breakpoints]
-        "desktop": ( // [any alias you like, minus reserved flint words (i.e. "settings", etc.)]
-            "columns": 16, // [0-infinity]
-            "breakpoint": 1280px, // [0-infinity(unit)]
+    
+        // Define breakpoints (any amount of breakpoints)
+        // Any alias you like, minus reserved Flint words (i.e. "settings", "config", etc.)
+        "desktop": (
+        
+  	    // Options: 0-infinity
+            "columns": 16,
+            
+            // Options: value(unit)
+            "breakpoint": 1280px,
         ),
+        
+        // Same applies for other breakpoints
+        // Remember, you're not fixed to just 4 breakpoints like we have here
         "laptop": (
             "columns": 12,
             "breakpoint": 960px,
@@ -74,16 +84,33 @@ $flint: (
             "columns": 4,
             "breakpoint": 320px,
         ),
-        // additional grid settings [required]
+        
+        // Additional grid settings (required)
         "settings": (
-            "default": "mobile", // [any breakpoint's alias]
-            "grid": "fluid", // [fluid | fixed]
-            "gutter": 10px, // [0-infinity(unit) | false]
-            "float-style": "left", // [left | right]
-            "max-width": true, // [true : uses highest breakpoint | false | value(unit)]
-            "center-container": true, // [true | false]
-            "border-box-sizing": true, // [true | false]
-            "debug-mode": false, // [true | false ]
+        
+            // Any breakpoint's alias
+            "default": "mobile",
+            
+            // Options: fluid | fixed
+            "grid": "fluid",
+            
+            // Options: value(unit)
+            "gutter": 10px,
+            
+            // Options: left | right
+            "float-style": "left",
+            
+            // Options: true (uses highest breakpoint) | false | value(unit)
+            "max-width": true,
+            
+            // Options: true | false
+            "center-container": true,
+            
+            // Options: true | false
+            "border-box-sizing": true,
+            
+            // Options: true | false 
+            "debug-mode": false,
         ),
     ),
 );
@@ -91,13 +118,13 @@ $flint: (
 
 ###Foundation
 
-If you selected `border-box-sizing: true`, then it is *advised* to create a global foundation instance like so,
+If you selected `"border-box-sizing": true`, then it is *advised* to create a global foundation instance like so,
 
 ```scss
 @include _(foundation);
 ```
 
-That way your output won't be riddled with `"box-sizing"` declarations everytime you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
+That way your output won't be riddled with `box-sizing` declarations everytime you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
 
 ###Container
 
@@ -826,6 +853,14 @@ This will allow the instance functions to properly fallback from `.block .block_
 	}
 }
 ```
+
+## Authors
+
+[Ezekiel Gabrielse](http://ezekielg.com)
+
+## Licence
+
+Flint is available under the [MIT](http://opensource.org/licenses/MIT) license.
 
 ##Change Log
 
