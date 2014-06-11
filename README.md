@@ -23,17 +23,15 @@ If you don't want to install the gem (?!), download/clone the current build file
 
 ###Config
 
-Flint's `$config` is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12 breakpoints. Flint gives you full control over the column count on each breakpoint, and unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about.
+Flint's `config` map is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12 breakpoints. Flint gives you full control over the column count on each breakpoint, and unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about.
 
 Speaking of not being like most frameworks, Flint does not require you to set a ridiculous amount of variables just to use a single breakpoint. It actually doesn't require you to set *any* variables. It also doesn't require you to install a seperate extension so that you can define your breakpoints; *all of these features are baked into Flint.* Your columns are fully related to your breakpoints, so that there is never any confusion and everything is kept nice and simple.
 
-To begin, you can either use the default config (below) which comes baked in, or you can define your own using the `$flint` variable, using the default config as a template.
+####Usage
 
-Settings may be entered in `px` or `em`, and Flint will do the rest.
+To begin, you can either use the default `config` (below) which comes baked in, or you can define your own using the `$flint` variable, using the default config as a template. Settings may be entered in `px` or `em`, and Flint will do the rest.
 
-*Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint.* 
-
-No mixing of `px` and `em` units. Also, Flint does require that you follow a `DESC` order for your breakpoint configuration, this way it can traverse the config map correctly to output valid media queries.
+*Keep in mind, whatever unit you choose to use here needs to be used consistently throughout Flint. No mixing of `px` and `em` units. Also, Flint does require that you follow a `DESC` order for your breakpoint configuration, this way it can traverse the config map correctly to output valid media queries.*
 
 ```scss
 // Configuration map
