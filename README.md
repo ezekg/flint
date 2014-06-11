@@ -63,7 +63,7 @@ $flint: (
         // Any alias you like, minus reserved Flint words (i.e. "settings", "config", etc.)
         "desktop": (
         
-  	    // Options: 0-infinity
+            // Options: 0-infinity
             "columns": 16,
             
             // Options: value(unit)
