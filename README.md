@@ -856,7 +856,7 @@ This will allow the instance functions to properly fallback from `.block .block_
 
 [Ezekiel Gabrielse](http://ezekielg.com)
 
-## Licence
+## License
 
 Flint is available under the [MIT](http://opensource.org/licenses/MIT) license.
 
