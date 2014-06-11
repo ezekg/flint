@@ -9,7 +9,7 @@ Enjoy.
 ##Requirements
 
 * Sass ~> 3.3.0
-* Compass ~> 0.12.1
+* Compass ~> 1.0.0.alpha.19
 
 ##Installation
 
