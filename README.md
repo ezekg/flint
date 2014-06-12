@@ -38,8 +38,8 @@ To begin, you can either use the default `config` (below) which comes baked in, 
 //--------------------------------------------------------------------------------
 // @param [map] : Here you can set up your various breakpoints for your
 // project. Any number of breakpoints is acceptable. You must include a column
-// count and breakpoint value for each listed breakpoint. Order does not have
-// to follow `ASC` or `DESC`. Unit chosen here must be used consistently
+// count and breakpoint value for each listed breakpoint. Order does have
+// to follow a `DESC` order. Unit chosen here must be used consistently
 // throughout the rest of the config map.
 //--------------------------------------------------------------------------------
 // @param default [string] : alias of breakpoint that is your grid default
