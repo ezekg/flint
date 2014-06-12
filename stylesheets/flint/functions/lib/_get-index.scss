@@ -4,7 +4,7 @@
 // -------------------------------------------------------------------------------
 // @param $key [string] : breakpoint key
 // -------------------------------------------------------------------------------
-// @return [integer]
+// @return [number]
 
 @function get-index($key) {
   	@for $i from 1 through (length(map-fetch($flint, "config")) - 1) {

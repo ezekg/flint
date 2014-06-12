@@ -38,15 +38,15 @@ To begin, you can either use the default `config` (below) which comes baked in, 
 //--------------------------------------------------------------------------------
 // @param [map] : Here you can set up your various breakpoints for your
 // project. Any number of breakpoints is acceptable. You must include a column
-// count and breakpoint value for each listed breakpoint. Order does have
-// to follow a `DESC` order. Unit chosen here must be used consistently
+// count and breakpoint value for each listed breakpoint. The order does have
+// to follow a `DESC` order. Unit (px | em) chosen here must be used consistently
 // throughout the rest of the config map.
 //--------------------------------------------------------------------------------
 // @param default [string] : alias of breakpoint that is your grid default
 // @param grid [string] : style of grid
-// @param gutter [integer | false] : contextual size of gutter
-// @param float-style [integer | false] : float direction
-// @param max-width [integer | bool] : max-width for `containers`
+// @param gutter [number | false] : contextual size of gutter
+// @param float-style [number | false] : float direction
+// @param max-width [number | bool] : max-width for containers
 // @param center-container [bool] : if you want a centered container
 // @param border-box-sizing [bool] : if you want box-sizing: border-box applied
 // @param debug-mode [bool] : ouputs debug properties
@@ -56,18 +56,18 @@ $flint: (
 
     // Grid configuration
     "config": (
-    
+
         // Define breakpoints (any amount of breakpoints)
         // Any alias you like, minus reserved Flint words (i.e. "settings", "config", etc.)
         "desktop": (
-        
+
             // Options: 0-infinity
             "columns": 16,
-            
+
             // Options: value(unit)
             "breakpoint": 1280px,
         ),
-        
+
         // Same applies for other breakpoints
         // Remember, you're not fixed to just 4 breakpoints like we have here
         "laptop": (
@@ -82,31 +82,31 @@ $flint: (
             "columns": 4,
             "breakpoint": 320px,
         ),
-        
+
         // Additional grid settings (required)
         "settings": (
-        
+
             // Any breakpoint's alias
             "default": "mobile",
-            
+
             // Options: fluid | fixed
             "grid": "fluid",
-            
+
             // Options: value(unit)
             "gutter": 10px,
-            
+
             // Options: left | right
             "float-style": "left",
-            
+
             // Options: true (uses highest breakpoint) | false | value(unit)
             "max-width": true,
-            
+
             // Options: true | false
             "center-container": true,
-            
+
             // Options: true | false
             "border-box-sizing": true,
-            
+
             // Options: true | false 
             "debug-mode": false,
         ),

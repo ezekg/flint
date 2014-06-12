@@ -8,7 +8,7 @@
 
     // Initial check to see what type of instance this is
     // -------------------------------------------------------------------------------
-    // @param $key [string | integer | list] : checks type of instance
+    // @param $key [string | number | list] : checks type of instance
     // -------------------------------------------------------------------------------
     // @output foundation styles | container styles | calculated styles
 
@@ -79,7 +79,7 @@
             // check if max-width is set
             @if get-value("settings", "max-width") {
                 max-width: max(get-all-breakpoints()...);
-            // check if it's an integer
+            // check if it's an number
             } @else if is-number(get-value("settings", "max-width")) {
                 max-width: get-value("settings", "max-width");
             }
@@ -113,7 +113,7 @@
 
     // Recursive shorthand without context
     // -------------------------------------------------------------------------------
-    // @param $span [integer] : span value
+    // @param $span [number] : span value
     // -------------------------------------------------------------------------------
     // @output calculated styles
 
@@ -223,7 +223,7 @@
 
             // Recursive shorthand with identical context
             // -------------------------------------------------------------------------------
-            // @param $span [integer] : span value
+            // @param $span [number] : span value
             // @param $context [Value] : context value of span
             // -------------------------------------------------------------------------------
             // @output calculated styles
@@ -292,7 +292,7 @@
 
             // Recursive shorthand with differing context
             // -------------------------------------------------------------------------------
-            // @param $span [integer] : span value
+            // @param $span [number] : span value
             // @param $context [list] : context value of span for each breakpoint
             // -------------------------------------------------------------------------------
             // @output calculated styles
@@ -510,7 +510,7 @@
     // Call by alias
     // -------------------------------------------------------------------------------
     // @param $key [string] : breakpoint alias
-    // @param $span [integer] : span value
+    // @param $span [number] : span value
     // -------------------------------------------------------------------------------
     // @output calculated styles
 
@@ -576,8 +576,8 @@
     // Call by alias with context
     // -------------------------------------------------------------------------------
     // @param $key [string] : breakpoint alias
-    // @param $span [integer] : span value
-    // @param $context [integer] : context value of span
+    // @param $span [number] : span value
+    // @param $context [number] : context value of span
     // -------------------------------------------------------------------------------
     // @output calculated styles
 

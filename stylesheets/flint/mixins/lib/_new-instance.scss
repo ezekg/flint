@@ -1,13 +1,13 @@
 // Creates a new instance, adds to global instance map
 // -------------------------------------------------------------------------------
 // @param $calcKey [string] : breakpoint key
-// @param $calcSpan [integer] : span
-// @param $calcContext [integer] : context
-// @param $calcGutter [integer] : gutter
-// @param $calcShift [integer] : shift 
-// @param $outputWidth [integer] : width
-// @param $outputMarginRight [integer] : right margin
-// @param $outputMarginLeft [integer] : left margin 
+// @param $calcSpan [number] : span
+// @param $calcContext [number] : context
+// @param $calcGutter [number] : gutter
+// @param $calcShift [number] : shift 
+// @param $outputWidth [number] : width
+// @param $outputMarginRight [number] : right margin
+// @param $outputMarginLeft [number] : left margin 
 // -------------------------------------------------------------------------------
 // @output new instance map
 

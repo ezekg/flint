@@ -5,7 +5,7 @@
 // @param $number [string] : number
 // @param $unit [string] : unit
 // -------------------------------------------------------------------------------
-// @return [integer]
+// @return [number]
 
 @function num-length($number, $unit) {
 	$strings: 'px' 'cm' 'mm' '%' 'ch' 'pica' 'in' 'em' 'rem' 'pt' 'pc' 'ex' 'vw' 'vh' 'vmin' 'vmax';

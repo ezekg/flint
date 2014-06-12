@@ -3,10 +3,10 @@
 // @dependence `map-fetch()`
 // @dependence `get-value()`
 // -------------------------------------------------------------------------------
-// @param $index [integer] : index of breakpoint key in config
-// @param $value [integer] : value
+// @param $index [number] : index of breakpoint key in config
+// @param $value [number] : value
 // -------------------------------------------------------------------------------
-// @return [integer]
+// @return [number]
 
 @function steal-values($index, $value) {
 	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {

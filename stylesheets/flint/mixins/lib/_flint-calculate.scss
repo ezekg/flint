@@ -1,8 +1,8 @@
 // Outputs calculated styles
 // -------------------------------------------------------------------------------
-// @param $width [integer] : width
-// @param $margin-right [integer] : right margin
-// @param $margin-left [integer] : left margin
+// @param $width [number] : width
+// @param $margin-right [number] : right margin
+// @param $margin-left [number] : left margin
 // -------------------------------------------------------------------------------
 // @output outputs styles
 
@@ -16,11 +16,11 @@
 // Calculate widths, save all variables to instance
 // -------------------------------------------------------------------------------
 // @param $calcKey [string] : breakpoint key
-// @param $calcSpan [integer] : span value
-// @param $calcContext [integer] : context value
-// @param $calcGutter [integer] : gutter value
-// @param $calcShift [integer] : shift value
-// @param $i [integer] : index if variable length is > 1
+// @param $calcSpan [number] : span value
+// @param $calcContext [number] : context value
+// @param $calcGutter [number] : gutter value
+// @param $calcShift [number] : shift value
+// @param $i [number] : index if variable length is > 1
 // -------------------------------------------------------------------------------
 // @output calculated styles
 
