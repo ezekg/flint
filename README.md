@@ -519,7 +519,7 @@ Use these if you need to apply breakpoint specific styling.
 
 ###Call by alias
 
-Use if you want to define each span without shorthands. This is useful if you need variable `gutter` modifiers.
+Use if you want to define each span without shorthands.
 
 ```scss
 .name {
@@ -569,7 +569,7 @@ Outputs,
 
 ###Gutter modifiers
 
-Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. **You should note**, that when using recursive shorthands the gutter modifiers are also recursive across all breakpoints.
+Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. The `$gutter` variable allows you to pass in either a recursive argument, or a variable argument, similar to `$span`.
 
 ```scss
 // default margins
@@ -597,7 +597,6 @@ Here are different gutter modifiers that may be called in when defining spans us
 }
 
 // places gutters on inside by reducing column width by [gutter*2]
-// useful for nesting children inside of parents that have normal gutters on fixed grid layouts
 .gutter-inside {
 	@include _(desktop, 4, $gutter: inside);
 }
@@ -607,7 +606,7 @@ Here are different gutter modifiers that may be called in when defining spans us
 	@include _(16 12 8 4, $gutter: row alpha omega normal);
 }
 
-// recursive
+// recursive gutter
 .recursive-gutter {
 	@include _(16 12 8 4, $gutter: row);
 }
