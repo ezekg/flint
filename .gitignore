@@ -1,6 +1,9 @@
 # Gem file
 *.gem
 
+# Files
+.DS_Store
+
 # Folders
 test
 .sass-cache

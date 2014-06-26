@@ -1,20 +1,18 @@
 // Fetch value from key in map
 // -------------------------------------------------------------------------------
-// @dependence `map-fetche()`
+// @param $map [map] : map to fetch from
+// @param $keys [list] : list of keys
 // -------------------------------------------------------------------------------
-// @param $i [map] : map
-// @param $n [list] : keys
-// -------------------------------------------------------------------------------
-// @return fetched value | false
+// @return fetched literal | false
 
 @function map-fetch($map, $keys) {
 	$key: nth($keys, 1);
 	$length: length($keys);
 	$value: map-get($map, $key);
 
-	// check if value equals null (meaning the @param was incorrect and the map doesn't exist)
+	// check if the key was incorrect, meaning the map doesn't exist
 	@if $value == null {
-		@warn "Invalid arguments padded to function: `map-fetch(#{$map}, #{$keys})`";
+		@warn "Invalid arguments passed to function: map-fetch(#{$map}, #{$keys}). One or more of the keys do not exist.";
 		@return false;
 	}
 
@@ -24,10 +22,10 @@
 
 			@for $i from 2 through $length {
 				$rest: append($rest, nth($keys, $i))
-			} 
+			}
 
 			@return map-fetch($value, $rest);
-			
+
 		} @else {
 			@return $value;
 		}

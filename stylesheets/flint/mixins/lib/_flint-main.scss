@@ -18,7 +18,7 @@
         @if get-value("settings", "border-box-sizing") {
             $flint__foundation: "existant" !global;
         }
-        
+
         // foundation is now globally existant
         @if $flint__foundation == "existant" {
             @at-root *, *:before, *:after {
@@ -33,7 +33,7 @@
 
         @include clearfix();
 
-    } @else if 
+    } @else if
         $key == "container"
         or exists($flint, $key) and $span != null
         or length($key) == 1 and exists($flint, $key) == false
@@ -56,7 +56,7 @@
                 }
             }
         }
-        
+
         // apply individually if foundation is not set globally, but is set to true in config
         @if get-value("settings", "border-box-sizing") and $flint__foundation == "nonexistant" {
             -moz-box-sizing: border-box;
@@ -147,7 +147,7 @@
 
                         } @else {
 
-                            @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - 1) ) {
+                            @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - if(get-config-unit() == "em", em(1px), 1)) ) {
                                 width: calc-width($calcKey, $calcSpan);
                                 @content;
                             }
@@ -181,7 +181,7 @@
 
                             @if is-highest-breakpoint($calcKey) {
 
-                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + 1) ) {
+                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(get-config-unit() == "em", em(1px), 1)) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
@@ -189,12 +189,12 @@
 
                             } @else {
 
-                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
+                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
                                 }
-                                
+
                             }
 
                         } @else if get-value("settings", "grid") == "fixed" {
@@ -209,14 +209,16 @@
 
                             } @else {
 
-                                @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - 1) ) {
+                                @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - if(get-config-unit() == "em", em(1px), 1)) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
                                 }
-                                
+
                             }
-                            
+
+                        } @else {
+                            @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
                         }
                     }
                 }
@@ -250,7 +252,7 @@
 
                             @if is-highest-breakpoint($calcKey) {
 
-                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + 1) ) {
+                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(get-config-unit() == "em", em(1px), 1)) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
@@ -258,12 +260,12 @@
 
                             } @else {
 
-                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
+                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
                                 }
-                                
+
                             }
 
                         } @else if get-value("settings", "grid") == "fixed" {
@@ -278,14 +280,16 @@
 
                             } @else {
 
-                                @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - 1) ) {
+                                @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - if(get-config-unit() == "em", em(1px), 1)) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
                                 }
-                                
+
                             }
-                            
+
+                        } @else {
+                            @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
                         }
                     }
                 }
@@ -319,7 +323,7 @@
 
                             @if is-highest-breakpoint($calcKey) {
 
-                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + 1) ) {
+                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(get-config-unit() == "em", em(1px), 1)) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
@@ -327,12 +331,12 @@
 
                             } @else {
 
-                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
+                                @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
                                 }
-                                
+
                             }
 
                         } @else if get-value("settings", "grid") == "fixed" {
@@ -347,14 +351,16 @@
 
                             } @else {
 
-                                @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - 1) ) {
+                                @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - if(get-config-unit() == "em", em(1px), 1)) ) {
                                     @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                         @content;
                                     }
                                 }
-                                
+
                             }
-                            
+
+                        } @else {
+                            @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
                         }
                     }
                 }
@@ -394,7 +400,7 @@
 
                     @if is-highest-breakpoint($calcKey) {
 
-                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + 1) ) {
+                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(get-config-unit() == "em", em(1px), 1)) ) {
                             @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                 @content;
                             }
@@ -402,12 +408,12 @@
 
                     } @else {
 
-                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
+                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
                             @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                 @content;
                             }
                         }
-                        
+
                     }
 
                 } @else if get-value("settings", "grid") == "fixed" {
@@ -422,21 +428,23 @@
 
                     } @else {
 
-                        @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - 1) ) {
+                        @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - if(get-config-unit() == "em", em(1px), 1)) ) {
                             @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                 @content;
                             }
                         }
-                        
+
                     }
-                    
+
+                } @else {
+                    @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
                 }
             }
         }
 
     // Variable shorthand with context
     // -------------------------------------------------------------------------------
-    // @param $span [list] : span value for each breakpoint 
+    // @param $span [list] : span value for each breakpoint
     // @param $context [list] : context value for each breakpoint
     // -------------------------------------------------------------------------------
     // @output calculated styles
@@ -467,7 +475,7 @@
 
                     @if is-highest-breakpoint($calcKey) {
 
-                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + 1) ) {
+                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(get-config-unit() == "em", em(1px), 1)) ) {
                             @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                 @content;
                             }
@@ -475,12 +483,12 @@
 
                     } @else {
 
-                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
+                        @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, $i) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, $i) ) {
                             @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                 @content;
                             }
                         }
-                        
+
                     }
 
                 } @else if get-value("settings", "grid") == "fixed" {
@@ -495,14 +503,16 @@
 
                     } @else {
 
-                        @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - 1) ) {
+                        @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, $i) ) and ( max-width: (calc-breakpoint("prev", $calcKey, $i) - if(get-config-unit() == "em", em(1px), 1)) ) {
                             @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i) {
                                 @content;
                             }
                         }
-                        
+
                     }
-                    
+
+                } @else {
+                    @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
                 }
             }
         }
@@ -514,7 +524,7 @@
     // -------------------------------------------------------------------------------
     // @output calculated styles
 
-    } @else if exists($flint, $key) and $span != null and $context == null { 
+    } @else if exists($flint, $key) and $span != null and $context == null {
 
         $calcKey: $key;
         $calcSpan: $span;
@@ -534,7 +544,7 @@
 
                 @if is-highest-breakpoint($calcKey) {
 
-                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + 1) ) {
+                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(get-config-unit() == "em", em(1px), 1)) ) {
                         @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
                             @content;
                         }
@@ -542,12 +552,12 @@
 
                 } @else {
 
-                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) {
+                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) {
                         @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
                             @content;
                         }
                     }
-                    
+
                 }
 
             } @else if get-value("settings", "grid") == "fixed" {
@@ -562,14 +572,16 @@
 
                 } @else {
 
-                    @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) and ( max-width: (calc-breakpoint("prev", $calcKey, get-index($calcKey)) - 1) ) {
+                    @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) and ( max-width: (calc-breakpoint("prev", $calcKey, get-index($calcKey)) - if(get-config-unit() == "em", em(1px), 1)) ) {
                         @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
                             @content;
                         }
                     }
-                    
+
                 }
-                
+
+            } @else {
+                @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
             }
         }
 
@@ -582,7 +594,7 @@
     // @output calculated styles
 
     } @else if exists($flint, $key) and $span != null and $context != null {
-      
+
         $calcKey: $key;
         $calcSpan: $span;
         $calcContext: $context;
@@ -601,7 +613,7 @@
 
                 @if is-highest-breakpoint($calcKey) {
 
-                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + 1) ) {
+                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(get-config-unit() == "em", em(1px), 1)) ) {
                         @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
                             @content;
                         }
@@ -609,12 +621,12 @@
 
                 } @else {
 
-                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) {
+                    @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) {
                         @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
                             @content;
                         }
                     }
-                    
+
                 }
 
             } @else if get-value("settings", "grid") == "fixed" {
@@ -629,20 +641,22 @@
 
                 } @else {
 
-                    @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) and ( max-width: (calc-breakpoint("prev", $calcKey, get-index($calcKey)) - 1) ) {
+                    @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) and ( max-width: (calc-breakpoint("prev", $calcKey, get-index($calcKey)) - if(get-config-unit() == "em", em(1px), 1)) ) {
                         @include calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift) {
                             @content;
                         }
                     }
-                    
+
                 }
 
+            } @else {
+                @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
             }
         }
 
     // Wrap @content in media queries
     // -------------------------------------------------------------------------------
-    // @param $key [list of strings] : defines how to make up media query 
+    // @param $key [list of strings] : defines how to make up media query
     // -------------------------------------------------------------------------------
     // @output styles wrapped in media query
 
@@ -656,11 +670,11 @@
         @if length($key) == 1 {
             @if get-value("settings", "grid") == "fluid" {
                 @if is-highest-breakpoint($key) {
-                    @media only screen and ( min-width: (calc-breakpoint("next", $key, get-index($key)) + 1) ) {
+                    @media only screen and ( min-width: (calc-breakpoint("next", $key, get-index($key)) + if(get-config-unit() == "em", em(1px), 1)) ) {
                         @content;
                     }
                 } @else {
-                    @media only screen and ( min-width: (calc-breakpoint("next", $key, get-index($key)) + if(is-lowest-breakpoint($key), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $key, get-index($key)) ) {
+                    @media only screen and ( min-width: (calc-breakpoint("next", $key, get-index($key)) + if(is-lowest-breakpoint($key), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $key, get-index($key)) ) {
                         @content;
                     }
                 }
@@ -674,6 +688,8 @@
                         @content;
                     }
                 }
+            } @else {
+                @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
             }
 
         // From $key breakpoint to infinity
@@ -683,13 +699,15 @@
 
         } @else if length($key) > 1 and nth($key, 1) == "from" and nth($key, 3) == "to" and nth($key, 4) == "infinity" {
             @if get-value("settings", "grid") == "fluid" {
-                @media only screen and ( min-width: (calc-breakpoint("next", nth($key, 2), get-index(nth($key, 2))) + if(is-lowest-breakpoint(nth($key, 2)), 0, 1)) ) {
+                @media only screen and ( min-width: (calc-breakpoint("next", nth($key, 2), get-index(nth($key, 2))) + if(is-lowest-breakpoint(nth($key, 2)), 0, if(get-config-unit() == "em", em(1px), 1))) ) {
                     @content;
                 }
             } @else if get-value("settings", "grid") == "fixed" {
                 @media only screen and ( min-width: calc-breakpoint("alias", nth($key, 2), get-index(nth($key, 2))) ) {
                     @content;
                 }
+            } @else {
+                @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
             }
 
         // From $key-x breakpoint to $key-y breakpoint
@@ -699,13 +717,15 @@
 
         } @else if length($key) > 1 and nth($key, 1) == "from" and nth($key, 3) == "to" {
             @if get-value("settings", "grid") == "fluid" {
-                @media only screen and ( min-width: (calc-breakpoint("next", nth($key, 2), get-index(nth($key, 2))) + if(is-lowest-breakpoint(nth($key, 2)), 0, 1)) ) and ( max-width: calc-breakpoint("alias", nth($key, 4), get-index(nth($key, 4))) ) {
+                @media only screen and ( min-width: (calc-breakpoint("next", nth($key, 2), get-index(nth($key, 2))) + if(is-lowest-breakpoint(nth($key, 2)), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", nth($key, 4), get-index(nth($key, 4))) ) {
                     @content;
                 }
             } @else if get-value("settings", "grid") == "fixed" {
-                 @media only screen and ( min-width: calc-breakpoint("alias", nth($key, 2), get-index(nth($key, 2))) ) and ( max-width: (calc-breakpoint("prev", nth($key, 4), get-index(nth($key, 4))) - if(is-highest-breakpoint(nth($key, 4)), 0, 1)) ) {
+                 @media only screen and ( min-width: calc-breakpoint("alias", nth($key, 2), get-index(nth($key, 2))) ) and ( max-width: (calc-breakpoint("prev", nth($key, 4), get-index(nth($key, 4))) - if(is-highest-breakpoint(nth($key, 4)), 0, if(get-config-unit() == "em", em(1px), 1))) ) {
                     @content;
                 }
+            } @else {
+                @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
             }
 
         // Greater than $key breakpoint
@@ -715,13 +735,15 @@
 
         } @else if length($key) > 1 and nth($key, 1) == "greater" and nth($key, 2) == "than" {
             @if get-value("settings", "grid") == "fluid" {
-                @media only screen and ( min-width: (calc-breakpoint("alias", nth($key, 3), get-index(nth($key, 3))) + 1) ) {
+                @media only screen and ( min-width: (calc-breakpoint("alias", nth($key, 3), get-index(nth($key, 3))) + if(get-config-unit() == "em", em(1px), 1)) ) {
                     @content;
                 }
             } @else if get-value("settings", "grid") == "fixed" {
                 @media only screen and ( min-width: calc-breakpoint("prev", nth($key, 3), get-index(nth($key, 3))) ) {
                     @content;
                 }
+            } @else {
+                @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
             }
 
         // x[unit] greater than $key breakpoint
@@ -745,9 +767,11 @@
                     @content;
                 }
             } @else if get-value("settings", "grid") == "fixed" {
-                @media only screen and ( max-width: (calc-breakpoint("alias", nth($key, 3), get-index(nth($key, 3))) - 1) ) {
+                @media only screen and ( max-width: (calc-breakpoint("alias", nth($key, 3), get-index(nth($key, 3))) - if(get-config-unit() == "em", em(1px), 1)) ) {
                     @content;
                 }
+            } @else {
+                @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
             }
 
         // x[unit] less than $key breakpoint
@@ -772,11 +796,11 @@
                 @if exists($flint, $calcKey) {
                     @if get-value("settings", "grid") == "fluid" {
                         @if is-highest-breakpoint($calcKey) {
-                            @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + 1) ) {
+                            @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(get-config-unit() == "em", em(1px), 1)) ) {
                                 @content;
                             }
                         } @else {
-                            @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(is-lowest-breakpoint($calcKey), 0, 1)) ) and ( max-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) {
+                            @media only screen and ( min-width: (calc-breakpoint("next", $calcKey, get-index($calcKey)) + if(is-lowest-breakpoint($calcKey), 0, if(get-config-unit() == "em", em(1px), 1))) ) and ( max-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) {
                                 @content;
                             }
                         }
@@ -786,10 +810,12 @@
                                 @content;
                             }
                         } @else {
-                            @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) and ( max-width: (calc-breakpoint("prev", $calcKey, get-index($calcKey)) - 1) ) {
+                            @media only screen and ( min-width: calc-breakpoint("alias", $calcKey, get-index($calcKey)) ) and ( max-width: (calc-breakpoint("prev", $calcKey, get-index($calcKey)) - if(get-config-unit() == "em", em(1px), 1)) ) {
                                 @content;
                             }
                         }
+                    } @else {
+                        @warn "Invalid gutter settings in config map: #{get-value('settings', 'grid')}. Valid arguments: fluid | fixed";
                     }
                 }
             }

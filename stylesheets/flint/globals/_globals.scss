@@ -1,11 +1,14 @@
-// set global variable to check if foundation has been applied globally
+// Set global variable to check if foundation has been applied globally
 $flint__foundation: "nonexistant" !global;
 
-// gather all keys, breakpoints and column counts
+// Gather all keys, breakpoints and column counts
 $flint__all__keys: get-all-keys() !global;
 $flint__all__breakpoints: get-all-breakpoints() !global;
 $flint__all__columns: get-all-columns() !global;
 
-// keep track of all instances of mixin
+// Keep track of all instances of mixin
 $flint__instance-count: 0 !global;
 $flint__instances: () !global;
+
+// Font size for em calculation
+$flint__base-font-size: 16px !global;

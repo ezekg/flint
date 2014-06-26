@@ -3,9 +3,9 @@
 // @dependence `map-fetch()`
 // -------------------------------------------------------------------------------
 // @param $key [string] : breakpoint key
-// @param $value [string] : fetch value
+// @param $value [string] : key of value
 // -------------------------------------------------------------------------------
-// @return fetched value
+// @return [literal]
 
 @function get-value($key, $value: null) {
 	@if $value == null {

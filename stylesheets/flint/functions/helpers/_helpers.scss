@@ -64,7 +64,7 @@
 
 @function get-all-keys() {
 	$all-keys: ();
-  
+
 	@for $i from 1 through (length(map-fetch($flint, "config")) - 1) {
 		$key: steal-key($i);
 		$all-keys: append($all-keys, $key, "comma");
@@ -86,7 +86,7 @@
 				$all-breakpoints: append($all-breakpoints, $value, "comma");
 			}
 		}
-	} 
+	}
 
 	@return $all-breakpoints;
 }
@@ -155,4 +155,24 @@
 	}
 
 	@return $all-columns;
+}
+
+// Returns the unit used in config
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@function get-config-unit() {
+	@return unit(get-value("settings", "gutter"));
+}
+
+// Convert pixel value to em
+// -------------------------------------------------------------------------------
+// @param $target [num] : pixel value
+// @param $context [num] : context to divide by
+// -------------------------------------------------------------------------------
+// @return : em value of $target relative to $context
+// -------------------------------------------------------------------------------
+
+@function em($target, $context: $flint__base-font-size) {
+	@return ($target / $context) * 1em;
 }
