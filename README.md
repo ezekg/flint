@@ -6,6 +6,28 @@ Take it for a spin on [SassMeister.com](http://sassmeister.com/gist/11489231)!
 
 Enjoy.
 
+##Table of Contents
+
+1. [Requirements](#requirements)
+1. [Installation](#installation)
+1. [Documentation](#documentation)
+	* [Config](#config)
+	* [Foundation](#foundation)
+	* [Container](#container)
+	* [Clearfix](#clear)
+	* [Recursive shorthand](#recursive-shorthand)
+	* [Recursive shorthand with identical context](#recursive-shorthand-with-identical-context)
+	* [Recursive shorthand with variable context](#recursive-shorthand-with-variable-context)
+	* [Variable shorthand](#variable-shorthand)
+	* [Variable shorthand with context](#variable-shorthand-with-context)
+	* [Wrapping in media queries](#wrapping-in-media-queries)
+	* [Call by alias](#call-by-alias)
+	* [Gutter modifiers](#gutter-modifiers)
+	* [Shift modifiers](#shift)
+1. [BEM Users](#bem-users)
+1. [Authors](#authors)
+1. [License](#license)
+
 ##Requirements
 
 * Sass ~> 3.3.0
