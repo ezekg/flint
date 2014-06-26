@@ -79,33 +79,34 @@ $flint: (
     // Grid configuration
     "config": (
 
-        // Define breakpoints (any amount of breakpoints)
-        // Any alias you like, minus reserved Flint words (i.e. "settings", "config", etc.)
+        // Define breakpoints [any amount of breakpoints]
+        // Any alias you like, minus reserved Flint words [i.e. "settings", "config", etc.]
         "desktop": (
 
             // Options: 0-infinity
             "columns": 16,
 
-            // Options: value(unit)
-            "breakpoint": 1280px,
+            // Options: number[unit]
+            "breakpoint": 80em,
         ),
 
         // Same applies for other breakpoints
+        // ----
         // Remember, you're not fixed to just 4 breakpoints like we have here
         "laptop": (
             "columns": 12,
-            "breakpoint": 960px,
+            "breakpoint": 60em,
         ),
         "tablet": (
             "columns": 8,
-            "breakpoint": 640px,
+            "breakpoint": 40em,
         ),
         "mobile": (
             "columns": 4,
-            "breakpoint": 320px,
+            "breakpoint": 20em,
         ),
 
-        // Additional grid settings (required)
+        // Additional grid settings [required]
         "settings": (
 
             // Any breakpoint's alias
@@ -114,13 +115,13 @@ $flint: (
             // Options: fluid | fixed
             "grid": "fluid",
 
-            // Options: value(unit)
-            "gutter": 10px,
+            // Options: number[unit]
+            "gutter": 0.625em,
 
             // Options: left | right
             "float-style": "left",
 
-            // Options: true (uses highest breakpoint) | false | value(unit)
+            // Options: true [uses highest breakpoint] | false | number[unit]
             "max-width": true,
 
             // Options: true | false
@@ -133,7 +134,7 @@ $flint: (
             "debug-mode": false,
         ),
     ),
-);
+) !default;
 ```
 
 ###Foundation
