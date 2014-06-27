@@ -163,6 +163,7 @@ Outputs,
 	display: block;
 	float: none;
 	width: 100%;
+	max-width: 1280px
 	margin-right: auto;
 	margin-left: auto;
 }
