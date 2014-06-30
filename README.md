@@ -1,12 +1,38 @@
 # Flint [![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
 
-**Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on Sass 3.3, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file and is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
+**Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on Sass 3.3, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file that is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
 
 Take it for a spin on [SassMeister.com](http://sassmeister.com/gist/11489231)!
 
 Enjoy.
 
+<<<<<<< HEAD
 ## Requirements
+=======
+##Table of Contents
+
+1. [Requirements](#requirements)
+1. [Installation](#installation)
+1. [Documentation](#documentation)
+	* [Config](#config)
+	* [Foundation](#foundation)
+	* [Container](#container)
+	* [Clearfix](#clear)
+	* [Recursive shorthand](#recursive-shorthand)
+	* [Recursive shorthand with identical context](#recursive-shorthand-with-identical-context)
+	* [Recursive shorthand with variable context](#recursive-shorthand-with-variable-context)
+	* [Variable shorthand](#variable-shorthand)
+	* [Variable shorthand with context](#variable-shorthand-with-context)
+	* [Wrapping in media queries](#wrapping-in-media-queries)
+	* [Call by alias](#call-by-alias)
+	* [Gutter modifiers](#gutter-modifiers)
+	* [Shift modifiers](#shift)
+1. [BEM Users](#bem-users)
+1. [Authors](#authors)
+1. [License](#license)
+
+##Requirements
+>>>>>>> e305ebfa29b42e34f725e01245f2850443a22f2d
 
 * Sass ~> 3.3.0
 * Compass ~> 1.0.0.alpha.19
@@ -57,33 +83,34 @@ $flint: (
     // Grid configuration
     "config": (
 
-        // Define breakpoints (any amount of breakpoints)
-        // Any alias you like, minus reserved Flint words (i.e. "settings", "config", etc.)
+        // Define breakpoints [any amount of breakpoints]
+        // Any alias you like, minus reserved Flint words [i.e. "settings", "config", etc.]
         "desktop": (
 
             // Options: 0-infinity
             "columns": 16,
 
-            // Options: value(unit)
-            "breakpoint": 1280px,
+            // Options: number[unit]
+            "breakpoint": 80em,
         ),
 
         // Same applies for other breakpoints
+        // ----
         // Remember, you're not fixed to just 4 breakpoints like we have here
         "laptop": (
             "columns": 12,
-            "breakpoint": 960px,
+            "breakpoint": 60em,
         ),
         "tablet": (
             "columns": 8,
-            "breakpoint": 640px,
+            "breakpoint": 40em,
         ),
         "mobile": (
             "columns": 4,
-            "breakpoint": 320px,
+            "breakpoint": 20em,
         ),
 
-        // Additional grid settings (required)
+        // Additional grid settings [required]
         "settings": (
 
             // Any breakpoint's alias
@@ -92,13 +119,13 @@ $flint: (
             // Options: fluid | fixed
             "grid": "fluid",
 
-            // Options: value(unit)
-            "gutter": 10px,
+            // Options: number[unit]
+            "gutter": 0.625em,
 
             // Options: left | right
             "float-style": "left",
 
-            // Options: true (uses highest breakpoint) | false | value(unit)
+            // Options: true [uses highest breakpoint] | false | number[unit]
             "max-width": true,
 
             // Options: true | false
@@ -111,7 +138,7 @@ $flint: (
             "debug-mode": false,
         ),
     ),
-);
+) !default;
 ```
 
 ### Foundation
@@ -140,6 +167,7 @@ Outputs,
 	display: block;
 	float: none;
 	width: 100%;
+	max-width: 1280px
 	margin-right: auto;
 	margin-left: auto;
 }
