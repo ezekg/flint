@@ -1,7 +1,7 @@
 // Fetch value from key in map
 // -------------------------------------------------------------------------------
 // @param $map [map] : map to fetch from
-// @param $keys [list] : list of keys
+// @param $keys [string | list] : string of key, or list of strings
 // -------------------------------------------------------------------------------
 // @return fetched literal | false
 

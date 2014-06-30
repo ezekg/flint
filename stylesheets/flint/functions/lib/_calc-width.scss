@@ -11,19 +11,33 @@
 
 @function calc-width($key, $span, $context: null) {
 	@if get-value("settings", "grid") == "fluid" {
+
 		@if $key == "container" or $span == "container" {
+
 			@return fluid-width(get-value($key, "breakpoint"), get-value($key, "breakpoint"));
+
 		} @else if $context == null {
+
 			@return fluid-width((get-value($key, "breakpoint") / get-value($key, "columns") * $span), get-value($key, "breakpoint"));
+
 		} @else {
+
 			@return fluid-width((get-value($key, "breakpoint") / get-value($key, "columns") * $span), ((get-value($key, "breakpoint") / get-value($key, "columns") * $context)));
+
 		}
+
 	} @if get-value("settings", "grid") == "fixed" {
+
 		@if $key == "container" or $span == "container" {
+
 			@return get-value($key, "breakpoint");
+
 		} @else {
+
 			@return get-value($key, "breakpoint") / get-value($key, "columns") * $span;
+
 		}
+
 	} @else {
 		@return false;
 	}

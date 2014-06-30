@@ -159,7 +159,7 @@
 
 // Returns the unit used in config
 // -------------------------------------------------------------------------------
-// @return [bool]
+// @return [literal]
 
 @function get-config-unit() {
 	@return unit(get-value("settings", "gutter"));
@@ -167,8 +167,8 @@
 
 // Convert pixel value to em
 // -------------------------------------------------------------------------------
-// @param $target [num] : pixel value
-// @param $context [num] : context to divide by
+// @param $target [number] : pixel value
+// @param $context [number] : context to divide by
 // -------------------------------------------------------------------------------
 // @return : em value of $target relative to $context
 // -------------------------------------------------------------------------------
