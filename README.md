@@ -1,4 +1,4 @@
-#Flint [![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
+# Flint [![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
 
 **Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on Sass 3.3, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file that is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
 
@@ -6,7 +6,7 @@ Take it for a spin on [SassMeister.com](http://sassmeister.com/gist/11489231)!
 
 Enjoy.
 
-##Table of Contents
+## Table of Contents
 
 1. [Requirements](#requirements)
 1. [Installation](#installation)
@@ -28,28 +28,35 @@ Enjoy.
 1. [Authors](#authors)
 1. [License](#license)
 
-##Requirements
+## Requirements
 
 * Sass ~> 3.3.0
 * Compass ~> 1.0.0.alpha.19
 
-##Installation
+## Installation
 
-1. `gem install flint-gs`
-2. Add `require "flint"` to your `config.rb`
-3. Import it in your stylesheets with `@import "flint";`
+##### Bower
+`bower install flint`
 
-If you don't want to install the gem (?!), download/clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+##### Ruby
+`gem install flint-gs`
 
-##Documentation
+----
 
-###Config
+1. Add `require "flint"` to your `config.rb`
+2. Import it in your stylesheets with `@import "flint"`
+
+If you don't want to install it, download or clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+
+## Documentation
+
+### Config
 
 Flint's `config` map is unique in the ability that you may define an unlimited number of breakpoints for your project. Whether that be 2 breakpoints, or even 12 breakpoints. Flint gives you full control over the column count on each breakpoint, and unlike most frameworks, you may name these anything that you like. Flint is smart and will figure out which one you're talking about.
 
 Speaking of not being like most frameworks, Flint does not require you to set a ridiculous amount of variables just to use a single breakpoint. It actually doesn't require you to set *any* variables. It also doesn't require you to install a seperate extension so that you can define your breakpoints; *all of these features are baked into Flint.* Your columns are fully related to your breakpoints, so that there is never any confusion and everything is kept nice and simple.
 
-####Usage
+#### Usage
 
 To begin, you can either use the default `config` (below) which comes baked in, or you can define your own using the `$flint` variable, using the default config as a template. Settings may be entered in `px` or `em`, and Flint will do the rest.
 
@@ -137,7 +144,7 @@ $flint: (
 ) !default;
 ```
 
-###Foundation
+### Foundation
 
 If you selected `"border-box-sizing": true`, then it is *advised* to create a global foundation instance like so,
 
@@ -147,7 +154,7 @@ If you selected `"border-box-sizing": true`, then it is *advised* to create a gl
 
 That way your output won't be riddled with `box-sizing` declarations everytime you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
 
-###Container
+### Container
 
 Containers act as a row for each individual breakpoint, and if set in your config, uses a max-width. They do not float, so if you have `"center-container"` set to `true` then it will also center your element using `auto` left and right margins.
 
@@ -169,7 +176,7 @@ Outputs,
 }
 ```
 
-###Clear
+### Clear
 
 Given that Flint is float based, you might find yourself needing to use a clearfix. Flint comes packaged with a micro-clearfix function.
 
@@ -195,7 +202,7 @@ Outputs,
 }
 ```
 
-###Recursive shorthand
+### Recursive shorthand
 
 Use this if you want *identical* column spans across all breakpoints.
 
@@ -289,7 +296,7 @@ As you can see, since `"desktop"` is the framework `"default"`, it uses the outp
 
 Whatever your `"default"` is set to, **flint** will not wrap those styles in media-queries, so that they may be used in non-supported browsers.
 
-###Recursive shorthand with identical context
+### Recursive shorthand with identical context
 
 Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all. **Using `$context: auto` on fixed grids, the width with will be calculated by the parents width, instead of using the base breakpoints width.**
 
@@ -356,7 +363,7 @@ Outputs,
 }
 ```
 
-###Recursive shorthand with variable context
+### Recursive shorthand with variable context
 
 Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
@@ -404,7 +411,7 @@ recursive {
 }
 ```
 
-###Variable shorthand
+### Variable shorthand
 
 Use this if your content needs different spans across each breakpoints. The *order of operations* for this matches the order entered in your `config`.
 
@@ -448,7 +455,7 @@ Outputs,
 }
 ```
 
-###Variable shorthand with context
+### Variable shorthand with context
 
 Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
@@ -494,7 +501,7 @@ Outputs,
 }
 ```
 
-###Wrapping in media queries
+### Wrapping in media queries
 
 Use these if you need to apply breakpoint specific styling.
 
@@ -556,7 +563,7 @@ Use these if you need to apply breakpoint specific styling.
 }
 ```
 
-###Call by alias
+### Call by alias
 
 Use if you want to define each span without shorthands.
 
@@ -606,7 +613,7 @@ Outputs,
 }
 ```
 
-###Gutter modifiers
+### Gutter modifiers
 
 Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. The `$gutter` variable allows you to pass in either a recursive argument, or a variable argument, similar to `$span`.
 
@@ -738,7 +745,7 @@ Outputs,
 }
 ```
 
-###Shift
+### Shift
 
 Much like the gutter modifiers, you may also call in a shift parameter using the `$shift` variable. This will cause the element to shift the desired amount of columns using positive/negative left margins.
 
@@ -841,7 +848,7 @@ Outputs,
 }
 ```
 
-##BEM Users
+## BEM Users
 
 Due to the way **BEM** is written, the instance functions cannot fallback to previous selectors in the family tree to find a parent instance, so using `$context: auto` will not work for some BEM users, depending on how you write it.
 
