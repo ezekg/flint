@@ -35,14 +35,11 @@ Enjoy.
 
 ## Installation
 
-**Bower:** `bower install flint`
-
-**Ruby:** `gem install flint-gs`
-
-----
-
-1. Add `require "flint"` to your `config.rb`
-2. Import it in your stylesheets with `@import "flint"`
+1. Install via Bower or Ruby
+	* `bower install flint`
+	* `gem install flint-gs`
+2. Add `require "flint"` to your `config.rb`
+3. Import it in your stylesheets with `@import "flint"`
 
 If you don't want to install it, download or clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
 
