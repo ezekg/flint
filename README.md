@@ -39,7 +39,7 @@ Enjoy.
 2. Add `require "flint"` to your `config.rb`
 3. Import it in your stylesheets with `@import "flint"`
 
-If you don't want to install it, download or clone the current build files and use the starter `config.rb` to require any custom functions Flint uses. Currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+If you don't want to install it, then simply download or clone the current build files. Use the starter `config.rb` to require any custom functions Flint uses; currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
 
 ## Documentation
 
@@ -298,7 +298,7 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 .parent {
 	@include _(6);
 
-	.recursive {
+	.recursive-child {
 		@include _(3, auto); // Equivalent to : _(3, 6)
 	}
 }
@@ -307,7 +307,7 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 .parent {
 	@include _(6);
 }
-.parent .recursive {
+.parent .recursive-child {
 	@include _(3, auto); // Equivalent to : _(3, 6)
 }
 
@@ -315,7 +315,7 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 .parent {
 	@include _(6);
 }
-.recursive {
+.recursive-child {
 	@include _(3, auto); // Equivalent to : _(3, 6)
 }
 
@@ -326,7 +326,7 @@ Use this if your nested context is *identical* across all breakpoints. The `cont
 
 Outputs,
 ```scss
-.recursive {
+.recursive-child {
 	display: block;
 	float: left;
 	width: 45.8333333333%;
@@ -334,21 +334,21 @@ Outputs,
 	margin-left: 2.0833333333%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
-	.recursive {
+	.recursive-child {
 		width: 45.8333333333%;
 		margin-right: 2.0833333333%;
 		margin-left: 2.0833333333%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
-	.recursive {
+	.recursive-child {
 		width: 45.8333333333%;
 		margin-right: 2.0833333333%;
 		margin-left: 2.0833333333%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
-	.recursive {
+	.recursive-child {
 		width: 45.8333333333%;
 		margin-right: 2.0833333333%;
 		margin-left: 2.0833333333%;
@@ -358,7 +358,9 @@ Outputs,
 
 ### Recursive shorthand with variable context
 
-Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
+Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent selector with a Flint instance actually exists, or you'll throw a warning and get no output.
+
+When using `$context: auto` on fixed grids, Flint will automagically calculate based on the width of the closest parent element instance.
 
 *You must include an argument for each breakpoint in your config.*
 
@@ -366,7 +368,7 @@ Use this if your context is *not* indentical across breakpoints. The `context` i
 .parent {
 	@include _(10 8 6 4);
 
-	.recursive {
+	.recursive-child {
 		@include _(2, auto); // Equivalent to : _(2, 10 8 6 4)
 	}
 }
@@ -374,7 +376,7 @@ Use this if your context is *not* indentical across breakpoints. The `context` i
 
 Outputs,
 ```scss
-recursive {
+recursive-child {
 	display: block;
 	float: left;
 	width: 17.5%;
@@ -382,21 +384,21 @@ recursive {
 	margin-left: 1.25%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
-	.recursive {
+	.recursive-child {
 		width: 21.875%;
 		margin-right: 1.5625%;
 		margin-left: 1.5625%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
-	.recursive {
+	.recursive-child {
 		width: 29.1666666667%;
 		margin-right: 2.0833333333%;
 		margin-left: 2.0833333333%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
-	.recursive {
+	.recursive-child {
 		width: 43.75%;
 		margin-right: 3.125%;
 		margin-left: 3.125%;
@@ -450,13 +452,13 @@ Outputs,
 
 ### Variable shorthand with context
 
-Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
+Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. Before using `$context: auto`, be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
 
 ```scss
 .parent {
 	@include _(16 12 8 4);
 
-	.variable {
+	.variable-child {
 		@include _(14 10 6 2, 16 12 8 4); // Equivalent to : _(14 10 6 2, auto)
 	}
 }
@@ -464,7 +466,7 @@ Use this if you're *nesting* columns using the variable shorthand. The `context`
 
 Outputs,
 ```scss
-.variable {
+.variable-child {
 	display: block;
 	float: left;
 	width: 85.9375%;
@@ -472,21 +474,21 @@ Outputs,
 	margin-left: 0.78125%;
 }
 @media only screen and (min-width: 641px) and (max-width: 960px) {
-	.variable {
+	.variable-child {
 		width: 81.25%;
 		margin-right: 1.0416666667%;
 		margin-left: 1.0416666667%;
 	}
 }
 @media only screen and (min-width: 321px) and (max-width: 640px) {
-	.variable {
+	.variable-child {
 		width: 71.875%;
 		margin-right: 1.5625%;
 		margin-left: 1.5625%;
 	}
 }
 @media only screen and (min-width: 0) and (max-width: 320px) {
-	.variable {
+	.variable-child {
 		width: 43.75%;
 		margin-right: 3.125%;
 		margin-left: 3.125%;
@@ -843,7 +845,7 @@ Outputs,
 
 ## BEM Users
 
-Due to the way **BEM** is written, the instance functions cannot fallback to previous selectors in the family tree to find a parent instance, so using `$context: auto` will not work for some BEM users, depending on how you write it.
+Due to the way **BEM** is written, sometimes the instance functions cannot successfully fallback to previous selectors in the family tree in order to find a parent instance. That being said, `$context: auto` will not work for some BEM users, depending upon how you write it.
 
 ```scss
 .block {
@@ -871,7 +873,7 @@ Will result in a` @warning`, and will not compile correctly as `.block` and `.bl
 .block {
 	@include _(4);
 
-	// Double your ampersands
+	// Double your ampersands [this solution can only be used under specific circumstances]
 	& &__element {
 		@include _(2, auto);
 	}
