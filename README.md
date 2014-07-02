@@ -35,9 +35,7 @@ Enjoy.
 
 ## Installation
 
-1. Install via Bower or Ruby
-	* `bower install flint`
-	* `gem install flint-gs`
+1. Install via Ruby `gem install flint-gs`, or Bower `bower install flint`
 2. Add `require "flint"` to your `config.rb`
 3. Import it in your stylesheets with `@import "flint"`
 
