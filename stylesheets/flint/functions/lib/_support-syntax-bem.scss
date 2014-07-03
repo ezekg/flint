@@ -1,0 +1,25 @@
+// Support BEM syntax
+// -------------------------------------------------------------------------------
+// @param $selectors [string] : string of selectors to parse
+// -------------------------------------------------------------------------------
+// @return [string] : parsed list of selectors according to syntax
+
+@function support-syntax-bem($selectors) {
+    $selectors: string-to-list($selectors, "_");
+    $parent: nth($selectors, 1);
+    $selector-list: ($parent);
+
+    // Loop over each selector and build list of selectors
+    @each $selector in $selectors {
+        // Make sure current selector is not the parent
+        @if $selector != $parent {
+            // Save to selector list
+            $selector-list: append($selector-list, ($parent + "__" + $selector), "comma");
+            // Define new parent
+            $parent: $parent + "__" + $selector;
+        }
+    }
+
+    // Return the list of transformed selectors
+    @return $selector-list;
+}

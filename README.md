@@ -24,7 +24,7 @@ Enjoy.
 	* [Call by alias](#call-by-alias)
 	* [Gutter modifiers](#gutter-modifiers)
 	* [Shift modifiers](#shift)
-1. [BEM Users](#bem-users)
+1. [Syntax support](#syntax-support)
 1. [Authors](#authors)
 1. [License](#license)
 
@@ -57,13 +57,13 @@ To begin, you can either use the default `config` (below) which comes baked in, 
 
 ```scss
 // Configuration map
-//--------------------------------------------------------------------------------
-// @param [map] : Here you can set up your various breakpoints for your
+// -------------------------------------------------------------------------------
+// @param breakpoint [map] : Here you can set up your various breakpoints for your
 // project. Any number of breakpoints is acceptable. You must include a column
 // count and breakpoint value for each listed breakpoint. The order does have
 // to follow a `DESC` order. Unit (px | em) chosen here must be used consistently
 // throughout the rest of the config map.
-//--------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------
 // @param default [string] : alias of breakpoint that is your grid default
 // @param grid [string] : style of grid
 // @param gutter [number | false] : contextual size of gutter
@@ -71,69 +71,73 @@ To begin, you can either use the default `config` (below) which comes baked in, 
 // @param max-width [number | bool] : max-width for containers
 // @param center-container [bool] : if you want a centered container
 // @param border-box-sizing [bool] : if you want box-sizing: border-box applied
+// @param support-syntax [string | false] : syntax to support
 // @param debug-mode [bool] : ouputs debug properties
 // -------------------------------------------------------------------------------
 
 $flint: (
 
-    // Grid configuration
-    "config": (
+	// Grid configuration
+	"config": (
 
-        // Define breakpoints [any amount of breakpoints]
-        // Any alias you like, minus reserved Flint words [i.e. "settings", "config", etc.]
-        "desktop": (
+		// Define breakpoints [any amount of breakpoints]
+		// Any alias you like, minus reserved Flint words [i.e. "settings", "config", etc.]
+		"desktop": (
 
-            // Options: 0-infinity
-            "columns": 16,
+			// Options: 0-infinity
+			"columns": 16,
 
-            // Options: number[unit]
-            "breakpoint": 80em,
-        ),
+			// Options: number[unit]
+			"breakpoint": 80em,
+		),
 
-        // Same applies for other breakpoints
-        // ----
-        // Remember, you're not fixed to just 4 breakpoints like we have here
-        "laptop": (
-            "columns": 12,
-            "breakpoint": 60em,
-        ),
-        "tablet": (
-            "columns": 8,
-            "breakpoint": 40em,
-        ),
-        "mobile": (
-            "columns": 4,
-            "breakpoint": 20em,
-        ),
+		// Same applies for other breakpoints
+		// ----
+		// Remember, you're not fixed to just 4 breakpoints like we have here
+		"laptop": (
+			"columns": 12,
+			"breakpoint": 60em,
+		),
+		"tablet": (
+			"columns": 8,
+			"breakpoint": 40em,
+		),
+		"mobile": (
+			"columns": 4,
+			"breakpoint": 20em,
+		),
 
-        // Additional grid settings [required]
-        "settings": (
+		// Additional grid settings [required]
+		"settings": (
 
-            // Any breakpoint's alias
-            "default": "mobile",
+			// Any breakpoint's alias
+			"default": "mobile",
 
-            // Options: fluid | fixed
-            "grid": "fluid",
+			// Options: fluid | fixed
+			"grid": "fluid",
 
-            // Options: number[unit]
-            "gutter": 0.625em,
+			// Options: number[unit]
+			"gutter": 0.625em,
 
-            // Options: left | right
-            "float-style": "left",
+			// Options: left | right
+			"float-style": "left",
 
-            // Options: true [uses highest breakpoint] | false | number[unit]
-            "max-width": true,
+			// Options: true [uses highest breakpoint] | false | number[unit]
+			"max-width": true,
 
-            // Options: true | false
-            "center-container": true,
+			// Options: true | false
+			"center-container": true,
 
-            // Options: true | false
-            "border-box-sizing": true,
+			// Options: true | false
+			"border-box-sizing": true,
 
-            // Options: true | false
-            "debug-mode": false,
-        ),
-    ),
+			// Syntax support: string | false
+			"support-syntax": false,
+
+			// Options: true | false
+			"debug-mode": false,
+		),
+	),
 ) !default;
 ```
 
@@ -843,54 +847,49 @@ Outputs,
 }
 ```
 
-## BEM Users
+## Syntax support
 
-Due to the way **BEM** is written, sometimes the instance functions cannot successfully fallback to previous selectors in the family tree in order to find a parent instance. That being said, `$context: auto` will not work for some BEM users, depending upon how you write it.
+As of `1.6.0`, you can add syntax support for your preferred syntax. I built the system for BEM, but it should be easily extendable to
+support your preferred syntax. Simply create a function which parses a string of selectors into a valid list. For example, the BEM syntax
+function parses the selector string (for example, `.block__element__element`) like so,
 
 ```scss
-.block {
-	@include _(4);
+// Support BEM syntax
+// -------------------------------------------------------------------------------
+// @param $selectors [string] : string of selectors to parse
+// -------------------------------------------------------------------------------
+// @return [string] : parsed list of selectors according to syntax
 
-	&__element {
-		@include _(2, auto);
+@function support-syntax-bem($selectors) {
+	$selectors: string-to-list($selectors, "_");
+	$parent: nth($selectors, 1);
+	$selector-list: ($parent);
+
+	// Loop over each selector and build list of selectors
+	@each $selector in $selectors {
+		// Make sure current selector is not the parent
+		@if $selector != $parent {
+			// Save to selector list
+			$selector-list: append($selector-list, ($parent + "__" + $selector), "comma");
+			// Define new parent
+			$parent: $parent + "__" + $selector;
+		}
 	}
+
+	// Return the list of transformed selectors
+	@return $selector-list;
 }
 ```
 
-Will result in a` @warning`, and will not compile correctly as `.block` and `.block__element` are not compiled into selectors of the same family tree i.e. `.block .block__element`. But, if you write it like this:
+This will be parsed into a list of selectors: `.block, .block__element, .block__element__element`. The list of selectors can then be used by
+instance system to look up a selectors parent, etc. To support your own preferred syntax: create a `support-syntax-<syntax-name>` function
+and hook into it through the config `"support-syntax": "<syntax-name>"` option -- the system will attempt to use the `call()` function in
+order to parse the selector string.
 
-```scss
-.block {
-	@include _(4);
+#### Officially supported syntaxes
+* [BEM](http://bem.info/)
 
-	.block__element {
-		@include _(2, auto);
-	}
-}
-
-// Or...
-
-.block {
-	@include _(4);
-
-	// Double your ampersands [this solution can only be used under specific circumstances]
-	& &__element {
-		@include _(2, auto);
-	}
-}
-```
-
-This will allow the instance functions to properly fallback from `.block .block__element` to `.block` to check for context. If writing BEM like that just isn't your thing, you can manually enter your context:
-
-```scss
-.block {
-	@include _(4);
-
-	&__element {
-		@include _(2, 4);
-	}
-}
-```
+If you make one that isn't here, let me know and I'll look into officially supporting it.
 
 ## Authors
 

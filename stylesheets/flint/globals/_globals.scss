@@ -16,3 +16,7 @@ $flint__instances: () !global;
 // Font size for em calculation
 // ----
 $flint__base-font-size: 16px !global;
+
+// Global syntax support
+// ----
+$flint__support-syntax: get-value("settings", "support-syntax") !global;

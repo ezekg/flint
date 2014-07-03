@@ -1,6 +1,12 @@
 # Change Log
 
 ### 6/30/14
+* Added functions for syntax-support that are easily extendable
+    * Added syntax support option in config
+    * Added offical support for BEM syntax
+* Fix minor issue with `$context: auto` conditional in `main.scss`
+
+### 6/30/14
 * Add feature to pass arbitrary values to media query calls.
 * Fix issue with max-width conditional.
 * Clean up codebase. Add `types-in-list()` function.

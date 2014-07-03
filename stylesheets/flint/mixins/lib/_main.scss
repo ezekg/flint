@@ -334,7 +334,7 @@
             // -------------------------------------------------------------------------------
             // @output calculated styles
 
-            } @else if types-in-list($span, "number") or $span == "auto" {
+            } @else if types-in-list($span, "number") {
 
                 @for $i from 1 through length($flint__all__keys) {
 
@@ -477,7 +477,7 @@
         // -------------------------------------------------------------------------------
         // @output calculated styles
 
-        } @else if types-in-list($key, "number") and types-in-list($span, "number") or $span == "auto" {
+        } @else if types-in-list($key, "number") and types-in-list($span, "number") {
 
             @for $i from 1 through length($flint__all__keys) {
 

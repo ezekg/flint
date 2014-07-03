@@ -1,0 +1,11 @@
+// Use global syntax set through `set-syntax` mixin
+// -------------------------------------------------------------------------------
+// @param $selectors [string] : string of selectors to transform
+// -------------------------------------------------------------------------------
+// @return [list] : list of transformed selectors according to syntax
+
+@function use-syntax($selectors) {
+    @if $flint__support-syntax {
+        @return call("support-syntax", $flint__support-syntax, $selectors);
+    }
+}
