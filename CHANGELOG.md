@@ -1,6 +1,6 @@
 # Change Log
 
-### 6/30/14
+### 7/03/14
 * Added functions for syntax-support that are easily extendable
     * Added syntax support option in config
     * Added offical support for BEM syntax
