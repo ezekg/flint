@@ -858,7 +858,7 @@ function parses the selector string (for example, `.block__element__element`) li
 // -------------------------------------------------------------------------------
 // @param $selectors [string] : string of selectors to parse
 // -------------------------------------------------------------------------------
-// @return [string] : parsed list of selectors according to syntax
+// @return [list] : parsed list of selectors according to syntax
 
 @function support-syntax-bem($selectors) {
 	$selectors: string-to-list($selectors, "_");
@@ -876,7 +876,7 @@ function parses the selector string (for example, `.block__element__element`) li
 		}
 	}
 
-	// Return the list of transformed selectors
+	// Return the list of parsed selectors
 	@return $selector-list;
 }
 ```

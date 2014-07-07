@@ -6,6 +6,9 @@
 
 @function use-syntax($selectors) {
     @if $flint__support-syntax {
-        @return call("support-syntax", $flint__support-syntax, $selectors);
+        @return support-syntax($flint__support-syntax, $selectors);
+    } @else {
+        @warn "Support syntax is set to #{$flint__support-syntax}. Aborting mission.";
+        @return false;
     }
 }

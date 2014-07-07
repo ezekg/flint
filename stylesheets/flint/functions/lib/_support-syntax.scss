@@ -21,7 +21,7 @@
     } @else {
 
         // Throw error if the syntax does not exist and a function to call cannot be found
-        @warn "You did not pass a valid syntax to `support-syntax`: #{$syntax}. Either specify a custom `support-syntax-<syntax>` function to call, or use one of the offically supported syntaxes.";
+        @warn "You did not pass a valid syntax to `support-syntax`: #{$syntax}. Either specify a custom `support-syntax-<syntax>` function to call, or use one of the offically supported syntaxes. For more info, please visit the docs.";
         @return null;
 
     }

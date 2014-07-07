@@ -1,5 +1,9 @@
 # Change Log
 
+### 7/07/14
+* Added warnings for improper arguments for various mixins and functions.
+* Slightly changed doc blocks.
+
 ### 7/03/14
 * Added functions for syntax-support that are easily extendable
     * Added syntax support option in config
