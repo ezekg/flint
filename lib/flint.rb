@@ -5,8 +5,8 @@ Compass::Frameworks.register('flint', :path => extension_path)
 #  Version is a number. If a version contains alphas, it will be created as a prerelease version
 #  Date is in the form of YYYY-MM-DD
 module Flint
-  VERSION = "1.6.2"
-  DATE = "2014-07-03"
+  VERSION = "1.6.3"
+  DATE = "2014-07-08"
 end
 
 # Custom functions

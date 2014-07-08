@@ -11,8 +11,8 @@
   $selector-string: selector_string();
   $selector-list: string-to-list($selector-string);
   $selector-cleaned: list-to-string($selector-list, " ");
-  
-	@if get-value(settings, debug-mode) == true {
+
+	@if get-value(settings, debug-mode) {
 		$printKey: "#{$selector-cleaned}" + "::" + "#{$calcKey}";
 		@include printInstance( map-get( $flint__instances, unquote($printKey) ) );
 	}

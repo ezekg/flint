@@ -1,7 +1,5 @@
 // Get single value from key in instance map based on $selector::$key
 // -------------------------------------------------------------------------------
-// @dependence `map-fetch()`
-// -------------------------------------------------------------------------------
 // @warning : all values @returned are strings and must be converted with `to-number()`
 // -------------------------------------------------------------------------------
 // @param $key [string] : key

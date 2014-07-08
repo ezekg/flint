@@ -35,10 +35,10 @@
 			"output": (
 				"width": #{$outputWidth},
 				"margin-right": #{$outputMarginRight},
-				"margin-left": #{$outputMarginLeft},
-			),
-		),
+				"margin-left": #{$outputMarginLeft}
+			)
+		)
     );
-    
+
     @return map-merge($flint__instances, $flint__instance);
 }

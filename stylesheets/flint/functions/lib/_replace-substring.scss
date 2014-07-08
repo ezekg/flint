@@ -1,0 +1,36 @@
+// Replace substring
+// -------------------------------------------------------------------------------
+// @param $string [string] : string that contains substring
+// @param $substring [string] : substring to replace
+// @param $new-substring [string] : new string to replace sub with
+// @param $recursive [bool] : recursively replace all substrings
+// -------------------------------------------------------------------------------
+// @return [string]
+
+@function replace-substring($string, $substring, $new-substring: " ", $recursive: true) {
+	// Loop through length of string
+	@for $i from 1 through str-length($string) {
+
+		// Get index and length of substring
+		$sub-index: str-index($string, $substring);
+		$sub-length: str-length($substring);
+
+		// If count is index of substring
+		@if $i == $sub-index {
+
+			// Slice string to exclude substring
+			$string-before: str-slice($string, 1, $i - 1);
+			$string-after: str-slice($string, $i + $sub-length, str-length($string));
+
+			// Create new string
+			$string: $string-before + $new-substring + $string-after;
+
+			@if $recursive {
+				$string: replace-substring($string, $substring, $new-substring);
+			}
+		}
+
+	}
+
+	@return $string;
+}

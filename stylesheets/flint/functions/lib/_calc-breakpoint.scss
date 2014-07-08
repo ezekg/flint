@@ -1,12 +1,6 @@
 // Calculate from-to breakpoints
 // -------------------------------------------------------------------------------
-// @dependence `map-fetch()`
-// @dependence `get-value()`
-// @dependence `steal-key()`
-// @dependence `is-highest-breakpoint()`
-// @dependence `is-lowest-breakpoint()`
-// -------------------------------------------------------------------------------
-// @param $n [string] : how to calculate breakpoint 
+// @param $n [string] : how to calculate breakpoint
 // @param $key [string] : key of breakpoint
 // @param $i [number] : index of current breakpoint
 // -------------------------------------------------------------------------------

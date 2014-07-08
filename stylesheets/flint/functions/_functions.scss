@@ -9,7 +9,6 @@
 @import "lib/map-fetch";
 @import "lib/get-value";
 @import "lib/get-index";
-@import "lib/get-substring";
 @import "lib/steal-key";
 @import "lib/steal-values";
 // Calculations
@@ -30,6 +29,7 @@
 @import "lib/remove";
 @import "lib/last";
 // String functions
+@import "lib/replace-substring";
 @import "lib/string-to-number";
 @import "lib/string-to-list";
 
