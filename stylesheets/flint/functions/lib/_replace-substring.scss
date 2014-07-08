@@ -9,9 +9,9 @@
 @function replace-substring($string, $substring, $new-substring: " ") {
 	// Loop through length of string
 	@for $i from 1 through str-length($string) {
-	// Get index and length of substring
-	$sub-index: str-index($string, $substring);
-	$sub-length: str-length($substring);
+		// Get index and length of substring
+		$sub-index: str-index($string, $substring);
+		$sub-length: str-length($substring);
 
 		// If count is index of substring
 		@if $i == $sub-index {

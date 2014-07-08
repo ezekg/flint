@@ -862,9 +862,10 @@ function parses the selector string (for example, `.block__element__element`) li
 
 @function support-syntax-bem($selectors) {
 	// Clean up selector, remove double underscores for spaces
-	$selectors: replace-substring($selectors, "__");
+	//  add psudeo character to differentiate selectors
+	$selectors: replace-substring($selectors, "__", "/");
 	// Parse string to list
-	$selectors: string-to-list($selectors);
+	$selectors: string-to-list($selectors, "/");
 	// Define top-most parent of selector
 	$parent: nth($selectors, 1);
 	// Create new list of parsed selectors

@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.6.5 - 7/08/14
+* Fixed issue with `support-syntax-bem` function.
+
 ### 1.6.4 - 7/08/14
 * Remove recursive option from `replace-substring` for performance reasons.
 
