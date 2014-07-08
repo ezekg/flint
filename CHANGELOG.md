@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.6.4 - 7/08/14
+* Remove recursive option from `replace-substring` for performance reasons.
+
 ### 1.6.3 - 7/08/14
 * Added string replace function.
     * Modified way BEM selectors are parsed with new function.
