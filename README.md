@@ -861,8 +861,13 @@ function parses the selector string (for example, `.block__element__element`) li
 // @return [list] : parsed list of selectors according to syntax
 
 @function support-syntax-bem($selectors) {
-	$selectors: string-to-list($selectors, "_");
+	// Clean up selector, remove double underscores for spaces
+	$selectors: replace-substring($selectors, "__");
+	// Parse string to list
+	$selectors: string-to-list($selectors);
+	// Define top-most parent of selector
 	$parent: nth($selectors, 1);
+	// Create new list of parsed selectors
 	$selector-list: ($parent);
 
 	// Loop over each selector and build list of selectors
