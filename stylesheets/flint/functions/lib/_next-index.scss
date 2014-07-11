@@ -4,8 +4,8 @@
 // -------------------------------------------------------------------------------
 // @return [string] | null
 
-@function next-index($index) { 
-	@if $index != (length(map-fetch($flint, "config")) - 1) {
+@function flint-next-index($index) { 
+	@if $index != (length(flint-map-fetch($flint, "config")) - 1) {
 		@each $key in nth(map-get($flint, "config"), $index + 1) {
 			@return $key;
 		}

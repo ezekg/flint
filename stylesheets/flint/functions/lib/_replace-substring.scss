@@ -6,23 +6,29 @@
 // -------------------------------------------------------------------------------
 // @return [string]
 
-@function replace-substring($string, $substring, $new-substring: " ") {
-	// Loop through length of string
-	@for $i from 1 through str-length($string) {
-		// Get index and length of substring
-		$sub-index: str-index($string, $substring);
-		$sub-length: str-length($substring);
+@function flint-replace-substring($string, $substring, $new-substring: " ") {
 
-		// If count is index of substring
-		@if $i == $sub-index {
-			// Slice string to exclude substring
-			$string-before: str-slice($string, 1, $i - 1);
-			$string-after: str-slice($string, $i + $sub-length, str-length($string));
-			// Create new string
-			$string: $string-before + $new-substring + $string-after;
+	// Use Ruby function if available
+	@if $flint__use-ruby-functions {
+		@return replace_substring($string, $substring, $new-substring);
+	} @else {
+		// Loop through length of string
+		@for $i from 1 through str-length($string) {
+			// Get index and length of substring
+			$sub-index: str-index($string, $substring);
+			$sub-length: str-length($substring);
+
+			// If count is index of substring
+			@if $i == $sub-index {
+				// Slice string to exclude substring
+				$string-before: str-slice($string, 1, $i - 1);
+				$string-after: str-slice($string, $i + $sub-length, str-length($string));
+				// Create new string
+				$string: $string-before + $new-substring + $string-after;
+			}
+
 		}
 
+		@return $string;
 	}
-
-	@return $string;
 }

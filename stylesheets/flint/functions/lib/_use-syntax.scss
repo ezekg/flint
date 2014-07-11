@@ -1,12 +1,12 @@
-// Use global syntax set through `set-syntax` mixin
+// Use global syntax
 // -------------------------------------------------------------------------------
 // @param $selectors [string] : string of selectors to transform
 // -------------------------------------------------------------------------------
 // @return [list] : list of transformed selectors according to syntax
 
-@function use-syntax($selectors) {
+@function flint-use-syntax($selectors) {
     @if $flint__support-syntax {
-        @return support-syntax($flint__support-syntax, $selectors);
+        @return flint-support-syntax($flint__support-syntax, $selectors);
     } @else {
         @warn "Support syntax is set to #{$flint__support-syntax}. Aborting mission.";
         @return false;

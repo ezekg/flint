@@ -6,79 +6,85 @@
 // -------------------------------------------------------------------------------
 // @return [list] | error
 
-@function string-to-list($string, $find: " ", $ignore: ",") {
-	@if is-string($string) {
-		$string-list: ();
-		$space-indexes: ();
-		$ignore-remainder: ();
-		$length: str-length($string);
+@function flint-string-to-list($string, $find: " ", $ignore: ",") {
+	@if flint-is-string($string) {
 
-		// Find ignore separator, and remove remainder of string beyond that point
-		@for $i from 1 through $length {
-			$slice: str-slice($string, $i, $i);
-			@if $slice == $ignore {
-				$ignore-remainder: append($ignore-remainder, $i - 1, "comma");
-			}
-		}
-
-		// Redefine string and length
-		@if length($ignore-remainder) >= 1 {
-			$string: str-slice($string, 1, nth($ignore-remainder, 1));
+		// Use Ruby function if available
+		@if $flint__use-ruby-functions {
+			@return string_to_list($string, $find, $ignore);
+		} @else {
+			$string-list: ();
+			$space-indexes: ();
+			$ignore-remainder: ();
 			$length: str-length($string);
-		}
 
-		// Find all spaces and their indices by looking over each character in string
-		@for $i from 1 through $length {
-			$slice: str-slice($string, $i, $i);
-			@if $slice == $find {
-				$space-indexes: append($space-indexes, $i, "comma");
+			// Find ignore separator, and flint-remove remainder of string beyond that point
+			@for $i from 1 through $length {
+				$slice: str-slice($string, $i, $i);
+				@if $slice == $ignore {
+					$ignore-remainder: append($ignore-remainder, $i - 1, "comma");
+				}
 			}
-		}
 
-		// Check if there are any spaces
-		@if length($space-indexes) >= 1 {
+			// Redefine string and length
+			@if length($ignore-remainder) >= 1 {
+				$string: str-slice($string, 1, nth($ignore-remainder, 1));
+				$length: str-length($string);
+			}
 
-			// Keep a count of number of spaces
-			$count: 1;
+			// Find all spaces and their indices by looking over each character in string
+			@for $i from 1 through $length {
+				$slice: str-slice($string, $i, $i);
+				@if $slice == $find {
+					$space-indexes: append($space-indexes, $i, "comma");
+				}
+			}
 
-			// Loop through each space
-			@each $space in $space-indexes {
+			// Check if there are any spaces
+			@if length($space-indexes) >= 1 {
 
-				// If is initial count, grab first substring and store in list
-				@if $count == 1 {
-					$matched-string: str-slice($string, 0, ($space - 1));
+				// Keep a count of number of spaces
+				$count: 1;
 
-					@if $matched-string != "" {
-					  $string-list: append($string-list, $matched-string, "comma");
+				// Loop through each space
+				@each $space in $space-indexes {
+
+					// If is initial count, grab first substring and store in list
+					@if $count == 1 {
+						$matched-string: str-slice($string, 0, ($space - 1));
+
+						@if $matched-string != "" {
+						  $string-list: append($string-list, $matched-string, "comma");
+						}
+					// Else, add a little math to make up for the spaces to do the same
+					} @else {
+						$matched-string: str-slice($string, (nth($space-indexes, ($count - 1)) + 1), ($space - 1));
+
+						@if $matched-string != "" {
+						  $string-list: append($string-list, $matched-string, "comma");
+						}
 					}
-				// Else, add a little math to make up for the spaces to do the same
-				} @else {
-					$matched-string: str-slice($string, (nth($space-indexes, ($count - 1)) + 1), ($space - 1));
 
-					@if $matched-string != "" {
-					  $string-list: append($string-list, $matched-string, "comma");
-					}
+					// Increase count
+					$count: $count + 1;
 				}
 
-				// Increase count
-				$count: $count + 1;
+				// Now grab that last selector
+				$flint-last-space: nth($space-indexes, length($space-indexes));
+				$matched-string: str-slice($string, ($flint-last-space + 1), $length);
+				$string-list: append($string-list, $matched-string, "comma");
+
+				// Finally, return comma separated list of selectors
+				@return $string-list;
+			} @else {
+
+				// Else, just return the string as a single item list
+				$string-list: append($string-list, $string);
+
+				@return $string-list;
 			}
-
-			// Now grab that last selector
-			$last-space: nth($space-indexes, length($space-indexes));
-			$matched-string: str-slice($string, ($last-space + 1), $length);
-			$string-list: append($string-list, $matched-string, "comma");
-
-			// Finally, return comma separated list of selectors
-			@return $string-list;
 		} @else {
-
-			// Else, just return the string as a single item list
-			$string-list: append($string-list, $string);
-
-			@return $string-list;
+			@return "You did not input a valid string: #{$string}";
 		}
-	} @else {
-		@return "You did not input a valid string: #{$string}";
 	}
 }

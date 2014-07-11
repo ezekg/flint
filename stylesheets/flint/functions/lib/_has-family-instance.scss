@@ -1,0 +1,74 @@
+// Checks if instance flint-exists in selector familiy tree, falls back from current selector
+// -------------------------------------------------------------------------------
+// @param $key [string] : breakpoint key to search for matching instance
+// @param $syntax [string | null] : searches for instance using passed syntax
+// -------------------------------------------------------------------------------
+// @return matching instance | false
+
+@function flint-has-family-instance($key: flint-get-value("settings", "default"), $syntax: $flint__support-syntax) {
+	$selector-string: selector_string();
+
+	// Check if instance result had been cached
+	@if map-has-key($flint__cached-instances, "#{$selector-string}") {
+		// Get cached instance
+		$cached-instance: map-get($flint__cached-instances, "#{$selector-string}");
+		// Return with current key
+		@return "#{$cached-instance}::#{$key}";
+	}
+
+	// Check for syntax support, try to find instance using it
+	@if $syntax {
+
+		$selector-list: flint-use-syntax($selector-string);
+		$length: length($selector-list);
+
+		// Loop through transformed selectors
+		@for $i from 1 through $length {
+
+			// Check flint-last selector in list
+			@if flint-exists($flint__instances, "#{flint-last($selector-list)}::#{$key}") {
+
+				// Cache result
+				$flint__cached-instances: map-merge($flint__cached-instances, ("#{$selector-string}": "#{flint-last($selector-list)}"));
+
+				// Return the matching instance key
+				@return "#{flint-last($selector-list)}::#{$key}";
+
+			} @else {
+
+				// Else, flint-remove the flint-last selector and loop again
+				$selector-list: flint-remove($selector-list, flint-last($selector-list));
+
+			}
+		}
+
+		// Search for a parent instance normally
+		@return flint-has-family-instance($key, null);
+
+	} @else {
+		$selector-list: flint-string-to-list($selector-string);
+		$length: length($selector-list);
+
+		// Loop through length of list of selectors
+		@for $i from 1 through $length {
+
+			// Make sure that we're not counting the current selector string
+			@if flint-exists($flint__instances, "#{flint-list-to-string($selector-list, ' ')}::#{$key}") and $selector-string != flint-list-to-string($selector-list, " ") {
+
+				// Cache result
+				$flint__cached-instances: map-merge($flint__cached-instances, ("#{$selector-string}": "#{flint-list-to-string($selector-list, ' ')}"));
+
+				// Return the matching instance key
+				@return "#{flint-list-to-string($selector-list, ' ')}::#{$key}";
+
+			} @else {
+
+				// Else, flint-remove the flint-last selector and loop again
+				$selector-list: flint-remove($selector-list, flint-last($selector-list));
+
+			}
+		}
+
+		@return false;
+	}
+}

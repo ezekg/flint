@@ -6,11 +6,11 @@
 // -------------------------------------------------------------------------------
 // @return [list]
 
-@function purge($list) {
+@function flint-purge($list) {
 	$result: ();
 
 	@each $item in $list {
-		@if is-true($item) {
+		@if flint-is-true($item) {
 			$result: append($result, $item, list-separator($list));
 		}
 	}

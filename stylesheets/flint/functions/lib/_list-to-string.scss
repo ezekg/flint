@@ -7,15 +7,15 @@
 // -------------------------------------------------------------------------------
 // @return [string]
 
-@function list-to-string($list, $glue: "", $is-nested: false) {
+@function flint-list-to-string($list, $glue: "", $is-nested: false) {
 	$result: null;
 	$length: length($list);
 
 	@for $i from 1 through $length {
 		$n: nth($list, $i);
 
-		@if is-list($n) {
-			$result: $result#{list-to-string($n, $glue, true)};
+		@if flint-is-list($n) {
+			$result: $result#{flint-list-to-string($n, $glue, true)};
 		} @else {
 			$result: if($i != length($list) or $is-nested, $result#{$n}#{$glue}, $result#{$n});
 		}

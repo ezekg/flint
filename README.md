@@ -30,12 +30,12 @@ Enjoy.
 
 ## Requirements
 
-* Sass ~> 3.3.0
-* Compass ~> 1.0.0.alpha.19
+* Sass ~> `3.3.0`
+* Compass ~> `1.0.0.alpha.19`
 
 ## Installation
 
-1. Install via Ruby `gem install flint-gs`, or Bower `bower install flint`
+1. Install via Ruby `gem install flint-gs`, or Bower `bower install flint --save-dev`
 2. Add `require "flint"` to your `config.rb`
 3. Import it in your stylesheets with `@import "flint"`
 
@@ -291,11 +291,11 @@ Outputs, *(with debug mode on)*
 
 As you can see, since `"desktop"` is the framework `"default"`, it uses the output for desktop as the base styles. You can set this to any breakpoint you like. **So if you like mobile-first, you can do that.**
 
-Whatever your `"default"` is set to, **flint** will not wrap those styles in media-queries, so that they may be used in non-supported browsers.
+Whatever your `"default"` is set to, flint will not wrap those styles in media-queries, so that they may be used in non-supported browsers.
 
 ### Recursive shorthand with identical context
 
-Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all. **Using `$context: auto` on fixed grids, the width with will be calculated by the parents width, instead of using the base breakpoints width.**
+Use this if your nested context is *identical* across all breakpoints. The `context` is the span of the elements parent. ***Update:*** You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent element with a Flint `instance` actually flint-exists or you'll get some weird output, or none at all. **Using `$context: auto` on fixed grids, the width with will be calculated by the parents width, instead of using the base breakpoints width.**
 
 ```scss
 // `auto` will work
@@ -362,7 +362,7 @@ Outputs,
 
 ### Recursive shorthand with variable context
 
-Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent selector with a Flint instance actually exists, or you'll throw a warning and get no output.
+Use this if your context is *not* indentical across breakpoints. The `context` is the span of the elements parent. You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a parent selector with a Flint instance actually flint-exists, or you'll throw a warning and get no output.
 
 When using `$context: auto` on fixed grids, Flint will automagically calculate based on the width of the closest parent element instance.
 
@@ -456,7 +456,7 @@ Outputs,
 
 ### Variable shorthand with context
 
-Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. Before using `$context: auto`, be sure a parent element with a Flint `instance` actually exists or you'll get some weird output, or none at all.
+Use this if you're *nesting* columns using the variable shorthand. The `context` is the span of the elements parent. Before using `$context: auto`, be sure a parent element with a Flint `instance` actually flint-exists or you'll get some weird output, or none at all.
 
 ```scss
 .parent {
@@ -631,7 +631,7 @@ Here are different gutter modifiers that may be called in when defining spans us
 
 // no right margin
 .gutter-omega {
-	// other aliases : `no-right` | `last`
+	// other aliases : `no-right` | `flint-last`
 	@include _(desktop, 4, $gutter: omega);
 }
 
@@ -860,12 +860,12 @@ function parses the selector string (for example, `.block__element__element`) li
 // -------------------------------------------------------------------------------
 // @return [list] : parsed list of selectors according to syntax
 
-@function support-syntax-bem($selectors) {
+@function flint-support-syntax-bem($selectors) {
 	// Clean up selector, remove double underscores for spaces
 	//  add psudeo character to differentiate selectors
-	$selectors: replace-substring($selectors, "__", "/");
+	$selectors: flint-replace-substring($selectors, "__", "/");
 	// Parse string to list
-	$selectors: string-to-list($selectors, "/");
+	$selectors: flint-string-to-list($selectors, "/");
 	// Define top-most parent of selector
 	$parent: nth($selectors, 1);
 	// Create new list of parsed selectors
@@ -888,8 +888,8 @@ function parses the selector string (for example, `.block__element__element`) li
 ```
 
 This will be parsed into a list of selectors: `.block, .block__element, .block__element__element`. The list of selectors can then be used by
-instance system to look up a selectors parent, etc. To support your own preferred syntax: create a `support-syntax-<syntax-name>` function
-and hook into it through the config `"support-syntax": "<syntax-name>"` option -- the system will attempt to use the `call()` function in
+instance system to look up a selectors parent, etc. To support your own preferred syntax: create a `flint-support-syntax-<syntax-name>` function
+and hook into it through the config `"flint-support-syntax": "<syntax-name>"` option -- the system will attempt to use the `call()` function in
 order to parse the selector string.
 
 #### Officially supported syntaxes

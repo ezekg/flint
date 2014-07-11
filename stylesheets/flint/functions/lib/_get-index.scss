@@ -4,9 +4,9 @@
 // -------------------------------------------------------------------------------
 // @return [number]
 
-@function get-index($key) {
-  	@for $i from 1 through (length(map-fetch($flint, "config")) - 1) {
-		@if steal-key($i) == $key {
+@function flint-get-index($key) {
+  	@for $i from 1 through (length(flint-map-fetch($flint, "config")) - 1) {
+		@if flint-steal-key($i) == $key {
 			@return $i;
 		}
 	}

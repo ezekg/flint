@@ -4,6 +4,6 @@
 // -------------------------------------------------------------------------------
 // @return [list]
 
-@function last($list) {
+@function flint-last($list) {
 	@return nth($list, length($list));
 }

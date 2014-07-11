@@ -6,28 +6,28 @@
 // -------------------------------------------------------------------------------
 // @return calculated value
 
-@function calc-breakpoint($n, $key, $i) {
+@function flint-calc-breakpoint($n, $key, $i) {
     @if $n == "alias" {
-        @if get-value("settings", "grid") == "fixed" {
-            @if is-lowest-breakpoint($key) {
+        @if flint-get-value("settings", "grid") == "fixed" {
+            @if flint-is-lowest-breakpoint($key) {
                 @return 0;
             } @else {
-                @return get-value($key, "breakpoint");
+                @return flint-get-value($key, "breakpoint");
             }
-        } @else if get-value("settings", "grid") == "fluid" {
-            @return get-value($key, "breakpoint");
+        } @else if flint-get-value("settings", "grid") == "fluid" {
+            @return flint-get-value($key, "breakpoint");
         }
     } @else if $n == "next" {
-        @if is-lowest-breakpoint($key) {
+        @if flint-is-lowest-breakpoint($key) {
             @return 0;
         } @else {
-            @return get-value(steal-key(($i + 1)), "breakpoint");
+            @return flint-get-value(flint-steal-key(($i + 1)), "breakpoint");
         }
     } @else if $n == "prev" {
-        @if is-highest-breakpoint($key) {
-            @return get-value($key, "breakpoint");
+        @if flint-is-highest-breakpoint($key) {
+            @return flint-get-value($key, "breakpoint");
         } @else {
-            @return get-value(steal-key(($i - 1)), "breakpoint");
+            @return flint-get-value(flint-steal-key(($i - 1)), "breakpoint");
         }
     }
 }

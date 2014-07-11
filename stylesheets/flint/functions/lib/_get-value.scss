@@ -5,10 +5,10 @@
 // -------------------------------------------------------------------------------
 // @return [literal]
 
-@function get-value($key, $value: null) {
+@function flint-get-value($key, $value: null) {
 	@if $value == null {
-		@return map-fetch($flint, "config" $key);
+		@return flint-map-fetch($flint, "config" $key);
 	} @else {
-		@return map-fetch($flint, "config" $key $value);
+		@return flint-map-fetch($flint, "config" $key $value);
 	}
 }

@@ -6,8 +6,8 @@
 // -------------------------------------------------------------------------------
 // @return [bool]
 
-@function types-in-list($list, $assert-types: null, $assert-length: null) {
-    @if is-list($list) {
+@function flint-types-in-list($list, $assert-types: null, $assert-length: null) {
+    @if flint-is-list($list) {
 
         // Assert types in list?
         // ----
@@ -26,7 +26,7 @@
 
                     // List of asserted types?
                     // ----
-                    @if is-list($assert-types) {
+                    @if flint-is-list($assert-types) {
 
                         // Make sure length of types match list
                         // ----

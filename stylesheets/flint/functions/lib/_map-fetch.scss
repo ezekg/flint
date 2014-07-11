@@ -5,18 +5,12 @@
 // -------------------------------------------------------------------------------
 // @return fetched literal | false
 
-@function map-fetch($map, $keys) {
+@function flint-map-fetch($map, $keys) {
 	$key: nth($keys, 1);
 	$length: length($keys);
 	$value: map-get($map, $key);
 
-	// check if the key was incorrect, meaning the map doesn't exist
-	@if $value == null {
-		@warn "Invalid arguments passed to function: map-fetch(#{$map}, #{$keys}). One or more of the keys do not exist.";
-		@return false;
-	}
-
-	@else {
+	@if $value != null {
 		@if $length > 1 {
 			$rest: ();
 
@@ -24,10 +18,13 @@
 				$rest: append($rest, nth($keys, $i))
 			}
 
-			@return map-fetch($value, $rest);
+			@return flint-map-fetch($value, $rest);
 
 		} @else {
 			@return $value;
 		}
+	} @else {
+		@warn "Invalid arguments passed to function: flint-map-fetch(#{$map}, #{$keys}). One or more of the keys do not exist.";
+		@return false;
 	}
 }

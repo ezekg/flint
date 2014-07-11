@@ -5,23 +5,23 @@
 // -------------------------------------------------------------------------------
 // @return [list] : list of parsed selectors according to syntax
 
-@function support-syntax($syntax, $selectors) {
+@function flint-support-syntax($syntax, $selectors) {
     $syntax: to-lower-case($syntax);
 
     // Make sure syntax is supported
     // ----
-    @if function-exists(support-syntax-#{$syntax}) {
+    @if function-exists("flint-support-syntax-#{$syntax}") {
 
         // Support syntax
         // ----
         // @warning : be sure you have created a custom function to support an unknown syntax
         // ----
-        @return call("support-syntax-#{$syntax}", $selectors);
+        @return call("flint-support-syntax-#{$syntax}", $selectors);
 
     } @else {
 
         // Throw error if the syntax does not exist and a function to call cannot be found
-        @warn "You did not pass a valid syntax to `support-syntax`: #{$syntax}. Either specify a custom `support-syntax-<syntax>` function to call, or use one of the offically supported syntaxes. For more info, please visit the docs.";
+        @warn "You did not pass a valid syntax to `flint-support-syntax`: #{$syntax}. Either specify a custom `flint-support-syntax-<syntax>` function to call, or use one of the offically supported syntaxes. For more info, please visit the docs.";
         @return null;
 
     }

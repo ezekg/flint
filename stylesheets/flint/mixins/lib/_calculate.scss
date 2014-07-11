@@ -6,7 +6,7 @@
 // -------------------------------------------------------------------------------
 // @output outputs styles
 
-@mixin outputFlint ($width, $margin-right, $margin-left) {
+@mixin flint-output($width, $margin-right, $margin-left) {
 	width: $width;
 	margin-right: $margin-right;
 	margin-left: $margin-left;
@@ -15,752 +15,557 @@
 
 // Calculate widths, save all variables to instance
 // -------------------------------------------------------------------------------
-// @param $calcKey [string] : breakpoint key
-// @param $calcSpan [number] : span value
-// @param $calcContext [number] : context value
-// @param $calcGutter [number] : gutter value
-// @param $calcShift [number] : shift value
+// @param $calc-key [string] : breakpoint key
+// @param $calc-span [number] : span value
+// @param $calc-context [number] : context value
+// @param $calc-gutter [number] : gutter value
+// @param $calc-shift [number] : shift value
 // @param $i [number] : index if variable length is > 1
 // -------------------------------------------------------------------------------
 // @output calculated styles
 
-@mixin calcFlint ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $i: null) {
+@mixin flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i: null) {
 
+	// Default values
+	$output-width: 0;
+	$output-margin-right: 0;
+	$output-margin-left: 0;
+
+	// Keep track of errors
+	$errors: false;
+
+	// Default value for cache search result
+	$cached: false;
+
+	// Check if any arguments are lists if called from loop
 	@if $i != null {
 
-		@if length($calcKey) > 1 {
-			$calcKey: nth($calcKey, $i);
+		@if length($calc-key) > 1 {
+			$calc-key: nth($calc-key, $i);
 		}
-		@if length($calcSpan) > 1 {
-			$calcSpan: nth($calcSpan, $i);
+		@if length($calc-span) > 1 {
+			$calc-span: nth($calc-span, $i);
 		}
-		@if length($calcContext) > 1 {
-			$calcContext: nth($calcContext, $i);
+		@if length($calc-context) > 1 {
+			$calc-context: nth($calc-context, $i);
 		}
-		@if length($calcGutter) > 1 {
-			$calcGutter: nth($calcGutter, $i);
+		@if length($calc-gutter) > 1 {
+			$calc-gutter: nth($calc-gutter, $i);
 		}
-		@if length($calcShift) > 1 {
-			$calcShift: nth($calcShift, $i);
+		@if length($calc-shift) > 1 {
+			$calc-shift: nth($calc-shift, $i);
 		}
 
 	}
 
-	// Hide if span is zero
-	@if $calcSpan == 0 {
+	// Check for cached results
+	@if $calc-context != "auto" and $calc-span != 0 {
+		@if map-has-key($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}") {
 
-		$outputWidth: 0;
-		$outputMarginRight: 0;
-		$outputMarginLeft: 0;
+			// Get results
+			$output-width: nth(map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}"), 1);
+			$output-margin-right: nth(map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}"), 2);
+			$output-margin-left: nth(map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}"), 3);
+
+			// Declare successful search
+			$cached: true;
+		}
+	}
+
+	// Hide if span is zero
+	// ----
+	@if $calc-span == 0 {
 
 		// First check if it's the default, so we don't hide the element on all breakpoints
-		@if $calcKey == get-value("settings", "default") {
-			@include _($calcKey) {
+		@if $calc-key == flint-get-value("settings", "default") {
+			@include _($calc-key) {
 				display: none;
 			}
 		} @else {
 			display: none;
 		}
 
-		@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-		@include debugPrintInstance($calcKey);
+		@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $output-width, $output-margin-right, $output-margin-left);
+		@include flint-debug-instance($calc-key);
 
 	} @else {
 
-		@if $calcShift != null and $calcContext == null {
+		// Only run through if cache search was unsuccessful
+		@if $cached == false {
 
-			@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
+			// Shift, no context
+			// ----
+			@if $calc-shift != null and $calc-context == null {
 
-				// Save to variables for instance creation
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
-				$outputMarginRight: calc-margin($calcKey, $calcSpan);
-				$outputMarginLeft: ( if( $calcShift > 0, 
-					(calc-margin($calcKey, $calcSpan)) + (calc-width($calcKey, $calcShift)),
-					(calc-margin($calcKey, -$calcSpan)) + (calc-width($calcKey, $calcShift)) 
-				));
+				@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" and flint-get-value("settings", "gutter") != false {
 
-				// Output styles
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
+					// Save to variables for instance creation
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*2);
+					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
+					$output-margin-left: ( if( $calc-shift > 0,
+						(flint-calc-margin($calc-key, $calc-span)) + (flint-calc-width($calc-key, $calc-shift)),
+						(flint-calc-margin($calc-key, -$calc-span)) + (flint-calc-width($calc-key, $calc-shift))
+					));
+
+				} @else if $calc-gutter == "inside" and flint-get-value("settings", "gutter") != false {
+
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*4);
+					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
+					$output-margin-left: ( if( $calc-shift > 0,
+						(flint-calc-margin($calc-key, $calc-span)) + (flint-calc-width($calc-key, $calc-shift)),
+						(flint-calc-margin($calc-key, -$calc-span)) + (flint-calc-width($calc-key, $calc-shift))
+					));
+
+				} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" and flint-get-value("settings", "gutter") != false {
+
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - (flint-calc-margin($calc-key, $calc-span));
+					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
+					$output-margin-left: ( if( $calc-shift > 0,
+						flint-calc-width($calc-key, $calc-shift),
+						flint-calc-width($calc-key, $calc-shift)
+					));
+
+				} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" and flint-get-value("settings", "gutter") != false {
+
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span)));
+					$output-margin-right: 0;
+					$output-margin-left: ( if( $calc-shift > 0,
+						(flint-calc-margin($calc-key, $calc-span)) + (flint-calc-width($calc-key, $calc-shift)),
+						(flint-calc-margin($calc-key, -$calc-span)) + (flint-calc-width($calc-key, $calc-shift))
+					));
+
+				} @else if $calc-gutter == "row" or $calc-gutter == "none" or flint-get-value("settings", "gutter") == false {
+
+					$output-width: (flint-calc-width($calc-key, $calc-span));
+					$output-margin-right: 0;
+					$output-margin-left: ( if( $calc-shift > 0,
+						flint-calc-width($calc-key, $calc-shift),
+						flint-calc-width($calc-key, $calc-shift)
+					));
+
 				}
 
-				// Create new instance for memoization
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
+			// Shift, context
+			// ----
+			} @else if $calc-context != null {
 
-				// If debug mode, print instance
-				@include debugPrintInstance($calcKey);
+				// Check if parent instance flint-exists
+				$flint-exists: flint-has-family-instance($calc-key);
 
-			} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
+				@if $calc-shift != null {
 
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*4);
-				$outputMarginRight: calc-margin($calcKey, $calcSpan);
-				$outputMarginLeft: ( if( $calcShift > 0, 
-					(calc-margin($calcKey, $calcSpan)) + (calc-width($calcKey, $calcShift)),
-					(calc-margin($calcKey, -$calcSpan)) + (calc-width($calcKey, $calcShift)) 
-				));
+					@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" and flint-get-value("settings", "gutter") != false {
 
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
+						// Check if context is set to auto
+						@if $calc-context == "auto" {
 
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
+							// Does parent exist?
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
 
-			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
+									// Get parent span value
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: ( if( $calc-shift > 0,
+										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+									));
 
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
-				$outputMarginRight: calc-margin($calcKey, $calcSpan);
-				$outputMarginLeft: ( if( $calcShift > 0, 
-					calc-width($calcKey, $calcShift),
-					calc-width($calcKey, $calcShift)
-				));
+								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
+									// Get parent width instead of parent span for fixed grids
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: ( if( $calc-shift > 0,
+										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+									));
 
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-
-			} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
-
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan)));
-				$outputMarginRight: 0;
-				$outputMarginLeft: ( if( $calcShift > 0, 
-					(calc-margin($calcKey, $calcSpan)) + (calc-width($calcKey, $calcShift)),
-					(calc-margin($calcKey, -$calcSpan)) + (calc-width($calcKey, $calcShift)) 
-				));
-
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
-
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-
-			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
-
-				$outputWidth: (calc-width($calcKey, $calcSpan));
-				$outputMarginRight: 0;
-				$outputMarginLeft: ( if( $calcShift > 0, 
-					calc-width($calcKey, $calcShift),
-					calc-width($calcKey, $calcShift)
-				));
-
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
-
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-			}
-
-		} @else if $calcContext != null {
-			// Check if parent instance exists
-			$exists: get-family-instance($calcKey);
-
-			@if $calcShift != null {
-				@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
-					// Check if context is set to auto
-					@if $calcContext == "auto" {
-						// Does parent exist?
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
-
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
-								));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
 								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-								// Get parent width instead of parent span for fixed grids
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
-								));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
+							} @else {
+								// Else warn that context should not be set to `auto`
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								// Throw error
+								$errors: true;
 							}
-						} @else {
-							// Else warn that context should not be set to `auto`
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					// Output styles normally if not set to auto
-					} @else {
 
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
-						$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-						$outputMarginLeft: ( if( $calcShift > 0, 
-							(calc-margin($calcKey, $calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)),
-							(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
-						));
-
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
-						}
-
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
-
-				} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
-
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
-
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
-								));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
-								));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							}
-						} @else {
-							// Else warn that context should not be set to `auto`
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
 						// Output styles normally if not set to auto
-					} @else {
+						} @else {
 
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
-						$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-						$outputMarginLeft: ( if( $calcShift > 0, 
-							(calc-margin($calcKey, $calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)),
-							(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
-						));
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
+							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
+							$output-margin-left: ( if( $calc-shift > 0,
+								(flint-calc-margin($calc-key, $calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context)),
+								(flint-calc-margin($calc-key, -$calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context))
+							));
 
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
 						}
 
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
+					} @else if $calc-gutter == "inside" and flint-get-value("settings", "gutter") != false {
 
-				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
 
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: ( if( $calc-shift > 0,
+										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+									));
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
-								));
+								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: ( if( $calc-shift > 0,
+										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+									));
+
 								}
+							} @else {
+								// Else warn that context should not be set to `auto`
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
+							}
+							// Output styles normally if not set to auto
+						} @else {
 
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
+							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
+							$output-margin-left: ( if( $calc-shift > 0,
+								(flint-calc-margin($calc-key, $calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context)),
+								(flint-calc-margin($calc-key, -$calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context))
+							));
 
-							} @else if get-value("settings", "grid") == "fixed" {
+						}
 
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
-								));
+					} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" and flint-get-value("settings", "gutter") != false {
 
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
+
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - (flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: ( if( $calc-shift > 0,
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+									));
+
+								} @else if flint-get-value("settings", "grid") == "fixed" {
+
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: ( if( $calc-shift > 0,
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+									));
+
 								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
 							}
 						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					} @else {
 
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
-						$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-						$outputMarginLeft: ( if( $calcShift > 0, 
-							calc-width($calcKey, $calcShift, $calcContext),
-							calc-width($calcKey, $calcShift, $calcContext)
-						));
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - (flint-calc-margin($calc-key, $calc-span, $calc-context));
+							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
+							$output-margin-left: ( if( $calc-shift > 0,
+								flint-calc-width($calc-key, $calc-shift, $calc-context),
+								flint-calc-width($calc-key, $calc-shift, $calc-context)
+							));
 
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
 						}
 
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
+					} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" and flint-get-value("settings", "gutter") != false {
 
-				} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
 
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-margin-right: 0;
+									$output-margin-left: ( if( $calc-shift > 0,
+										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+									));
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
-								$outputMarginRight: 0;
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
-								));
+								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-margin-right: 0;
+									$output-margin-left: ( if( $calc-shift > 0,
+										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+									));
+
 								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
-								$outputMarginRight: 0;
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									(calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))),
-									(calc-margin($calcKey, -$calcSpan, to-number(get-instance-value($calcKey, "span")))) + (calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))) 
-								));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
 							}
 						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					} @else {
 
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext)));
-						$outputMarginRight: 0;
-						$outputMarginLeft: ( if( $calcShift > 0, 
-							(calc-margin($calcKey, $calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)),
-							(calc-margin($calcKey, -$calcSpan, $calcContext)) + (calc-width($calcKey, $calcShift, $calcContext)) 
-						));
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context)));
+							$output-margin-right: 0;
+							$output-margin-left: ( if( $calc-shift > 0,
+								(flint-calc-margin($calc-key, $calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context)),
+								(flint-calc-margin($calc-key, -$calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context))
+							));
 
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
 						}
 
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
+					} @else if $calc-gutter == "row" or $calc-gutter == "none" or flint-get-value("settings", "gutter") == false {
 
-				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
 
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
+									$output-margin-right: 0;
+									$output-margin-left: ( if( $calc-shift > 0,
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+									));
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
-								$outputMarginRight: 0;
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
-								));
+								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span);
+									$output-margin-right: 0;
+									$output-margin-left: ( if( $calc-shift > 0,
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
+										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+									));
+
 								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan);
-								$outputMarginRight: 0;
-								$outputMarginLeft: ( if( $calcShift > 0, 
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span"))),
-									calc-width($calcKey, $calcShift, to-number(get-instance-value($calcKey, "span")))
-								));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
 							}
 						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
+
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context));
+							$output-margin-right: 0;
+							$output-margin-left: ( if( $calc-shift > 0,
+								flint-calc-width($calc-key, $calc-shift, $calc-context),
+								flint-calc-width($calc-key, $calc-shift, $calc-context)
+							));
 						}
-					} @else {
+					}
 
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext));
-						$outputMarginRight: 0;
-						$outputMarginLeft: ( if( $calcShift > 0, 
-							calc-width($calcKey, $calcShift, $calcContext),
-							calc-width($calcKey, $calcShift, $calcContext)
-						));
+				// Context, no shift
+				// ----
+				} @else {
 
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
+					@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" and flint-get-value("settings", "gutter") != false {
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
+
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+
+								} @else if flint-get-value("settings", "grid") == "fixed" {
+
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+
+								}
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
+							}
+						} @else {
+
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
+							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
+							$output-margin-left: flint-calc-margin($calc-key, $calc-span, $calc-context);
+
 						}
 
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
+					} @else if $calc-gutter == "inside" and flint-get-value("settings", "gutter") != false {
+
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
+
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+
+								} @else if flint-get-value("settings", "grid") == "fixed" {
+
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+
+								}
+
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
+							}
+						} @else {
+
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
+							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
+							$output-margin-left: flint-calc-margin($calc-key, $calc-span, $calc-context);
+
+						}
+
+					} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" and flint-get-value("settings", "gutter") != false {
+
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
+
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - (flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: 0;
+
+								} @else if flint-get-value("settings", "grid") == "fixed" {
+
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: 0;
+
+								}
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
+							}
+						} @else {
+
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - (flint-calc-margin($calc-key, $calc-span, $calc-context));
+							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
+							$output-margin-left: 0;
+
+						}
+
+					} @else if $calc-gutter == "omega" or $calc-gutter =="no-right" or $calc-gutter == "flint-last" and flint-get-value("settings", "gutter") != false {
+
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
+
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - (flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
+									$output-margin-right: 0;
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+
+								} @else if flint-get-value("settings", "grid") == "fixed" {
+
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-margin-right: 0;
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+
+								}
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
+							}
+						} @else {
+
+							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - (flint-calc-margin($calc-key, $calc-span, $calc-context));
+							$output-margin-right: 0;
+							$output-margin-left: flint-calc-margin($calc-key, $calc-span, $calc-context);
+
+						}
+
+					} @else if $calc-gutter == "row" or $calc-gutter == "none" or flint-get-value("settings", "gutter") == false {
+
+						@if $calc-context == "auto" {
+							@if $flint-exists != false {
+								@if flint-get-value("settings", "grid") == "fluid" {
+
+									$output-width: flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-right: 0;
+									$output-margin-left: 0;
+
+								} @else if flint-get-value("settings", "grid") == "fixed" {
+
+									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span);
+									$output-margin-right: 0;
+									$output-margin-left: 0;
+
+								}
+							} @else {
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								$errors: true;
+							}
+						} @else {
+
+							$output-width: flint-calc-width($calc-key, $calc-span, $calc-context);
+							$output-margin-right: 0;
+							$output-margin-left: 0;
+
+						}
 					}
 				}
+
+			// No context
+			// ----
 			} @else {
-				@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
 
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
+				@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" and flint-get-value("settings", "gutter") != false {
 
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*2);
+					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
+					$output-margin-left: flint-calc-margin($calc-key, $calc-span);
 
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
+				} @else if $calc-gutter == "inside" and flint-get-value("settings", "gutter") != false {
 
-							} @else if get-value("settings", "grid") == "fixed" {
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*4);
+					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
+					$output-margin-left: flint-calc-margin($calc-key, $calc-span);
 
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*2);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
+				} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" and flint-get-value("settings", "gutter") != false {
 
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - (flint-calc-margin($calc-key, $calc-span));
+					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
+					$output-margin-left: 0;
 
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
+				} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" and flint-get-value("settings", "gutter") != false {
 
-							}
-						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					} @else {
+					$output-width: (flint-calc-width($calc-key, $calc-span)) - (flint-calc-margin($calc-key, $calc-span));
+					$output-margin-right: 0;
+					$output-margin-left: flint-calc-margin($calc-key, $calc-span);
 
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
-						$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-						$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
+				} @else if $calc-gutter == "row" or $calc-gutter == "none" or flint-get-value("settings", "gutter") == false {
 
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
-						}
+					$output-width: flint-calc-width($calc-key, $calc-span);
+					$output-margin-right: 0;
+					$output-margin-left: 0;
 
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
-
-				} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
-
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
-
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))))*4);
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							}
-
-						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					} @else {
-
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - ((calc-margin($calcKey, $calcSpan, $calcContext))*2);
-						$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-						$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
-
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
-						}
-
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
-
-				} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
-
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
-
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: 0;
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
-								$outputMarginRight: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginLeft: 0;
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							}
-						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					} @else {
-
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
-						$outputMarginRight: calc-margin($calcKey, $calcSpan, $calcContext);
-						$outputMarginLeft: 0;
-
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
-						}
-
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
-
-				} @else if $calcGutter == "omega" or $calcGutter =="no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
-
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
-
-								$outputWidth: (calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))) - (calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span"))));
-								$outputMarginRight: 0;
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan) - ((calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")))));
-								$outputMarginRight: 0;
-								$outputMarginLeft: calc-margin($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							}
-						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					} @else {
-
-						$outputWidth: (calc-width($calcKey, $calcSpan, $calcContext)) - (calc-margin($calcKey, $calcSpan, $calcContext));
-						$outputMarginRight: 0;
-						$outputMarginLeft: calc-margin($calcKey, $calcSpan, $calcContext);
-
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
-						}
-
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
-
-				} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
-
-					@if $calcContext == "auto" {
-						@if $exists != false {
-							@if get-value("settings", "grid") == "fluid" {
-
-								$outputWidth: calc-width($calcKey, $calcSpan, to-number(get-instance-value($calcKey, "span")));
-								$outputMarginRight: 0;
-								$outputMarginLeft: 0;
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							} @else if get-value("settings", "grid") == "fixed" {
-
-								$outputWidth: (to-number(get-instance-value($calcKey, "output", "width")) / to-number(get-instance-value($calcKey, "span")) * $calcSpan);
-								$outputMarginRight: 0;
-								$outputMarginLeft: 0;
-
-								@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-									@content;
-								}
-
-								@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-								@include debugPrintInstance($calcKey);
-
-							}
-						} @else {
-							@warn "You set context to `#{$calcContext}`, but a parent instance could not be found for `#{selector_string()}`";
-						}
-					} @else {
-
-						$outputWidth: calc-width($calcKey, $calcSpan, $calcContext);
-						$outputMarginRight: 0;
-						$outputMarginLeft: 0;
-
-						@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-							@content;
-						}
-
-						@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-						@include debugPrintInstance($calcKey);
-					}
 				}
 			}
+		}
 
-		} @else {
+		// Make sure there are no errors
+		// ----
+		@if $errors == false {
 
-			@if $calcGutter == null or $calcGutter == "normal" or $calcGutter == "default" or $calcGutter == "regular" and get-value("settings", "gutter") != false {
-
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*2);
-				$outputMarginRight: calc-margin($calcKey, $calcSpan);
-				$outputMarginLeft: calc-margin($calcKey, $calcSpan);
-
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
-
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-
-			} @else if $calcGutter == "inside" and get-value("settings", "gutter") != false {
-
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - ((calc-margin($calcKey, $calcSpan))*4);
-				$outputMarginRight: calc-margin($calcKey, $calcSpan);
-				$outputMarginLeft: calc-margin($calcKey, $calcSpan);
-
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
-
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-
-			} @else if $calcGutter == "alpha" or $calcGutter == "no-left" or $calcGutter == "first" and get-value("settings", "gutter") != false {
-
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
-				$outputMarginRight: calc-margin($calcKey, $calcSpan);
-				$outputMarginLeft: 0;
-
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
-
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-
-			} @else if $calcGutter == "omega" or $calcGutter == "no-right" or $calcGutter == "last" and get-value("settings", "gutter") != false {
-
-				$outputWidth: (calc-width($calcKey, $calcSpan)) - (calc-margin($calcKey, $calcSpan));
-				$outputMarginRight: 0;
-				$outputMarginLeft: calc-margin($calcKey, $calcSpan);
-
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
-
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-
-			} @else if $calcGutter == "row" or $calcGutter == "none" or get-value("settings", "gutter") == false {
-
-				$outputWidth: calc-width($calcKey, $calcSpan);
-				$outputMarginRight: 0;
-				$outputMarginLeft: 0;
-
-				@include outputFlint($outputWidth, $outputMarginRight, $outputMarginLeft) {
-					@content;
-				}
-
-				@include newInstance($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft);
-				@include debugPrintInstance($calcKey);
-
+			// Cache result
+			@if $calc-context != "auto" and $calc-span != 0 and $cached == false {
+				$flint__cache-results: map-merge($flint__cache-results, (
+					"#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}": ($output-width, $output-margin-right, $output-margin-left)
+				)) !global;
 			}
+
+			// Output styles
+			@include flint-output($output-width, $output-margin-right, $output-margin-left) {
+				@content;
+			}
+
+			// Create new instance
+			@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $output-width, $output-margin-right, $output-margin-left);
+
+			// If debug mode, print instance
+			@include flint-debug-instance($calc-key);
+
 		}
 	}
 }

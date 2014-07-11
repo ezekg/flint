@@ -1,6 +1,6 @@
 // Get single value from key in instance map based on $selector::$key
 // -------------------------------------------------------------------------------
-// @warning : all values @returned are strings and must be converted with `to-number()`
+// @warning : all values returned are strings and must be converted with `flint-to-number()`
 // -------------------------------------------------------------------------------
 // @param $key [string] : key
 // @param $value [number] : value
@@ -8,10 +8,10 @@
 // -------------------------------------------------------------------------------
 // @return [string]
 
-@function get-instance-value($key, $value, $deep: null) {
+@function flint-get-instance-value($key, $value, $deep: null) {
 	@if $deep == null {
-		@return map-fetch($flint__instances, get-family-instance($key) $value);
+		@return flint-map-fetch($flint__instances, flint-has-family-instance($key) $value);
 	} @else {
-		@return map-fetch($flint__instances, get-family-instance($key) $value $deep);
+		@return flint-map-fetch($flint__instances, flint-has-family-instance($key) $value $deep);
 	}
 }

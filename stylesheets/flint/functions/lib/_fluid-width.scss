@@ -5,6 +5,6 @@
 // -------------------------------------------------------------------------------
 // @return [number]
 
-@function fluid-width($target, $context) {
+@function flint-fluid-width($target, $context) {
 	@return ($target / $context) * 100%;
 }

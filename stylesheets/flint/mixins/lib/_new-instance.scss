@@ -1,27 +1,27 @@
 // Creates a new instance, adds to global instance map
 // -------------------------------------------------------------------------------
-// @param $calcKey [string] : breakpoint key
-// @param $calcSpan [number] : span
-// @param $calcContext [number] : context
-// @param $calcGutter [number] : gutter
-// @param $calcShift [number] : shift 
-// @param $outputWidth [number] : width
-// @param $outputMarginRight [number] : right margin
-// @param $outputMarginLeft [number] : left margin 
+// @param $calc-key [string] : breakpoint key
+// @param $calc-span [number] : span
+// @param $calc-context [number] : context
+// @param $calc-gutter [number] : gutter
+// @param $calc-shift [number] : shift
+// @param $output-width [number] : width
+// @param $output-margin-right [number] : right margin
+// @param $output-margin-left [number] : left margin
 // -------------------------------------------------------------------------------
 // @output new instance map
 
-@mixin newInstance ($calcKey, $calcSpan, $calcContext, $calcGutter, $calcShift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
-	$flint__instances: 
-		instance(
-			$calcKey,
-			$calcSpan,
-			$calcContext,
-			$calcGutter,
-			$calcShift,
-			$outputWidth,
-			$outputMarginRight,
-			$outputMarginLeft
+@mixin flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $output-width, $output-margin-right, $output-margin-left) {
+	$flint__instances:
+		flint-instance(
+			$calc-key,
+			$calc-span,
+			$calc-context,
+			$calc-gutter,
+			$calc-shift,
+			$output-width,
+			$output-margin-right,
+			$output-margin-left
 		)
 	!global;
 }

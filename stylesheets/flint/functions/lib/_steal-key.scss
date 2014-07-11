@@ -4,8 +4,8 @@
 // -------------------------------------------------------------------------------
 // @return [string]
 
-@function steal-key($index) {
-	@for $n from 1 through (length(map-fetch($flint, "config")) - 1) {
+@function flint-steal-key($index) {
+	@for $n from 1 through (length(flint-map-fetch($flint, "config")) - 1) {
 		@each $key in nth(map-get($flint, "config"), $index) {
 			@return $key;
 		}

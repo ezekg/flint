@@ -1,16 +1,16 @@
-// Micro clearfix
+// Micro flint-clearfix
 // -------------------------------------------------------------------------------
 // @documentation http://nicolasgallagher.com/micro-clearfix-hack/
 // -------------------------------------------------------------------------------
 
-@mixin clearfix {
+@mixin flint-clearfix {
     zoom: 1;
 
     &:before, &:after {
-        content: "\0020"; 
-        display: block; 
-        height: 0; 
-        overflow: hidden; 
+        content: "\0020";
+        display: block;
+        height: 0;
+        overflow: hidden;
     }
 
     &:after {

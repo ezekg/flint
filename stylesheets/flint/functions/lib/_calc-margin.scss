@@ -6,24 +6,52 @@
 // -------------------------------------------------------------------------------
 // @return calculated value | false
 
-@function calc-margin($key, $span, $context: null) {
-	@if get-value("settings", "grid") == "fluid" {
-		@if $key == "container" or $span == "container" {
-			@return 0;
-		} @else if $context == null {
-			@return fluid-width(get-value("settings", "gutter"), get-value($key, "breakpoint"));
-		} @else if $context <= get-value($key, "columns") {
-			@return fluid-width(get-value("settings", "gutter"), ((get-value($key, "breakpoint") / get-value($key, "columns") * $context)));
-		} @else {
-			@return fluid-width(get-value("settings", "gutter") / get-value($key, "columns") * $context, ((get-value($key, "breakpoint") / get-value($key, "columns") * $context)));
-		}
-	} @if get-value("settings", "grid") == "fixed" {
-		@if $key == "container" or $span == "container" {
-			@return 0;
-		} @else {
-			@return get-value("settings", "gutter");
-		}
-	} @else {
-		@return false;
+@function flint-calc-margin($key, $span, $context: null) {
+	$result: false;
+
+	// Check to see if value has been cached
+	@if map-has-key($flint__cached-values, "#{$key, $span, $context}::margin") and $context != "auto" {
+		@return map-get($flint__cached-values, "#{$key, $span, $context}::margin");
 	}
+
+	@if flint-get-value("settings", "grid") == "fluid" {
+
+		@if $key == "container" or $span == "container" {
+
+			$result: 0;
+
+		} @else if $context == null {
+
+			$result: flint-fluid-width(flint-get-value("settings", "gutter"), flint-get-value($key, "breakpoint"));
+
+		} @else if $context <= flint-get-value($key, "columns") {
+
+			$result: flint-fluid-width(flint-get-value("settings", "gutter"), ((flint-get-value($key, "breakpoint") / flint-get-value($key, "columns") * $context)));
+
+		} @else {
+
+			$result: flint-fluid-width(flint-get-value("settings", "gutter") / flint-get-value($key, "columns") * $context, ((flint-get-value($key, "breakpoint") / flint-get-value($key, "columns") * $context)));
+
+		}
+
+	} @if flint-get-value("settings", "grid") == "fixed" {
+
+		@if $key == "container" or $span == "container" {
+
+			$result: 0;
+
+		} @else {
+
+			$result: flint-get-value("settings", "gutter");
+		}
+
+	}
+
+	// Save result to cache
+	@if $context != "auto" {
+		$flint__cached-values: map-merge($flint__cached-values, ("#{$key, $span, $context}::margin": $result));
+	}
+
+	// Return result
+	@return $result;
 }

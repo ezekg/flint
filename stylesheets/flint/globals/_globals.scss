@@ -4,9 +4,9 @@ $flint__foundation: "nonexistant" !global;
 
 // Gather all keys, breakpoints and column counts
 // ----
-$flint__all__keys: get-all-keys() !global;
-$flint__all__breakpoints: get-all-breakpoints() !global;
-$flint__all__columns: get-all-columns() !global;
+$flint__all__keys: flint-get-all-keys() !global;
+$flint__all__breakpoints: flint-get-all-breakpoints() !global;
+$flint__all__columns: flint-get-all-columns() !global;
 
 // Keep track of all instances of mixin
 // ----
@@ -19,4 +19,20 @@ $flint__base-font-size: 16px !global;
 
 // Global syntax support
 // ----
-$flint__support-syntax: if(exists($flint, "support-syntax"), get-value("settings", "support-syntax"), false) !global;
+$flint__support-syntax: if(flint-exists($flint, "support-syntax"), flint-get-value("settings", "support-syntax"), false) !global;
+
+// Use Ruby functions?
+// ----
+$flint__use-ruby-functions: if(flint-use-ruby-functions(), true, false) !global;
+
+// Cached selector instance lists
+// ----
+$flint__cached-instances: () !global;
+
+// Cached calculated values
+// ----
+$flint__cached-values: () !global;
+
+// Chached calculation results
+// ----
+$flint__cache-results: () !global;

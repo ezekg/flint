@@ -1,15 +1,21 @@
 # Change Log
 
+### 1.7.0 - 7/11/14
+* Added Ruby functions to help with performance.
+* Added various memoization functions to help with performance.
+* Prefixed all functions and mixins with `flint-` to ensure compatibility with other plugins.
+* Cleaned up code in `calculate.scss`.
+
 ### 1.6.5 - 7/08/14
-* Fixed issue with `support-syntax-bem` function.
+* Fixed issue with `flint-support-syntax-bem` function.
 
 ### 1.6.4 - 7/08/14
-* Remove recursive option from `replace-substring` for performance reasons.
+* flint-remove recursive option from `flint-replace-substring` for performance reasons.
 
 ### 1.6.3 - 7/08/14
-* Added string replace function.
+* Added string flint-replace function.
     * Modified way BEM selectors are parsed with new function.
-* Removed `@dependance` declaratons from doc blocks.
+* flint-removed `@dependance` declaratons from doc blocks.
 
 ### 1.6.2 - 7/07/14
 * Added warnings for improper arguments for various mixins and functions.
@@ -24,11 +30,11 @@
 ### 1.6.0 - 6/30/14
 * Add feature to pass arbitrary values to media query calls.
 * Fix issue with max-width conditional.
-* Clean up codebase. Add `types-in-list()` function.
+* Clean up codebase. Add `flint-types-in-list()` function.
 
 ### 1.5.0 - 6/26/14
 * Default config is now in ems instead of pixels.
-* Fixed issues with breakpoint calculations when using ems. Should successfully break at the correct points when using alias conditionals and not be ~1em off.
+* Fixed issues with breakpoint calculations when using ems. Should successfully break at the correct points when using alias conditionals and not be ~0.0625em off.
 * Added warn directives when common mistakes occur.
 * Cleaned up doc blocks.
 
@@ -50,7 +56,7 @@
 * Fixed issue with `_(greater than y)` not outputting the correct calculations on `fixed` grids
     * Issue was that when you used for example: `_(greater than laptop)`, `laptop` would actually be included, instead of ommitted. It now acts as 'anything above laptops breakpoint', the same way `less than y` works.
 * Adjusted the way breakpoints are calculated for easier modifications moving forward.
-* Optimized `calc-breakpoint()` function
+* Optimized `flint-calc-breakpoint()` function
 
 ### 1.3.2 - 5/09/14
 * Added ability to pass an abitrary `$context` while maintaining a consistent gutter
@@ -59,10 +65,10 @@
     * Added actual `$context` in place of `auto` in output
 
 ### 1.3.1 - 5/02/14
-* Adjusted `$length` variable in `string-to-list()` for better performance.
+* Adjusted `$length` variable in `flint-string-to-list()` for better performance.
 * Added 2 additional aliases for `$gutter` modifiers
     * `alpha > first`
-    * `omega > last`
+    * `omega > flint-last`
 
 ### 1.3.0 - 4/30/14
 * Fixed issue with comma separated child selectors throwing an error. `Fixes #5`
@@ -73,7 +79,7 @@
     * `alpha > no-left`
     * `omega > no-right`
     * `row > none`
-* Removed option for `gutter: false` in config. Use `0(unit)` from now on.
+* flint-removed option for `gutter: false` in config. Use `0(unit)` from now on.
 
 ### 1.1.0 - 4/24/14
 * Added `$gutter: inside` modifier
@@ -91,4 +97,4 @@
 * You can now take advantage of both `$shift` and `$gutter` modifiers together.
 
 ### 1.0.7 - 4/11/14
-* You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
+* You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually flint-exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.

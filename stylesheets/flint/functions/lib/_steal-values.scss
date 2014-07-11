@@ -5,10 +5,10 @@
 // -------------------------------------------------------------------------------
 // @return [number]
 
-@function steal-values($index, $value) {
-	@for $n from 1 through (length(map-fetch($flint, config)) - 1) {
+@function flint-steal-values($index, $value) {
+	@for $n from 1 through (length(flint-map-fetch($flint, config)) - 1) {
 		@each $key in nth(map-get($flint, config), $index) {
-			@return get-value($key, $value);
+			@return flint-get-value($key, $value);
 		}
 	}
 }

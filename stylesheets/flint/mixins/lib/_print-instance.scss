@@ -1,20 +1,20 @@
 // Prints debug properties
 // -------------------------------------------------------------------------------
-// @dependence `printInstance()`
+// @dependence `flint-print-instance()`
 // -------------------------------------------------------------------------------
-// @param $calcKey [string] : breakpoint key to search for instance
+// @param $calc-key [string] : breakpoint key to search for instance
 // -------------------------------------------------------------------------------
 // @output instance map
 
-@mixin debugPrintInstance($calcKey) {
-  // Lets clean up the selector a bit...
-  $selector-string: selector_string();
-  $selector-list: string-to-list($selector-string);
-  $selector-cleaned: list-to-string($selector-list, " ");
+@mixin flint-debug-instance($calc-key) {
+    @if flint-get-value("settings", "debug-mode") {
+        // Lets clean up the selector a bit...
+        $selector-string: selector_string();
+        $selector-list: flint-string-to-list($selector-string);
+        $selector-cleaned: flint-list-to-string($selector-list, " ");
 
-	@if get-value(settings, debug-mode) {
-		$printKey: "#{$selector-cleaned}" + "::" + "#{$calcKey}";
-		@include printInstance( map-get( $flint__instances, unquote($printKey) ) );
+		$printKey: "#{$selector-cleaned}" + "::" + "#{$calc-key}";
+		@include flint-print-instance( map-get( $flint__instances, unquote($printKey) ) );
 	}
 }
 
@@ -24,15 +24,15 @@
 // -------------------------------------------------------------------------------
 // @output instance map
 
-@mixin printInstance($instance) {
+@mixin flint-print-instance($instance) {
 
 	// Loop through each property in passed instance
 	@each $property, $value in $instance {
 
 		// Check if value is output map
-		@if is-map($value) {
-			@each $mod_property, $mod_value in $value {
-				-flint-output-#{$mod_property}: #{$mod_value};
+		@if flint-is-map($value) {
+			@each $p, $v in $value {
+				-flint-output-#{$p}: #{$v};
 			}
 		// Else, print values as flagged comments
 		} @else {

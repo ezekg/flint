@@ -1,41 +1,43 @@
 // Keeps count of all instances with arguments, stores in global var
 // -------------------------------------------------------------------------------
-// @dependence `get-value()`
+// @dependence `flint-get-value()`
 // -------------------------------------------------------------------------------
 // @param $key [string] : computed breakpoint of instance
 // @param $span [number] : computed span of instance
 // @param $context [number] : computed context of instance
 // @param $gutter [number] : computed gutter of instance
 // @param $shift [number] : computed shift of instance
-// @param $outputWidth [number] : computed width of instance
-// @param $outputMarginRight [number] : computed right margin of instance
-// @param $outputMarginLeft [number] : computed left margin of instance
+// @param $output-width [number] : computed width of instance
+// @param $output-margin-right [number] : computed right margin of instance
+// @param $output-margin-left [number] : computed left margin of instance
 // -------------------------------------------------------------------------------
 // @return instance map
 
-@function instance($key, $span, $context, $gutter, $shift, $outputWidth, $outputMarginRight, $outputMarginLeft) {
-	  // Increase the instance count
+@function flint-instance($key, $span, $context, $gutter, $shift, $output-width, $output-margin-right, $output-margin-left) {
+
+    // Increase the instance count
     $flint__instance-count: $flint__instance-count + 1 !global;
+
     // Lets clean up the selector a bit...
     $selector-string: selector_string();
-    $selector-list: string-to-list($selector-string);
-    $selector-cleaned: list-to-string($selector-list, " ");
+    $selector-list: flint-string-to-list($selector-string);
+    $selector-cleaned: flint-list-to-string($selector-list, " ");
 
     $flint__instance: (
 		"#{$selector-cleaned}::#{$key}": (
 			"instance-count": #{$flint__instance-count},
-			"parent-selector": #{if(get-family-instance($key) != false, get-family-instance($key), none)},
+			"parent-selector": #{if(flint-has-family-instance($key) != false, flint-has-family-instance($key), none)},
 			"key": #{$key},
-			"breakpoint": #{get-value($key, breakpoint)},
-			"columns": #{get-value($key, columns)},
+			"breakpoint": #{flint-get-value($key, "breakpoint")},
+			"columns": #{flint-get-value($key, "columns")},
 			"span": #{$span},
-			"context": #{if($context == "auto", get-instance-value($key, "span"), $context)},
+			"context": #{if($context == "auto", flint-get-instance-value($key, "span"), $context)},
 			"gutter": #{$gutter},
 			"shift": #{$shift},
 			"output": (
-				"width": #{$outputWidth},
-				"margin-right": #{$outputMarginRight},
-				"margin-left": #{$outputMarginLeft}
+				"width": #{$output-width},
+				"margin-right": #{$output-margin-right},
+				"margin-left": #{$output-margin-left}
 			)
 		)
     );

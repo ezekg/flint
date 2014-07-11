@@ -5,18 +5,18 @@
 // -------------------------------------------------------------------------------
 // @return [bool]
 
-@function exists($map, $value){
-	
-	@if is-map($map) {
+@function flint-exists($map, $value){
+
+	@if flint-is-map($map) {
 		@if map-has-key($map, $value) {
 			@return true;
 		}
 		@each $key, $i in $map {
-			@if exists($i, $value) {
+			@if flint-exists($i, $value) {
 				@return true;
 			}
 		}
-	} 
+	}
 
 	@return false;
 }
