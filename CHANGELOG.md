@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.7.1 - 7/12/14
+* Fixed issue with `debug mode` defaulting to true.
+
 ### 1.7.0 - 7/11/14
 * Added Ruby functions to help with performance.
 * Added various memoization functions to help with performance.

@@ -5,8 +5,8 @@ Compass::Frameworks.register('flint', :path => extension_path)
 
 #  Date is in the form of YYYY-MM-DD
 module Flint
-  VERSION = "1.7.0"
-  DATE = "2014-07-11"
+    VERSION = "1.7.1"
+    DATE = "2014-07-12"
 end
 
 # Custom functions
@@ -21,9 +21,9 @@ module Sass::Script::Functions
     # Returns stringified selector
     # ----
     # @return [string]
-	def selector_string()
-		Sass::Script::String.new(environment.selector.to_s)
-	end
+    def selector_string()
+        Sass::Script::String.new(environment.selector.to_s)
+    end
 
     # Turns string into a flat list
     # ----

@@ -71,7 +71,7 @@
                     }
 
                     // Return list of types
-                    @return true; // $types;
+                    @return true;
 
                 // Lengths did not match, return false
                 } @else {
@@ -92,8 +92,8 @@
                     }
                 }
 
-                // Passed check, return type
-                @return true; // $type;
+                // Passed check
+                @return true;
             }
 
         // Just assert type of first item in list
@@ -110,8 +110,7 @@
                 }
             }
 
-            // Passed check, return type
-            @return true; // $type;
+            @return true;
         }
     // Was not a list, return false
     } @else {

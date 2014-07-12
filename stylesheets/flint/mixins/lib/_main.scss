@@ -42,7 +42,7 @@
             }
         }
 
-    // flint-clearfix
+    // Clearfix
     // ----
     } @else if $key == "clear" {
 
@@ -99,7 +99,7 @@
             @if $key == "container" {
                 float: none;
 
-                // Fixed grid? Output container for each breakpoint
+                // Output container for each breakpoint if fixed grid
                 // ----
                 @if flint-get-value("settings", "grid") == "fixed" {
 

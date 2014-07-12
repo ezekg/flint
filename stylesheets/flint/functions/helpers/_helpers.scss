@@ -93,8 +93,6 @@
 
 // Checks if passed $key is the highest breakpoint
 // -------------------------------------------------------------------------------
-// @dependence `flint-get-value()`
-// -------------------------------------------------------------------------------
 // @param $key [string] : alias of breakpoint
 // -------------------------------------------------------------------------------
 // @return [bool]
@@ -109,8 +107,6 @@
 
 // Checks if passed $key is the lowest breakpoint
 // -------------------------------------------------------------------------------
-// @dependence `flint-get-value()`
-// -------------------------------------------------------------------------------
 // @param $key [string] : alias of breakpoint
 // -------------------------------------------------------------------------------
 // @return [bool]
@@ -124,8 +120,6 @@
 }
 
 // Checks if $key is grid default
-// -------------------------------------------------------------------------------
-// @dependence `flint-get-value()`
 // -------------------------------------------------------------------------------
 // @param $key [string] : alias of breakpoint
 // -------------------------------------------------------------------------------
@@ -177,7 +171,7 @@
 	@return ($target / $context) * 1em;
 }
 
-// Use Ruby functions in place of Sass functions where possiblre
+// Use Ruby functions in place of Sass functions where possible
 //   to speed up performance, especially with string functions
 // -------------------------------------------------------------------------------
 // @return [bool]
