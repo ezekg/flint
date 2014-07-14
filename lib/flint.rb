@@ -5,8 +5,8 @@ Compass::Frameworks.register('flint', :path => extension_path)
 
 #  Date is in the form of YYYY-MM-DD
 module Flint
-    VERSION = "1.7.1"
-    DATE = "2014-07-12"
+    VERSION = "1.7.2"
+    DATE = "2014-07-14"
 end
 
 # Custom functions
@@ -61,17 +61,7 @@ module Sass::Script::Functions
         Sass::Script::String.new(string.value.gsub(find.value, replace.value))
     end
 
-    # Converts string to number
-    # ----
-    # @param string [string] : string
-    # ----
-    # @return [number]
-    def string_to_number(string)
-        Sass::Script::Number.new(string.value.to_i)
-    end
-
     declare :string_to_list, [:string, :separator, :ignore]
     declare :replace_substring, [:string, :find, :replace]
-    declare :string_to_number, [:string]
 
 end

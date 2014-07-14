@@ -25,19 +25,19 @@
 
     $flint__instance: (
 		"#{$selector-cleaned}::#{$key}": (
-			"instance-count": #{$flint__instance-count},
-			"parent-selector": #{if(flint-has-family-instance($key) != false, flint-has-family-instance($key), none)},
-			"key": #{$key},
-			"breakpoint": #{flint-get-value($key, "breakpoint")},
-			"columns": #{flint-get-value($key, "columns")},
-			"span": #{$span},
-			"context": #{if($context == "auto", flint-get-instance-value($key, "span"), $context)},
-			"gutter": #{$gutter},
-			"shift": #{$shift},
+			"instance-count": $flint__instance-count,
+			"parent-selector": if(flint-has-family-instance($key) != false, flint-has-family-instance($key), none),
+			"key": $key,
+			"breakpoint": flint-get-value($key, "breakpoint"),
+			"columns": flint-get-value($key, "columns"),
+			"span": $span,
+			"context": if($context == "auto", flint-get-instance-value($key, "span"), $context),
+			"gutter": $gutter,
+			"shift": $shift,
 			"output": (
-				"width": #{$output-width},
-				"margin-right": #{$output-margin-right},
-				"margin-left": #{$output-margin-left}
+				"width": $output-width,
+				"margin-right": $output-margin-right,
+				"margin-left": $output-margin-left
 			)
 		)
     );

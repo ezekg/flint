@@ -164,21 +164,21 @@
 								@if flint-get-value("settings", "grid") == "fluid" {
 
 									// Get parent span value
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
 									));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
 									// Get parent width instead of parent span for fixed grids
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
 									));
 
 								}
@@ -207,20 +207,20 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
 									));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
 									));
 
 								}
@@ -247,20 +247,20 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - (flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - (flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
 									));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
 									));
 
 								}
@@ -285,20 +285,20 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
 									$output-margin-right: 0;
 									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
 									));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
 									$output-margin-right: 0;
 									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) + (flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))))
+										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
+										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
 									));
 
 								}
@@ -323,20 +323,20 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
+									$output-width: (flint-calc-width($calc-key, $calc-span, lint-get-instance-value($calc-key, "span")));
 									$output-margin-right: 0;
 									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
 									));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span);
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span);
 									$output-margin-right: 0;
 									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span"))),
-										flint-calc-width($calc-key, $calc-shift, flint-to-number(flint-get-instance-value($calc-key, "span")))
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
+										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
 									));
 
 								}
@@ -364,15 +364,15 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 
 								}
 							} @else {
@@ -393,15 +393,15 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 
 								}
 
@@ -423,14 +423,14 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - (flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - (flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: 0;
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
+									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-left: 0;
 
 								}
@@ -452,15 +452,15 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))) - (flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span"))));
+									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - (flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")));
 									$output-margin-right: 0;
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")))));
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
 									$output-margin-right: 0;
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 
 								}
 							} @else {
@@ -481,13 +481,13 @@
 							@if $flint-exists != false {
 								@if flint-get-value("settings", "grid") == "fluid" {
 
-									$output-width: flint-calc-width($calc-key, $calc-span, flint-to-number(flint-get-instance-value($calc-key, "span")));
+									$output-width: flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
 									$output-margin-right: 0;
 									$output-margin-left: 0;
 
 								} @else if flint-get-value("settings", "grid") == "fixed" {
 
-									$output-width: (flint-to-number(flint-get-instance-value($calc-key, "output", "width")) / flint-to-number(flint-get-instance-value($calc-key, "span")) * $calc-span);
+									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span);
 									$output-margin-right: 0;
 									$output-margin-left: 0;
 
