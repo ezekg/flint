@@ -889,7 +889,7 @@ function parses the selector string (for example, `.block__element__element`) li
 
 This will be parsed into a list of selectors: `.block, .block__element, .block__element__element`. The list of selectors can then be used by
 instance system to look up a selectors parent, etc. To support your own preferred syntax: create a `flint-support-syntax-<syntax-name>` function
-and hook into it through the config `"flint-support-syntax": "<syntax-name>"` option -- the system will attempt to use the `call()` function in
+and hook into it through the config `"support-syntax": "<syntax-name>"` option -- the system will attempt to use the `call()` function in
 order to parse the selector string.
 
 #### Officially supported syntaxes
