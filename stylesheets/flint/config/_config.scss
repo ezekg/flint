@@ -74,10 +74,10 @@ $flint: (
             "border-box-sizing": true,
 
             // Syntax support: string | false
-            "support-syntax": "BEM",
+            "support-syntax": false,
 
             // Options: true | false
-            "debug-mode": true,
+            "debug-mode": false,
         )
     )
 ) !default;
