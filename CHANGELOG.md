@@ -99,4 +99,4 @@
 * You can now take advantage of both `$shift` and `$gutter` modifiers together.
 
 ### 1.0.0 - 4/11/14
-* You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually flint-exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
+* You can now use `$context: auto`, and we'll do all the calculations for you. Just be sure a container element actually exists or you'll get some weird output, or none at all. Pretty cool feature utilizing the new `instance` map, which keeps track of every `instance` of the `_()` mixin, and saves all the tasty variables for use-cases like this.
