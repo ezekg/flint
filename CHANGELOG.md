@@ -1,5 +1,8 @@
 # Change Log
 
+### 1.7.2 - 7/14/14
+* Removed `string-to-number` functions and all dependencies associated with them.
+
 ### 1.7.1 - 7/12/14
 * Fixed issue with `debug mode` defaulting to true.
 
