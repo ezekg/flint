@@ -55,8 +55,7 @@
     * Added small clean up functions for comma seperated selector strings for various functions.
 
 ### 1.3.2 - 5/16/14
-* Added `$context: auto` to for fixed grids. It will automatically get the parent instance's width, and calculate on that instead of the base breakpoint.
-    * This fixes issues where parents couldn't contain children of the same span, and the further you would nest, the worse the issue would get.
+* Added `$context: auto` for fixed grids. It will automatically get the parent instance's width, and calculate on that instead of the base breakpoint. This fixes issues where parents couldn't contain children of the same span, and the further you would nest, the worse the issue would get.
 
 ### 1.3.1 - 5/14/14
 * Fixed issue with `_(greater than y)` not outputting the correct calculations on `fixed` grids
