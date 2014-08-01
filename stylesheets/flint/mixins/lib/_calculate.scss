@@ -24,9 +24,16 @@
 // -------------------------------------------------------------------------------
 // @output calculated styles
 
-@mixin flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i: null) {
+@mixin flint-calculate($key, $span, $context, $gutter, $shift, $i: null) {
 
-	// Default values
+	// Define local vars
+	$calc-key: $key;
+	$calc-span: $span;
+	$calc-context: $context;
+	$calc-gutter: $gutter;
+	$calc-shift: $shift;
+
+	// Define default values
 	$output-width: 0;
 	$output-margin-right: 0;
 	$output-margin-left: 0;
@@ -38,27 +45,29 @@
 	$cached: false;
 
 	// Check if any arguments are lists if called from loop
+	// ----
 	@if $i != null {
 
-		@if length($calc-key) > 1 {
+		@if flint-types-in-list($calc-key, "number") {
 			$calc-key: nth($calc-key, $i);
 		}
-		@if length($calc-span) > 1 {
+		@if flint-types-in-list($calc-span, "number") {
 			$calc-span: nth($calc-span, $i);
 		}
-		@if length($calc-context) > 1 {
+		@if flint-types-in-list($calc-context, "number") {
 			$calc-context: nth($calc-context, $i);
 		}
-		@if length($calc-gutter) > 1 {
+		@if flint-types-in-list($calc-gutter, "string") {
 			$calc-gutter: nth($calc-gutter, $i);
 		}
-		@if length($calc-shift) > 1 {
+		@if flint-types-in-list($calc-shift, "number") {
 			$calc-shift: nth($calc-shift, $i);
 		}
 
 	}
 
 	// Check for cached results
+	// ----
 	@if $calc-context != "auto" and $calc-span != 0 {
 		@if map-has-key($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}") {
 
@@ -81,6 +90,10 @@
 			@include _($calc-key) {
 				display: none;
 			}
+			// If we're hiding the default, but span is a list, define floats for other queries
+			@if flint-is-list($span) {
+				float: unquote(flint-get-value("settings", "float-style"));
+			}
 		} @else {
 			display: none;
 		}
@@ -89,6 +102,12 @@
 		@include flint-debug-instance($calc-key);
 
 	} @else {
+
+		// Define floats if key is default, or this is a single instance call
+		// ----
+		@if flint-is-default($calc-key) or $i == null {
+			float: unquote(flint-get-value("settings", "float-style"));
+		}
 
 		// Only run through if cache search was unsuccessful
 		@if $cached == false {

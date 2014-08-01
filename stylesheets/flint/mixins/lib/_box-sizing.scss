@@ -1,0 +1,14 @@
+// Box sizing
+// -------------------------------------------------------------------------------
+// @param $type [string] : border-box type, defaults to "border-box"
+// -------------------------------------------------------------------------------
+// @uses : local box-sizing mixin if available
+// -------------------------------------------------------------------------------
+
+@mixin flint-box-sizing($type: "border-box") {
+    @if mixin-exists("box-sizing") {
+        @include box-sizing($type);
+    } @else {
+        box-sizing: #{$type};
+    }
+}

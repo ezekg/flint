@@ -5,8 +5,8 @@ Compass::Frameworks.register('flint', :path => extension_path)
 
 #  Date is in the form of YYYY-MM-DD
 module Flint
-    VERSION = "1.7.2"
-    DATE = "2014-07-14"
+    VERSION = "1.8.0"
+    DATE = "2014-08-01"
 end
 
 # Custom functions

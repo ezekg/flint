@@ -23,7 +23,7 @@ $flint__support-syntax: if(flint-exists($flint, "support-syntax"), flint-get-val
 
 // Use Ruby functions?
 // ----
-$flint__use-ruby-functions: if(flint-use-ruby-functions(), true, false) !global;
+$flint__use-ruby-functions: if(flint-use-ruby-functions() == true, true, false) !global;
 
 // Cached selector instance lists
 // ----

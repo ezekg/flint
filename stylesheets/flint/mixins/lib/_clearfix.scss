@@ -2,18 +2,24 @@
 // -------------------------------------------------------------------------------
 // @documentation http://nicolasgallagher.com/micro-clearfix-hack/
 // -------------------------------------------------------------------------------
+// @uses : local clearfix mixin if available
+// -------------------------------------------------------------------------------
 
 @mixin flint-clearfix {
-    zoom: 1;
+    @if mixin-exists("clearfix") {
+        @include clearfix;
+    } @else {
+        zoom: 1;
 
-    &:before, &:after {
-        content: "\0020";
-        display: block;
-        height: 0;
-        overflow: hidden;
-    }
+        &:before, &:after {
+            content: "\0020";
+            display: block;
+            height: 0;
+            overflow: hidden;
+        }
 
-    &:after {
-        clear: both;
+        &:after {
+            clear: both;
+        }
     }
 }

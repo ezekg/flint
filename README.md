@@ -23,7 +23,7 @@ Enjoy.
 	* [Wrapping in media queries](#wrapping-in-media-queries)
 	* [Call by alias](#call-by-alias)
 	* [Gutter modifiers](#gutter-modifiers)
-	* [Shift modifiers](#shift)
+	* [Shift modifiers](#shift) _[Deprecated]_
 1. [Syntax support](#syntax-support)
 1. [Authors](#authors)
 1. [License](#license)
@@ -143,13 +143,15 @@ $flint: (
 
 ### Foundation
 
-If you selected `"border-box-sizing": true`, then it is *advised* to create a global foundation instance like so,
+_Flint will attempt to use a local box-sizing mixin named `box-sizing`. If one is not found, it will use it's own._
+
+A foundation instance will output a global `box-sizing: border-box` declaration. If you selected `"border-box-sizing": true`, then it is *advised* to create a global foundation instance.
 
 ```scss
 @include _(foundation);
 ```
 
-That way your output won't be riddled with `box-sizing` declarations everytime you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
+This way your output won't be riddled with `box-sizing` declarations every time you define a span. This will automatically output the rules onto the global selector `*`. In the future this might be automatic, but for now I'll keep it manual.
 
 ### Container
 
@@ -174,6 +176,8 @@ Outputs,
 ```
 
 ### Clear
+
+_Flint will attempt to use a local clearfix mixin named `clearfix`. If one is not found, it will use it's own._
 
 Given that Flint is float based, you might find yourself needing to use a clearfix. Flint comes packaged with a micro-clearfix function.
 
@@ -745,6 +749,8 @@ Outputs,
 ```
 
 ### Shift
+
+_The `$shift` modifier has been deprecated as of `1.8.0`. It is set to be removed in version `2.0`._
 
 Much like the gutter modifiers, you may also call in a shift parameter using the `$shift` variable. This will cause the element to shift the desired amount of columns using positive/negative left margins.
 

@@ -1,5 +1,13 @@
 # Change Log
 
+### 1.8.0 - 8/1/14
+* Deprecated `$shift` modifier.
+* Optimized `for` query to output comma delimited list of queries instead of duplicating styles for each query.
+* Optimized `_main.scss`. Significantly cleaned up code by grouping like-calls together into the same conditional.
+* Removed prefixes from all properties.
+* Created `flint-box-sizing` mixin. Uses `box-sizing` mixin if it exists.
+* Removed `only screen` from media queries.
+
 ### 1.7.2 - 7/14/14
 * Removed `string-to-number` functions and all dependencies associated with them.
 
