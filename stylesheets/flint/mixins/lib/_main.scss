@@ -200,14 +200,10 @@
         or flint-types-in-list($key, "number") and $span == "auto" {
 
             // Emit warning for invalid argument lengths
-            @if flint-is-string($key) and length($key) == 1 {
-                @if not flint-exists($flint, $key) {
-                    @warn "Invalid argument: #{$key}. Breakpoint does not exist. Please provide a valid argument.";
-                }
-            } @else if flint-types-in-list($key, "number") and length($key) != length($flint__all__keys) {
-                @warn "Invalid argument length for column: #{length($key)}. Please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$key}";
+            @if flint-types-in-list($key, "number") and length($key) != length($flint__all__keys) {
+                @warn "Invalid argument length of #{length($key)} for span. Please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$key}";
             } @else if flint-types-in-list($span, "number") and length($span) != length($flint__all__keys) {
-                @warn "Invalid argument length for context: #{length($span)}. Please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$span}";
+                @warn "Invalid argument length of #{length($span)} for context. Please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$span}";
             } @else {
 
                 @for $i from 1 through length($flint__all__keys) {
@@ -280,7 +276,7 @@
         // @param $context [null] : context value of span
         // -------------------------------------------------------------------------------
         // @output calculated styles
-        } @else if flint-exists($flint, $key) and flint-is-number($span) and $context == null
+        } @else if flint-is-string($key) and flint-is-number($span) and $context == null
 
         // Call by alias with context
         // -------------------------------------------------------------------------------
@@ -289,14 +285,12 @@
         // @param $context [number | string] : context value of span
         // -------------------------------------------------------------------------------
         // @output calculated styles
-        or flint-exists($flint, $key) and flint-is-number($span) and flint-is-number($context)
-        or flint-exists($flint, $key) and flint-is-number($span) and $context == "auto" {
+        or flint-is-string($key) and flint-is-number($span) and flint-is-number($context)
+        or flint-is-string($key) and flint-is-number($span) and $context == "auto" {
 
             // Emit warning for invalid argument lengths
-            @if not length($span) == 1 {
-                @warn "Invalid argument length for column: #{length($span)}. Please provide a single argument for your breakpoint. Your argument was: #{$span}";
-            } @else if not length($context) == 1 {
-                @warn "Invalid argument length for context: #{length($context)}. Please provide a single argument for your breakpoint. Your argument was: #{$context}";
+            @if not flint-exists($flint, $key) {
+                @warn "Invalid argument: #{$key}. Breakpoint does not exist. Please provide a valid argument.";
             } @else {
 
                 $calc-key: $key;
@@ -361,7 +355,7 @@
 
         // Wrap @content in media queries
         // -------------------------------------------------------------------------------
-        // @param $key [list] : defines how to make up media query
+        // @param $key [string | list] : defines how to make up media query
         // -------------------------------------------------------------------------------
         // @output styles wrapped in media query
         } @else if flint-exists($flint, $key) and $span == null and $context == null
@@ -399,7 +393,7 @@
 
             // From $key breakpoint to infinity
             // -------------------------------------------------------------------------------
-            // @param $key [from key to infinity] : min-width from $key breakpoint
+            // @param $key [list : from key to infinity] : min-width from $key breakpoint
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" and nth($key, 4) == "infinity" {
 
@@ -417,7 +411,7 @@
 
             // From $key-x breakpoint to $key-y breakpoint
             // -------------------------------------------------------------------------------
-            // @param $key [from key-x to key-y] : from $key-x breakpoint to $key-y
+            // @param $key [list : from key-x to key-y] : from $key-x breakpoint to $key-y
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" {
 
@@ -435,7 +429,7 @@
 
             // From $num-x to $num-y
             // -------------------------------------------------------------------------------
-            // @param $key [from number to number] : arbitrary media query
+            // @param $key [list : from number to number] : arbitrary media query
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string" "number" "string" "number", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" {
                 // Make sure passed units match units used in config
@@ -450,7 +444,7 @@
 
             // Greater than $key breakpoint
             // -------------------------------------------------------------------------------
-            // @param $key [greater than key] : anything above $key breakpoint
+            // @param $key [list : greater than key] : anything above $key breakpoint
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
@@ -468,7 +462,7 @@
 
             // Greater than number
             // -------------------------------------------------------------------------------
-            // @param $key [greater than number] : anything above number
+            // @param $key [list : greater than number] : anything above number
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
@@ -482,7 +476,7 @@
 
             // Number greater than $key breakpoint
             // -------------------------------------------------------------------------------
-            // @param $key [number greater than key] : unit value greater than $key breakpoint
+            // @param $key [list : number greater than key] : unit value greater than $key breakpoint
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "number" "string" "string" "string", 4) and nth($key, 2) == "greater" and nth($key, 3) == "than" {
 
@@ -496,7 +490,7 @@
 
             // Less than $key breakpoint
             // -------------------------------------------------------------------------------
-            // @param $key [less than key] : anything below $key breakpoint
+            // @param $key [list : less than key] : anything below $key breakpoint
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string", 3) and nth($key, 1) == "less" and nth($key, 2) == "than" {
 
@@ -514,7 +508,7 @@
 
             // Less than number
             // -------------------------------------------------------------------------------
-            // @param $key [less than number] : anything below number
+            // @param $key [list : less than number] : anything below number
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "less" and nth($key, 2) == "than" {
 
@@ -528,7 +522,7 @@
 
             // Number less than $key breakpoint
             // -------------------------------------------------------------------------------
-            // @param $key [number less than key] : unit value less than $key breakpoint
+            // @param $key [list : number less than key] : unit value less than $key breakpoint
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "number" "string" "string" "string", 4) and nth($key, 2) == "less" and nth($key, 3) == "than" {
 
@@ -542,7 +536,7 @@
 
             // For $key-x $key-y $key-z
             // -------------------------------------------------------------------------------
-            // @param $key [for list of strings] : will duplicate styles for each passed $key breakpoint
+            // @param $key [list : for list of keys] : comma delimited list of queries
             // -------------------------------------------------------------------------------
             } @else if flint-types-in-list($key, "string") and nth($key, 1) == "for" {
                 // Define empty query list
@@ -580,6 +574,13 @@
                   @content;
                 }
             }
+
+        // Invalid argument
+        // -------------------------------------------------------------------------------
+        // @throw : invalid argument warning
+        // -------------------------------------------------------------------------------
+        } @else {
+            @warn "Invalid argument(s). Please double check and provide a valid argument. If you're calling by alias, please provide a single span argument for your breakpoint. See documentation for additional details.";
         }
     }
 }

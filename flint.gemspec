@@ -1,6 +1,7 @@
 require './lib/flint'
 
 Gem::Specification.new do |s|
+
   # Release Specific Information
   s.version = Flint::VERSION
   s.date = Flint::DATE
@@ -35,6 +36,6 @@ Gem::Specification.new do |s|
 
   # Gems Dependencies
   s.add_dependency("sass", [">=3.3.0"])
-  s.add_dependency("compass", [">= 0.12.1"])
+  # s.add_dependency("compass", [">= 0.12.1"])
 
 end

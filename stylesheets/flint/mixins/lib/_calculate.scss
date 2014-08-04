@@ -18,9 +18,9 @@
 // @param $calc-key [string] : breakpoint key
 // @param $calc-span [number] : span value
 // @param $calc-context [number] : context value
-// @param $calc-gutter [number] : gutter value
-// @param $calc-shift [number] : shift value
-// @param $i [number] : index if variable length is > 1
+// @param $calc-gutter [string] : gutter modifier
+// @param $calc-shift [number] : shift modifier
+// @param $i [number | null] : index if variable length is > 1
 // -------------------------------------------------------------------------------
 // @output calculated styles
 
@@ -44,9 +44,19 @@
 	// Default value for cache search result
 	$cached: false;
 
+	// Check lengths, if invalid throw error
+	// ----
+	@if flint-types-in-list($calc-gutter, "string") and length($calc-gutter) != length($flint__all__keys) {
+		@warn "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$calc-gutter}";
+		$errors: true;
+	} @else if flint-types-in-list($calc-shift, "number") and length($calc-shift) != length($flint__all__keys) {
+		@warn "Invalid argument length of #{length($calc-shift)} for shift. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$calc-shift}";
+		$errors: true;
+	}
+
 	// Check if any arguments are lists if called from loop
 	// ----
-	@if $i != null {
+	@if $i and not $errors {
 
 		@if flint-types-in-list($calc-key, "number") {
 			$calc-key: nth($calc-key, $i);
@@ -68,7 +78,7 @@
 
 	// Check for cached results
 	// ----
-	@if $calc-context != "auto" and $calc-span != 0 {
+	@if $calc-context != "auto" and $calc-span != 0 and not $errors {
 		@if map-has-key($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}") {
 
 			// Get results
@@ -83,7 +93,7 @@
 
 	// Hide if span is zero
 	// ----
-	@if $calc-span == 0 {
+	@if $calc-span == 0 and not $errors {
 
 		// First check if it's the default, so we don't hide the element on all breakpoints
 		@if $calc-key == flint-get-value("settings", "default") {
@@ -110,7 +120,7 @@
 		}
 
 		// Only run through if cache search was unsuccessful
-		@if $cached == false {
+		@if not $cached and not $errors {
 
 			// Shift, no context
 			// ----
@@ -203,7 +213,7 @@
 								}
 							} @else {
 								// Else warn that context should not be set to `auto`
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								// Throw error
 								$errors: true;
 							}
@@ -245,7 +255,7 @@
 								}
 							} @else {
 								// Else warn that context should not be set to `auto`
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 							// Output styles normally if not set to auto
@@ -284,7 +294,7 @@
 
 								}
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -322,7 +332,7 @@
 
 								}
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -360,7 +370,7 @@
 
 								}
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -395,7 +405,7 @@
 
 								}
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -425,7 +435,7 @@
 								}
 
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -454,7 +464,7 @@
 
 								}
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -483,7 +493,7 @@
 
 								}
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -512,7 +522,7 @@
 
 								}
 							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string()}`";
+								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
 								$errors: true;
 							}
 						} @else {
@@ -565,10 +575,10 @@
 
 		// Make sure there are no errors
 		// ----
-		@if $errors == false {
+		@if not $errors {
 
 			// Cache result
-			@if $calc-context != "auto" and $calc-span != 0 and $cached == false {
+			@if $calc-context != "auto" and $calc-span != 0 and not $cached {
 				$flint__cache-results: map-merge($flint__cache-results, (
 					"#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}": ($output-width, $output-margin-right, $output-margin-left)
 				)) !global;

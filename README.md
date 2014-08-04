@@ -31,15 +31,15 @@ Enjoy.
 ## Requirements
 
 * Sass ~> `3.3.0`
-* Compass ~> `1.0.0.alpha.19`
+* Ruby ~> `1.8.7`
 
 ## Installation
 
 1. Install via Ruby `gem install flint-gs`, or Bower `bower install flint --save-dev`
-2. Add `require "flint"` to your `config.rb`
-3. Import it in your stylesheets with `@import "flint"`
+2. If you're using Compass, add `require "flint"` to your `config.rb`
+3. Import it into your stylesheet with `@import "flint"`
 
-If you don't want to install it, then simply download or clone the current build files. Use the starter `config.rb` to require any custom functions Flint uses; currently this is required, as we're making use of custom SassScript functions until the 'script `&`' [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+If you don't want to install it, then simply download or clone the current build files. Use the starter `config.rb` to require any custom functions Flint uses; currently this is required, as we're making use of custom SassScript functions until the SassScript `&` [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
 
 ## Documentation
 

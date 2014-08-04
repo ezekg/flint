@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.9.0 - 8/4/14
+* Break Compass dependency.
+* Add better error handling for invalid arguments.
+
 ### 1.8.0 - 8/1/14
 * Deprecated `$shift` modifier.
 * Optimized `for` query to output comma delimited list of queries instead of duplicating styles for each query.
