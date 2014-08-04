@@ -1,6 +1,6 @@
 {
   "name": "flint",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "main": "stylesheets/_flint.scss",
   "description": "Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.",
   "authors": ["Ezekiel Gabrielse <ezekg@yahoo.com>"],
