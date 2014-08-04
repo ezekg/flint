@@ -31,7 +31,6 @@ Enjoy.
 ## Requirements
 
 * Sass ~> `3.3.0`
-* Ruby ~> `1.8.7`
 
 ## Installation
 
