@@ -42,6 +42,11 @@ _Currently, Flint is only available for Ruby Sass; so it will not work with libS
 
 If you don't want to install it, then simply download or clone the current build files. Use your `config.rb` to require any custom functions Flint uses; currently this is required, as we're making use of custom SassScript functions until the SassScript `&` [returns to Sass](https://gist.github.com/nex3/8050187) **(set for integration with Sass `3.4` in `2.0`)**. Adjust the paths according to your project.
 
+If you're not using Compass, you can require the custom Ruby functions and compile via:
+```
+scss --require ./lib/flint.rb example.scss > example.css
+```
+
 ## Documentation
 
 ### Config
