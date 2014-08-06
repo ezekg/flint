@@ -32,13 +32,15 @@ Enjoy.
 
 * Sass ~> `3.3.0`
 
+_Currently, Flint is only available for Ruby Sass; so it will not work with libSass until they support the map data-type. Flint depends on a few custom Ruby functions, but in `2.0` I hope to have those dependencies relieved._
+
 ## Installation
 
 1. Install via Ruby `gem install flint-gs`, or Bower `bower install flint --save-dev`
 2. If you're using Compass, add `require "flint"` to your `config.rb`
 3. Import it into your stylesheet with `@import "flint"`
 
-If you don't want to install it, then simply download or clone the current build files. Use the starter `config.rb` to require any custom functions Flint uses; currently this is required, as we're making use of custom SassScript functions until the SassScript `&` [returns to Sass](https://gist.github.com/nex3/8050187). Adjust the paths according to your project.
+If you don't want to install it, then simply download or clone the current build files. Use your `config.rb` to require any custom functions Flint uses; currently this is required, as we're making use of custom SassScript functions until the SassScript `&` [returns to Sass](https://gist.github.com/nex3/8050187) **(set for integration with Sass `3.4` in `2.0`)**. Adjust the paths according to your project.
 
 ## Documentation
 
