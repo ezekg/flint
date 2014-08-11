@@ -63,7 +63,7 @@
 
 			} @else {
 
-				// Else, flint-remove the flint-last selector and loop again
+				// Else, remove the last selector and loop again
 				$selector-list: flint-remove($selector-list, flint-last($selector-list));
 
 			}

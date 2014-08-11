@@ -1,23 +1,17 @@
 require 'sass'
 
 base_directory = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-flint_stylesheets_path = File.join(base_directory, 'sass')
+flint_stylesheets_path = File.join(base_directory, 'stylesheets')
 
 if (defined? Compass)
     Compass::Frameworks.register('flint', :path => base_directory)
 else
-    # Compass not found, register on the Sass path via the environment
-    if ENV.has_key?("SASS_PATH")
-        ENV["SASS_PATH"] = ENV["SASS_PATH"] + File::PATH_SEPARATOR + flint_stylesheets_path
-    else
-        ENV["SASS_PATH"] = flint_stylesheets_path
-    end
+    ENV["SASS_PATH"] = [ENV["SASS_PATH"], flint_stylesheets_path].compact.join(File::PATH_SEPARATOR)
 end
 
-# Date is in the form of YYYY-MM-DD
 module Flint
-    VERSION = "1.9.1"
-    DATE = "2014-08-04"
+    VERSION = "1.10.0"
+    DATE = "2014-08-11"
 end
 
 # Custom functions

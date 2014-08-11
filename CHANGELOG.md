@@ -1,7 +1,11 @@
 # Change Log
 
-### 1.9.0 - 8/4/14
-* Break Compass dependency.
+### 1.10.0 - 8/11/14
+* Add `$gutter: center` modifier.
+* Fix `SASS_PATH` issue.
+
+### 1.9.1 - 8/4/14
+* Break Compass dependency _(will completely break in `2.0` when dependence on Ruby functions cease)._
 * Add better error handling for invalid arguments.
 
 ### 1.8.0 - 8/1/14

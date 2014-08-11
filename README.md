@@ -517,57 +517,57 @@ Use these if you need to apply breakpoint specific styling.
 ```scss
 .wrap {
 	@include _(desktop) {
-		// only desktop
+		// Only desktop
 	}
 }
 .wrap {
 	@include _(greater than mobile) {
-		// all sizes above mobile's breakpoint
+		// All sizes above mobile's breakpoint
 	}
 }
 .wrap {
 	@include _(10em greater than tablet) {
-		// all sizes 10em above tablet's breakpoint
+		// All sizes 10em above tablet's breakpoint
 	}
 }
 .wrap {
     @include _(greater than 60em) {
-        // all sizes above 60em
+        // All sizes above 60em
     }
 }
 .wrap {
 	@include _(less than tablet) {
-		// all sizes under tablet
+		// All sizes under tablet
 	}
 }
 .wrap {
 	@include _(1em less than laptop) {
-		// all sizes 1em under laptop
+		// All sizes 1em under laptop
 	}
 }
 .wrap {
     @include _(less than 40em) {
-        // all sizes under 40em
+        // All sizes under 40em
     }
 }
 .wrap {
 	@include _(for desktop tablet) {
-		// only for desktop and tablet
+		// Only for desktop and tablet
 	}
 }
 .wrap {
 	@include _(from mobile to laptop) {
-		// all sizes from mobile to laptop
+		// All sizes from mobile to laptop
 	}
 }
 .wrap {
 	@include _(from desktop to infinity) {
-		// all sizes from desktop to infinity
+		// All sizes from desktop to infinity
 	}
 }
 .wrap {
     @include _(from 20em to 40em) {
-        // all sizes from 20em to 40em
+        // All sizes from 20em to 40em
     }
 }
 ```
@@ -584,7 +584,7 @@ Use if you want to define each span without shorthands.
 	@include _(mobile, 4);
 }
 
-// with context,
+// With context,
 // .name {
 //	  @include _(desktop, 4, 16, $gutter: alpha);
 // }
@@ -626,48 +626,69 @@ Outputs,
 
 Here are different gutter modifiers that may be called in when defining spans using the `$gutter` variable. The `$gutter` variable allows you to pass in either a recursive argument, or a variable argument, similar to `$span`.
 
+_**Note:** When defining `$gutter: center`, the float property will be set to `none` in order to center your column._
+
 ```scss
-// default margins
+// Default margins
 .gutter-default {
 	// other aliases : `normal` | `regular`
 	@include _(desktop, 4, $gutter: default);
 }
 
-// no left margin
+// Center column
+.gutter-center {
+	@include _(desktop, 4, $gutter: center);
+}
+
+// No left margin
 .gutter-alpha {
 	// other aliases : `no-left` | `first`
 	@include _(desktop, 4, $gutter: alpha);
 }
 
-// no right margin
+// No right margin
 .gutter-omega {
 	// other aliases : `no-right` | `flint-last`
 	@include _(desktop, 4, $gutter: omega);
 }
 
-// no margins
+// No margins
 .gutter-row {
 	// other alias : `none`
 	@include _(desktop, 4, $gutter: row);
 }
 
-// places gutters on inside by reducing column width by [gutter*2]
+// Places gutters on inside by reducing column width by [gutter*2]
 .gutter-inside {
 	@include _(desktop, 4, $gutter: inside);
 }
 
-// variable gutter
+// Variable gutter
 .variable-gutter {
-	@include _(16 12 8 4, $gutter: row alpha omega normal);
+	@include _(16 12 8 4, $gutter: row alpha center normal);
 }
 
-// recursive gutter
+// Recursive gutter
 .recursive-gutter {
 	@include _(16 12 8 4, $gutter: row);
 }
 ```
 Outputs,
 ```scss
+.gutter-normal {
+	display: block;
+	float: left;
+	width: 23.4375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+}
+.gutter-center {
+	display: block;
+	float: none;
+	width: 23.4375%;
+    margin-right: auto;
+    margin-left: auto;
+}
 .gutter-alpha {
 	display: block;
 	float: left;
@@ -761,12 +782,12 @@ _The `$shift` modifier has been deprecated as of `1.8.0`. It is set to be remove
 Much like the gutter modifiers, you may also call in a shift parameter using the `$shift` variable. This will cause the element to shift the desired amount of columns using positive/negative left margins.
 
 ```scss
-// shift 4 columns to the right across all breakpoints
+// Shift 4 columns to the right across all breakpoints
 .name {
 	@include _(12 12 8 4, $shift: 4);
 }
 
-// shift 2 columns to the left across specified breakpoints
+// Shift 2 columns to the left across specified breakpoints
 .name {
 	@include _(12 12 8 4, $shift: -2 -2 0 0);
 }
