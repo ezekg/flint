@@ -1,4 +1,6 @@
-# Flint [![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
+[![Flint - Grid System](http://flint.gs/wp-content/themes/flint/images/logo.png)](http://flint.gs)
+
+[![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
 
 **Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.** Built on Sass 3.3, Flint is capable of complex responsive layouts customized at each breakpoint; all while using a single mixin, having minimal output, as well as being completely semantic. All of your layout settings are housed in a simple config file that is immensely customizable. Flint will only output the code you need, and nothing else. We handle the  hard stuff, so you can focus on the rest.
 
