@@ -640,7 +640,7 @@
         // @throw : invalid argument warning
         // -------------------------------------------------------------------------------
         } @else {
-            @if $key != "clear"
+            @if $key != "clear" {
                 @warn "Invalid argument(s). Please double check and provide a valid argument. If you're calling by alias, please provide a single span argument for your breakpoint. See documentation for additional details.";
             }
         }

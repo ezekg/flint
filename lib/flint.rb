@@ -10,7 +10,7 @@ else
 end
 
 module Flint
-    VERSION = "1.11.1"
+    VERSION = "1.11.2"
     DATE = "2014-08-13"
 end
 
