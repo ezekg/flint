@@ -1,5 +1,11 @@
 # Change Log
 
+### 1.11.0 - 8/13/14
+* Rewrite `flint-map-fetch()` and `flint-exists()` functions.
+* Add ability to call `@include _(<alias>, container)` for individual breakpoints.
+* Add ability to call `@include _(container, clear)` & `@include _(<alias>, container, clear)` consecutively.
+* Fix breakpoint query math for fixed `em` grids.
+
 ### 1.10.0 - 8/11/14
 * Add `$gutter: center` modifier.
 * Fix `SASS_PATH` issue.

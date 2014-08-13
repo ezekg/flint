@@ -8,26 +8,45 @@
 
 @function flint-calc-breakpoint($n, $key, $i) {
     @if $n == "alias" {
+
         @if flint-get-value("settings", "grid") == "fixed" {
+
             @if flint-is-lowest-breakpoint($key) {
+
                 @return 0;
+
             } @else {
+
                 @return flint-get-value($key, "breakpoint");
+
             }
         } @else if flint-get-value("settings", "grid") == "fluid" {
+
             @return flint-get-value($key, "breakpoint");
+
         }
     } @else if $n == "next" {
+
         @if flint-is-lowest-breakpoint($key) {
+
             @return 0;
+
         } @else {
+
             @return flint-get-value(flint-steal-key(($i + 1)), "breakpoint");
+
         }
+
     } @else if $n == "prev" {
+
         @if flint-is-highest-breakpoint($key) {
+
             @return flint-get-value($key, "breakpoint");
+
         } @else {
+
             @return flint-get-value(flint-steal-key(($i - 1)), "breakpoint");
+
         }
     }
 }

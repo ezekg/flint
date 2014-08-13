@@ -183,6 +183,8 @@ Outputs,
 }
 ```
 
+You may also define a container for a specific breakpoint, `@include _(desktop, container)`, as well as chain a clearfix and container call together with `@include _(container, clearfix)`.
+
 ### Clear
 
 _Flint will attempt to use a local clearfix mixin named `clearfix`. If one is not found, it will use it's own._

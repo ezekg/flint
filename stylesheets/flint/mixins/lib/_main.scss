@@ -22,6 +22,51 @@
         @warn "The shift modifier has been deprecated due to it having such little-use and being a pain to maintain. It is set to be removed in version 2.0";
     }
 
+    // Clearfix
+    // -------------------------------------------------------------------------------
+    // @param [string] : clearfix instance
+    // -------------------------------------------------------------------------------
+    // @output clear styles | use existing clearfix mixin
+    @if $key == "clear" or $span == "clear" or $context == "clear" {
+
+        // Check if key exists as breakpoint
+        //  if so wrap in query to not affect others
+        @if flint-exists($flint, $key) {
+
+            @if flint-get-value("settings", "grid") == "fluid" {
+                @if flint-is-highest-breakpoint($key) {
+                    @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                        @include flint-clearfix;
+                        @content;
+                    }
+                } @else {
+                    @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
+                        @include flint-clearfix;
+                        @content;
+                    }
+                }
+            } @else if flint-get-value("settings", "grid") == "fixed" {
+                @if flint-is-highest-breakpoint($key) {
+                    @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
+                        @include flint-clearfix;
+                        @content;
+                    }
+                } @else {
+                    @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                        @include flint-clearfix;
+                        @content;
+                    }
+                }
+            }
+
+        } @else {
+
+            @include flint-clearfix;
+            @content;
+
+        }
+    }
+
     // Foundation
     // -------------------------------------------------------------------------------
     // @param $key [string] : foundation instance
@@ -38,24 +83,17 @@
         // ----
         @if $flint__foundation == "existant" {
             @at-root *, *:before, *:after {
-                @include flint-box-sizing();
+                @include flint-box-sizing;
                 @content;
             }
         }
 
-    // Clearfix
-    // ----
-    } @else if $key == "clear" {
-
-        @include flint-clearfix();
-
     // Container
     // -------------------------------------------------------------------------------
-    // @param $key [string] : container instance
+    // @param [string] : container instance
     // -------------------------------------------------------------------------------
     // @output container styles
-    } @else if $key == "container" {
-        float: none;
+    } @else if $key == "container" or $span == "container" or $context == "container" {
 
         // Apply individually if foundation is not set globally, but is set to true in config
         @if flint-get-value("settings", "border-box-sizing") and $flint__foundation == "nonexistant" {
@@ -72,19 +110,19 @@
 
         // Output container for each breakpoint if fixed grid
         // ----
-        @if flint-get-value("settings", "grid") == "fixed" {
+        @if $key == "container" and flint-get-value("settings", "grid") == "fixed" {
 
             @for $i from 1 through length($flint__all__keys) {
 
                 // Set up variables
                 $calc-key: flint-steal-key($i);
-                $calcContainer: $key;
 
                 // Key is default, no media queries
                 @if flint-is-default($calc-key) {
 
-                    width: flint-calc-width($calc-key, $calcContainer);
-                    @content;
+                    @include flint-container($calc-key, $i) {
+                        @content;
+                    }
 
                 // Not default, wrap in media queries
                 } @else {
@@ -93,53 +131,75 @@
                     @if flint-is-highest-breakpoint($calc-key) {
 
                         @media ( min-width: flint-calc-breakpoint("alias", $calc-key, $i) ) {
-                            width: flint-calc-width($calc-key, $calcContainer);
-                            @content;
+                            @include flint-container($calc-key, $i) {
+                                @content;
+                            }
                         }
 
                     } @else {
 
                         @media ( min-width: flint-calc-breakpoint("alias", $calc-key, $i) ) and ( max-width: (flint-calc-breakpoint("prev", $calc-key, $i) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
-                            width: flint-calc-width($calc-key, $calcContainer);
-                            @content;
+                            @include flint-container($calc-key, $i) {
+                                @content;
+                            }
                         }
 
                     }
                 }
             }
-        }
 
-        // Check if max-width is set
+        // Output container for specific breakpoint if exists
         // ----
-        @if flint-get-value("settings", "max-width") {
+        } @else if flint-exists($flint, $key) and flint-get-value("settings", "grid") == "fixed" {
 
-            // Check if it's an number
-            @if flint-is-number(flint-get-value("settings", "max-width")) {
-                max-width: flint-get-value("settings", "max-width");
-            // Then use highest breakpoint
+            @if flint-is-highest-breakpoint($key) {
+
+                @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
+                    @include flint-container($key) {
+                        @content;
+                    }
+                }
+
             } @else {
-                max-width: max(flint-get-all-breakpoints()...);
+
+                @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                    @include flint-container($key) {
+                        @content;
+                    }
+                }
+
             }
+        } @else if flint-exists($flint, $key) and flint-get-value("settings", "grid") == "fluid" {
+            @if flint-is-highest-breakpoint($key) {
 
-        }
+                @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                    @include flint-container {
+                        @content;
+                    }
+                }
 
-        // Center container is set
-        // ----
-        @if flint-get-value("settings", "center-container") {
-            margin-right: auto;
-            margin-left: auto;
+            } @else {
+
+                @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
+                    @include flint-container {
+                        @content;
+                    }
+                }
+
+            }
         } @else {
-            margin-right: 0;
-            margin-left: 0;
+            @include flint-container {
+                @content;
+            }
         }
 
-    // Create a new instance, add to global instance map
-    // -------------------------------------------------------------------------------
+    // Creates a new instance, add to global instance map
+    // -----
     } @else {
 
         // Apply individually if foundation is not set globally, but is set to true in config
         @if flint-get-value("settings", "border-box-sizing") and $flint__foundation == "nonexistant" {
-            @include flint-box-sizing();
+            @include flint-box-sizing;
 
             // Warn to either set a global foundation, or turn border-box-sizing off
             @if global-variable-exists("global-foundation-is-set") == false {
@@ -383,7 +443,7 @@
                             @content;
                         }
                     } @else {
-                        @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - 1) ) {
+                        @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
                             @content;
                         }
                     }

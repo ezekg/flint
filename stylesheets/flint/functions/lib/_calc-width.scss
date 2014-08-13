@@ -15,6 +15,7 @@
 	}
 
 	@if flint-get-value("settings", "grid") == "fluid" {
+
 		@if $key == "container" or $span == "container" {
 
 			$result: flint-fluid-width(flint-get-value($key, "breakpoint"), flint-get-value($key, "breakpoint"));
@@ -29,6 +30,7 @@
 
 		}
 	} @if flint-get-value("settings", "grid") == "fixed" {
+		
 		@if $key == "container" or $span == "container" {
 
 			$result: flint-get-value($key, "breakpoint");

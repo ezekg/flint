@@ -6,13 +6,14 @@
 // @return [bool]
 
 @function flint-exists($map, $value){
+	$is-map: flint-is-map($map);
+	$top-has-key: $is-map and map-has-key($map, $value) or false;
 
-	@if flint-is-map($map) {
-		@if map-has-key($map, $value) {
-			@return true;
-		}
-		@each $key, $i in $map {
-			@if flint-exists($i, $value) {
+	@if $top-has-key {
+		@return true;
+	} @else if $is-map {
+		@each $m, $k in $map {
+			@if flint-exists($k, $value) {
 				@return true;
 			}
 		}

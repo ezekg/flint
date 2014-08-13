@@ -9,7 +9,7 @@
 // @return [string]
 
 @function flint-get-instance-value($key, $value, $deep: null) {
-	@if $deep == null {
+	@if not $deep {
 		@return flint-map-fetch($flint__instances, flint-has-family-instance($key) $value);
 	} @else {
 		@return flint-map-fetch($flint__instances, flint-has-family-instance($key) $value $deep);

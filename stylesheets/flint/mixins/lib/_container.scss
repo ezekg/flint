@@ -1,0 +1,47 @@
+// Container
+// -------------------------------------------------------------------------------
+// @param $key [string] : alias of individual breakpoint
+// -------------------------------------------------------------------------------
+// @output container styles
+
+@mixin flint-container($key: null, $i: null) {
+
+    // Check if inside of loop, and if so only output for default
+    @if $i == null or flint-is-default(flint-steal-key($i)) {
+        float: none;
+
+        @if $key {
+            width: flint-calc-width($key, "container");
+        }
+
+        // Check if max-width is set
+        @if flint-get-value("settings", "max-width") {
+
+            // Check if it's an number
+            @if flint-is-number(flint-get-value("settings", "max-width")) {
+                max-width: flint-get-value("settings", "max-width");
+            // If not, use highest breakpoint
+            } @else {
+                max-width: max(flint-get-all-breakpoints()...);
+            }
+
+        }
+
+        // Check if center container is set
+        @if flint-get-value("settings", "center-container") {
+            margin-right: auto;
+            margin-left: auto;
+        } @else {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+    // Inside of loop, so only output width
+    } @else {
+        @if $key {
+            width: flint-calc-width($key, "container");
+        }
+    }
+
+    @content;
+}

@@ -6,7 +6,7 @@
 // @return [literal]
 
 @function flint-get-value($key, $value: null) {
-	@if $value == null {
+	@if not $value {
 		@return flint-map-fetch($flint, "config" $key);
 	} @else {
 		@return flint-map-fetch($flint, "config" $key $value);
