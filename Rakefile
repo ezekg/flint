@@ -1,9 +1,4 @@
-desc "Install dependencies with Bundler"
-task :install do
-    system "bundle install"
-end
-
-desc "Run test suite with Guard"
+desc "Run test suite"
 task :test, [:watch] do |t, args|
     if args[:watch]
         system "cd tests && bundle exec compass watch --time"

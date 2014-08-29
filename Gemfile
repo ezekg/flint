@@ -6,8 +6,6 @@ gem 'compass',
     "~> 1.0.0"
 
 group :test do
-
     gem 'rake',
         :require => false
-
 end

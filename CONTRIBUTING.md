@@ -9,4 +9,4 @@ We love contributors! If you would like to contribute to Flint, please adhere th
 
 ### Testing
 
-We have automated tests set up to ensure our build is working. To test, you must install [Bundler](http://bundler.io/), which will allow you to install all needed gem versions. Once you have Bundler up and running, run 'rake install' to install all of Flint's dependencies. After that, you can run the test suite once with `rake test`, or you can also watch the directory while you work with `rake test[watch]`.
+We have automated tests set up to ensure our build is working. To test, you must install [Bundler](http://bundler.io/), which will allow you to install all needed gem versions. Once you have Bundler up and running, run `bundler install` to install all of Flint's dependencies. After that, you can run the test suite once with `rake test`, or you can also watch the directory while you work with `rake test[watch]`.
