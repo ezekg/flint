@@ -2,12 +2,16 @@
 //--------------------------------------------------------------------------------
 // @param $index [number] : index of key
 // -------------------------------------------------------------------------------
-// @return [string]
+// @return matched key | false
 
 @function flint-steal-key($index) {
-	@for $n from 1 through (length(flint-map-fetch($flint, "config")) - 1) {
-		@each $key in nth(map-get($flint, "config"), $index) {
-			@return $key;
+	@if flint-is-number($index) {
+		@for $n from 1 through (length(flint-map-fetch($flint, "config")) - 1) {
+			@each $key in nth(map-get($flint, "config"), $index) {
+				@return $key;
+			}
 		}
+	} @else {
+		@return false;
 	}
 }

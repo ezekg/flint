@@ -1,0 +1,206 @@
+// Keeps count of all instances with arguments, stores in global var
+// -------------------------------------------------------------------------------
+// @param $key [string] : computed breakpoint of instance
+// @param $span [number] : computed span of instance
+// @param $context [number] : computed context of instance
+// @param $gutter [number] : computed gutter of instance
+// @param $shift [number] : computed shift of instance
+// @param $output-width [number] : computed width of instance
+// @param $output-margin-right [number] : computed right margin of instance
+// @param $output-margin-left [number] : computed left margin of instance
+// -------------------------------------------------------------------------------
+// @return instance map
+
+@include describe("[function] instance") {
+
+    $pseudo-instance: (
+    	".instance::desktop": (
+    		"instance-count": 1,
+    		"parent-selector": none,
+    		"key": "desktop",
+    		"breakpoint": 80em,
+    		"columns": 16,
+    		"span": 4,
+    		"context": null,
+    		"gutter": null,
+    		"shift": null,
+    		"output": (
+    			"width": 23.4375%,
+    			"margin-right": 0.78125%,
+    			"margin-left": 0.78125%
+    		)
+    	)
+    );
+
+    .instance {
+        @include _("desktop", 4);
+
+        @at-root {
+            @include it("should expect instance map to match pseudo instance") {
+                @include should(expect(inspect($flint__instances)), to(be(inspect($pseudo-instance))));
+            }
+        }
+
+        $flint__instances: () !global;
+        $flint__instance-count: 0 !global;
+
+        $flint__instances: flint-instance("desktop", 4, null, null, null, 23.4375%, 0.78125%, 0.78125%) !global;
+
+        @at-root {
+            @include it("should expect instance map to match pseudo instance") {
+                @include should(expect(inspect($flint__instances)), to(be(inspect($pseudo-instance))));
+            }
+        }
+    }
+
+    $flint__instances: () !global;
+    $flint__instance-count: 0 !global;
+
+    $pseudo-instance: (
+        ".parent-instance::desktop": (
+            "instance-count": 1,
+            "parent-selector": none,
+            "key": "desktop",
+            "breakpoint": 80em,
+            "columns": 16,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 23.4375%,
+                "margin-right": 0.78125%,
+                "margin-left": 0.78125%
+            )
+        ),
+        ".parent-instance::laptop": (
+            "instance-count": 2,
+            "parent-selector": none,
+            "key": "laptop",
+            "breakpoint": 60em,
+            "columns": 12,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 31.25%,
+                "margin-right": 1.04167%,
+                "margin-left": 1.04167%
+            )
+        ),
+        ".parent-instance::tablet": (
+            "instance-count": 3,
+            "parent-selector": none,
+            "key": "tablet",
+            "breakpoint": 40em,
+            "columns": 8,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 46.875%,
+                "margin-right": 1.5625%,
+                "margin-left": 1.5625%
+            )
+        ),
+        ".parent-instance::mobile": (
+            "instance-count": 4,
+            "parent-selector": none,
+            "key": "mobile",
+            "breakpoint": 20em,
+            "columns": 4,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 93.75%,
+                "margin-right": 3.125%,
+                "margin-left": 3.125%
+            )
+        ),
+        ".parent-instance .child-instance::desktop": (
+            "instance-count": 5,
+            "parent-selector": ".parent-instance::desktop",
+            "key": "desktop",
+            "breakpoint": 80em,
+            "columns": 16,
+            "span": 2,
+            "context": 4,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 43.75%,
+                "margin-right": 3.125%,
+                "margin-left": 3.125%
+            )
+        ),
+        ".parent-instance .child-instance::laptop": (
+            "instance-count": 6,
+            "parent-selector": ".parent-instance::laptop",
+            "key": "laptop",
+            "breakpoint": 60em,
+            "columns": 12,
+            "span": 2,
+            "context": 4,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 43.75%,
+                "margin-right": 3.125%,
+                "margin-left": 3.125%
+            )
+        ),
+        ".parent-instance .child-instance::tablet": (
+            "instance-count": 7,
+            "parent-selector": ".parent-instance::tablet",
+            "key": "tablet",
+            "breakpoint": 40em,
+            "columns": 8,
+            "span": 2,
+            "context": 4,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 43.75%,
+                "margin-right": 3.125%,
+                "margin-left": 3.125%
+            )
+        ),
+        ".parent-instance .child-instance::mobile": (
+            "instance-count": 8,
+            "parent-selector": ".parent-instance::mobile",
+            "key": "mobile",
+            "breakpoint": 20em,
+            "columns": 4,
+            "span": 2,
+            "context": 4,
+            "gutter": null,
+            "shift": null,
+            "output": (
+                "width": 43.75%,
+                "margin-right": 3.125%,
+                "margin-left": 3.125%
+            )
+        )
+    );
+
+    .parent-instance {
+        @include _(4);
+
+        .child-instance {
+            @include _(2, "auto");
+
+            @at-root {
+                @include it("should expect instance map to match pseudo instance map") {
+                    @include should(expect(inspect($flint__instances)), to(be(inspect($pseudo-instance))));
+                }
+            }
+        }
+    }
+
+    $flint__instances: () !global;
+    $flint__instance-count: 0 !global;
+}

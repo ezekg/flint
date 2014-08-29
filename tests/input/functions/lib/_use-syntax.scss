@@ -1,0 +1,17 @@
+// Use global syntax
+// -------------------------------------------------------------------------------
+// @param $selectors [string] : string of selectors to transform
+// -------------------------------------------------------------------------------
+// @return [list] : list of transformed selectors according to syntax
+
+@include describe("[function] use-syntax") {
+
+    $selectors: ".block__element--modifier";
+
+    @include it("should expect to return false unless syntax is set") {
+        @include should(expect(
+            flint-use-syntax($selectors)),
+            to(be(false))
+        );
+    }
+}

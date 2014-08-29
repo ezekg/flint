@@ -1,0 +1,33 @@
+// Turns string into a flat list
+// -------------------------------------------------------------------------------
+// @param $string [string] : string
+// @param $find [string] : item to find which separates substrings (default is single space [" "])
+// @param $ignore [string] : removes remaining string beyond item (default is comma [","])
+// -------------------------------------------------------------------------------
+// @return [list] | error
+
+@include describe("[function] string-to-list") {
+
+	$string: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+	@include it("should expect string to be converted into a list") {
+		@include should(expect(
+			flint-string-to-list($string, " ", "")),
+			to(be(("Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit,", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua.")))
+		);
+	}
+
+	@include it("should expect string to be converted into a list") {
+		@include should(expect(
+			flint-string-to-list($string, " ", "d")),
+			to(be(("Lorem", "ipsum")))
+		);
+	}
+
+	@include it("should expect string up to comma to be converted into a list") {
+		@include should(expect(
+			flint-string-to-list($string)),
+			to(be(("Lorem", "ipsum", "dolor", "sit", "amet")))
+		);
+	}
+}

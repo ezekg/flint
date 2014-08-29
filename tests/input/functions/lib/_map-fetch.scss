@@ -1,0 +1,38 @@
+// Fetch value from key in map
+// -------------------------------------------------------------------------------
+// @param $map [map] : map to fetch from
+// @param $keys [string | list] : string of key, or list of strings
+// -------------------------------------------------------------------------------
+// @return fetched literal | false
+
+@include describe("[function] map-fetch") {
+
+	$map: (
+		"key": "value",
+		"deep-map": (
+			"deep-key": "deep-value"
+		)
+	);
+
+	@include it("should expect values to be fetched from map") {
+		@include should(expect(
+			flint-map-fetch($map, "key")),
+			to(be("value"))
+		);
+		@include should(expect(
+			flint-map-fetch($map, "deep-map" "deep-key")),
+			to(be("deep-value"))
+		);
+	}
+
+	@include it("should expect non-existent values to return false") {
+		@include should(expect(
+			flint-map-fetch($map, "unknown")),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-map-fetch($map, "deep-map" "unknown")),
+			to(be(false))
+		);
+	}
+}

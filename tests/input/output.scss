@@ -1,0 +1,60 @@
+$flint: (
+    "config": (
+
+        "desktop": (
+            "columns": 16,
+            "breakpoint": 80em,
+        ),
+        "laptop": (
+            "columns": 12,
+            "breakpoint": 60em,
+        ),
+        "tablet": (
+            "columns": 8,
+            "breakpoint": 40em,
+        ),
+        "mobile": (
+            "columns": 4,
+            "breakpoint": 20em,
+        ),
+
+        "settings": (
+            "default": "mobile",
+            "grid": "fluid",
+            "gutter": 0.625em,
+            "float-style": "left",
+            "max-width": true,
+            "center-container": true,
+            "border-box-sizing": true,
+            "support-syntax": false,
+            "debug-mode": false,
+        )
+    )
+);
+
+// Basecamp
+@import "../bootcamp/dist/bootcamp";
+
+// Flint
+@import "../../stylesheets/flint";
+
+// Actual tests
+@include runner-start;
+
+@include it("should expect foundation to not be set") {
+    @include should(expect($flint__foundation),
+        to(be("nonexistant"))
+    );
+}
+
+@include _("foundation");
+
+@include it("should expect foundation to be set") {
+    @include should(expect($flint__foundation),
+        to(be("existant"))
+    );
+}
+
+@import "functions/functions";
+
+@include runner-end;

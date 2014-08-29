@@ -1,0 +1,39 @@
+// Checks if instance exists in selector familiy tree, falls back from current selector
+// -------------------------------------------------------------------------------
+// @param $key [string] : breakpoint key to search for matching instance
+// @param $syntax [string | null] : searches for instance using passed syntax
+// -------------------------------------------------------------------------------
+// @return matching instance | false
+
+@include describe("[function] has-family-instance") {
+
+	@include it("should expect to return false unless inside of a parent instance") {
+		@include should(expect(
+			flint-has-family-instance("desktop")),
+			to(be(false))
+		);
+	}
+
+	.parent-instance {
+		@include _("laptop", 4);
+
+		.child-instance {
+			@include _("laptop", 2) {
+
+				@include it("should expect to return true unless instance doesnt exist") {
+					@include should(expect(
+						flint-has-family-instance("desktop")),
+						to(be(false))
+					);
+					@include should(expect(
+						flint-has-family-instance("laptop")),
+						to(be(".parent-instance::laptop"))
+					);
+				}
+			}
+		}
+	}
+
+	$flint__instances: () !global;
+	$flint__instance-count: 0 !global;
+}

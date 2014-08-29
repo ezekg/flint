@@ -1,0 +1,17 @@
+// Support BEM syntax
+// -------------------------------------------------------------------------------
+// @param $selectors [string] : string of selectors to parse
+// -------------------------------------------------------------------------------
+// @return [list] : parsed list of selectors according to syntax
+
+@include describe("[function] support-syntax-bem") {
+
+    $selectors: ".block__element__element--modifier";
+
+    @include it("should expect selector string to be parsed to valid list of BEM selectors") {
+        @include should(expect(
+            flint-support-syntax-bem($selectors)),
+            to(be((".block", ".block__element", ".block__element__element--modifier")))
+        );
+    }
+}

@@ -1,0 +1,21 @@
+// Get last item in list
+// -------------------------------------------------------------------------------
+// @param $list [list] : list
+// -------------------------------------------------------------------------------
+// @return [list]
+
+@include describe("[function] last") {
+
+	$list: ("one", "two", "three");
+
+	@include it("should expect to return the last item in list") {
+		@include should(expect(
+			flint-last($list)),
+			to(be("three"))
+		);
+		@include should(expect(
+			flint-last($list)),
+			not-to(be("two"))
+		);
+	}
+}

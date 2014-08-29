@@ -1,6 +1,10 @@
 # Change Log
 
-### 1.11.0 - 8/13/14
+### 1.12.0 - 8/29/14
+* Added test suite and contributing guidelines.
+* Cleaned up a few functions.
+
+### 1.11.2 - 8/13/14
 * Rewrite `flint-map-fetch()` and `flint-exists()` functions.
 * Add ability to call `@include _(<alias>, container)` for individual breakpoints.
 * Add ability to call `@include _(container, clear)` & `@include _(<alias>, container, clear)` consecutively.
@@ -62,7 +66,7 @@
 
 ### 1.5.0 - 6/26/14
 * Default config is now in ems instead of pixels.
-* Fixed issues with breakpoint calculations when using ems. Should successfully break at the correct points when using alias conditionals and not be ~0.0625em off.
+* Fixed issues with breakpoint calculations when using ems. Should successfully break at the correct points when using alias conditionals and not be `~0.0625em` off.
 * Added warn directives when common mistakes occur.
 * Cleaned up doc blocks.
 

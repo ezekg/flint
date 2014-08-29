@@ -1,0 +1,20 @@
+// Remove $value from $list
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation/#remove
+// -------------------------------------------------------------------------------
+// @param $list [list] : list
+// @param $value [literal] : value to flint-remove
+// -------------------------------------------------------------------------------
+// @return [list]
+
+@include describe("[function] remove") {
+
+	$list: ("one", "two", "three");
+
+	@include it("should expect value to be removed from list") {
+		@include should(expect(
+			flint-remove($list, "two")),
+			to(be(("one", "three")))
+		);
+	}
+}

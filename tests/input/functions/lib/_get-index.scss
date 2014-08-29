@@ -1,0 +1,34 @@
+// Gets the index of the passed key
+// -------------------------------------------------------------------------------
+// @param $key [string] : breakpoint key
+// -------------------------------------------------------------------------------
+// @return [number]
+
+@include describe("[function] get-index") {
+
+    @include it("should expect index to match index of key in configuration map") {
+        @include should(expect(
+            flint-get-index("desktop")),
+            to(be(1))
+        );
+        @include should(expect(
+            flint-get-index("laptop")),
+            to(be(2))
+        );
+        @include should(expect(
+            flint-get-index("tablet")),
+            to(be(3))
+        );
+        @include should(expect(
+            flint-get-index("mobile")),
+            to(be(4))
+        );
+    }
+
+    @include it("should expect index to not be found") {
+        @include should(expect(
+            flint-get-index("unknown")),
+            to(be(false))
+        );
+    }
+}

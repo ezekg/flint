@@ -1,0 +1,34 @@
+// Joins all elements of $list with $glue
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation/#to-string
+// -------------------------------------------------------------------------------
+// @param $list [list] : list
+// @param $glue [string] : value to use as a join string
+// -------------------------------------------------------------------------------
+// @return [string]
+
+@include describe("[function] list-to-string") {
+
+	$list: ("one", "two", "three");
+
+	@include it("should expect the list to be converted into a string without spaces") {
+		@include should(expect(
+			flint-list-to-string($list)),
+			to(be("onetwothree"))
+		);
+	}
+
+	@include it("should expect the list to be converted into a string with spaces") {
+		@include should(expect(
+			flint-list-to-string($list, " ")),
+			to(be("one two three"))
+		);
+	}
+
+	@include it("should expect the list to be converted into a string with commas") {
+		@include should(expect(
+			flint-list-to-string($list, ", ")),
+			to(be("one, two, three"))
+		);
+	}
+}

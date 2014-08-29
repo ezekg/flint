@@ -1,0 +1,27 @@
+// Returns next indexed key based on passed index
+// -------------------------------------------------------------------------------
+// @param $index [number] : index
+// -------------------------------------------------------------------------------
+// @return [string] | null
+
+@include describe("[function] next-index") {
+
+	@include it("should expect alias of next indexed breakpoint") {
+		@include should(expect(
+			flint-next-index(1)),
+			to(be("laptop"))
+		);
+		@include should(expect(
+			flint-next-index(2)),
+			to(be("tablet"))
+		);
+		@include should(expect(
+			flint-next-index(3)),
+			to(be("mobile"))
+		);
+		@include should(expect(
+			flint-next-index(4)),
+			to(be(null))
+		);
+	}
+}

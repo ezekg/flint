@@ -12,11 +12,12 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
   s.authors = ["Ezekiel Gabrielse"]
   s.email = ["ezekg@yahoo.com"]
-  s.homepage = "https://github.com/ezekg/flint/"
+  s.homepage = "http://flint.gs"
 
   # Project Description
   s.summary = %q{A powerful Sass grid-system designed for complex responsive layouts.}
-  s.description = %q{Flint is designed to be a flexible layout toolkit that developers can use for any responsive grid-based project.}
+  # s.description = %q{Flint is designed to be a flexible layout toolkit that developers can use for any responsive project.}
+  s.description = %q{Flint is a highly advanced Sass grid-system designed for rapid responsive development.}
 
   # Library Files
   s.files += Dir.glob("lib/**/*.*")
@@ -35,7 +36,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
 
   # Gems Dependencies
-  s.add_dependency("sass", [">=3.3.0"])
+  s.add_dependency("sass", ["~> 3.3"])
   # s.add_dependency("compass", [">= 0.12.1"])
 
 end

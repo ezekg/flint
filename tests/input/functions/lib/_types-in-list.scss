@@ -1,0 +1,55 @@
+// Checks type of each item in list
+// -------------------------------------------------------------------------------
+// @param $list [list] : list of items
+// @param $assert-types [string | list] : single or list of types to assert
+// @param $assert-length [number] : assert length of list
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] types-in-list") {
+
+    $list-of-numbers: 1, 2, 3, 4, 5;
+    $list-of-strings: "one", "two", "three";
+    $mixed-list: 1, "two", 3, "four";
+    $string: "string";
+
+    @include it("should expect to return false if list is not passed") {
+        @include should(expect(
+            flint-types-in-list($string)),
+            to(be(false))
+        );
+    }
+
+    @include it("should expect types to be asserted in list") {
+        @include should(expect(
+            flint-types-in-list($list-of-numbers)),
+            to(be(true))
+        );
+        @include should(expect(
+            flint-types-in-list($list-of-numbers, "number")),
+            to(be((true)))
+        );
+        @include should(expect(
+            flint-types-in-list($list-of-strings, "string", 3)),
+            to(be((true)))
+        );
+        @include should(expect(
+            flint-types-in-list($mixed-list, "number" "string" "number" "string", 4)),
+            to(be((true)))
+        );
+    }
+
+    @include it("should expect auto asserted types to return false") {
+        @include should(expect(
+            flint-types-in-list($mixed-list)),
+            to(be((false)))
+        );
+    }
+
+    @include it("should expect asserted length to return false") {
+        @include should(expect(
+            flint-types-in-list($list-of-strings, "string", 1)),
+            to(be((false)))
+        );
+    }
+}

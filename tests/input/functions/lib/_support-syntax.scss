@@ -1,0 +1,25 @@
+// Support syntax
+// -------------------------------------------------------------------------------
+// @param $syntax [string] : alias of syntax to support
+// @param $selectors [string] : string of selectors to parse
+// -------------------------------------------------------------------------------
+// @return [list] : list of parsed selectors according to syntax
+
+@include describe("[function] support-syntax") {
+
+    $selectors: ".block__element--modifier";
+
+    @include it("should expect truthy value to return from supported syntax") {
+        @include should(expect(
+            flint-support-syntax("BEM", $selectors)),
+            to(be-truthy())
+        );
+    }
+
+    @include it("should expect to return null if invalid syntax is passed") {
+        @include should(expect(
+            flint-support-syntax("OOCSS", $selectors)),
+            to(be((null)))
+        );
+    }
+}

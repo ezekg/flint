@@ -1,0 +1,36 @@
+// Convert fixed to fluid width
+//--------------------------------------------------------------------------------
+// @param $target [number] : target
+// @param $context [number] : context
+// -------------------------------------------------------------------------------
+// @return [number]
+
+@include describe("[function] fluid-width") {
+
+	@include it("should expect result to be equal to manual calculation") {
+		@include should(expect(
+			flint-fluid-width(80em / 16, 80em)),
+			to(be(100% / 16))
+		);
+		@include should(expect(
+			flint-fluid-width(80em / 8, 80em)),
+			to(be(100% / 8))
+		);
+		@include should(expect(
+			flint-fluid-width(80em / 4, 80em)),
+			to(be(100% / 4))
+		);
+		@include should(expect(
+			flint-fluid-width(80em / 3, 80em)),
+			to(be(100% / 3))
+		);
+		@include should(expect(
+			flint-fluid-width(80em / 2, 80em)),
+			to(be(100% / 2))
+		);
+		@include should(expect(
+			flint-fluid-width(80em / 1, 80em)),
+			to(be(100% / 1))
+		);
+	}
+}

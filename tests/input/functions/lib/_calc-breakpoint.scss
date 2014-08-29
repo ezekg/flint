@@ -1,0 +1,67 @@
+// Calculate from-to breakpoints
+// -------------------------------------------------------------------------------
+// @param $n [string] : how to calculate breakpoint
+// @param $key [string] : key of breakpoint
+// @param $i [number] : index of current breakpoint
+// -------------------------------------------------------------------------------
+// @return calculated value
+
+@include describe("[function] calc-breakpoint") {
+
+    @include it("should expect breakpoint of passed key") {
+        @include should(expect(
+            flint-calc-breakpoint("alias", "desktop", 1)),
+            to(be(80em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("alias", "laptop", 2)),
+            to(be(60em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("alias", "tablet", 3)),
+            to(be(40em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("alias", "mobile", 4)),
+            to(be(20em))
+        );
+    }
+
+    @include it("should expect next breakpoint down from passed key") {
+        @include should(expect(
+            flint-calc-breakpoint("next", "desktop", 1)),
+            to(be(60em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("next", "laptop", 2)),
+            to(be(40em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("next", "tablet", 3)),
+            to(be(20em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("next", "mobile", 4)),
+            to(be(0))
+        );
+    }
+
+    @include it("should expect previous breakpoint up from passed key") {
+        @include should(expect(
+            flint-calc-breakpoint("prev", "desktop", 1)),
+            to(be(80em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("prev", "laptop", 2)),
+            to(be(80em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("prev", "tablet", 3)),
+            to(be(60em))
+        );
+        @include should(expect(
+            flint-calc-breakpoint("prev", "mobile", 4)),
+            to(be(40em))
+        );
+    }
+}

@@ -1,9 +1,9 @@
-# Gem file
+# Gem files
 *.gem
+Gemfile.lock
 
 # Files
 .DS_Store
 
 # Folders
-test
 .sass-cache

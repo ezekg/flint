@@ -1,0 +1,439 @@
+// Returns truthiness of a value
+// -------------------------------------------------------------------------------
+// @param $value [literal] : value
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-true") {
+
+	@include it("should expect values to be truthy") {
+		@include should(expect(
+			flint-is-true(true)),
+			to(be(true))
+		);
+		@include should(expect(
+			flint-is-true("true")),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect values to return false") {
+		@include should(expect(
+			flint-is-true(null)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-true(false)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-true(())),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-true("")),
+			to(be(false))
+		);
+	}
+}
+
+// Checks if item is map
+//--------------------------------------------------------------------------------
+// @param $n [map] : value
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-map") {
+
+	$map: ("key": "value");
+	$list: ("one", "two", "three");
+	$string: "string";
+	$number: 1;
+	$bool: true;
+	$null: null;
+
+	@include it("should expect variable to be a map and return true") {
+		@include should(expect(
+			flint-is-map($map)),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect variable to be a map and return false") {
+		@include should(expect(
+			flint-is-map($list)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-map($string)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-map($number)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-map($bool)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-map($null)),
+			to(be(false))
+		);
+	}
+}
+
+// Checks if item is list
+//--------------------------------------------------------------------------------
+// @param $n [list] : value
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-list") {
+
+	$map: ("key": "value");
+	$list: ("one", "two", "three");
+	$string: "string";
+	$number: 1;
+	$bool: true;
+	$null: null;
+
+	@include it("should expect variable to be a list and return true") {
+		@include should(expect(
+			flint-is-list($list)),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect variable to be a list and return false") {
+		@include should(expect(
+			flint-is-list($map)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-list($string)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-list($number)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-list($bool)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-list($null)),
+			to(be(false))
+		);
+	}
+}
+
+// Checks if item is number
+//--------------------------------------------------------------------------------
+// @param $n [number] : value
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-number") {
+
+	$map: ("key": "value");
+	$list: ("one", "two", "three");
+	$string: "string";
+	$number: 1;
+	$bool: true;
+	$null: null;
+
+	@include it("should expect variable to be a number and return true") {
+		@include should(expect(
+			flint-is-number($number)),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect variable to be a number and return false") {
+		@include should(expect(
+			flint-is-number($map)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-number($list)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-number($string)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-number($bool)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-number($null)),
+			to(be(false))
+		);
+	}
+}
+
+// Checks if item is string
+//--------------------------------------------------------------------------------
+// @param $n [string] : value
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-string") {
+
+	$map: ("key": "value");
+	$list: ("one", "two", "three");
+	$string: "string";
+	$number: 1;
+	$bool: true;
+	$null: null;
+
+	@include it("should expect variable to be a string and return true") {
+		@include should(expect(
+			flint-is-string($string)),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect variable to be a string and return false") {
+		@include should(expect(
+			flint-is-string($map)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-string($list)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-string($number)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-string($bool)),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-string($null)),
+			to(be(false))
+		);
+	}
+}
+
+// Checks if item is not string
+//--------------------------------------------------------------------------------
+// @param $n [string] : value
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-not-string") {
+
+	$map: ("key": "value");
+	$list: ("one", "two", "three");
+	$string: "string";
+	$number: 1;
+	$bool: true;
+	$null: null;
+
+	@include it("should expect variable not to be a string") {
+		@include should(expect(
+			flint-is-not-string($string)),
+			not-to(be(true))
+		);
+		@include should(expect(
+			flint-is-not-string($map)),
+			to(be(true))
+		);
+		@include should(expect(
+			flint-is-not-string($list)),
+			to(be(true))
+		);
+		@include should(expect(
+			flint-is-not-string($number)),
+			to(be(true))
+		);
+		@include should(expect(
+			flint-is-not-string($bool)),
+			to(be(true))
+		);
+		@include should(expect(
+			flint-is-not-string($null)),
+			to(be(true))
+		);
+	}
+}
+
+// Gets list of each breakpoint's key
+// -------------------------------------------------------------------------------
+// @return [list]
+
+@include describe("[function] get-all-keys") {
+
+	@include it("should expect a list of all breakpoint keys") {
+		@include should(expect(
+			flint-get-all-keys()),
+			to(be(("desktop", "laptop", "tablet", "mobile")))
+		);
+	}
+}
+
+// Gets list of all breakpoints
+// -------------------------------------------------------------------------------
+// @return [list]
+
+@include describe("[function] get-all-breakpoints") {
+
+	@include it("should expect a list of all breakpoint values") {
+		@include should(expect(
+			flint-get-all-breakpoints()),
+			to(be((80em, 60em, 40em, 20em)))
+		);
+	}
+}
+
+// Checks if passed $key is the highest breakpoint
+// -------------------------------------------------------------------------------
+// @param $key [string] : alias of breakpoint
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-highest-breakpoint") {
+
+	@include it("should expect to be highest breakpoint") {
+		@include should(expect(
+			flint-is-highest-breakpoint("desktop")),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect not to be highest breakpoint") {
+		@include should(expect(
+			flint-is-highest-breakpoint("laptop")),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-highest-breakpoint("tablet")),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-highest-breakpoint("mobile")),
+			to(be(false))
+		);
+	}
+}
+
+// Checks if passed $key is the lowest breakpoint
+// -------------------------------------------------------------------------------
+// @param $key [string] : alias of breakpoint
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-lowest-breakpoint") {
+
+	@include it("should expect to be lowest breakpoint") {
+		@include should(expect(
+			flint-is-lowest-breakpoint("mobile")),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect not to be lowest breakpoint") {
+		@include should(expect(
+			flint-is-lowest-breakpoint("desktop")),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-lowest-breakpoint("laptop")),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-lowest-breakpoint("tablet")),
+			to(be(false))
+		);
+	}
+}
+
+// Checks if $key is grid default
+// -------------------------------------------------------------------------------
+// @param $key [string] : alias of breakpoint
+// -------------------------------------------------------------------------------
+// @return [bool]
+
+@include describe("[function] is-default") {
+
+	@include it("should expect to be default breakpoint") {
+		@include should(expect(
+			flint-is-default("mobile")),
+			to(be(true))
+		);
+	}
+
+	@include it("should expect not to be default breakpoint") {
+		@include should(expect(
+			flint-is-default("desktop")),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-default("laptop")),
+			to(be(false))
+		);
+		@include should(expect(
+			flint-is-default("tablet")),
+			to(be(false))
+		);
+	}
+}
+
+// Gets all breakpoint column values
+// -------------------------------------------------------------------------------
+// @return [list]
+
+@include describe("[function] get-all-columns") {
+
+	@include it("should expect a list of all breakpoint column values") {
+		@include should(expect(
+			flint-get-all-columns()),
+			to(be((16, 12, 8, 4)))
+		);
+	}
+}
+
+// Returns the unit used in config
+// -------------------------------------------------------------------------------
+// @return [literal]
+
+@include describe("[function] get-config-unit") {
+	@include it("should expect configuration unit to be ems") {
+		@include should(expect(
+			flint-get-config-unit()),
+			to(be("em"))
+		);
+	}
+}
+
+// Convert pixel value to em
+// -------------------------------------------------------------------------------
+// @param $target [number] : pixel value
+// @param $context [number] : context to divide by
+// -------------------------------------------------------------------------------
+// @return : em value of $target relative to $context
+// -------------------------------------------------------------------------------
+
+@include describe("[function] to-em") {
+
+	@include it("should expect passed pixel value to be converted to ems") {
+		@include should(expect(
+			flint-to-em(16px)),
+			to(be(1em))
+		);
+		@include should(expect(
+			flint-to-em(32px)),
+			to(be(2em))
+		);
+		@include should(expect(
+			flint-to-em(16px, 32px)),
+			to(be(0.5em))
+		);
+	}
+}

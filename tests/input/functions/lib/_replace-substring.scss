@@ -1,0 +1,19 @@
+// Replace substring
+// -------------------------------------------------------------------------------
+// @param $string [string] : string that contains substring
+// @param $substring [string] : substring to replace
+// @param $new-substring [string] : new string to replace sub with
+// -------------------------------------------------------------------------------
+// @return [string]
+
+@include describe("[function] replace-substring") {
+
+	$string: "this is a string";
+
+	@include it("should expect the substring to be updated inside of string") {
+		@include should(expect(
+			flint-replace-substring($string, "a", "an awesome")),
+			to(be("this is an awesome string"))
+		);
+	}
+}

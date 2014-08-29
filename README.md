@@ -183,7 +183,7 @@ Outputs,
 }
 ```
 
-You may also define a container for a specific breakpoint, `@include _(desktop, container)`, as well as chain a clearfix and container call together with `@include _(container, clearfix)`.
+You may also define a container for a specific breakpoint, `@include _(desktop, container)`, as well as chain a clearfix and container call together with `@include _(container, clear)` or `@include _(<alias>, container, clear)`.
 
 ### Clear
 
@@ -937,6 +937,10 @@ If you make one that isn't here, let me know and I'll look into officially suppo
 ## Authors
 
 [Ezekiel Gabrielse](http://ezekielg.com)
+
+## Contributing
+
+As an open-source project, contributions are more than welcome, they're extremely helpful and actively encouraged. If you see any room for improvement, open an [issue](https://github.com/ezekg/flint/issues) or submit a [pull request](https://github.com/ezekg/flint/pulls). Also, make sure to take a look at the [contributing doc](CONTRIBUTING.md).
 
 ## License
 

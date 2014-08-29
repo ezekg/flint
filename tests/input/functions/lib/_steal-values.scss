@@ -1,0 +1,20 @@
+// Steal value based on index number
+// -------------------------------------------------------------------------------
+// @param $index [number] : index of breakpoint key in config
+// @param $value [number] : value
+// -------------------------------------------------------------------------------
+// @return [number]
+
+@include describe("[function] steal-values") {
+
+	@include it("should expect steal value from breakpoint key based on its index") {
+		@include should(expect(
+			flint-steal-values(1, "breakpoint")),
+			to(be(80em))
+		);
+		@include should(expect(
+			flint-steal-values(1, "columns")),
+			to(be(16))
+		);
+	}
+}

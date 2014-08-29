@@ -1,0 +1,19 @@
+// Removes all false and null values from $list
+// -------------------------------------------------------------------------------
+// @documentation http://sassylists.com/documentation.html#purge
+// -------------------------------------------------------------------------------
+// @param $list [list] : list
+// -------------------------------------------------------------------------------
+// @return [list]
+
+@include describe("[function] purge") {
+
+	$list: (true, false, "string", "", null, 1);
+
+	@include it("should expect all falsey values to be removed") {
+		@include should(expect(
+			flint-purge($list)),
+			to(be((true, "string", 1)))
+		);
+	}
+}

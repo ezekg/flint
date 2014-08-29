@@ -1,0 +1,162 @@
+// Calculate margin
+// -------------------------------------------------------------------------------
+// @param $key [string] : key for lookup
+// @param $span [number] : span value of element
+// @param $context [number] : context value of element
+// -------------------------------------------------------------------------------
+// @return calculated value | false
+
+@include describe("[function] calc-margin") {
+
+	@include it("should expect full width column margins to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 16)),
+			to(be((0.625em / 80em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 12)),
+			to(be((0.625em / 60em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 8)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 4)),
+			to(be((0.625em / 20em) * 100%))
+		);
+	}
+
+	@include it("should expect three-quarter width column margins to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 12)),
+			to(be((0.625em / 80em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 9)),
+			to(be((0.625em / 60em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 6)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 3)),
+			to(be((0.625em / 20em) * 100%))
+		);
+	}
+
+	@include it("should expect half width column margins to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 8)),
+			to(be((0.625em / 80em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 6)),
+			to(be((0.625em / 60em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 4)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 2)),
+			to(be((0.625em / 20em) * 100%))
+		);
+	}
+
+	@include it("should expect quarter width column margins to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 4)),
+			to(be((0.625em / 80em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 3)),
+			to(be((0.625em / 60em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 2)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 1)),
+			to(be((0.625em / 20em) * 100%))
+		);
+	}
+
+	@include it("should expect single width column margins to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 1)),
+			to(be((0.625em / 80em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 1)),
+			to(be((0.625em / 60em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 1)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 1)),
+			to(be((0.625em / 20em) * 100%))
+		);
+	}
+
+	@include it("should expect full width column margins with context to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 8, 8)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 6, 6)),
+			to(be((0.625em / 30em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 4, 4)),
+			to(be((0.625em / 20em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 2, 2)),
+			to(be((0.625em / 10em) * 100%))
+		);
+	}
+
+	@include it("should expect half width column margins with context to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 4, 8)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 3, 6)),
+			to(be((0.625em / 30em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 2, 4)),
+			to(be((0.625em / 20em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 1, 2)),
+			to(be((0.625em / 10em) * 100%))
+		);
+	}
+
+	@include it("should expect single width column margins with context to be equal to manually calculated value") {
+		@include should(expect(
+			flint-calc-margin("desktop", 1, 8)),
+			to(be((0.625em / 40em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("laptop", 1, 6)),
+			to(be((0.625em / 30em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("tablet", 1, 4)),
+			to(be((0.625em / 20em) * 100%))
+		);
+		@include should(expect(
+			flint-calc-margin("mobile", 1, 2)),
+			to(be((0.625em / 10em) * 100%))
+		);
+	}
+}

@@ -1,0 +1,115 @@
+@charset "UTF-8";
+/*! sassyjson - v1.1.8 - 2014-06-01 */
+/* >> Bootcamp >> */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+@media (min-width: 60.0625em) {
+  .instance {
+    float: left;
+    width: 23.4375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+  }
+}
+
+.parent-instance {
+  float: left;
+  width: 93.75%;
+  margin-right: 3.125%;
+  margin-left: 3.125%;
+}
+@media (min-width: 60.0625em) {
+  .parent-instance {
+    width: 23.4375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+  }
+}
+@media (min-width: 40.0625em) and (max-width: 60em) {
+  .parent-instance {
+    width: 31.25%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+  }
+}
+@media (min-width: 20.0625em) and (max-width: 40em) {
+  .parent-instance {
+    width: 46.875%;
+    margin-right: 1.5625%;
+    margin-left: 1.5625%;
+  }
+}
+.parent-instance .child-instance {
+  float: left;
+  width: 43.75%;
+  margin-right: 3.125%;
+  margin-left: 3.125%;
+}
+@media (min-width: 60.0625em) {
+  .parent-instance .child-instance {
+    width: 43.75%;
+    margin-right: 3.125%;
+    margin-left: 3.125%;
+  }
+}
+@media (min-width: 40.0625em) and (max-width: 60em) {
+  .parent-instance .child-instance {
+    width: 43.75%;
+    margin-right: 3.125%;
+    margin-left: 3.125%;
+  }
+}
+@media (min-width: 20.0625em) and (max-width: 40em) {
+  .parent-instance .child-instance {
+    width: 43.75%;
+    margin-right: 3.125%;
+    margin-left: 3.125%;
+  }
+}
+
+@media (min-width: 40.0625em) and (max-width: 60em) {
+  .parent-instance {
+    float: left;
+    width: 31.25%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+  }
+}
+@media (min-width: 40.0625em) and (max-width: 60em) {
+  .parent-instance .child-instance {
+    float: left;
+    width: 14.58333%;
+    margin-right: 1.04167%;
+    margin-left: 1.04167%;
+  }
+}
+
+@media (min-width: 60.0625em) {
+  .parent-instance {
+    float: left;
+    width: 23.4375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+  }
+}
+@media (min-width: 60.0625em) {
+  .parent-instance .child-instance {
+    float: left;
+    width: 10.9375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+  }
+}
+
+Test Results {
+  Success: true;
+  Stats:  ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔;
+  Tests: 84;
+  Asserts: 207;
+  Passed: 84;
+  Failed: 0;
+  Skipped: 0;
+}
+
+/* << Bootcamp << */

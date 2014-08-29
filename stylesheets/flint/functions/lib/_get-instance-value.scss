@@ -6,7 +6,7 @@
 // @param $value [number] : value
 // @param $deep [number] : fetch deep value
 // -------------------------------------------------------------------------------
-// @return [string]
+// @return fetched literal | false
 
 @function flint-get-instance-value($key, $value, $deep: null) {
 	@if not $deep {
