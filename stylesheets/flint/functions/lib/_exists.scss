@@ -1,10 +1,11 @@
-// Check if key exists in map
-//--------------------------------------------------------------------------------
-// @param $map [map] : map that contains $value
-// @param $value [string] : key to search for
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Check if key exists in map
+ *
+ * @param {Map}    $map   - map to search
+ * @param {Strong} $value - key to search for
+ *
+ * @return {Bool}
+ */
 @function flint-exists($map, $value){
 	$is-map: flint-is-map($map);
 	$top-has-key: $is-map and map-has-key($map, $value) or false;

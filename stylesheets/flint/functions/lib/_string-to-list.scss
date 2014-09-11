@@ -1,11 +1,12 @@
-// Turns string into a flat list
-// -------------------------------------------------------------------------------
-// @param $string [string] : string
-// @param $find [string] : item to find which separates substrings (default is single space [" "])
-// @param $ignore [string] : removes remaining string beyond item (default is comma [","])
-// -------------------------------------------------------------------------------
-// @return [list] | error
-
+/**
+ * Turns string into a flat list
+ *
+ * @param {String} $string
+ * @param {String} $find   (" ") - item to find which separates substrings
+ * @param {String} $ignore (",") - removes remaining string beyond item
+ *
+ * @return {List | False}
+ */
 @function flint-string-to-list($string, $find: " ", $ignore: ",") {
 	@if flint-is-string($string) {
 
@@ -83,8 +84,8 @@
 
 				@return $string-list;
 			}
-		} @else {
-			@return "You did not input a valid string: #{$string}";
 		}
+	} @else {
+		@return false;
 	}
 }

@@ -1,17 +1,28 @@
-// Steal key based on index number
-//--------------------------------------------------------------------------------
-// @param $index [number] : index of key
-// -------------------------------------------------------------------------------
-// @return matched key | false
-
+/**
+ * Steal breakpoint key by index
+ *
+ * @param {Number} $index - index of key
+ *
+ * @return {String | False}
+ */
 @function flint-steal-key($index) {
-	@if flint-is-number($index) {
-		@for $n from 1 through (length(flint-map-fetch($flint, "config")) - 1) {
-			@each $key in nth(map-get($flint, "config"), $index) {
-				@return $key;
-			}
+	$length: length(map-keys(flint-get-value("breakpoints")));
+
+	@if not flint-is-number($index) {
+		@if not $flint__development-mode {
+			@error "Passed $index (#{$index}) is not a number. Function takes index number of breakpoint key.";
+		} @else {
+			@return false;
 		}
-	} @else {
-		@return false;
 	}
+
+	@if $index > $length {
+		@if not $flint__development-mode {
+			@error "Passed $index (#{$index}) is greater than the length of the config map.";
+		} @else {
+			@return false;
+		}
+	}
+
+	@return if($index != 0, nth(map-keys(flint-get-value("breakpoints")), $index), false);
 }

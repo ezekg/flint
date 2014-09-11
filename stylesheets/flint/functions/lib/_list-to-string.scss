@@ -1,12 +1,14 @@
-// Joins all elements of $list with $glue
-// -------------------------------------------------------------------------------
-// @documentation http://sassylists.com/documentation/#to-string
-// -------------------------------------------------------------------------------
-// @param $list [list] : list
-// @param $glue [string] : value to use as a join string
-// -------------------------------------------------------------------------------
-// @return [string]
-
+/**
+ * Joins all elements of list with passed glue
+ *
+ * @link http://sassylists.com/documentation/#to-string
+ *
+ * @param {List}   $list
+ * @param {String} $glue
+ * @param {Bool}   $is-nested
+ *
+ * @return {String}
+ */
 @function flint-list-to-string($list, $glue: "", $is-nested: false) {
 	$result: null;
 	$length: length($list);

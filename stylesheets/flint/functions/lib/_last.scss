@@ -1,9 +1,10 @@
-// Get last item in list
-// -------------------------------------------------------------------------------
-// @param $list [list] : list
-// -------------------------------------------------------------------------------
-// @return [list]
-
+/**
+ * Get last item in list
+ *
+ * @param {List} $list
+ *
+ * @return {List}
+ */
 @function flint-last($list) {
 	@return nth($list, length($list));
 }

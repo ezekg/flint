@@ -1,45 +1,48 @@
-// Calculate width
-// -------------------------------------------------------------------------------
-// @param $key [string] : key for lookup
-// @param $span [number] : span value of element
-// @param $context [number] : context value of element
-// -------------------------------------------------------------------------------
-// @return calculated value | false
-
-@function flint-calc-width($key, $span, $context: null) {
-	$result: false;
+/**
+* Calculate width
+*
+* @param {String}          $key            - key of breakpoint
+* @param {Number}          $span           - span value of element
+* @param {Number | String} $context (null) - context value of element
+* @param {Number}          $deduct  (null) - subtract value out of final width
+*
+* @return {List | False} - list of target and context result
+*/
+@function flint-calc-width($key, $span, $context: null, $deduct: null) {
+	$result: ();
 
 	// Check to see if value has been cached
 	@if map-has-key($flint__cached-values, "#{$key, $span, $context}::width") and $context != "auto" {
 		@return map-get($flint__cached-values, "#{$key, $span, $context}::width");
 	}
 
-	@if flint-get-value("settings", "grid") == "fluid" {
+	@if $span == "container" {
 
-		@if $key == "container" or $span == "container" {
+		$result: flint-get-value("breakpoints", $key, "breakpoint");
 
-			$result: flint-fluid-width(flint-get-value($key, "breakpoint"), flint-get-value($key, "breakpoint"));
+	} @else if $context == "auto" {
 
-		} @else if $context == null {
-
-			$result: flint-fluid-width((flint-get-value($key, "breakpoint") / flint-get-value($key, "columns") * $span), flint-get-value($key, "breakpoint"));
-
+		@if flint-has-family-instance($key) {
+			$result: map-merge($result, ("target": ((flint-get-instance-value($key, "internal", "width") / flint-get-instance-value($key, "span") * $span) - if($deduct, $deduct, 0))));
+			$result: map-merge($result, ("context": flint-get-instance-value($key, "internal", "width")));
 		} @else {
-
-			$result: flint-fluid-width((flint-get-value($key, "breakpoint") / flint-get-value($key, "columns") * $span), ((flint-get-value($key, "breakpoint") / flint-get-value($key, "columns") * $context)));
-
+			@if not $flint__development-mode {
+				@error "You set context to `#{$context}`, but a parent instance could not be found for `#{selector_string() + '::' + $key}`";
+			} @else {
+				@return false;
+			}
 		}
-	} @if flint-get-value("settings", "grid") == "fixed" {
-		
-		@if $key == "container" or $span == "container" {
 
-			$result: flint-get-value($key, "breakpoint");
+	} @else {
 
+		$result: map-merge($result, ("target": ((flint-get-value("breakpoints", $key, "breakpoint") / flint-get-value("breakpoints", $key, "columns") * $span) - if($deduct, $deduct, 0))));
+
+		@if $context {
+			$result: map-merge($result, ("context": flint-get-value("breakpoints", $key, "breakpoint") / flint-get-value("breakpoints", $key, "columns") * $context));
 		} @else {
-
-			$result: flint-get-value($key, "breakpoint") / flint-get-value($key, "columns") * $span;
-
+			$result: map-merge($result, ("context": flint-get-value("breakpoints", $key, "breakpoint")));
 		}
+
 	}
 
 	// Save result to cache

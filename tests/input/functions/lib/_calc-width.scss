@@ -11,190 +11,190 @@
 	@include it("should expect full width columns to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 16)),
-			to(be((80em / 80em) * 100%))
+			to(be(("target": 80em, "context": 80em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 12)),
-			to(be((60em / 60em) * 100%))
+			to(be(("target": 60em, "context": 60em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 8)),
-			to(be((40em / 40em) * 100%))
+			to(be(("target": 40em, "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 4)),
-			to(be((20em / 20em) * 100%))
+			to(be(("target": 20em, "context": 20em)))
 		);
 	}
 
 	@include it("should expect three-quarter width columns to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 12)),
-			to(be(((80em / 4 * 3) / 80em) * 100%))
+			to(be(("target": (80em / 4 * 3), "context": 80em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 9)),
-			to(be(((60em / 4 * 3) / 60em) * 100%))
+			to(be(("target": (60em / 4 * 3), "context": 60em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 6)),
-			to(be(((40em / 4 * 3) / 40em) * 100%))
+			to(be(("target": (40em / 4 * 3), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 3)),
-			to(be(((20em / 4 * 3) / 20em) * 100%))
+			to(be(("target": (20em / 4 * 3), "context": 20em)))
 		);
 	}
 
 	@include it("should expect half width columns to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 8)),
-			to(be(((80em / 2) / 80em) * 100%))
+			to(be(("target": (80em / 2), "context": 80em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 6)),
-			to(be(((60em / 2) / 60em) * 100%))
+			to(be(("target": (60em / 2), "context": 60em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 4)),
-			to(be(((40em / 2) / 40em) * 100%))
+			to(be(("target": (40em / 2), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 2)),
-			to(be(((20em / 2) / 20em) * 100%))
+			to(be(("target": (20em / 2), "context": 20em)))
 		);
 	}
 
 	@include it("should expect quarter width columns to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 4)),
-			to(be(((80em / 4) / 80em) * 100%))
+			to(be(("target": (80em / 4), "context": 80em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 3)),
-			to(be(((60em / 4) / 60em) * 100%))
+			to(be(("target": (60em / 4), "context": 60em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 2)),
-			to(be(((40em / 4) / 40em) * 100%))
+			to(be(("target": (40em / 4), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 1)),
-			to(be(((20em / 4) / 20em) * 100%))
+			to(be(("target": (20em / 4), "context": 20em)))
 		);
 	}
 
 	@include it("should expect single width columns to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 1)),
-			to(be(((80em / 16) / 80em) * 100%))
+			to(be(("target": (80em / 16), "context": 80em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 1)),
-			to(be(((60em / 12) / 60em) * 100%))
+			to(be(("target": (60em / 12), "context": 60em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 1)),
-			to(be(((40em / 8) / 40em) * 100%))
+			to(be(("target": (40em / 8), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 1)),
-			to(be(((20em / 4) / 20em) * 100%))
+			to(be(("target": (20em / 4), "context": 20em)))
 		);
 	}
 
 	@include it("should expect full width columns with context to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 8, 8)),
-			to(be((40em / 40em) * 100%))
+			to(be(("target": 40em, "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 6, 6)),
-			to(be((30em / 30em) * 100%))
+			to(be(("target": 30em, "context": 30em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 4, 4)),
-			to(be((20em / 20em) * 100%))
+			to(be(("target": 20em, "context": 20em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 2, 2)),
-			to(be((10em / 10em) * 100%))
+			to(be(("target": 10em, "context": 10em)))
 		);
 	}
 
 	@include it("should expect three-quarter width columns with context to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 6, 8)),
-			to(be(((80em / 4 * 3) / 80em) * 100%))
+			to(be(("target": (40em / 4 * 3), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 4.5, 6)),
-			to(be(((60em / 4 * 3) / 60em) * 100%))
+			to(be(("target": (30em / 4 * 3), "context": 30em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 6, 8)),
-			to(be(((40em / 4 * 3) / 40em) * 100%))
+			to(be(("target": (40em / 4 * 3), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 3, 4)),
-			to(be(((20em / 4 * 3) / 20em) * 100%))
+			to(be(("target": (20em / 4 * 3), "context": 20em)))
 		);
 	}
 
 	@include it("should expect half width columns with context to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 4, 8)),
-			to(be(((80em / 2) / 80em) * 100%))
+			to(be(("target": (40em / 2), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 3, 6)),
-			to(be(((60em / 2) / 60em) * 100%))
+			to(be(("target": (30em / 2), "context": 30em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 2, 4)),
-			to(be(((40em / 2) / 40em) * 100%))
+			to(be(("target": (20em / 2), "context": 20em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 1, 2)),
-			to(be(((20em / 2) / 20em) * 100%))
+			to(be(("target": (10em / 2), "context": 10em)))
 		);
 	}
 
 	@include it("should expect quarter width columns with context to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 1, 4)),
-			to(be(((80em / 4) / 80em) * 100%))
+			to(be(("target": (20em / 4), "context": 20em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 1, 4)),
-			to(be(((60em / 4) / 60em) * 100%))
+			to(be(("target": (20em / 4), "context": 20em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 1, 4)),
-			to(be(((40em / 4) / 40em) * 100%))
+			to(be(("target": (20em / 4), "context": 20em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 0.5, 2)),
-			to(be(((20em / 4) / 20em) * 100%))
+			to(be(("target": (10em / 4), "context": 10em)))
 		);
 	}
 
 	@include it("should expect single width columns with context to be equal to manually calculated value") {
 		@include should(expect(
 			flint-calc-width("desktop", 1, 16)),
-			to(be(((80em / 16) / 80em) * 100%))
+			to(be(("target": (80em / 16), "context": 80em)))
 		);
 		@include should(expect(
 			flint-calc-width("laptop", 1, 12)),
-			to(be(((60em / 12) / 60em) * 100%))
+			to(be(("target": (60em / 12), "context": 60em)))
 		);
 		@include should(expect(
 			flint-calc-width("tablet", 1, 8)),
-			to(be(((40em / 8) / 40em) * 100%))
+			to(be(("target": (40em / 8), "context": 40em)))
 		);
 		@include should(expect(
 			flint-calc-width("mobile", 1, 4)),
-			to(be(((20em / 4) / 20em) * 100%))
+			to(be(("target": (20em / 4), "context": 20em)))
 		);
 	}
 }

@@ -1,23 +1,17 @@
-// Fetch value from key in map
-// -------------------------------------------------------------------------------
-// @param $map [map] : map to fetch from
-// @param $keys [string | list] : string of key, or list of strings
-// -------------------------------------------------------------------------------
-// @return fetched literal | false
+/**
+* Fetch value from map
+*
+* @param {Map}     $map  - map to fetch value from
+* @param {ArgList} $keys - list of keys to traverse
+*
+* @return {String | False}
+*/
+@function flint-map-fetch($map, $keys...) {
+	$result: $map;
 
-@function flint-map-fetch($map, $keys) {
-	$has-key: flint-is-map($map) and map-has-key($map, nth($keys, 1)) and map-get($map, nth($keys, 1)) or false;
-	$length: length($keys);
-
-	@if $has-key and $length > 1 {
-		$remainder: ();
-
-		@for $i from 2 through $length {
-			$remainder: append($remainder, nth($keys, $i))
-		}
-
-		@return flint-map-fetch($has-key, $remainder);
+	@each $key in $keys {
+		$result: flint-is-map($result) and map-has-key($result, $key) and map-get($result, $key) or false;
 	}
 
-	@return $has-key;
+	@return $result;
 }

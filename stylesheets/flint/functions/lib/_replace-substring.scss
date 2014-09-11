@@ -1,11 +1,12 @@
-// Replace substring
-// -------------------------------------------------------------------------------
-// @param $string [string] : string that contains substring
-// @param $substring [string] : substring to replace
-// @param $new-substring [string] : new string to replace sub with
-// -------------------------------------------------------------------------------
-// @return [string]
-
+/**
+ * Replace substring
+ *
+ * @param {String} $string              - string that contains substring
+ * @param {String} $substring           - substring to replace
+ * @param {String} $new-substring (" ") - new string to replace sub with
+ *
+ * @return {String}
+ */
 @function flint-replace-substring($string, $substring, $new-substring: " ") {
 
 	// Use Ruby function if available

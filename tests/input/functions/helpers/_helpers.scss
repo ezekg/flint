@@ -264,6 +264,21 @@
 	}
 }
 
+/**
+* Get gutter value from config map
+*
+* @return {Number}
+*/
+@include describe("[function] get-gutter") {
+
+	@include it("should expect gutter value from config") {
+		@include should(expect(
+			flint-get-gutter()),
+			to(be((0.625em)))
+		);
+	}
+}
+
 // Gets list of each breakpoint's key
 // -------------------------------------------------------------------------------
 // @return [list]

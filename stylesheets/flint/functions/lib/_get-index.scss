@@ -1,14 +1,16 @@
-// Gets the index of the passed key
-// -------------------------------------------------------------------------------
-// @param $key [string] : breakpoint key
-// -------------------------------------------------------------------------------
-// @return [number]
-
+/**
+ * Gets the index of the passed key
+ *
+ * @param {String} $key - breakpoint key
+ *
+ * @return {Number}
+ */
 @function flint-get-index($key) {
-  	@for $i from 1 through (length(flint-map-fetch($flint, "config")) - 1) {
-		@if flint-steal-key($i) == $key {
-			@return $i;
-		}
+
+    @for $i from 1 through length(map-keys(flint-get-value("breakpoints"))) {
+        @if flint-steal-key($i) == $key {
+            @return $i;
+        }
 	}
 
     @return false;

@@ -1,9 +1,8 @@
-// Prints debug properties
-// -------------------------------------------------------------------------------
-// @param $calc-key [string] : breakpoint key to search for instance
-// -------------------------------------------------------------------------------
-// @output instance map
-
+/**
+ * Prints debug properties
+ *
+ * @param {String} $calc-key - breakpoint key to search for instance
+ */
 @mixin flint-debug-instance($calc-key) {
     @if flint-get-value("settings", "debug-mode") {
         // Lets clean up the selector a bit...
@@ -16,12 +15,11 @@
 	}
 }
 
-// Prints all contents of instance
-// -------------------------------------------------------------------------------
-// @param $instance [map] : instance
-// -------------------------------------------------------------------------------
-// @output instance map
-
+/**
+ * Prints all contents of instance map
+ *
+ * @param {Map} $instance - instance map
+ */
 @mixin flint-print-instance($instance) {
 
 	// Loop through each property in passed instance

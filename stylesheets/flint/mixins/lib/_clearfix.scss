@@ -1,10 +1,10 @@
-// Micro flint-clearfix
-// -------------------------------------------------------------------------------
-// @documentation http://nicolasgallagher.com/micro-clearfix-hack/
-// -------------------------------------------------------------------------------
-// @uses : local clearfix mixin if available
-// -------------------------------------------------------------------------------
-
+/**
+ * Micro flint-clearfix
+ *
+ * @link http://nicolasgallagher.com/micro-clearfix-hack/
+ *
+ * @requires local clearfix mixin if available
+ */
 @mixin flint-clearfix {
     @if mixin-exists("clearfix") {
         @include clearfix;

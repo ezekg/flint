@@ -1,115 +1,96 @@
-@charset "UTF-8";
-/*! sassyjson - v1.1.8 - 2014-06-01 */
-/* >> Bootcamp >> */
-*, *:before, *:after {
-  box-sizing: border-box;
-}
-@media (min-width: 60.0625em) {
-  .instance {
-    float: left;
-    width: 23.4375%;
-    margin-right: 0.78125%;
-    margin-left: 0.78125%;
-  }
-}
+/*
+Error: Undefined variable: "$color".
+        on line 152 of /Users/mpoliseno/flint/tests/input/output.scss
 
-.parent-instance {
-  float: left;
-  width: 93.75%;
-  margin-right: 3.125%;
-  margin-left: 3.125%;
-}
-@media (min-width: 60.0625em) {
-  .parent-instance {
-    width: 23.4375%;
-    margin-right: 0.78125%;
-    margin-left: 0.78125%;
-  }
-}
-@media (min-width: 40.0625em) and (max-width: 60em) {
-  .parent-instance {
-    width: 31.25%;
-    margin-right: 1.04167%;
-    margin-left: 1.04167%;
-  }
-}
-@media (min-width: 20.0625em) and (max-width: 40em) {
-  .parent-instance {
-    width: 46.875%;
-    margin-right: 1.5625%;
-    margin-left: 1.5625%;
-  }
-}
-.parent-instance .child-instance {
-  float: left;
-  width: 43.75%;
-  margin-right: 3.125%;
-  margin-left: 3.125%;
-}
-@media (min-width: 60.0625em) {
-  .parent-instance .child-instance {
-    width: 43.75%;
-    margin-right: 3.125%;
-    margin-left: 3.125%;
-  }
-}
-@media (min-width: 40.0625em) and (max-width: 60em) {
-  .parent-instance .child-instance {
-    width: 43.75%;
-    margin-right: 3.125%;
-    margin-left: 3.125%;
-  }
-}
-@media (min-width: 20.0625em) and (max-width: 40em) {
-  .parent-instance .child-instance {
-    width: 43.75%;
-    margin-right: 3.125%;
-    margin-left: 3.125%;
-  }
-}
+147:             }
+148: 
+149:         }
+150: 
+151:         outline: 5px $color__yellow;
+152:         background: if($i > 10, darken($color, ($i*0.25)), lighten($color, (16/$i)));
+153:         clear: both;
+154: 
+155:         div {
+156:             background: if($i > 10, lighten($color, ($i*0.25)), darken($color, (16/$i)));
+157:             height: 100% !important;
 
-@media (min-width: 40.0625em) and (max-width: 60em) {
-  .parent-instance {
-    float: left;
-    width: 31.25%;
-    margin-right: 1.04167%;
-    margin-left: 1.04167%;
-  }
-}
-@media (min-width: 40.0625em) and (max-width: 60em) {
-  .parent-instance .child-instance {
-    float: left;
-    width: 14.58333%;
-    margin-right: 1.04167%;
-    margin-left: 1.04167%;
-  }
-}
-
-@media (min-width: 60.0625em) {
-  .parent-instance {
-    float: left;
-    width: 23.4375%;
-    margin-right: 0.78125%;
-    margin-left: 0.78125%;
-  }
-}
-@media (min-width: 60.0625em) {
-  .parent-instance .child-instance {
-    float: left;
-    width: 10.9375%;
-    margin-right: 0.78125%;
-    margin-left: 0.78125%;
-  }
-}
-
-Test Results {
-  Success: true;
-  Stats:  ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔;
-  Tests: 84;
-  Asserts: 207;
-  Passed: 84;
-  Failed: 0;
-  Skipped: 0;
-}
-
-/* << Bootcamp << */
+Backtrace:
+/Users/mpoliseno/flint/tests/input/output.scss:152
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/variable.rb:49:in `_perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/node.rb:50:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:170:in `perform_arg'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:124:in `block in _perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:124:in `each'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:124:in `each_with_index'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:124:in `each'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:124:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:124:in `_perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/node.rb:50:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/functions.rb:585:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/functions.rb:2136:in `if'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/funcall.rb:140:in `_perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/script/tree/node.rb:50:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:377:in `visit_prop'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:115:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:412:in `block (2 levels) in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:412:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:412:in `block in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:410:in `visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:115:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:264:in `block (3 levels) in visit_for'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:264:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:264:in `block (2 levels) in visit_for'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:260:in `each'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:260:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:260:in `block in visit_for'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:259:in `visit_for'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:115:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:52:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:161:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:160:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:180:in `visit_root'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:151:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/tree/root_node.rb:20:in `render'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/engine.rb:268:in `render'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/plugin/compiler.rb:486:in `update_stylesheet'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/plugin/compiler.rb:214:in `block in update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/plugin/compiler.rb:208:in `each'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/plugin/compiler.rb:208:in `update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/plugin/compiler.rb:464:in `on_file_changed'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/lib/sass/plugin/compiler.rb:324:in `block in watch'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/vendor/listen/lib/listen/listener.rb:252:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/vendor/listen/lib/listen/adapter.rb:254:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/vendor/listen/lib/listen/adapter.rb:254:in `report_changes'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/vendor/listen/lib/listen/adapter.rb:323:in `poll_changed_directories'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.0/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined variable: \"$color\".\A         on line 152 of /Users/mpoliseno/flint/tests/input/output.scss\A \A 147:             }\A 148: \A 149:         }\A 150: \A 151:         outline: 5px $color__yellow;\A 152:         background: if($i > 10, darken($color, ($i*0.25)), lighten($color, (16/$i)));\A 153:         clear: both;\A 154: \A 155:         div {\A 156:             background: if($i > 10, lighten($color, ($i*0.25)), darken($color, (16/$i)));\A 157:             height: 100% !important;"; }

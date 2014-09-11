@@ -1,15 +1,10 @@
-// Returns next indexed key based on passed index
-// -------------------------------------------------------------------------------
-// @param $index [number] : index
-// -------------------------------------------------------------------------------
-// @return [string] | null
-
-@function flint-next-index($index) { 
-	@if $index != (length(flint-map-fetch($flint, "config")) - 1) {
-		@each $key in nth(map-get($flint, "config"), $index + 1) {
-			@return $key;
-		}
-	} @else {
-		@return null;
-	}
+/**
+* Returns next indexed key based on passed index
+*
+* @param {Number} $index - index of breakpoint
+*
+* @return {String | False}
+*/
+@function flint-next-index($index) {
+	@return if(flint-is-number($index) and $index != 0, flint-steal-key($index + 1), false);
 }

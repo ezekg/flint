@@ -1,14 +1,18 @@
-// Use global syntax
-// -------------------------------------------------------------------------------
-// @param $selectors [string] : string of selectors to transform
-// -------------------------------------------------------------------------------
-// @return [list] : list of transformed selectors according to syntax
-
+/**
+ * Use global syntax
+ *
+ * @param {String} $selectors - string of selectors to parse
+ *
+ * @return {List} - parsed list of selectors
+ */
 @function flint-use-syntax($selectors) {
     @if $flint__support-syntax {
         @return flint-support-syntax($flint__support-syntax, $selectors);
     } @else {
-        @warn "Support syntax is set to #{$flint__support-syntax}. Aborting mission.";
-        @return false;
+        @if not $flint__development-mode {
+            @error "Support syntax is set to #{$flint__support-syntax}. Aborting mission.";
+        } @else {
+            @return false;
+        }
     }
 }

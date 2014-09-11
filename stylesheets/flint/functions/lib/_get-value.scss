@@ -1,14 +1,10 @@
-// Get single value from key in instance map based on $selector::$key
-// -------------------------------------------------------------------------------
-// @param $key [string] : breakpoint key
-// @param $value [string] : key of value
-// -------------------------------------------------------------------------------
-// @return [literal]
-
-@function flint-get-value($key, $value: null) {
-	@if not $value {
-		@return flint-map-fetch($flint, "config" $key);
-	} @else {
-		@return flint-map-fetch($flint, "config" $key $value);
-	}
+/**
+* Get single value from configuration map
+*
+* @param {ArgList} $keys - list of keys to fetch value from
+*
+* @return {*}
+*/
+@function flint-get-value($keys...) {
+	@return flint-map-fetch($flint, $keys...);
 }

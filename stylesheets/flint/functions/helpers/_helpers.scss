@@ -1,181 +1,179 @@
-// Returns truthiness of a value
-// -------------------------------------------------------------------------------
-// @param $value [literal] : value
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Returns truthiness of a value
+ *
+ * @param {*} $value
+ *
+ * @return {Bool}
+ */
 @function flint-is-true($value) {
 	@return if($value == null, false, $value and $value != null and $value != "" and $value != ());
 }
 
-// Checks if item is map
-//--------------------------------------------------------------------------------
-// @param $n [map] : value
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if item is map
+ *
+ * @param {Map} $n
+ *
+ * @return {Bool}
+ */
 @function flint-is-map($n) {
 	@return type-of($n) == "map";
 }
 
-// Checks if item is list
-//--------------------------------------------------------------------------------
-// @param $n [list] : value
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if item is list
+ *
+ * @param {List} $n
+ *
+ * @return {Bool}
+ */
 @function flint-is-list($n) {
 	@return type-of($n) == "list";
 }
 
-// Checks if item is number
-//--------------------------------------------------------------------------------
-// @param $n [number] : value
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if item is number
+ *
+ * @param {Number} $n
+ *
+ * @return {Bool}
+ */
 @function flint-is-number($n) {
 	@return type-of($n) == "number";
 }
 
-// Checks if item is string
-//--------------------------------------------------------------------------------
-// @param $n [string] : value
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if item is string
+ *
+ * @param {String} $n
+ *
+ * @return {Bool}
+ */
 @function flint-is-string($n) {
 	@return type-of($n) == "string";
 }
 
-// Checks if item is not string
-//--------------------------------------------------------------------------------
-// @param $n [string] : value
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if item is not string
+ *
+ * @param {String} $n
+ *
+ * @return {Bool}
+ */
 @function flint-is-not-string($n) {
 	@return type-of($n) != "string";
 }
 
-// Gets list of each breakpoint's key
-// -------------------------------------------------------------------------------
-// @return [list]
-
-@function flint-get-all-keys() {
-	$all-keys: ();
-
-	@for $i from 1 through (length(flint-map-fetch($flint, "config")) - 1) {
-		$key: flint-steal-key($i);
-		$all-keys: append($all-keys, $key, "comma");
-	}
-
-	@return $all-keys;
+/**
+ * Get gutter value from config map
+ *
+ * @return {Number}
+ */
+@function flint-get-gutter() {
+	@return flint-get-value("settings", "gutter");
 }
 
-// Gets list of all breakpoints
-// -------------------------------------------------------------------------------
-// @return [list]
+/**
+ * Gets list of each breakpoint's key
+ *
+ * @return {List}
+ */
+@function flint-get-all-keys() {
+	@return map-keys(flint-get-value("breakpoints"));
+}
 
+/**
+ * Gets list of all breakpoints
+ *
+ * @return {List}
+ */
 @function flint-get-all-breakpoints() {
+	$all-keys: flint-get-all-keys();
 	$all-breakpoints: ();
 
-	@each $map, $keys in map-get($flint, "config") {
-		@each $key, $value in $keys {
-			@if $key == "breakpoint" {
-				$all-breakpoints: append($all-breakpoints, $value, "comma");
-			}
-		}
+	@each $key in $all-keys {
+		$all-breakpoints: append($all-breakpoints, flint-get-value("breakpoints", $key, "breakpoint"), "comma");
 	}
 
 	@return $all-breakpoints;
 }
 
-// Checks if passed $key is the highest breakpoint
-// -------------------------------------------------------------------------------
-// @param $key [string] : alias of breakpoint
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if passed $key is the highest breakpoint
+ *
+ * @param {String} $key - alias of breakpoint
+ *
+ * @return {Bool}
+ */
 @function flint-is-highest-breakpoint($key) {
-	@if flint-get-value($key, "breakpoint") == max(flint-get-all-breakpoints()...) {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return flint-get-value("breakpoints", $key, "breakpoint") == max(flint-get-all-breakpoints()...);
 }
 
-// Checks if passed $key is the lowest breakpoint
-// -------------------------------------------------------------------------------
-// @param $key [string] : alias of breakpoint
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if passed $key is the lowest breakpoint
+ *
+ * @param {String} $key - alias of breakpoint
+ *
+ * @return {Bool}
+ */
 @function flint-is-lowest-breakpoint($key) {
-	@if flint-get-value($key, "breakpoint") == min(flint-get-all-breakpoints()...) {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return flint-get-value("breakpoints", $key, "breakpoint") == min(flint-get-all-breakpoints()...);
 }
 
-// Checks if $key is grid default
-// -------------------------------------------------------------------------------
-// @param $key [string] : alias of breakpoint
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks if $key is grid default
+ *
+ * @param {String} $key - alias of breakpoint
+ *
+ * @return {Bool}
+ */
 @function flint-is-default($key) {
-	@if $key == flint-get-value("settings", "default") {
-		@return true;
-	} @else {
-		@return false;
-	}
+	@return $key == flint-get-value("settings", "default");
 }
 
-// Gets all breakpoint column values
-// -------------------------------------------------------------------------------
-// @return [list]
-
+/**
+ * Gets all breakpoint column values
+ *
+ * @return {List}
+ */
 @function flint-get-all-columns() {
+	$all-keys: flint-get-all-keys();
 	$all-columns: ();
 
-	@each $map, $keys in map-get($flint, "config") {
-		@each $key, $value in $keys {
-			@if $key == "columns" {
-				$all-columns: append($all-columns, $value, "comma");
-			}
-		}
+	@each $key in $all-keys {
+		$all-columns: append($all-columns, flint-get-value("breakpoints", $key, "columns"), "comma");
 	}
 
 	@return $all-columns;
 }
 
-// Returns the unit used in config
-// -------------------------------------------------------------------------------
-// @return [literal]
-
+/**
+ * Returns the unit used in config
+ *
+ * @return {*}
+ */
 @function flint-get-config-unit() {
 	@return unit(flint-get-value("settings", "gutter"));
 }
 
-// Convert pixel value to em
-// -------------------------------------------------------------------------------
-// @param $target [number] : pixel value
-// @param $context [number] : context to divide by
-// -------------------------------------------------------------------------------
-// @return : em value of $target relative to $context
-// -------------------------------------------------------------------------------
-
+/**
+ * Convert pixel value to em
+ *
+ * @param {Number} $target  - pixel value
+ * @param {Number} $context - context to divide by
+ *
+ * @return em value of target relative to context
+ */
 @function flint-to-em($target, $context: $flint__base-font-size) {
 	@return ($target / $context) * 1em;
 }
 
-// Use Ruby functions in place of Sass functions where possible
-//   to speed up performance, especially with string functions
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Use Ruby functions in place of Sass functions where possible
+ *   to speed up performance, especially with string functions
+ *
+ * @return {Bool}
+ */
 @function flint-use-ruby-functions() {
 	@return flint_use_ruby() == true;
 }

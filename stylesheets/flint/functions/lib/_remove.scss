@@ -1,13 +1,14 @@
-// Remove $value from $list
-// -------------------------------------------------------------------------------
-// @documentation http://sassylists.com/documentation/#remove
-// -------------------------------------------------------------------------------
-// @param $list [list] : list
-// @param $value [literal] : value to flint-remove
-// @param $recursive [bool] : enable / disable recursivity
-// -------------------------------------------------------------------------------
-// @return [list]
-
+/**
+ * Remove value from list
+ *
+ * @link http://sassylists.com/documentation/#remove
+ *
+ * @param {List} $list
+ * @param {*}    $value
+ * @param {Bool} $recursive
+ *
+ * @return {List}
+ */
 @function flint-remove($list, $value) {
 	@return flint-replace($list, $value, null);
 }

@@ -21,7 +21,7 @@
 		);
 		@include should(expect(
 			flint-next-index(4)),
-			to(be(null))
+			to(be(false))
 		);
 	}
 }

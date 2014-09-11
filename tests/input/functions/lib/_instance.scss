@@ -23,12 +23,11 @@
     		"span": 4,
     		"context": null,
     		"gutter": null,
-    		"shift": null,
-    		"output": (
-    			"width": 23.4375%,
-    			"margin-right": 0.78125%,
-    			"margin-left": 0.78125%
-    		)
+    		"internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
+            )
     	)
     );
 
@@ -44,7 +43,7 @@
         $flint__instances: () !global;
         $flint__instance-count: 0 !global;
 
-        $flint__instances: flint-instance("desktop", 4, null, null, null, 23.4375%, 0.78125%, 0.78125%) !global;
+        $flint__instances: flint-instance("desktop", 4, null, null, 18.75em, 0.625em, 0.625em) !global;
 
         @at-root {
             @include it("should expect instance map to match pseudo instance") {
@@ -66,11 +65,10 @@
             "span": 4,
             "context": null,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 23.4375%,
-                "margin-right": 0.78125%,
-                "margin-left": 0.78125%
+            "internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         ),
         ".parent-instance::laptop": (
@@ -82,11 +80,10 @@
             "span": 4,
             "context": null,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 31.25%,
-                "margin-right": 1.04167%,
-                "margin-left": 1.04167%
+            "internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         ),
         ".parent-instance::tablet": (
@@ -98,11 +95,10 @@
             "span": 4,
             "context": null,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 46.875%,
-                "margin-right": 1.5625%,
-                "margin-left": 1.5625%
+            "internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         ),
         ".parent-instance::mobile": (
@@ -114,11 +110,10 @@
             "span": 4,
             "context": null,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 93.75%,
-                "margin-right": 3.125%,
-                "margin-left": 3.125%
+            "internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         ),
         ".parent-instance .child-instance::desktop": (
@@ -130,11 +125,10 @@
             "span": 2,
             "context": 4,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 43.75%,
-                "margin-right": 3.125%,
-                "margin-left": 3.125%
+            "internal": (
+                "width": 8.125em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         ),
         ".parent-instance .child-instance::laptop": (
@@ -146,11 +140,10 @@
             "span": 2,
             "context": 4,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 43.75%,
-                "margin-right": 3.125%,
-                "margin-left": 3.125%
+            "internal": (
+                "width": 8.125em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         ),
         ".parent-instance .child-instance::tablet": (
@@ -162,11 +155,10 @@
             "span": 2,
             "context": 4,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 43.75%,
-                "margin-right": 3.125%,
-                "margin-left": 3.125%
+            "internal": (
+                "width": 8.125em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         ),
         ".parent-instance .child-instance::mobile": (
@@ -178,11 +170,10 @@
             "span": 2,
             "context": 4,
             "gutter": null,
-            "shift": null,
-            "output": (
-                "width": 43.75%,
-                "margin-right": 3.125%,
-                "margin-left": 3.125%
+            "internal": (
+                "width": 8.125em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
             )
         )
     );

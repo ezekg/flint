@@ -1,83 +1,50 @@
-// Configuration map
-// -------------------------------------------------------------------------------
-// @param breakpoint [map] : Here you can set up your various breakpoints for your
-// project. Any number of breakpoints is acceptable. You must include a column
-// count and breakpoint value for each listed breakpoint. The order does have
-// to follow a `DESC` order. Unit (px | em) chosen here must be used consistently
-// throughout the rest of the config map.
-// -------------------------------------------------------------------------------
-// @param default [string] : alias of breakpoint that is your grid default
-// @param grid [string] : style of grid
-// @param gutter [number | false] : contextual size of gutter
-// @param float-style [number | false] : float direction
-// @param max-width [number | bool] : max-width for containers
-// @param center-container [bool] : if you want a centered container
-// @param border-box-sizing [bool] : if you want box-sizing: border-box applied
-// @param support-syntax [string | false] : syntax to support
-// @param debug-mode [bool] : ouputs debug properties
-// -------------------------------------------------------------------------------
-
+/**
+ * Configuration map
+ *
+ * @prop {Map}    breakpoints                  - map of breakpoints, follow DSC order
+ * @prop {Map}    breakpoints.alias            - named map of breakpoint settings
+ * @prop {Number} breakpoints.alias.columns    - column count for breakpoint
+ * @prop {Number} breakpoints.alias.breakpoint - breakpoint value for breakpoint
+ * @prop {Map}    settings                     - map of settings for grid
+ * @prop {String} settings.default             - alias of breakpoint to be grid default
+ * @prop {String} settings.grid                - type of grid
+ * @prop {Number} settings.gutter              - value for gutter
+ * @prop {String} settings.float-direction     - direction of float
+ * @prop {Bool}   settings.max-width           - maximum width value
+ * @prop {Bool}   settings.max-width           - maximum width value
+ * @prop {Bool}   settings.center-container    - center containers
+ * @prop {Bool}   settings.border-box-sizing   - use `box-sizing: border-box`
+ * @prop {Bool}   settings.support-syntax      - support syntax within instance functions
+ * @prop {Bool}   settings.debug-mode          - enable debug mode
+ */
 $flint: (
-
-    // Grid configuration
-    "config": (
-
-        // Define breakpoints [any amount of breakpoints]
-        // Any alias you like, minus reserved Flint words [i.e. "settings", "config", etc.]
+    "breakpoints": (
         "desktop": (
-
-            // Options: 0-infinity
             "columns": 16,
-
-            // Options: number[unit]
-            "breakpoint": 80em,
+            "breakpoint": 80em
         ),
-
-        // Same applies for other breakpoints
-        // ----
-        // Remember, you're not fixed to just 4 breakpoints like we have here
         "laptop": (
             "columns": 12,
-            "breakpoint": 60em,
+            "breakpoint": 60em
         ),
         "tablet": (
             "columns": 8,
-            "breakpoint": 40em,
+            "breakpoint": 40em
         ),
         "mobile": (
             "columns": 4,
-            "breakpoint": 20em,
-        ),
-
-        // Additional grid settings [required]
-        "settings": (
-
-            // Any breakpoint's alias
-            "default": "mobile",
-
-            // Options: fluid | fixed
-            "grid": "fluid",
-
-            // Options: number[unit]
-            "gutter": 0.625em,
-
-            // Options: left | right
-            "float-style": "left",
-
-            // Options: true [uses highest breakpoint] | false | number[unit]
-            "max-width": true,
-
-            // Options: true | false
-            "center-container": true,
-
-            // Options: true | false
-            "border-box-sizing": true,
-
-            // Syntax support: string | false
-            "support-syntax": false,
-
-            // Options: true | false
-            "debug-mode": false,
+            "breakpoint": 20em
         )
+    ),
+    "settings": (
+        "default": "mobile",
+        "grid": "fluid",
+        "gutter": 0.625em,
+        "float-direction": "left",
+        "max-width": true,
+        "center-container": true,
+        "border-box-sizing": true,
+        "support-syntax": false,
+        "debug-mode": false
     )
 ) !default;

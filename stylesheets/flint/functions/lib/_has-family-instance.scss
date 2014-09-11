@@ -1,10 +1,11 @@
-// Checks if instance flint-exists in selector familiy tree, falls back from current selector
-// -------------------------------------------------------------------------------
-// @param $key [string] : breakpoint key to search for matching instance
-// @param $syntax [string | null] : searches for instance using passed syntax
-// -------------------------------------------------------------------------------
-// @return matching instance | false
-
+/**
+ * Checks if instance flint-exists in selector familiy tree, falls back from current selector
+ *
+ * @param {String} $key    - breakpoint key to search for matching instance
+ * @param {String} $syntax - searches for instance using passed syntax parser
+ *
+ * @return {String | False} instance selector
+ */
 @function flint-has-family-instance($key: flint-get-value("settings", "default"), $syntax: $flint__support-syntax) {
 	$selector-string: selector_string();
 

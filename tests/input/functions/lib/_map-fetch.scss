@@ -20,7 +20,7 @@
 			to(be("value"))
 		);
 		@include should(expect(
-			flint-map-fetch($map, "deep-map" "deep-key")),
+			flint-map-fetch($map, "deep-map", "deep-key")),
 			to(be("deep-value"))
 		);
 	}
@@ -31,7 +31,7 @@
 			to(be(false))
 		);
 		@include should(expect(
-			flint-map-fetch($map, "deep-map" "unknown")),
+			flint-map-fetch($map, "deep-map", "unknown")),
 			to(be(false))
 		);
 	}

@@ -1,11 +1,12 @@
-// Removes all false and null values from $list
-// -------------------------------------------------------------------------------
-// @documentation http://sassylists.com/documentation.html#purge
-// -------------------------------------------------------------------------------
-// @param $list [list] : list
-// -------------------------------------------------------------------------------
-// @return [list]
-
+/**
+ * Removes all false and null values from $list
+ *
+ * @link http://sassylists.com/documentation.html#purge
+ *
+ * @param {List} $list
+ *
+ * @return {List}
+ */
 @function flint-purge($list) {
 	$result: ();
 

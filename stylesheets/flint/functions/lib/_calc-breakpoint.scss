@@ -1,52 +1,43 @@
-// Calculate from-to breakpoints
-// -------------------------------------------------------------------------------
-// @param $n [string] : how to calculate breakpoint
-// @param $key [string] : key of breakpoint
-// @param $i [number] : index of current breakpoint
-// -------------------------------------------------------------------------------
-// @return calculated value
+/**
+ * Calculate breakpoint query
+ *
+ * @param {String} $type - type of query to get
+ * @param {String} $key  - key of breakpoint
+ * @param {Number} $i    - index of current breakpoint
+ *
+ * @return {Number} - breakpoint value
+ */
+@function flint-calc-breakpoint($type, $key, $i) {
 
-@function flint-calc-breakpoint($n, $key, $i) {
-    @if $n == "alias" {
+    @if $type == "alias" {
 
         @if flint-get-value("settings", "grid") == "fixed" {
-
             @if flint-is-lowest-breakpoint($key) {
-
                 @return 0;
-
             } @else {
-
-                @return flint-get-value($key, "breakpoint");
-
+                @return flint-get-value("breakpoints", $key, "breakpoint");
             }
         } @else if flint-get-value("settings", "grid") == "fluid" {
-
-            @return flint-get-value($key, "breakpoint");
-
+            @return flint-get-value("breakpoints", $key, "breakpoint");
         }
-    } @else if $n == "next" {
+
+    } @else if $type == "next" {
 
         @if flint-is-lowest-breakpoint($key) {
-
             @return 0;
-
         } @else {
-
-            @return flint-get-value(flint-steal-key(($i + 1)), "breakpoint");
-
+            @return flint-get-value("breakpoints", flint-steal-key(($i + 1)), "breakpoint");
         }
 
-    } @else if $n == "prev" {
+    } @else if $type == "prev" {
 
         @if flint-is-highest-breakpoint($key) {
-
-            @return flint-get-value($key, "breakpoint");
-
+            @return flint-get-value("breakpoints", $key, "breakpoint");
         } @else {
-
-            @return flint-get-value(flint-steal-key(($i - 1)), "breakpoint");
-
+            @return flint-get-value("breakpoints", flint-steal-key(($i - 1)), "breakpoint");
         }
+
     }
+
+    @return false;
 }

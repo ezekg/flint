@@ -75,7 +75,7 @@ To begin, you can either use the default `config` (below) which comes baked in, 
 // @param default [string] : alias of breakpoint that is your grid default
 // @param grid [string] : style of grid
 // @param gutter [number | false] : contextual size of gutter
-// @param float-style [number | false] : float direction
+// @param float-direction [number | false] : float direction
 // @param max-width [number | bool] : max-width for containers
 // @param center-container [bool] : if you want a centered container
 // @param border-box-sizing [bool] : if you want box-sizing: border-box applied
@@ -128,7 +128,7 @@ $flint: (
 			"gutter": 0.625em,
 
 			// Options: left | right
-			"float-style": "left",
+			"float-direction": "left",
 
 			// Options: true [uses highest breakpoint] | false | number[unit]
 			"max-width": true,

@@ -16,7 +16,7 @@ output_style = :expanded
 line_comments = false
 
 # Disable Sass warnings
-disable_warnings = true
+# disable_warnings = true
 
 # Options
 sass_options = {
@@ -42,4 +42,11 @@ module Sass::Script::Functions
         @@timeLast = Time.now
         return str
     end
+end
+
+class Sass::Tree::Visitors::Perform < Sass::Tree::Visitors::Base
+	# Removes all comments completely
+	def visit_comment(node)
+		return []
+	end
 end

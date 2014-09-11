@@ -1,62 +1,72 @@
-// Outputs calculated styles
-// -------------------------------------------------------------------------------
-// @param $width [number] : width
-// @param $margin-right [number] : right margin
-// @param $margin-left [number] : left margin
-// -------------------------------------------------------------------------------
-// @output outputs styles
-
+/**
+ * Outputs calculated styles
+ *
+ * @param {Number} $width
+ * @param {Number} $margin-right
+ * @param {Number} $margin-left
+ */
 @mixin flint-output($width, $margin-right, $margin-left) {
-	width: $width;
-	margin-right: $margin-right;
-	margin-left: $margin-left;
+
+	@if not flint-is-map($width) {
+		@if not $flint__development-mode {
+			@error "Passed $width (#{$width}) was not a map; a map containing a target / context combination is required."
+		}
+	}
+
+	@if flint-get-value("settings", "grid") == "fluid" {
+		width: flint-fluid-width(map-get($width, "target"), map-get($width, "context"));
+		margin-right: flint-fluid-width($margin-right, map-get($width, "context"));
+		margin-left: flint-fluid-width($margin-left, map-get($width, "context"));
+	} @else {
+		width: map-get($width, "target");
+		margin-right: $margin-right;
+		margin-left: $margin-left;
+	}
+
 	@content;
 }
 
-// Calculate widths, save all variables to instance
-// -------------------------------------------------------------------------------
-// @param $calc-key [string] : breakpoint key
-// @param $calc-span [number] : span value
-// @param $calc-context [number] : context value
-// @param $calc-gutter [string] : gutter modifier
-// @param $calc-shift [number] : shift modifier
-// @param $i [number | null] : index if variable length is > 1
-// -------------------------------------------------------------------------------
-// @output calculated styles
-
-@mixin flint-calculate($key, $span, $context, $gutter, $shift, $i: null) {
+/**
+ * Calculate widths, save all variables to instance
+ *
+ * @param {String}        $calc-key     - breakpoint key
+ * @param {Number}        $calc-span    - span value
+ * @param {Number}        $calc-context - context value
+ * @param {String}        $calc-gutter  - gutter modifier
+ * @param {Number | Null} $i            - index if variable length is > 1
+ */
+@mixin flint-calculate($key, $span, $context, $gutter, $i: null) {
 
 	// Define local vars
 	$calc-key: $key;
 	$calc-span: $span;
 	$calc-context: $context;
 	$calc-gutter: $gutter;
-	$calc-shift: $shift;
 
 	// Define default values
-	$output-width: 0;
-	$output-margin-right: 0;
-	$output-margin-left: 0;
+	$output-width-map: null;
+	$output-margin-right: null;
+	$output-margin-left: null;
 
-	// Keep track of errors
+	// Track errors
 	$errors: false;
 
 	// Default value for cache search result
 	$cached: false;
 
-	// Check lengths, if invalid throw error
-	// ----
+	/*
+	 * Check lengths, if invalid throw error
+	 */
 	@if flint-types-in-list($calc-gutter, "string") and length($calc-gutter) != length($flint__all__keys) {
-		@warn "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$calc-gutter}";
-		$errors: true;
-	} @else if flint-types-in-list($calc-shift, "number") and length($calc-shift) != length($flint__all__keys) {
-		@warn "Invalid argument length of #{length($calc-shift)} for shift. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$calc-shift}";
-		$errors: true;
+		@if not $flint__development-mode {
+			@error "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$calc-gutter}";
+		}
 	}
 
-	// Check if any arguments are lists if called from loop
-	// ----
-	@if $i and not $errors {
+	/*
+	 * Check if any arguments are lists if called from loop
+	 */
+	@if $i {
 
 		@if flint-types-in-list($calc-key, "number") {
 			$calc-key: nth($calc-key, $i);
@@ -70,30 +80,30 @@
 		@if flint-types-in-list($calc-gutter, "string") {
 			$calc-gutter: nth($calc-gutter, $i);
 		}
-		@if flint-types-in-list($calc-shift, "number") {
-			$calc-shift: nth($calc-shift, $i);
-		}
 
 	}
 
-	// Check for cached results
-	// ----
-	@if $calc-context != "auto" and $calc-span != 0 and not $errors {
-		@if map-has-key($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}") {
+	/*
+	* Check for cached results
+	*/
+	@if $calc-context != "auto" and $calc-span != 0 {
+		@if map-has-key($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}") {
+			$result: map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}");
 
 			// Get results
-			$output-width: nth(map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}"), 1);
-			$output-margin-right: nth(map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}"), 2);
-			$output-margin-left: nth(map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}"), 3);
+			$output-width-map: nth($result, 1);
+			$output-margin-right: nth($result, 2);
+			$output-margin-left: nth($result, 3);
 
 			// Declare successful search
 			$cached: true;
 		}
 	}
 
-	// Hide if span is zero
-	// ----
-	@if $calc-span == 0 and not $errors {
+	/*
+	 * Hide if span is zero
+	 */
+	@if $calc-span == 0 {
 
 		// First check if it's the default, so we don't hide the element on all breakpoints
 		@if $calc-key == flint-get-value("settings", "default") {
@@ -102,25 +112,27 @@
 			}
 			// If we're hiding the default, but span is a list, define floats for other queries
 			@if flint-is-list($span) {
-				float: unquote(flint-get-value("settings", "float-style"));
+				float: unquote(flint-get-value("settings", "float-direction"));
 			}
 		} @else {
 			display: none;
 		}
 
-		@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $output-width, $output-margin-right, $output-margin-left);
+		@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $output-width, $output-margin-right, $output-margin-left);
 		@include flint-debug-instance($calc-key);
 
 	} @else {
 
-		// Define floats if key is default, or this is a single instance call
-		// ----
+		/*
+		 * Define floats if key is default, or this is a single instance call
+		 */
 		@if flint-is-default($calc-key) and $gutter != "center" or $i == null and $gutter != "center" {
-			float: unquote(flint-get-value("settings", "float-style"));
+			float: unquote(flint-get-value("settings", "float-direction"));
 		}
 
-		// Disable floats if gutter is set to center
-		// ----
+		/*
+		 * Disable floats if gutter is set to center
+		 */
 		$recursive-center: false;
 
 		@if $gutter == "center" {
@@ -140,565 +152,77 @@
 			float: none;
 		}
 
-		// Only run through if cache search was unsuccessful
-		// ----
-		@if not $cached and not $errors {
+		/*
+		 * Only run through if cache search was unsuccessful
+		 */
+		@if not $cached {
 
-			// Shift, no context
-			// ----
-			@if $calc-shift != null and $calc-context == null {
+			$output-gutter: flint-get-gutter();
 
-				@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" {
+			@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" {
 
-					// Save to variables for instance creation
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*2);
-					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
-					$output-margin-left: ( if( $calc-shift > 0,
-						(flint-calc-margin($calc-key, $calc-span)) + (flint-calc-width($calc-key, $calc-shift)),
-						(flint-calc-margin($calc-key, -$calc-span)) + (flint-calc-width($calc-key, $calc-shift))
-					));
+				$output-width-map: flint-calc-width($calc-key, $calc-span, if($calc-context, $calc-context, null), ($output-gutter * 2));
+				$output-margin-right: $output-gutter;
+				$output-margin-left: $output-gutter;
 
-				} @else if $calc-gutter == "inside" {
+			} @else if $calc-gutter == "inside" {
 
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*4);
-					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
-					$output-margin-left: ( if( $calc-shift > 0,
-						(flint-calc-margin($calc-key, $calc-span)) + (flint-calc-width($calc-key, $calc-shift)),
-						(flint-calc-margin($calc-key, -$calc-span)) + (flint-calc-width($calc-key, $calc-shift))
-					));
+				$output-width-map: flint-calc-width($calc-key, $calc-span, if($calc-context, $calc-context, null), ($output-gutter * 4));
+				$output-margin-right: $output-gutter;
+				$output-margin-left: $output-gutter;
 
-				} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" {
+			} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" {
 
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - (flint-calc-margin($calc-key, $calc-span));
-					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
-					$output-margin-left: ( if( $calc-shift > 0,
-						flint-calc-width($calc-key, $calc-shift),
-						flint-calc-width($calc-key, $calc-shift)
-					));
+				$output-width-map: flint-calc-width($calc-key, $calc-span, if($calc-context, $calc-context, null), $output-gutter);
+				$output-margin-right: $output-gutter;
+				$output-margin-left: 0;
 
-				} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" {
+			} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" {
 
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span)));
-					$output-margin-right: 0;
-					$output-margin-left: ( if( $calc-shift > 0,
-						(flint-calc-margin($calc-key, $calc-span)) + (flint-calc-width($calc-key, $calc-shift)),
-						(flint-calc-margin($calc-key, -$calc-span)) + (flint-calc-width($calc-key, $calc-shift))
-					));
+				$output-width-map: flint-calc-width($calc-key, $calc-span, if($calc-context, $calc-context, null), $output-gutter);
+				$output-margin-right: 0;
+				$output-margin-left: $output-gutter;
 
-				} @else if $calc-gutter == "center" {
+			} @else if $calc-gutter == "center" {
 
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*2);
-					$output-margin-right: auto;
-					$output-margin-left: auto;
+				$output-width-map: flint-calc-width($calc-key, $calc-span, if($calc-context, $calc-context, null), ($output-gutter * 2));
+				$output-margin-right: auto;
+				$output-margin-left: auto;
 
-				} @else if $calc-gutter == "row" or $calc-gutter == "none" {
+			} @else if $calc-gutter == "row" or $calc-gutter == "none" {
 
-					$output-width: (flint-calc-width($calc-key, $calc-span));
-					$output-margin-right: 0;
-					$output-margin-left: ( if( $calc-shift > 0,
-						flint-calc-width($calc-key, $calc-shift),
-						flint-calc-width($calc-key, $calc-shift)
-					));
+				$output-width-map: flint-calc-width($calc-key, $calc-span, if($calc-context, $calc-context, null));
+				$output-margin-right: 0;
+				$output-margin-left: 0;
 
-				} @else {
-					@warn "Invalid gutter argument: #{$calc-gutter}. Please provide a valid argument.";
-					$errors: true;
-				}
-
-			// Shift, context
-			// ----
-			} @else if $calc-context != null {
-
-				// Check if parent instance flint-exists
-				$flint-exists: flint-has-family-instance($calc-key);
-
-				@if $calc-shift != null {
-
-					@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" {
-
-						// Check if context is set to auto
-						@if $calc-context == "auto" {
-
-							// Does parent exist?
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									// Get parent span value
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
-									));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									// Get parent width instead of parent span for fixed grids
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
-									));
-
-								}
-							} @else {
-								// Else warn that context should not be set to `auto`
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								// Throw error
-								$errors: true;
-							}
-
-						// Output styles normally if not set to auto
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
-							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
-							$output-margin-left: ( if( $calc-shift > 0,
-								(flint-calc-margin($calc-key, $calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context)),
-								(flint-calc-margin($calc-key, -$calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context))
-							));
-
-						}
-
-					} @else if $calc-gutter == "inside" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
-									));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
-									));
-
-								}
-							} @else {
-								// Else warn that context should not be set to `auto`
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-							// Output styles normally if not set to auto
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
-							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
-							$output-margin-left: ( if( $calc-shift > 0,
-								(flint-calc-margin($calc-key, $calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context)),
-								(flint-calc-margin($calc-key, -$calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context))
-							));
-
-						}
-
-					} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - (flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
-									));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
-									));
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - (flint-calc-margin($calc-key, $calc-span, $calc-context));
-							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
-							$output-margin-left: ( if( $calc-shift > 0,
-								flint-calc-width($calc-key, $calc-shift, $calc-context),
-								flint-calc-width($calc-key, $calc-shift, $calc-context)
-							));
-
-						}
-
-					} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
-									$output-margin-right: 0;
-									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
-									));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
-									$output-margin-right: 0;
-									$output-margin-left: ( if( $calc-shift > 0,
-										(flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))),
-										(flint-calc-margin($calc-key, -$calc-span, flint-get-instance-value($calc-key, "span"))) + (flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")))
-									));
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context)));
-							$output-margin-right: 0;
-							$output-margin-left: ( if( $calc-shift > 0,
-								(flint-calc-margin($calc-key, $calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context)),
-								(flint-calc-margin($calc-key, -$calc-span, $calc-context)) + (flint-calc-width($calc-key, $calc-shift, $calc-context))
-							));
-
-						}
-
-					} @else if $calc-gutter == "center" {
-
-						@if $calc-context == "auto" {
-
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: auto;
-									$output-margin-left: auto;
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: auto;
-									$output-margin-left: auto;
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
-							$output-margin-right: auto;
-							$output-margin-left: auto;
-
-						}
-					} @else if $calc-gutter == "row" or $calc-gutter == "none" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, lint-get-instance-value($calc-key, "span")));
-									$output-margin-right: 0;
-									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
-									));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span);
-									$output-margin-right: 0;
-									$output-margin-left: ( if( $calc-shift > 0,
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span")),
-										flint-calc-width($calc-key, $calc-shift, flint-get-instance-value($calc-key, "span"))
-									));
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context));
-							$output-margin-right: 0;
-							$output-margin-left: ( if( $calc-shift > 0,
-								flint-calc-width($calc-key, $calc-shift, $calc-context),
-								flint-calc-width($calc-key, $calc-shift, $calc-context)
-							));
-						}
-					} @else {
-						@warn "Invalid gutter argument: #{$calc-gutter}. Please provide a valid argument.";
-						$errors: true;
-					}
-
-				// Context, no shift
-				// ----
-				} @else {
-
-					@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" {
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
-							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
-							$output-margin-left: flint-calc-margin($calc-key, $calc-span, $calc-context);
-
-						}
-
-					} @else if $calc-gutter == "inside" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*4);
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-
-								}
-
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
-							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
-							$output-margin-left: flint-calc-margin($calc-key, $calc-span, $calc-context);
-
-						}
-
-					} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - (flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: 0;
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
-									$output-margin-right: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-left: 0;
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - (flint-calc-margin($calc-key, $calc-span, $calc-context));
-							$output-margin-right: flint-calc-margin($calc-key, $calc-span, $calc-context);
-							$output-margin-left: 0;
-
-						}
-
-					} @else if $calc-gutter == "omega" or $calc-gutter =="no-right" or $calc-gutter == "flint-last" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - (flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")));
-									$output-margin-right: 0;
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))));
-									$output-margin-right: 0;
-									$output-margin-left: flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - (flint-calc-margin($calc-key, $calc-span, $calc-context));
-							$output-margin-right: 0;
-							$output-margin-left: flint-calc-margin($calc-key, $calc-span, $calc-context);
-
-						}
-
-					} @else if $calc-gutter == "center" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: (flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"))) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: auto;
-									$output-margin-left: auto;
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span) - ((flint-calc-margin($calc-key, $calc-span, flint-get-instance-value($calc-key, "span")))*2);
-									$output-margin-right: auto;
-									$output-margin-left: auto;
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: (flint-calc-width($calc-key, $calc-span, $calc-context)) - ((flint-calc-margin($calc-key, $calc-span, $calc-context))*2);
-							$output-margin-right: auto;
-							$output-margin-left: auto;
-
-						}
-
-					} @else if $calc-gutter == "row" or $calc-gutter == "none" {
-
-						@if $calc-context == "auto" {
-							@if $flint-exists != false {
-								@if flint-get-value("settings", "grid") == "fluid" {
-
-									$output-width: flint-calc-width($calc-key, $calc-span, flint-get-instance-value($calc-key, "span"));
-									$output-margin-right: 0;
-									$output-margin-left: 0;
-
-								} @else if flint-get-value("settings", "grid") == "fixed" {
-
-									$output-width: (flint-get-instance-value($calc-key, "output", "width") / flint-get-instance-value($calc-key, "span") * $calc-span);
-									$output-margin-right: 0;
-									$output-margin-left: 0;
-
-								}
-							} @else {
-								@warn "You set context to `#{$calc-context}`, but a parent instance could not be found for `#{selector_string() + '::' + $calc-key}`";
-								$errors: true;
-							}
-						} @else {
-
-							$output-width: flint-calc-width($calc-key, $calc-span, $calc-context);
-							$output-margin-right: 0;
-							$output-margin-left: 0;
-
-						}
-					} @else {
-						@warn "Invalid gutter argument: #{$calc-gutter}. Please provide a valid argument.";
-						$errors: true;
-					}
-				}
-
-			// No context
-			// ----
 			} @else {
-
-				@if $calc-gutter == null or $calc-gutter == "normal" or $calc-gutter == "default" or $calc-gutter == "regular" {
-
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*2);
-					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
-					$output-margin-left: flint-calc-margin($calc-key, $calc-span);
-
-				} @else if $calc-gutter == "inside" {
-
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*4);
-					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
-					$output-margin-left: flint-calc-margin($calc-key, $calc-span);
-
-				} @else if $calc-gutter == "alpha" or $calc-gutter == "no-left" or $calc-gutter == "first" {
-
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - (flint-calc-margin($calc-key, $calc-span));
-					$output-margin-right: flint-calc-margin($calc-key, $calc-span);
-					$output-margin-left: 0;
-
-				} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" {
-
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - (flint-calc-margin($calc-key, $calc-span));
-					$output-margin-right: 0;
-					$output-margin-left: flint-calc-margin($calc-key, $calc-span);
-
-				} @else if $calc-gutter == "center" {
-
-					$output-width: (flint-calc-width($calc-key, $calc-span)) - ((flint-calc-margin($calc-key, $calc-span))*2);
-					$output-margin-right: auto;
-					$output-margin-left: auto;
-
-				} @else if $calc-gutter == "row" or $calc-gutter == "none" {
-
-					$output-width: flint-calc-width($calc-key, $calc-span);
-					$output-margin-right: 0;
-					$output-margin-left: 0;
-
+				@if not $flint__development-mode {
+					@error "Invalid gutter argument: #{$calc-gutter}. Please provide a valid argument.";
 				} @else {
-					@warn "Invalid gutter argument: #{$calc-gutter}. Please provide a valid argument.";
 					$errors: true;
 				}
 			}
 		}
 
-		// Make sure there are no errors
-		// ----
 		@if not $errors {
 
 			// Cache result
 			@if $calc-context != "auto" and $calc-span != 0 and not $cached {
 				$flint__cache-results: map-merge($flint__cache-results, (
-					"#{$calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $i}": ($output-width, $output-margin-right, $output-margin-left)
+					"#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}": ($output-width-map, $output-margin-right, $output-margin-left)
 				)) !global;
 			}
 
 			// Output styles
-			@include flint-output($output-width, $output-margin-right, $output-margin-left) {
+			@include flint-output($output-width-map, $output-margin-right, $output-margin-left) {
 				@content;
 			}
 
 			// Create new instance
-			@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $calc-shift, $output-width, $output-margin-right, $output-margin-left);
+			@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, map-get($output-width-map, "target"), $output-margin-right, $output-margin-left);
 
 			// If debug mode, print instance
 			@include flint-debug-instance($calc-key);
-
 		}
 	}
 }

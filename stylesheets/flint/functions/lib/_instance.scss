@@ -1,17 +1,17 @@
-// Keeps count of all instances with arguments, stores in global var
-// -------------------------------------------------------------------------------
-// @param $key [string] : computed breakpoint of instance
-// @param $span [number] : computed span of instance
-// @param $context [number] : computed context of instance
-// @param $gutter [number] : computed gutter of instance
-// @param $shift [number] : computed shift of instance
-// @param $output-width [number] : computed width of instance
-// @param $output-margin-right [number] : computed right margin of instance
-// @param $output-margin-left [number] : computed left margin of instance
-// -------------------------------------------------------------------------------
-// @return instance map
-
-@function flint-instance($key, $span, $context, $gutter, $shift, $output-width, $output-margin-right, $output-margin-left) {
+/**
+ * Keeps count of all instances with arguments, stores in global var
+ *
+ * @param {String} $key                 - computed breakpoint of instance
+ * @param {Number} $span                - computed span of instance
+ * @param {Number} $context             - computed context of instance
+ * @param {Number} $gutter              - computed gutter of instance
+ * @param {Number} $output-width        - computed width of instance
+ * @param {Number} $output-margin-right - computed right margin of instance
+ * @param {Number} $output-margin-left  - computed left margin of instance
+ *
+ * @return {Map} merged instance map
+ */
+@function flint-instance($key, $span, $context, $gutter, $output-width, $output-margin-right, $output-margin-left) {
 
     // Increase the instance count
     $flint__instance-count: $flint__instance-count + 1 !global;
@@ -26,13 +26,12 @@
 			"instance-count": $flint__instance-count,
 			"parent-selector": if(flint-has-family-instance($key) != false, flint-has-family-instance($key), none),
 			"key": $key,
-			"breakpoint": flint-get-value($key, "breakpoint"),
-			"columns": flint-get-value($key, "columns"),
+			"breakpoint": flint-get-value("breakpoints", $key, "breakpoint"),
+			"columns": flint-get-value("breakpoints", $key, "columns"),
 			"span": $span,
 			"context": if($context == "auto", flint-get-instance-value($key, "span"), $context),
 			"gutter": $gutter,
-			"shift": $shift,
-			"output": (
+			"internal": (
 				"width": $output-width,
 				"margin-right": $output-margin-right,
 				"margin-left": $output-margin-left
