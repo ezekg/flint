@@ -10,8 +10,8 @@ else
 end
 
 module Flint
-    VERSION = "1.12.0"
-    DATE = "2014-08-29"
+    VERSION = "2.0.0.rc.1"
+    DATE = "2014-09-11"
 end
 
 # Custom functions

@@ -148,15 +148,15 @@ $color__yellow: #FFF87B;
 
         }
 
-        background: if($i > 10, darken($color__blue, ($i*0.25)), lighten($color__blue, (16/$i)));
+        // background: if($i > 10, darken($color__blue, ($i*0.25)), lighten($color__blue, (16/$i)));
         clear: both;
 
         div {
-            background: if($i > 10, lighten($color__blue, ($i*0.25)), darken($color__blue, (16/$i)));
+            // background: if($i > 10, lighten($color__blue, ($i*0.25)), darken($color__blue, (16/$i)));
             height: 100% !important;
 
             div {
-                background: if($i > 10, darken($color__blue, ($i*0.25)), lighten($color__blue, (16/$i)));
+                // background: if($i > 10, darken($color__blue, ($i*0.25)), lighten($color__blue, (16/$i)));
             }
         }
     }
@@ -164,26 +164,27 @@ $color__yellow: #FFF87B;
 
 .col-third {
     @include _(16/3 12/3 8/3 4/3);
-    background: $color__blue;
+    // background: $color__blue;
 
     &:before { content: "1/3"; }
 }
 
 .col-fourth {
     @include _(16/4 12/4 8/4 4/4);
-    background: $color__blue;
+    // background: $color__blue;
 
     &:before { content: "1/4"; }
 }
 
 .col-fifth {
     @include _(16/5 12/5 8/5 4/5);
-    background: $color__blue;
+    // background: $color__blue;
 
     &:before { content: "1/5"; }
 
     .col-fifth-child {
-        @include _(1, 16/5 12/5 8/5 4/5);
+        @include _((16/5)/3 (12/5)/3 (8/5)/3 (4/5)/3, auto);
+        height: 100% !important;
     }
 }
 
@@ -195,7 +196,7 @@ div[class*="col"] {
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 2em 0;
-    outline: $color__yellow solid 5px;
+    outline: lighten($color__blue, 10%) solid 2px;
 
     &:before {
         position: absolute;
@@ -206,10 +207,9 @@ div[class*="col"] {
 
 section {
     background: $color__blue--darkest;
-
-    & + & { background: darken($color__blue--darkest, 5%); }
-    & + & + & { background: darken($color__blue--darkest, 10%); }
-    & + & + & + & { background: darken($color__blue--darkest, 15%); }
+    // & + & { background: darken($color__blue--darkest, 5%); }
+    // & + & + & { background: darken($color__blue--darkest, 10%); }
+    // & + & + & + & { background: darken($color__blue--darkest, 15%); }
 }
 
 .container {
