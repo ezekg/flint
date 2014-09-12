@@ -1,11 +1,13 @@
-// Calculate width
-// -------------------------------------------------------------------------------
-// @param $key [string] : key for lookup
-// @param $span [number] : span value of element
-// @param $context [number] : context value of element
-// -------------------------------------------------------------------------------
-// @return calculated value | false
-
+/**
+ * Calculate width
+ *
+ * @param {String}          $key            - key of breakpoint
+ * @param {Number}          $span           - span value of element
+ * @param {Number | String} $context (null) - context value of element
+ * @param {Number}          $deduct  (null) - subtract value out of final width
+ *
+ * @return {List | False} - list of target and context result
+ */
 @include describe("[function] calc-width") {
 
 	@include it("should expect full width columns to be equal to manually calculated value") {
@@ -67,20 +69,20 @@
 
 	@include it("should expect quarter width columns to be equal to manually calculated value") {
 		@include should(expect(
-			flint-calc-width("desktop", 4)),
-			to(be(("target": (80em / 4), "context": 80em)))
+			flint-calc-width("desktop", 4, null, 1em)),
+			to(be(("target": (80em / 4) - 1em, "context": 80em)))
 		);
 		@include should(expect(
-			flint-calc-width("laptop", 3)),
-			to(be(("target": (60em / 4), "context": 60em)))
+			flint-calc-width("laptop", 3, null, 1em)),
+			to(be(("target": (60em / 4) - 1em, "context": 60em)))
 		);
 		@include should(expect(
-			flint-calc-width("tablet", 2)),
-			to(be(("target": (40em / 4), "context": 40em)))
+			flint-calc-width("tablet", 2, null, 1em)),
+			to(be(("target": (40em / 4) - 1em, "context": 40em)))
 		);
 		@include should(expect(
-			flint-calc-width("mobile", 1)),
-			to(be(("target": (20em / 4), "context": 20em)))
+			flint-calc-width("mobile", 1, null, 1em)),
+			to(be(("target": (20em / 4) - 1em, "context": 20em)))
 		);
 	}
 

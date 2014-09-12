@@ -1,10 +1,10 @@
 /**
-* Returns next indexed key based on passed index
-*
-* @param {Number} $index - index of breakpoint
-*
-* @return {String | False}
-*/
+ * Returns next indexed key based on passed index
+ *
+ * @param {Number} $index - index of breakpoint
+ *
+ * @return {String | False}
+ */
 @function flint-next-index($index) {
 	@return if(flint-is-number($index) and $index != 0, flint-steal-key($index + 1), false);
 }

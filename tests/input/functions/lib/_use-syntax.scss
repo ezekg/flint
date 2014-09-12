@@ -1,9 +1,10 @@
-// Use global syntax
-// -------------------------------------------------------------------------------
-// @param $selectors [string] : string of selectors to transform
-// -------------------------------------------------------------------------------
-// @return [list] : list of transformed selectors according to syntax
-
+/**
+ * Use global syntax
+ *
+ * @param {String} $selectors - string of selectors to parse
+ *
+ * @return {List} - parsed list of selectors
+ */
 @include describe("[function] use-syntax") {
 
     $selectors: ".block__element--modifier";

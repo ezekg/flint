@@ -1,9 +1,10 @@
-// Support BEM syntax
-// -------------------------------------------------------------------------------
-// @param $selectors [string] : string of selectors to parse
-// -------------------------------------------------------------------------------
-// @return [list] : parsed list of selectors according to syntax
-
+/**
+ * Parser to support BEM syntax
+ *
+ * @param {String} $selectors - string of selectors to parse
+ *
+ * @return {List} - parsed list of selectors according to syntax
+ */
 @include describe("[function] support-syntax-bem") {
 
     $selectors: ".block__element__element--modifier";

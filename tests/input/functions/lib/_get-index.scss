@@ -1,9 +1,10 @@
-// Gets the index of the passed key
-// -------------------------------------------------------------------------------
-// @param $key [string] : breakpoint key
-// -------------------------------------------------------------------------------
-// @return [number]
-
+/**
+ * Gets the index of the passed key
+ *
+ * @param {String} $key - breakpoint key
+ *
+ * @return {Number}
+ */
 @include describe("[function] get-index") {
 
     @include it("should expect index to match index of key in configuration map") {

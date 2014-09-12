@@ -1,24 +1,30 @@
-// Helpers
-// ----
+/*
+ * Helpers
+ */
 @import "helpers/helpers";
 
-// Functions
-// ----
+/*
+ * Functions
+ */
 @import "lib/exists";
+
 // Getters
 @import "lib/map-fetch";
 @import "lib/get-value";
 @import "lib/get-index";
 @import "lib/steal-key";
 @import "lib/steal-values";
+
 // Calculations
 @import "lib/fluid-width";
 @import "lib/calc-width";
 @import "lib/calc-breakpoint";
+
 // Instance functions
 @import "lib/instance";
 @import "lib/has-family-instance";
 @import "lib/get-instance-value";
+
 // List functions
 @import "lib/list-to-string";
 @import "lib/types-in-list";
@@ -27,13 +33,16 @@
 @import "lib/replace";
 @import "lib/remove";
 @import "lib/last";
+
 // String functions
 @import "lib/replace-substring";
 @import "lib/string-to-list";
 
-// Support syntax
-// ---
+/*
+ * Support syntax
+ */
 @import "lib/use-syntax";
 @import "lib/support-syntax";
+
 // Syntaxes
 @import "lib/support-syntax-bem"

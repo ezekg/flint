@@ -83,12 +83,29 @@
   }
 }
 
+@media (min-width: 60.0625em) {
+  .parent-instance {
+    float: left;
+    width: 23.4375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+  }
+}
+@media (min-width: 60.0625em) {
+  .parent-instance .child-instance {
+    float: left;
+    width: 10.9375%;
+    margin-right: 0.78125%;
+    margin-left: 0.78125%;
+  }
+}
+
 Test Results {
   Success: true;
-  Stats:  ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔;
-  Tests: 74;
-  Asserts: 169;
-  Passed: 74;
+  Stats:  ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔;
+  Tests: 77;
+  Asserts: 176;
+  Passed: 77;
   Failed: 0;
   Skipped: 0;
 }

@@ -1,10 +1,10 @@
 /**
-* Get single value from configuration map
-*
-* @param {ArgList} $keys - list of keys to fetch value from
-*
-* @return {*}
-*/
+ * Get single value from configuration map
+ *
+ * @param {ArgList} $keys - list of keys to fetch value from
+ *
+ * @return {*}
+ */
 @function flint-get-value($keys...) {
 	@return flint-map-fetch($flint, $keys...);
 }

@@ -1,9 +1,10 @@
-// Steal key based on index number
-//--------------------------------------------------------------------------------
-// @param $index [number] : index of key
-// -------------------------------------------------------------------------------
-// @return matched key | false
-
+/**
+ * Steal breakpoint key by index
+ *
+ * @param {Number} $index - index of key
+ *
+ * @return {String | False}
+ */
 @include describe("[function] steal-key") {
 
 	@include it("should expect breakpoint alias of passed index from configuration map") {

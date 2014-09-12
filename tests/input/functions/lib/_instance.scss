@@ -1,16 +1,16 @@
-// Keeps count of all instances with arguments, stores in global var
-// -------------------------------------------------------------------------------
-// @param $key [string] : computed breakpoint of instance
-// @param $span [number] : computed span of instance
-// @param $context [number] : computed context of instance
-// @param $gutter [number] : computed gutter of instance
-// @param $shift [number] : computed shift of instance
-// @param $output-width [number] : computed width of instance
-// @param $output-margin-right [number] : computed right margin of instance
-// @param $output-margin-left [number] : computed left margin of instance
-// -------------------------------------------------------------------------------
-// @return instance map
-
+/**
+ * Keeps count of all instances with arguments, stores in global var
+ *
+ * @param {String} $key                 - computed breakpoint of instance
+ * @param {Number} $span                - computed span of instance
+ * @param {Number} $context             - computed context of instance
+ * @param {Number} $gutter              - computed gutter of instance
+ * @param {Number} $output-width        - computed width of instance
+ * @param {Number} $output-margin-right - computed right margin of instance
+ * @param {Number} $output-margin-left  - computed left margin of instance
+ *
+ * @return {Map} merged instance map
+ */
 @include describe("[function] instance") {
 
     $pseudo-instance: (

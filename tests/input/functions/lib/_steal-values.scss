@@ -1,10 +1,11 @@
-// Steal value based on index number
-// -------------------------------------------------------------------------------
-// @param $index [number] : index of breakpoint key in config
-// @param $value [number] : value
-// -------------------------------------------------------------------------------
-// @return [number]
-
+/**
+ * Steal breakpoint value by index
+ *
+ * @param {Number} $index - index of key
+ * @param {String} $value - value to get from breakpoint
+ *
+ * @return {String | False}
+ */
 @include describe("[function] steal-values") {
 
 	@include it("should expect steal value from breakpoint key based on its index") {

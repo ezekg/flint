@@ -1,17 +1,15 @@
-// Get single value from key in instance map based on $selector::$key
-// -------------------------------------------------------------------------------
-// @warning : all values returned are strings and must be converted with `flint-to-number()`
-// -------------------------------------------------------------------------------
-// @param $key [string] : key
-// @param $value [number] : value
-// @param $deep [number] : fetch deep value
-// -------------------------------------------------------------------------------
-// @return [literal]
-
+/**
+ * Get single value from key in instance map based on $selector::$key
+ *
+ * @param {String} $key     - breakpoint key to pass to instance method
+ * @param {ArgList} $values - list of keys to fetch value from
+ *
+ * @return {String | False}
+ */
 @include describe("[function] get-instance-value") {
 
 	// $flint__instances: (
-	// 	".parent-instance::desktop": (
+	// 	".instance::desktop": (
 	// 		"instance-count": 1,
 	// 		"parent-selector": none,
 	// 		"key": "desktop",
@@ -20,61 +18,60 @@
 	// 		"span": 4,
 	// 		"context": null,
 	// 		"gutter": null,
-	// 		"shift": null,
-	// 		"output": (
-	// 			"width": 23.4375%,
-	// 			"margin-right": 0.78125%,
-	// 			"margin-left": 0.78125%
+	// 		"internal": (
+	// 			"width": 18.75em,
+	// 			"margin-right": 0.625em,
+	// 			"margin-left": 0.625em
 	// 		)
 	// 	)
 	// );
 
-	// @include it("should expect to return false unless inside of a parent instance") {
-	// 	@include should(expect(
-	// 		flint-get-instance-value("desktop", "breakpoint")),
-	// 		to(be(false))
-	// 	);
-	// }
-	//
-	// .parent-instance {
-	// 	@include _("desktop", 4);
-	//
-	// 	.child-instance {
-	// 		@include _("desktop", 2) {
-	//
-	// 			@include it("should expect correct value from parent selector to be fetched from instance map") {
-	// 				@include should(expect(
-	// 					flint-get-instance-value("desktop", "breakpoint")),
-	// 					to(be(80em))
-	// 				);
-	// 				@include should(expect(
-	// 					flint-get-instance-value("desktop", "columns")),
-	// 					to(be(16))
-	// 				);
-	// 				@include should(expect(
-	// 					flint-get-instance-value("desktop", "span")),
-	// 					to(be(4))
-	// 				);
-	// 				@include should(expect(
-	// 					flint-get-instance-value("desktop", "output", "width")),
-	// 					to(be(23.4375%))
-	// 				);
-	// 			}
-	//
-	// 			@include it("should expect non-existent values to return false") {
-	// 				@include should(expect(
-	// 					flint-get-instance-value("mobile", "breakpoint")),
-	// 					to(be(false))
-	// 				);
-	// 				@include should(expect(
-	// 					flint-get-instance-value("laptop", "columns")),
-	// 					to(be(false))
-	// 				);
-	// 			}
-	// 		}
-	// 	}
-	// }
-	//
-	// $flint__instances: () !global;
-	// $flint__instance-count: 0 !global;
+	@include it("should expect to return false unless inside of a parent instance") {
+		@include should(expect(
+			flint-get-instance-value("desktop", "breakpoint")),
+			to(be(false))
+		);
+	}
+
+	.parent-instance {
+		@include _("desktop", 4);
+
+		.child-instance {
+			@include _("desktop", 2) {
+
+				@include it("should expect correct value from parent selector to be fetched from instance map") {
+					@include should(expect(
+						flint-get-instance-value("desktop", "breakpoint")),
+						to(be(80em))
+					);
+					@include should(expect(
+						flint-get-instance-value("desktop", "columns")),
+						to(be(16))
+					);
+					@include should(expect(
+						flint-get-instance-value("desktop", "span")),
+						to(be(4))
+					);
+					@include should(expect(
+						flint-get-instance-value("desktop", "internal", "width")),
+						to(be(18.75em))
+					);
+				}
+
+				@include it("should expect non-existent values to return false") {
+					@include should(expect(
+						flint-get-instance-value("mobile", "breakpoint")),
+						to(be(false))
+					);
+					@include should(expect(
+						flint-get-instance-value("laptop", "columns")),
+						to(be(false))
+					);
+				}
+			}
+		}
+	}
+
+	$flint__instances: () !global;
+	$flint__instance-count: 0 !global;
 }

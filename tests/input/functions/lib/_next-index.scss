@@ -1,9 +1,10 @@
-// Returns next indexed key based on passed index
-// -------------------------------------------------------------------------------
-// @param $index [number] : index
-// -------------------------------------------------------------------------------
-// @return [string] | null
-
+/**
+ * Returns next indexed key based on passed index
+ *
+ * @param {Number} $index - index of breakpoint
+ *
+ * @return {String | False}
+ */
 @include describe("[function] next-index") {
 
 	@include it("should expect alias of next indexed breakpoint") {

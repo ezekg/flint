@@ -1,12 +1,14 @@
-// Remove $value from $list
-// -------------------------------------------------------------------------------
-// @documentation http://sassylists.com/documentation/#remove
-// -------------------------------------------------------------------------------
-// @param $list [list] : list
-// @param $value [literal] : value to flint-remove
-// -------------------------------------------------------------------------------
-// @return [list]
-
+/**
+ * Remove value from list
+ *
+ * @link http://sassylists.com/documentation/#remove
+ *
+ * @param {List} $list
+ * @param {*}    $value
+ * @param {Bool} $recursive
+ *
+ * @return {List}
+ */
 @include describe("[function] remove") {
 
 	$list: ("one", "two", "three");

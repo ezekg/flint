@@ -1,11 +1,12 @@
-// Checks type of each item in list
-// -------------------------------------------------------------------------------
-// @param $list [list] : list of items
-// @param $assert-types [string | list] : single or list of types to assert
-// @param $assert-length [number] : assert length of list
-// -------------------------------------------------------------------------------
-// @return [bool]
-
+/**
+ * Checks type of each item in list
+ *
+ * @param {List} $list                          - list of items
+ * @param {String | List} $assert-types  (null) - single or list of types to assert
+ * @param {Number}        $assert-length (null) - assert length of list
+ *
+ * @return {Bool}
+ */
 @include describe("[function] types-in-list") {
 
     $list-of-numbers: 1, 2, 3, 4, 5;

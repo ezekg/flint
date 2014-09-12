@@ -1,10 +1,11 @@
-// Support syntax
-// -------------------------------------------------------------------------------
-// @param $syntax [string] : alias of syntax to support
-// @param $selectors [string] : string of selectors to parse
-// -------------------------------------------------------------------------------
-// @return [list] : list of parsed selectors according to syntax
-
+/**
+ * Support syntax
+ *
+ * @param {String} $syntax    - alias of syntax to support
+ * @param {String} $selectors - string of selectors to parse
+ *
+ * @return {List} - list of parsed selectors according to syntax
+ */
 @include describe("[function] support-syntax") {
 
     $selectors: ".block__element--modifier";
