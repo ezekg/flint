@@ -1,15 +1,15 @@
 /**
  * Parser to support BEM syntax
  *
- * @param {String} $selectors - string of selectors to parse
+ * @param {List} $selectors - string of selectors to parse
  *
  * @return {List} - parsed list of selectors according to syntax
  */
 @function flint-support-syntax-bem($selectors) {
     // Clean up selector, remove double underscores for spaces
-    //  add psudeo character to differentiate selectors
-    $selectors: flint-replace-substring($selectors, "__", "/");
-    // Parse string to list
+    //  add pseudo character to differentiate selectors
+    $selectors: flint-replace-substring(inspect($selectors), "__", "/");
+    // Parse string back to list without pseudo character
     $selectors: flint-string-to-list($selectors, "/");
     // Define top-most parent of selector
     $parent: nth($selectors, 1);

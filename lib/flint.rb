@@ -23,12 +23,12 @@ module Sass::Script::Functions
         Sass::Script::Bool.new(true)
     end
 
-    # Returns stringified selector
-    # ----
-    # @return [string]
-    def selector_string()
-        Sass::Script::String.new(environment.selector.to_s)
-    end
+    # # Returns stringified selector
+    # # ----
+    # # @return [string]
+    # def selector_string()
+    #     Sass::Script::String.new(environment.selector.to_s)
+    # end
 
     # Turns string into a flat list
     # ----

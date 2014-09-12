@@ -17,12 +17,10 @@
     $flint__instance-count: $flint__instance-count + 1 !global;
 
     // Lets clean up the selector a bit...
-    $selector-string: selector_string();
-    $selector-list: flint-string-to-list($selector-string);
-    $selector-cleaned: flint-list-to-string($selector-list, " ");
+    $selector: nth(&, 1);
 
     $flint__instance: (
-		"#{$selector-cleaned}::#{$key}": (
+		"#{$selector}::#{$key}": (
 			"instance-count": $flint__instance-count,
 			"parent-selector": if(flint-has-family-instance($key) != false, flint-has-family-instance($key), none),
 			"key": $key,

@@ -118,8 +118,10 @@
 			display: none;
 		}
 
-		@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $output-width, $output-margin-right, $output-margin-left);
-		@include flint-debug-instance($calc-key);
+		@if flint-get-value("settings", "instance-maps") {
+			@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $output-width, $output-margin-right, $output-margin-left);
+			@include flint-debug-instance($calc-key);
+		}
 
 	} @else {
 
@@ -218,11 +220,14 @@
 				@content;
 			}
 
-			// Create new instance
-			@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, map-get($output-width-map, "target"), $output-margin-right, $output-margin-left);
+			@if flint-get-value("settings", "instance-maps") {
 
-			// If debug mode, print instance
-			@include flint-debug-instance($calc-key);
+				// Create new instance
+				@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, map-get($output-width-map, "target"), $output-margin-right, $output-margin-left);
+
+				// If debug mode, print instance
+				@include flint-debug-instance($calc-key);
+			}
 		}
 	}
 }

@@ -2,7 +2,7 @@
  * Support syntax
  *
  * @param {String} $syntax    - alias of syntax to support
- * @param {String} $selectors - string of selectors to parse
+ * @param {List}   $selectors - string of selectors to parse
  *
  * @return {List} - list of parsed selectors according to syntax
  */

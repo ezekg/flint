@@ -22,12 +22,23 @@
 
 	} @else if $context == "auto" {
 
+		/*
+		 * Check if instance maps are enabled
+		 */
+		@if not flint-get-value("settings", "instance-maps") {
+			@if not $flint__development-mode {
+				@error "Instance maps are disabled. Automatic context is not available. Enable `instance-maps` in the config to continue.";
+			} @else {
+				@warn "Instance maps are disabled. Automatic context is not available. Enable `instance-maps` in the config to continue.";
+			}
+		}
+
 		@if flint-has-family-instance($key) {
 			$result: map-merge($result, ("target": ((flint-get-instance-value($key, "internal", "width") / flint-get-instance-value($key, "span") * $span) - if($deduct, $deduct, 0))));
 			$result: map-merge($result, ("context": flint-get-instance-value($key, "internal", "width")));
 		} @else {
 			@if not $flint__development-mode {
-				@error "You set context to `#{$context}`, but a parent instance could not be found for `#{selector_string() + '::' + $key}`";
+				@error "You set context to `#{$context}`, but a parent instance could not be found for `#{nth(&, 1) + '::' + $key}`";
 			} @else {
 				@return false;
 			}
