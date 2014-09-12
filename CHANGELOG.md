@@ -1,5 +1,16 @@
 # Change Log
 
+### 2.0.0.rc.1 - 9/12/14
+* Revamped codebase considerably.
+* Modified layout of `$flint` configuration map. Breakpoints are now housed in their own separate section.
+* Removed `$shift` modifier. _(Don't like this one? Create an issue and let me know!)_
+* Modified calculations to use fixed values all the way through the system, and then convert to percentages on output. Coupled with instance methods, this makes gutters infinitely nest-able and consistent even on fluid grids.
+* Added `instance-maps` option in config to enable or disable instance maps and all of the associated methods.
+* Modified docblocks to follow [SassDoc](https://github.com/SassDoc/sassdoc) standards.
+* Moved selector functions over to Sass 3.4. _(No more forced Ruby dependency!)_
+* Modified tests; added new HTML test page.
+* _Lots of other cleanup and speed improvements._
+
 ### 1.12.0 - 8/29/14
 * Added test suite and contributing guidelines.
 * Cleaned up a few functions.
@@ -15,7 +26,7 @@
 * Fix `SASS_PATH` issue.
 
 ### 1.9.1 - 8/4/14
-* Break Compass dependency _(will completely break in `2.0` when dependence on Ruby functions cease)._
+* Break Compass dependency. _(Will completely break in `2.0` when dependence on Ruby functions cease)._
 * Add better error handling for invalid arguments.
 
 ### 1.8.0 - 8/1/14

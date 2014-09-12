@@ -1,7 +1,7 @@
 /*
  * Use development mode to silence fatal errors
  */
-$flint__development-mode: true !global;
+$flint__development-mode: false !global;
 
 /*
  * Set global variable to check if foundation has been applied globally
@@ -29,7 +29,7 @@ $flint__base-font-size: 16px !global;
 /*
  * Global syntax support
  */
-$flint__support-syntax: if(flint-exists($flint, "support-syntax"), flint-get-value("settings", "support-syntax"), false) !global;
+$flint__support-syntax: flint-get-value("settings", "support-syntax") !global;
 
 /*
  * Detect if Ruby functions are available
