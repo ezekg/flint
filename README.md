@@ -36,7 +36,7 @@ Enjoy.
 
 ## Installation
 
-1. Install via Ruby `gem install flint-gs`, or Bower `bower install flint --save-dev`
+1. Install via Ruby `gem install flint-gs --pre`, or Bower `bower install flint --save-dev`
 2. If you're using Compass, add `require "flint"` to your `config.rb`
 3. Import it into your stylesheet with `@import "flint"`
 
