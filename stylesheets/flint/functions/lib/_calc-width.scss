@@ -6,7 +6,7 @@
 * @param {Number | String} $context (null) - context value of element
 * @param {Number}          $deduct  (null) - subtract value out of final width
 *
-* @return {List | False} - list of target and context result
+* @return {Map | False} - map of target and context result
 */
 @function flint-calc-width($key, $span, $context: null, $deduct: null) {
 	$result: ();
