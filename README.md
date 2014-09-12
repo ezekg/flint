@@ -40,12 +40,14 @@ Enjoy.
 2. If you're using Compass, add `require "flint"` to your `config.rb`
 3. Import it into your stylesheet with `@import "flint"`
 
-If you're not using Compass, you can require the custom Ruby functions and compile via:
+If you're not using Compass, you can require Flint and compile via:
 ```
 scss --require ./lib/flint.rb example.scss > example.css
 ```
 
 ## Documentation
+
+_Updated documentation on Flint `2.0` is coming soon. It will be housed on the [website](http:flint.gs) when the time comes. Keep an eye out!)_
 
 ### Config
 
