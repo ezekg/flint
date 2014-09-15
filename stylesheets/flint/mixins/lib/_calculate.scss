@@ -1,9 +1,9 @@
 /**
  * Outputs calculated styles
  *
- * @param {Number} $width
- * @param {Number} $margin-right
- * @param {Number} $margin-left
+ * @param {Map}    $width        - map of target / context values
+ * @param {Number} $margin-right - right margin value
+ * @param {Number} $margin-left  - left margin value
  */
 @mixin flint-output($width, $margin-right, $margin-left) {
 

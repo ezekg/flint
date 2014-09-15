@@ -19,6 +19,9 @@
      *   else falls back to packaged.
      *
      * @param {String}
+     *
+     * @example scss
+     * _(clear)
      */
     @if $key == "clear" or $span == "clear" or $context == "clear" {
 
@@ -68,6 +71,9 @@
      *   else falls back to packaged.
      *
      * @param {String}
+     *
+     * @example scss
+     * _(foundation)
      */
     @if $key == "foundation" {
 
@@ -90,6 +96,9 @@
      * Container instance
      *
      * @param {String}
+     *
+     * @example scss
+     * _(container)
      */
     } @else if $key == "container" or $span == "container" or $context == "container" {
 
@@ -196,10 +205,13 @@
         }
 
         /**
-         * Recursive shorthand with identical context
+         * Recursive shorthand with no context
          *
          * @param {Number} $key  - single span value for all breakpoints
          * @param {Null}   $span - null context value
+         *
+         * @example scss
+         * _(2)
          */
         @if flint-is-number($key) and length($key) == 1 and $span == null
 
@@ -208,6 +220,9 @@
          *
          * @param {Number}          $key  - single span value for all breakpoints
          * @param {Number | String} $span - single context value for all breakpoints
+         *
+         * @example scss
+         * _(2, 4)
          */
         or flint-is-number($key) and length($key) == 1 and flint-is-number($span) and length($span) == 1
         or flint-is-number($key) and length($key) == 1 and $span == "auto"
@@ -217,6 +232,9 @@
          *
          * @param {Number}        $key  - single span value for all breakpoints
          * @param {List | String} $span - context value of span for each breakpoint
+         *
+         * @example scss
+         * _(1, 2 4 6 8) | _(1, auto)
          *
          * @throws error if lengths do not match number of breakpoints
          */
@@ -229,6 +247,9 @@
          * @param {List} $key  - span value for each breakpoint
          * @param {Null} $span - null context value
          *
+         * @example scss
+         * _(1 2 3 4)
+         *
          * @throws error if lengths do not match number of breakpoints
          */
         or flint-types-in-list($key, "number") and $span == null
@@ -237,7 +258,10 @@
          * Variable shorthand with context
          *
          * @param {List} $key  - span value for each breakpoint
-         * @param {List} $span - context value for each breakpoint
+         * @param {List | String} $span - context value for each breakpoint
+         *
+         * @example scss
+         * _(1 2 3 4, 2 4 6 8) | _(1 2 3 4, auto)
          *
          * @throws error if lengths do not match number of breakpoints
          */
@@ -326,16 +350,22 @@
          * @param {Number} $span    - span value for breakpoint
          * @param {Null}   $context - null context value
          *
+         * @example scss
+         * _(desktop, 2)
+         *
          * @throws error if breakpoint alias does not exist
          */
         } @else if flint-is-string($key) and flint-is-number($span) and $context == null
 
         /**
-         * all by alias with context
+         * Call by alias with context
          *
          * @param {String}          $key     - breakpoint alias
          * @param {Number}          $span    - span value for breakpoint
          * @param {Number | String} $context - context value for breakpoint
+         *
+         * @example scss
+         * _(desktop, 2, 4)
          *
          * @throws error if breakpoint alias does not exist
          */
