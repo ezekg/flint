@@ -61,25 +61,24 @@ To begin, you can either use the default `config` (below) which comes baked in, 
 
 ```scss
 /**
-* Configuration map
-*
-* @prop {Map}    breakpoints                  - map of breakpoints, follow DSC order
-* @prop {Map}    breakpoints.alias            - named map of breakpoint settings
-* @prop {Number} breakpoints.alias.columns    - column count for breakpoint
-* @prop {Number} breakpoints.alias.breakpoint - breakpoint value for breakpoint
-* @prop {Map}    settings                     - map of settings for grid
-* @prop {String} settings.default             - alias of breakpoint to be grid default
-* @prop {String} settings.grid                - type of grid
-* @prop {Number} settings.gutter              - value for gutter
-* @prop {String} settings.float-direction     - direction of float
-* @prop {Bool}   settings.max-width           - maximum width value
-* @prop {Bool}   settings.max-width           - maximum width value
-* @prop {Bool}   settings.center-container    - center containers
-* @prop {Bool}   settings.border-box-sizing   - use `box-sizing: border-box`
-* @prop {Bool}   settings.instance-maps       - use instance maps for added features
-* @prop {Bool}   settings.support-syntax      - support syntax within instance functions
-* @prop {Bool}   settings.debug-mode          - enable debug mode
-*/
+ * Configuration map
+ *
+ * @prop {Map}    breakpoints                  - map of breakpoints, follow DSC order
+ * @prop {Map}    breakpoints.alias            - named map of breakpoint settings
+ * @prop {Number} breakpoints.alias.columns    - column count for breakpoint
+ * @prop {Number} breakpoints.alias.breakpoint - breakpoint value for breakpoint
+ * @prop {Map}    settings                     - map of settings for grid
+ * @prop {String} settings.default             - alias of breakpoint to be grid default
+ * @prop {String} settings.grid                - type of grid
+ * @prop {Number} settings.gutter              - value for gutter
+ * @prop {String} settings.float-direction     - direction of float
+ * @prop {Bool}   settings.max-width           - maximum width value
+ * @prop {Bool}   settings.center-container    - center containers
+ * @prop {Bool}   settings.border-box-sizing   - use `box-sizing: border-box`
+ * @prop {Bool}   settings.instance-maps       - use instance maps for added features
+ * @prop {Bool}   settings.support-syntax      - support syntax within instance functions
+ * @prop {Bool}   settings.debug-mode          - enable debug mode
+ */
 $flint: (
 	"breakpoints": (
 		"desktop": (
