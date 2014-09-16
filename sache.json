@@ -1,5 +1,5 @@
 {
   "name": "Flint",
-  "description": "A seemingly simple, yet powerful responsive grid system built from the ground up for Sass 3.3. Only one mixin. No bloat. Completely semantic.",
-  "tags": ["grid-system", "ui", "grid", "layout", "flint", "breakpoint", "breakpoints", "semantic", "responsive-web-design"]
+  "description": "Flint is a highly advanced Sass grid framework designed for rapid responsive development. Only one mixin. No bloat. Completely semantic.",
+  "tags": ["grid-system", "grid-framework", "framework", "ui", "grid", "layout", "flint", "breakpoint", "breakpoints", "semantic", "responsive-web-design"]
 }

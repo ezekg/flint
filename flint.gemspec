@@ -15,9 +15,9 @@ Gem::Specification.new do |s|
   s.homepage = "http://flint.gs"
 
   # Project Description
-  s.summary = %q{A powerful Sass grid-system designed for complex responsive layouts.}
+  s.summary = %q{A highly advanced Sass grid framework designed for rapid responsive development.}
   # s.description = %q{Flint is designed to be a flexible layout toolkit that developers can use for any responsive project.}
-  s.description = %q{Flint is a highly advanced Sass grid system designed for rapid responsive development.}
+  s.description = %q{Flint is a highly advanced Sass grid framework designed for rapid responsive development.}
 
   # Library Files
   s.files += Dir.glob("lib/**/*.*")
