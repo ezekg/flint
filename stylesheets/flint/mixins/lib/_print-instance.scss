@@ -1,6 +1,8 @@
 /**
  * Prints debug properties
  *
+ * @access private
+ *
  * @param {String} $calc-key - breakpoint key to search for instance
  */
 @mixin flint-debug-instance($calc-key) {
@@ -15,6 +17,8 @@
 
 /**
  * Prints all contents of instance map
+ *
+ * @access private
  *
  * @param {Map} $instance - instance map
  */

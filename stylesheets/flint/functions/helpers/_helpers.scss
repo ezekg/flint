@@ -1,6 +1,8 @@
 /**
  * Returns truthiness of a value
  *
+ * @access private
+ *
  * @param {*} $value
  *
  * @return {Bool}
@@ -11,6 +13,8 @@
 
 /**
  * Checks if item is map
+ *
+ * @access private
  *
  * @param {Map} $n
  *
@@ -23,6 +27,8 @@
 /**
  * Checks if item is list
  *
+ * @access private
+ *
  * @param {List} $n
  *
  * @return {Bool}
@@ -33,6 +39,8 @@
 
 /**
  * Checks if item is number
+ *
+ * @access private
  *
  * @param {Number} $n
  *
@@ -45,6 +53,8 @@
 /**
  * Checks if item is string
  *
+ * @access private
+ *
  * @param {String} $n
  *
  * @return {Bool}
@@ -55,6 +65,8 @@
 
 /**
  * Checks if item is not string
+ *
+ * @access private
  *
  * @param {String} $n
  *
@@ -67,6 +79,8 @@
 /**
  * Get gutter value from config map
  *
+ * @access private
+ *
  * @return {Number}
  */
 @function flint-get-gutter() {
@@ -76,6 +90,8 @@
 /**
  * Gets list of each breakpoint's key
  *
+ * @access private
+ *
  * @return {List}
  */
 @function flint-get-all-keys() {
@@ -84,6 +100,8 @@
 
 /**
  * Gets list of all breakpoints
+ *
+ * @access private
  *
  * @return {List}
  */
@@ -101,6 +119,8 @@
 /**
  * Checks if passed $key is the highest breakpoint
  *
+ * @access private
+ *
  * @param {String} $key - alias of breakpoint
  *
  * @return {Bool}
@@ -111,6 +131,8 @@
 
 /**
  * Checks if passed $key is the lowest breakpoint
+ *
+ * @access private
  *
  * @param {String} $key - alias of breakpoint
  *
@@ -123,6 +145,8 @@
 /**
  * Checks if $key is grid default
  *
+ * @access private
+ *
  * @param {String} $key - alias of breakpoint
  *
  * @return {Bool}
@@ -133,6 +157,8 @@
 
 /**
  * Gets all breakpoint column values
+ *
+ * @access private
  *
  * @return {List}
  */
@@ -150,6 +176,8 @@
 /**
  * Returns the unit used in config
  *
+ * @access private
+ *
  * @return {*}
  */
 @function flint-get-config-unit() {
@@ -158,6 +186,8 @@
 
 /**
  * Convert pixel value to em
+ *
+ * @access private
  *
  * @param {Number} $target  - pixel value
  * @param {Number} $context - context to divide by
@@ -171,6 +201,8 @@
 /**
  * Use Ruby functions in place of Sass functions where possible
  *   to speed up performance, especially with string functions
+ *
+ * @access private
  *
  * @return {Bool}
  */

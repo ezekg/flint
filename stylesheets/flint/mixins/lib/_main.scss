@@ -1,6 +1,8 @@
 /**
  * Main API
  *
+ * @access public
+ *
  * @param {String | Number | List} $key     - key of breakpoint or shorthand span
  * @param {String | Number | List} $span    - value of span of column or shorthand context
  * @param {String | Number | List} $context - context value of span

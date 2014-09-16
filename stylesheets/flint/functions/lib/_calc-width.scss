@@ -1,6 +1,8 @@
 /**
 * Calculate width
 *
+* @access private
+*
 * @param {String}          $key            - key of breakpoint
 * @param {Number}          $span           - span value of element
 * @param {Number | String} $context (null) - context value of element

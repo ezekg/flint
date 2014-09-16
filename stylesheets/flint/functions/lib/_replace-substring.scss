@@ -1,6 +1,8 @@
 /**
  * Replace substring
  *
+ * @access private
+ *
  * @param {String} $string              - string that contains substring
  * @param {String} $substring           - substring to replace
  * @param {String} $new-substring (" ") - new string to replace sub with

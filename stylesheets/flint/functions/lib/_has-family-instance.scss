@@ -1,6 +1,8 @@
 /**
  * Checks if instance flint-exists in selector familiy tree, falls back from current selector
  *
+ * @access private
+ *
  * @param {String} $key    - breakpoint key to search for matching instance
  * @param {String} $syntax - searches for instance using passed syntax parser
  *

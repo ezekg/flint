@@ -1,6 +1,8 @@
 /**
  * Outputs calculated styles
  *
+ * @access private
+ *
  * @param {Map}    $width        - map of target / context values
  * @param {Number} $margin-right - right margin value
  * @param {Number} $margin-left  - left margin value
@@ -28,6 +30,8 @@
 
 /**
  * Calculate widths, save all variables to instance
+ *
+ * @access private
  *
  * @param {String}        $calc-key     - breakpoint key
  * @param {Number}        $calc-span    - span value

@@ -1,6 +1,8 @@
 /**
  * Checks type of each item in list
  *
+ * @access private
+ *
  * @param {List} $list                          - list of items
  * @param {String | List} $assert-types  (null) - single or list of types to assert
  * @param {Number}        $assert-length (null) - assert length of list

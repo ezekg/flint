@@ -1,6 +1,8 @@
 /**
  * Keeps count of all instances with arguments, stores in global var
  *
+ * @access private
+ *
  * @param {String} $key                 - computed breakpoint of instance
  * @param {Number} $span                - computed span of instance
  * @param {Number} $context             - computed context of instance

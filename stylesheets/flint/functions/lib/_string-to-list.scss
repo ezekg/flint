@@ -1,6 +1,8 @@
 /**
  * Turns string into a flat list
  *
+ * @access private
+ *
  * @param {String} $string
  * @param {String} $find   (" ") - item to find which separates substrings
  * @param {String} $ignore (",") - removes remaining string beyond item
