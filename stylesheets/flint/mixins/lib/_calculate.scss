@@ -57,9 +57,9 @@
 	/*
 	 * Check lengths, if invalid throw error
 	 */
-	@if flint-types-in-list($calc-gutter, "string") and length($calc-gutter) != length($flint__all__keys) {
+	@if flint-types-in-list($calc-gutter, "string") and length($calc-gutter) != length($flint__all-keys) {
 		@if not $flint__development-mode {
-			@error "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$calc-gutter}";
+			@error "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all-keys)}). Your argument was: #{$calc-gutter}";
 		}
 	}
 

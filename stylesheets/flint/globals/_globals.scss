@@ -1,52 +1,100 @@
 /*
  * Use development mode to silence fatal errors
+ *
+ * @access private
+ *
+ * @type {Bool}
  */
 $flint__development-mode: false !global;
 
 /*
- * Set global variable to check if foundation has been applied globally
+ * Set global variable to check if foundation has been set
+ *
+ * @access private
+ *
+ * @type {String}
  */
 $flint__foundation: "non-existent" !global;
 
 /*
  * Gather all keys, breakpoints and column counts
+ *
+ * @access private
+ *
+ * @type {List}
  */
-$flint__all__keys: flint-get-all-keys() !global;
-$flint__all__breakpoints: flint-get-all-breakpoints() !global;
-$flint__all__columns: flint-get-all-columns() !global;
+$flint__all-keys: flint-get-all-keys() !global;
+$flint__all-breakpoints: flint-get-all-breakpoints() !global;
+$flint__all-columns: flint-get-all-columns() !global;
 
 /*
- * Keep track of all instances of mixin
+ * Keep count of all instances
+ *
+ * @access private
+ *
+ * @type {Number}
  */
 $flint__instance-count: 0 !global;
+
+/*
+ * Keep map of all instances
+ *
+ * @access private
+ *
+ * @type {Map}
+ */
 $flint__instances: () !global;
 
 /*
  * Font size for em calculation
+ *
+ * @access private
+ *
+ * @type {Number}
  */
 $flint__base-font-size: 16px !global;
 
 /*
  * Global syntax support
+ *
+ * @access private
+ *
+ * @type {String}
  */
 $flint__support-syntax: flint-get-value("settings", "support-syntax") !global;
 
 /*
  * Detect if Ruby functions are available
+ *
+ * @access private
+ *
+ * @type {Bool}
  */
 $flint__use-ruby-functions: if(flint-use-ruby-functions() == true, true, false) !global;
 
 /*
- * Cached selector instance lists
+ * Cache selector instance lists
+ *
+ * @access private
+ *
+ * @type {Map}
  */
 $flint__cached-instances: () !global;
 
 /*
- * Cached calculated values
+ * Cache calculated values
+ *
+ * @access private
+ *
+ * @type {Map}
  */
 $flint__cached-values: () !global;
 
 /*
- * hached calculation results
+ * Cache calculation results
+ *
+ * @access private
+ *
+ * @type {Map}
  */
 $flint__cache-results: () !global;

@@ -3,7 +3,7 @@
  *
  * @param {String | Number | List} $key     - key of breakpoint or shorthand span
  * @param {String | Number | List} $span    - value of span of column or shorthand context
- * @param {Number | List}          $context - context value of span
+ * @param {String | Number | List} $context - context value of span
  * @param {String | List}          $gutter  - alias for gutter modifier
  */
 @mixin _(
@@ -112,7 +112,7 @@
          */
         @if $key == "container" and flint-get-value("settings", "grid") == "fixed" {
 
-            @for $i from 1 through length($flint__all__keys) {
+            @for $i from 1 through length($flint__all-keys) {
 
                 // Set up variables
                 $calc-key: flint-steal-key($i);
@@ -269,17 +269,17 @@
         or flint-types-in-list($key, "number") and $span == "auto" {
 
             // Emit erroring for invalid argument lengths
-            @if flint-types-in-list($key, "number") and length($key) != length($flint__all__keys) {
+            @if flint-types-in-list($key, "number") and length($key) != length($flint__all-keys) {
                 @if not $flint__development-mode {
-                    @error "Invalid argument length of #{length($key)} for span. Please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$key}";
+                    @error "Invalid argument length of #{length($key)} for span. Please provide an argument for each breakpoint in your config (#{length($flint__all-keys)}). Your argument was: #{$key}";
                 }
-            } @else if flint-types-in-list($span, "number") and length($span) != length($flint__all__keys) {
+            } @else if flint-types-in-list($span, "number") and length($span) != length($flint__all-keys) {
                 @if not $flint__development-mode {
-                    @error "Invalid argument length of #{length($span)} for context. Please provide an argument for each breakpoint in your config (#{length($flint__all__keys)}). Your argument was: #{$span}";
+                    @error "Invalid argument length of #{length($span)} for context. Please provide an argument for each breakpoint in your config (#{length($flint__all-keys)}). Your argument was: #{$span}";
                 }
             } @else {
 
-                @for $i from 1 through length($flint__all__keys) {
+                @for $i from 1 through length($flint__all-keys) {
 
                     $calc-key: flint-steal-key($i);
                     $calc-span: $key;

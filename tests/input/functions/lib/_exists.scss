@@ -2,19 +2,26 @@
  * Check if key exists in map
  *
  * @param {Map}    $map   - map to search
- * @param {Strong} $value - key to search for
+ * @param {String} $value - key to search for
  *
  * @return {Bool}
  */
 @include describe("[function] exists") {
 
 	$map: (
-		"key": "value"
+		"key": "value",
+		"map": (
+			"deep key": "value"
+		)
 	);
 
 	@include it("should expect key to exist within map") {
 		@include should(expect(
 			flint-exists($map, "key")),
+			to(be(true))
+		);
+		@include should(expect(
+			flint-exists($map, "deep key")),
 			to(be(true))
 		);
 	}
