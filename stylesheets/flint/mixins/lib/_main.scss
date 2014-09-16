@@ -5,6 +5,9 @@
  * @param {String | Number | List} $span    - value of span of column or shorthand context
  * @param {String | Number | List} $context - context value of span
  * @param {String | List}          $gutter  - alias for gutter modifier
+ *
+ * @author Ezekiel Gabrielse
+ * @link http://flint.gs
  */
 @mixin _(
     $key: null,
