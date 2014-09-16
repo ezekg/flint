@@ -14,29 +14,26 @@ module Flint
     DATE = "2014-09-12"
 end
 
-# Custom functions
 module Sass::Script::Functions
 
+    ###
     # Use ruby functions
-    # ----
+    #
+    # @return {Bool}
+    ###
     def flint_use_ruby()
         Sass::Script::Bool.new(true)
     end
 
-    # # Returns stringified selector
-    # # ----
-    # # @return [string]
-    # def selector_string()
-    #     Sass::Script::String.new(environment.selector.to_s)
-    # end
-
+    ###
     # Turns string into a flat list
-    # ----
-    # @param string [string] : string
-    # @param separator [string] : item to find which separates substrings
-    # @param ignore [string] : removes remaining string beyond item
-    # ----
-    # @return [list] | error
+    #
+    # @param {String} string    - string
+    # @param {String} separator - item to find which separates substrings
+    # @param {String} ignore    - removes remaining string beyond item
+    #
+    # @return {List}
+    ###
     def string_to_list(string, separator, ignore)
         # Remove rest of string after ignore
         ignore = string.value[/[^#{ignore}]+/]
@@ -50,19 +47,16 @@ module Sass::Script::Functions
         end
     end
 
+    ###
     # Replace substring
-    # ----
-    # @param string [string] : string that contains substring
-    # @param find [string] : substring to replace
-    # @param replace [string] : new string to replace sub with
-    # ----
-    # @return [string]
+    #
+    # @param {String} string  - string that contains substring
+    # @param {String} find    - substring to replace
+    # @param {String} replace - new string to replace sub with
+    #
+    # @return {String}
+    ###
     def replace_substring(string, find, replace)
-        # Assert types
-        assert_type string, :String
-        assert_type find, :String
-        assert_type replace, :String
-        # Return new string
         Sass::Script::String.new(string.value.gsub(find.value, replace.value))
     end
 
