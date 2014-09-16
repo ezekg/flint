@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.0.0.rc.2 - 9/16/14
+* Fixed issue with `$context` modifiers calling a division by 0.
+
 ### 2.0.0.rc.1 - 9/12/14
 * Revamped codebase considerably.
 * Modified layout of `$flint` configuration map. Breakpoints are now housed in their own separate section.

@@ -17,8 +17,8 @@
 
 	@if flint-get-value("settings", "grid") == "fluid" {
 		width: flint-fluid-width(map-get($width, "target"), map-get($width, "context"));
-		margin-right: flint-fluid-width($margin-right, map-get($width, "context"));
-		margin-left: flint-fluid-width($margin-left, map-get($width, "context"));
+		margin-right: if($margin-right != 0, flint-fluid-width($margin-right, map-get($width, "context")), 0);
+		margin-left: if($margin-left != 0, flint-fluid-width($margin-left, map-get($width, "context")), 0);
 	} @else {
 		width: map-get($width, "target");
 		margin-right: $margin-right;
