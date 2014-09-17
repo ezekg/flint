@@ -260,9 +260,21 @@
         or flint-types-in-list($key, "number") and $span == null
 
         /**
-         * Variable shorthand with context
+         * Variable shorthand with identical context
          *
-         * @param {List} $key  - span value for each breakpoint
+         * @param {List}            $key  - span value for each breakpoint
+         * @param {Number | String} $span - context value for each breakpoint
+         *
+         * @example scss
+         * _(1 2 3 4, 4) | _(1 2 3 4, auto)
+         */
+        or flint-types-in-list($key, "number") and flint-is-number($span) and length($span) == 1
+        or flint-types-in-list($key, "number") and $span == "auto"
+
+        /**
+         * Variable shorthand with differing context
+         *
+         * @param {List}          $key  - span value for each breakpoint
          * @param {List | String} $span - context value for each breakpoint
          *
          * @example scss

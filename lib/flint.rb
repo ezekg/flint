@@ -10,8 +10,8 @@ else
 end
 
 module Flint
-    VERSION = "2.0.0.rc.3"
-    DATE = "2014-09-16"
+    VERSION = "2.0.0.rc.4"
+    DATE = "2014-09-17"
 end
 
 module Sass::Script::Functions

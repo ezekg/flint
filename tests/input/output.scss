@@ -224,6 +224,18 @@ $color__yellow: #FFF87B;
     }
 }
 
+.col-quarter {
+    @include _(4);
+    height: auto !important;
+
+    &:before { content: "1/4"; }
+
+    .col-quarter-child {
+        @include _(2 2 1 1, 4);
+        height: 100% !important;
+    }
+}
+
 div[class*="col"] {
     position: relative;
     font: 10px Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
