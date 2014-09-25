@@ -13,7 +13,9 @@
     "**/.*",
     "*.json",
     "*.gemspec",
-    "*.gem"
+    "*.gem",
+    "lib",
+    "tests"
   ],
   "devDependencies": {
   }

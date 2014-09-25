@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
 
   # Project Description
   s.summary = %q{A highly advanced Sass grid framework designed for rapid responsive development.}
-  # s.description = %q{Flint is designed to be a flexible layout toolkit that developers can use for any responsive project.}
   s.description = %q{Flint is a highly advanced Sass grid framework designed for rapid responsive development.}
 
   # Library Files
@@ -25,8 +24,8 @@ Gem::Specification.new do |s|
   # Sass Files
   s.files += Dir.glob("stylesheets/**/*.*")
 
-  # Template Files
-  # s.files += Dir.glob("templates/**/*.*")
+  # Test Files
+  # s.files += Dir.glob("tests/**/*.*")
 
   # Other files
   s.files += ["LICENSE", "README.md"]
@@ -36,7 +35,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
 
   # Gems Dependencies
-  s.add_dependency("sass", ["~> 3.3"])
+  s.add_dependency("sass", ["~> 3.4"])
   # s.add_dependency("compass", [">= 0.12.1"])
 
 end

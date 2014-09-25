@@ -1,5 +1,9 @@
 # Change Log
 
+### 2.0.1 - 9/25/14
+* Updated Sass dependency to `~> 3.4` in gemspec.
+* Ignore `test` folder in bower.
+
 ### 2.0.0 - 9/25/14
 * Release `2.0.0`!
 
