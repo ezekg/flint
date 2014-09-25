@@ -2,10 +2,10 @@
 
 [![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
 
-What is Flint?
+## What is Flint?
 Flint is a responsive grid framework written in Sass, created to allow developers to rapidly produce responsive layouts that are built on a sophisticated foundation.
 
-What sets Flint apart?
+## What sets Flint apart?
 Most notably? The syntax. Being a designer myself, a large amount of time was spent on this aspect. Flint is very unique in the fact that it uses only a single mixin for all output: `_(...)`.
 
 Yes, it really is just an underscore. Easy to remember, huh? It shoves the function mumbo-jumbo out of the way and allows you to focus on the aspect that matters most: the actual layout. It also allows you to type your intentions in human terms.
