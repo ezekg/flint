@@ -18,7 +18,7 @@ In addition to that, as you can tell from the snippet above, Flint also handles 
 
 Flint allows you create an unlimited number of breakpoints, all of which have their own alias, column count and breakpoint. Want to name your 10 breakpoints after James Bond villians? By all means, go ahead.
 
-One more cool thing? Flint is the only self-aware Sass grid system on the planet*. What does that mean? It means that every instance of Flint is logged into an 'instance map', so child elements can know their parent element's width; meaning we can have perfectly consistent gutters, no matter how odd your layout may be. Think of it as a self-correcting grid.
+One more cool thing? Flint is the only self-aware Sass grid system on the planet.* What does that mean? It means that every instance of Flint is logged into an 'instance map', so child elements can know their parent element's width; meaning we can have perfectly consistent gutters, no matter how odd your layout may be. Think of it as a self-correcting grid.
 
 [Check out this short introduction over at Sitepoint.com](http://www.sitepoint.com/rapid-responsive-development-sass-flint/), and take it for a spin on [SassMeister.com](http://sassmeister.com/gist/228449011362bcdfe38c)!
 
