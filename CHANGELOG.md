@@ -1,7 +1,10 @@
 # Change Log
 
+### 2.0.0 - 9/25/14
+* Release `2.0.0`!
+
 ### 2.0.0.rc.4 - 9/17/14
-* Added ability to use a identical `$context` value with a variable `$span`.
+* Added ability to use na identical `$context` value with a variable `$span`. Example, `_(1 2 3 4, 4)`.
 
 ### 2.0.0.rc.3 - 9/16/14
 * Fixed issue with `$context` modifiers calling a division by 0.

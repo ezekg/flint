@@ -247,7 +247,7 @@
         or flint-is-number($key) and length($key) == 1 and $span == "auto"
 
         /**
-         * Variable shorthand
+         * Variable shorthand with no context
          *
          * @param {List} $key  - span value for each breakpoint
          * @param {Null} $span - null context value
@@ -278,7 +278,7 @@
          * @param {List | String} $span - context value for each breakpoint
          *
          * @example scss
-         * _(1 2 3 4, 2 4 6 8) | _(1 2 3 4, auto)
+         * _(4 3 2 1, 8 6 4 2) | _(4 3 2 1, auto)
          *
          * @throws error if lengths do not match number of breakpoints
          */
@@ -361,7 +361,7 @@
             }
 
         /**
-         * Call by alias
+         * Call by alias with no context
          *
          * @param {String} $key     - breakpoint alias
          * @param {Number} $span    - span value for breakpoint
@@ -382,7 +382,7 @@
          * @param {Number | String} $context - context value for breakpoint
          *
          * @example scss
-         * _(desktop, 2, 4)
+         * _(desktop, 2, 4) | _(desktop, 2, auto)
          *
          * @throws error if breakpoint alias does not exist
          */
