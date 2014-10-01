@@ -1,11 +1,5 @@
 /**
  * Calculate breakpoint query
- *
- * @param {String} $type - type of query to get
- * @param {String} $key  - key of breakpoint
- * @param {Number} $i    - index of current breakpoint
- *
- * @return {Number} - breakpoint value
  */
 @include describe("[function] calc-breakpoint") {
 

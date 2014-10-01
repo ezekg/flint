@@ -1,13 +1,5 @@
 /**
  * Joins all elements of list with passed glue
- *
- * @link http://sassylists.com/documentation/#to-string
- *
- * @param {List}   $list
- * @param {String} $glue
- * @param {Bool}   $is-nested
- *
- * @return {String}
  */
 @include describe("[function] list-to-string") {
 

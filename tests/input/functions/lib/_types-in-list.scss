@@ -1,11 +1,5 @@
 /**
  * Checks type of each item in list
- *
- * @param {List} $list                          - list of items
- * @param {String | List} $assert-types  (null) - single or list of types to assert
- * @param {Number}        $assert-length (null) - assert length of list
- *
- * @return {Bool}
  */
 @include describe("[function] types-in-list") {
 

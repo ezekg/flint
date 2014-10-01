@@ -1,5 +1,10 @@
 # Change Log
 
+### 2.0.2 10/1/14
+* Reversed order that `map-merge` merges instance maps, so that newer instances are merged to the top rather than the bottom. Increased performance benchmarks by `23%`.
+* Added Ruby function for `map-fetch()`. Increased performance benchmarks by `15%`.
+* Updated main API mixin `_()` to follow SassDoc standards.
+
 ### 2.0.1 - 9/25/14
 * Updated Sass dependency to `~> 3.4` in gemspec.
 * Ignore `test` folder in bower.

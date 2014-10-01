@@ -1,9 +1,5 @@
 /**
  * Returns truthiness of a value
- *
- * @param {*} $value
- *
- * @return {Bool}
  */
 @include describe("[function] is-true") {
 
@@ -40,10 +36,6 @@
 
 /**
  * Checks if item is map
- *
- * @param {Map} $n
- *
- * @return {Bool}
  */
 @include describe("[function] is-map") {
 
@@ -87,10 +79,6 @@
 
 /**
  * Checks if item is list
- *
- * @param {List} $n
- *
- * @return {Bool}
  */
 @include describe("[function] is-list") {
 
@@ -134,10 +122,6 @@
 
 /**
  * Checks if item is number
- *
- * @param {Number} $n
- *
- * @return {Bool}
  */
 @include describe("[function] is-number") {
 
@@ -181,10 +165,6 @@
 
 /**
  * Checks if item is string
- *
- * @param {String} $n
- *
- * @return {Bool}
  */
 @include describe("[function] is-string") {
 
@@ -228,10 +208,6 @@
 
 /**
  * Checks if item is not string
- *
- * @param {String} $n
- *
- * @return {Bool}
  */
 @include describe("[function] is-not-string") {
 
@@ -272,8 +248,6 @@
 
 /**
  * Get gutter value from config map
- *
- * @return {Number}
  */
 @include describe("[function] get-gutter") {
 
@@ -287,8 +261,6 @@
 
 /**
  * Gets list of each breakpoint's key
- *
- * @return {List}
  */
 @include describe("[function] get-all-keys") {
 
@@ -302,8 +274,6 @@
 
 /**
  * Gets list of all breakpoints
- *
- * @return {List}
  */
 @include describe("[function] get-all-breakpoints") {
 
@@ -317,10 +287,6 @@
 
 /**
  * Checks if passed $key is the highest breakpoint
- *
- * @param {String} $key - alias of breakpoint
- *
- * @return {Bool}
  */
 @include describe("[function] is-highest-breakpoint") {
 
@@ -349,10 +315,6 @@
 
 /**
  * Checks if passed $key is the lowest breakpoint
- *
- * @param {String} $key - alias of breakpoint
- *
- * @return {Bool}
  */
 @include describe("[function] is-lowest-breakpoint") {
 
@@ -381,10 +343,6 @@
 
 /**
  * Checks if $key is grid default
- *
- * @param {String} $key - alias of breakpoint
- *
- * @return {Bool}
  */
 @include describe("[function] is-default") {
 
@@ -413,8 +371,6 @@
 
 /**
  * Gets all breakpoint column values
- *
- * @return {List}
  */
 @include describe("[function] get-all-columns") {
 
@@ -428,8 +384,6 @@
 
 /**
  * Returns the unit used in config
- *
- * @return {*}
  */
 @include describe("[function] get-config-unit") {
 	@include it("should expect configuration unit to be ems") {
@@ -442,11 +396,6 @@
 
 /**
  * Convert pixel value to em
- *
- * @param {Number} $target  - pixel value
- * @param {Number} $context - context to divide by
- *
- * @return em value of target relative to context
  */
 @include describe("[function] to-em") {
 

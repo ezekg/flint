@@ -39,5 +39,5 @@
 		)
     );
 
-    @return map-merge($flint__instances, $flint__instance);
+    @return map-merge($flint__instance, $flint__instances);
 }

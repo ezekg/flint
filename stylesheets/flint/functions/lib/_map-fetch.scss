@@ -9,11 +9,21 @@
  * @return {String | False}
  */
 @function flint-map-fetch($map, $keys...) {
-	$result: $map;
 
-	@each $key in $keys {
-		$result: flint-is-map($result) and map-has-key($result, $key) and map-get($result, $key) or false;
+	// Use Ruby function if available
+	@if $flint__use-ruby-functions {
+		@return flint_ruby_map_fetch($map, $keys...);
+	} @else {
+		$result: $map;
+
+		@each $key in $keys {
+			@if $result {
+				$result: flint-is-map($result) and map-has-key($result, $key) and map-get($result, $key) or false;
+			} @else {
+				@return false;
+			}
+		}
+
+		@return $result;
 	}
-
-	@return $result;
 }

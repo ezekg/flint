@@ -1,9 +1,5 @@
 /**
  * Parser to support BEM syntax
- *
- * @param {List} $selectors - string of selectors to parse
- *
- * @return {List} - parsed list of selectors according to syntax
  */
 @include describe("[function] support-syntax-bem") {
 

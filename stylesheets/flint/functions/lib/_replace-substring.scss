@@ -13,7 +13,7 @@
 
 	// Use Ruby function if available
 	@if $flint__use-ruby-functions {
-		@return replace_substring($string, $substring, $new-substring);
+		@return flint_ruby_replace_substring($string, $substring, $new-substring);
 	} @else {
 		// Loop through length of string
 		@for $i from 1 through str-length($string) {

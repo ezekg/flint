@@ -1,11 +1,5 @@
 /**
  * Turns string into a flat list
- *
- * @param {String} $string
- * @param {String} $find   (" ") - item to find which separates substrings
- * @param {String} $ignore (",") - removes remaining string beyond item
- *
- * @return {List | False}
  */
 @include describe("[function] string-to-list") {
 

@@ -1,10 +1,5 @@
 /**
  * Support syntax
- *
- * @param {String} $syntax    - alias of syntax to support
- * @param {List}   $selectors - string of selectors to parse
- *
- * @return {List} - list of parsed selectors according to syntax
  */
 @include describe("[function] support-syntax") {
 

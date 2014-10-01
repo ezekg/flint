@@ -13,11 +13,9 @@
     @if flint-is-list($list) {
 
         // Assert types in list?
-        // ----
         @if $assert-types {
 
             // Assert length of list?
-            // ----
             @if $assert-length {
                 // Get length of list
                 $length: length($list);
@@ -28,11 +26,9 @@
                     $types: ();
 
                     // List of asserted types?
-                    // ----
                     @if flint-is-list($assert-types) {
 
                         // Make sure length of types match list
-                        // ----
                         @if length($assert-types) == $length {
 
                             // Loop over each item in list
@@ -49,13 +45,11 @@
                             }
 
                         // Lengths did not match
-                        // ----
                         } @else {
                             @return false;
                         }
 
                     // Assert a single type across list
-                    // ----
                     } @else {
                         // Assert single type
                         $type: nth($assert-types, 1);
@@ -82,7 +76,6 @@
                 }
 
             // Just assert types in list, any length
-            // ----
             } @else {
                 // Get asserted type
                 $type: $assert-types;
@@ -100,7 +93,6 @@
             }
 
         // Just assert type of first item in list
-        // ----
         } @else {
             // Get type of first item in list
             $type: type-of(nth($list, 1));
@@ -115,6 +107,7 @@
 
             @return true;
         }
+
     // Was not a list, return false
     } @else {
         @return false;

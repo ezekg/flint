@@ -1,13 +1,5 @@
 /**
  * Remove value from list
- *
- * @link http://sassylists.com/documentation/#remove
- *
- * @param {List} $list
- * @param {*}    $value
- * @param {Bool} $recursive
- *
- * @return {List}
  */
 @include describe("[function] remove") {
 

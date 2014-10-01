@@ -10,8 +10,8 @@ else
 end
 
 module Flint
-    VERSION = "2.0.1"
-    DATE = "2014-09-25"
+    VERSION = "2.0.2"
+    DATE = "2014-10-01"
 end
 
 module Sass::Script::Functions
@@ -26,29 +26,46 @@ module Sass::Script::Functions
     end
 
     ###
-    # Turns string into a flat list
+    # Fetch value from map
     #
-    # @param {String} string    - string
+    # @param {Map}     map  - map to fetch value from
+    # @param {ArgList} keys - list of keys to traverse
+    #
+    # @return {String | False}
+    ###
+    def flint_ruby_map_fetch(map, *keys)
+        assert_type map, :Map, :map
+        result = map
+        keys.each {|key| result != nil ? result = result.to_h.fetch(key, nil) : break}
+        return result != nil ? result : Sass::Script::Bool.new(false)
+    end
+    declare :flint_ruby_map_fetch, :args => [:map, :keys], :var_args => true
+
+    ###
+    # Turn string into a flat list
+    #
+    # @param {String} string    - string to operate on
     # @param {String} separator - item to find which separates substrings
     # @param {String} ignore    - removes remaining string beyond item
     #
     # @return {List}
     ###
-    def string_to_list(string, separator, ignore)
-        # Remove rest of string after ignore
-        ignore = string.value[/[^#{ignore}]+/]
-        # Get first set of strings, convert to array by separator
-        items = ignore.split(separator.value)
-        # Convert array to list
+    def flint_ruby_string_to_list(string, separator, ignore)
+        assert_type string, :String, :string
+        assert_type separator, :String, :separator
+        assert_type ignore, :String, :ignore
+        # Remove everything after ignore, split with separator
+        items = string.value[/[^#{ignore}]+/].split(separator.value)
         if items.count == 1
             Sass::Script::String.new(items[0], :comma)
         else
             Sass::Script::List.new(items.map { |i| Sass::Script::String.new(i) }, :comma)
         end
     end
+    declare :flint_ruby_string_to_list, :args => [:string, :separator, :ignore]
 
     ###
-    # Replace substring
+    # Replace substring with string
     #
     # @param {String} string  - string that contains substring
     # @param {String} find    - substring to replace
@@ -56,11 +73,12 @@ module Sass::Script::Functions
     #
     # @return {String}
     ###
-    def replace_substring(string, find, replace)
+    def flint_ruby_replace_substring(string, find, replace)
+        assert_type string, :String, :string
+        assert_type find, :String, :find
+        assert_type replace, :String, :replace
         Sass::Script::String.new(string.value.gsub(find.value, replace.value))
     end
-
-    declare :string_to_list, [:string, :separator, :ignore]
-    declare :replace_substring, [:string, :find, :replace]
+    declare :flint_ruby_replace_substring, :args => [:string, :find, :replace]
 
 end

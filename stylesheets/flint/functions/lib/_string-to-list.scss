@@ -3,7 +3,7 @@
  *
  * @access private
  *
- * @param {String} $string
+ * @param {String} $string       - string to perform on
  * @param {String} $find   (" ") - item to find which separates substrings
  * @param {String} $ignore (",") - removes remaining string beyond item
  *
@@ -14,7 +14,7 @@
 
 		// Use Ruby function if available
 		@if $flint__use-ruby-functions {
-			@return string_to_list($string, $find, $ignore);
+			@return flint_ruby_string_to_list($string, $find, $ignore);
 		} @else {
 			$string-list: ();
 			$space-indexes: ();

@@ -12,13 +12,11 @@
     $syntax: to-lower-case($syntax);
 
     // Make sure syntax is supported
-    // ----
     @if function-exists("flint-support-syntax-#{$syntax}") {
 
         // Support syntax
-        // ----
-        // @warning : be sure you have created a custom function to support an unknown syntax
-        // ----
+        //
+        // WARNING: Be sure you have created a custom function to support an unknown syntax
         @return call("flint-support-syntax-#{$syntax}", $selectors);
 
     } @else {

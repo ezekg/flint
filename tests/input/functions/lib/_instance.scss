@@ -1,15 +1,5 @@
 /**
  * Keeps count of all instances with arguments, stores in global var
- *
- * @param {String} $key                 - computed breakpoint of instance
- * @param {Number} $span                - computed span of instance
- * @param {Number} $context             - computed context of instance
- * @param {Number} $gutter              - computed gutter of instance
- * @param {Number} $output-width        - computed width of instance
- * @param {Number} $output-margin-right - computed right margin of instance
- * @param {Number} $output-margin-left  - computed left margin of instance
- *
- * @return {Map} merged instance map
  */
 @include describe("[function] instance") {
 
@@ -56,87 +46,12 @@
     $flint__instance-count: 0 !global;
 
     $pseudo-instance: (
-        ".parent-instance::desktop": (
-            "instance-count": 1,
-            "parent-selector": none,
-            "key": "desktop",
-            "breakpoint": 80em,
-            "columns": 16,
-            "span": 4,
-            "context": null,
-            "gutter": null,
-            "internal": (
-                "width": 18.75em,
-                "margin-right": 0.625em,
-                "margin-left": 0.625em
-            )
-        ),
-        ".parent-instance::laptop": (
-            "instance-count": 2,
-            "parent-selector": none,
-            "key": "laptop",
-            "breakpoint": 60em,
-            "columns": 12,
-            "span": 4,
-            "context": null,
-            "gutter": null,
-            "internal": (
-                "width": 18.75em,
-                "margin-right": 0.625em,
-                "margin-left": 0.625em
-            )
-        ),
-        ".parent-instance::tablet": (
-            "instance-count": 3,
-            "parent-selector": none,
-            "key": "tablet",
-            "breakpoint": 40em,
-            "columns": 8,
-            "span": 4,
-            "context": null,
-            "gutter": null,
-            "internal": (
-                "width": 18.75em,
-                "margin-right": 0.625em,
-                "margin-left": 0.625em
-            )
-        ),
-        ".parent-instance::mobile": (
-            "instance-count": 4,
-            "parent-selector": none,
+        ".parent-instance .child-instance::mobile": (
+            "instance-count": 8,
+            "parent-selector": ".parent-instance::mobile",
             "key": "mobile",
             "breakpoint": 20em,
             "columns": 4,
-            "span": 4,
-            "context": null,
-            "gutter": null,
-            "internal": (
-                "width": 18.75em,
-                "margin-right": 0.625em,
-                "margin-left": 0.625em
-            )
-        ),
-        ".parent-instance .child-instance::desktop": (
-            "instance-count": 5,
-            "parent-selector": ".parent-instance::desktop",
-            "key": "desktop",
-            "breakpoint": 80em,
-            "columns": 16,
-            "span": 2,
-            "context": 4,
-            "gutter": null,
-            "internal": (
-                "width": 8.125em,
-                "margin-right": 0.625em,
-                "margin-left": 0.625em
-            )
-        ),
-        ".parent-instance .child-instance::laptop": (
-            "instance-count": 6,
-            "parent-selector": ".parent-instance::laptop",
-            "key": "laptop",
-            "breakpoint": 60em,
-            "columns": 12,
             "span": 2,
             "context": 4,
             "gutter": null,
@@ -161,17 +76,92 @@
                 "margin-left": 0.625em
             )
         ),
-        ".parent-instance .child-instance::mobile": (
-            "instance-count": 8,
-            "parent-selector": ".parent-instance::mobile",
-            "key": "mobile",
-            "breakpoint": 20em,
-            "columns": 4,
+        ".parent-instance .child-instance::laptop": (
+            "instance-count": 6,
+            "parent-selector": ".parent-instance::laptop",
+            "key": "laptop",
+            "breakpoint": 60em,
+            "columns": 12,
             "span": 2,
             "context": 4,
             "gutter": null,
             "internal": (
                 "width": 8.125em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
+            )
+        ),
+        ".parent-instance .child-instance::desktop": (
+            "instance-count": 5,
+            "parent-selector": ".parent-instance::desktop",
+            "key": "desktop",
+            "breakpoint": 80em,
+            "columns": 16,
+            "span": 2,
+            "context": 4,
+            "gutter": null,
+            "internal": (
+                "width": 8.125em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
+            )
+        ),
+        ".parent-instance::mobile": (
+            "instance-count": 4,
+            "parent-selector": none,
+            "key": "mobile",
+            "breakpoint": 20em,
+            "columns": 4,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
+            )
+        ),
+        ".parent-instance::tablet": (
+            "instance-count": 3,
+            "parent-selector": none,
+            "key": "tablet",
+            "breakpoint": 40em,
+            "columns": 8,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
+            )
+        ),
+        ".parent-instance::laptop": (
+            "instance-count": 2,
+            "parent-selector": none,
+            "key": "laptop",
+            "breakpoint": 60em,
+            "columns": 12,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "internal": (
+                "width": 18.75em,
+                "margin-right": 0.625em,
+                "margin-left": 0.625em
+            )
+        ),
+        ".parent-instance::desktop": (
+            "instance-count": 1,
+            "parent-selector": none,
+            "key": "desktop",
+            "breakpoint": 80em,
+            "columns": 16,
+            "span": 4,
+            "context": null,
+            "gutter": null,
+            "internal": (
+                "width": 18.75em,
                 "margin-right": 0.625em,
                 "margin-left": 0.625em
             )

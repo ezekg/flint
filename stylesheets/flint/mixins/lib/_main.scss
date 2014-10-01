@@ -8,6 +8,78 @@
  * @param {String | Number | List} $context - context value of span
  * @param {String | List}          $gutter  - alias for gutter modifier
  *
+ * @throws error if list lengths do not match number of breakpoints
+ *
+ * @example scss - Clearfix
+ * _(clear)
+ *
+ * @example scss - Foundation
+ * _(foundation)
+ *
+ * @example scss - Container
+ * _(container)
+ *
+ * @example scss - Recursive shorthand with no context
+ * _(2)
+ *
+ * @example scss - Recursive shorthand with identical context
+ * _(2, 4)
+ *
+ * @example scss - Recursive shorthand with differing context
+ * _(1, 2 4 6 8)
+ * _(1, auto)
+ *
+ * @example scss - Variable shorthand with no context
+ * _(1 2 3 4)
+ *
+ * @example scss - Variable shorthand with identical context
+ * _(1 2 3 4, 4)
+ * _(1 2 3 4, auto)
+ *
+ * @example scss - Variable shorthand with differing context
+ * _(4 3 2 1, 8 6 4 2)
+ * _(4 3 2 1, auto)
+ *
+ * @example scss - Call by alias with no context
+ * _(desktop, 2)
+ *
+ * @example scss - Call by alias with context
+ * _(desktop, 2, 4)
+ * _(desktop, 2, auto)
+ *
+ * @example scss - Call $key breakpoint by alias
+ * _($key)
+ *
+ * @example scss - From $key breakpoint to infinity
+ * _(from $key to infinity)
+ *
+ * @example scss - From $key-x breakpoint to $key-y breakpoint
+ * _(from $key-x to $key-y)
+ *
+ * @example scss - From $num-x to $num-y
+ * _(from $num-x to $num-y)
+ *
+ * @example scss - Greater than $key breakpoint
+ * _(greater than $key)
+ *
+ * @example scss - Greater than number
+ * _(greater than $num)
+ *
+ * @example scss - Number greater than $key breakpoint
+ * _($num greater than $key)
+ *
+ * @example scss - Less than $key breakpoint
+ * _(less than $key)
+ *
+ * @example scss - Less than number
+ * _(less than $num)
+ *
+ * @example scss - Number less than $key breakpoint
+ * _($num less than $key)
+ *
+ * @example scss - For $key-x $key-y $key-z
+ * _(for $key-x $key-y $key-z)
+ *
  * @author Ezekiel Gabrielse
  * @link http://flint.gs
  */
@@ -18,15 +90,8 @@
     $gutter: null
 ) {
 
-    /**
-     * Clearfix instance
-     *   Uses `clearfix` mixin if one already exists,
-     *   else falls back to packaged.
-     *
-     * @param {String}
-     *
-     * @example scss
-     * _(clear)
+    /*
+     * Clearfix
      */
     @if $key == "clear" or $span == "clear" or $context == "clear" {
 
@@ -70,15 +135,8 @@
         }
     }
 
-    /**
-     * Foundation instance
-     *   Uses `box-sizing` mixin if one already exists,
-     *   else falls back to packaged.
-     *
-     * @param {String}
-     *
-     * @example scss
-     * _(foundation)
+    /*
+     * Foundation
      */
     @if $key == "foundation" {
 
@@ -97,13 +155,8 @@
             }
         }
 
-    /**
-     * Container instance
-     *
-     * @param {String}
-     *
-     * @example scss
-     * _(container)
+    /*
+     * Container
      */
     } @else if $key == "container" or $span == "container" or $context == "container" {
 
@@ -209,78 +262,36 @@
             @include _("foundation");
         }
 
-        /**
+        /*
          * Recursive shorthand with no context
-         *
-         * @param {Number} $key  - single span value for all breakpoints
-         * @param {Null}   $span - null context value
-         *
-         * @example scss
-         * _(2)
          */
         @if flint-is-number($key) and length($key) == 1 and $span == null
 
-        /**
+        /*
          * Recursive shorthand with identical context
-         *
-         * @param {Number}          $key  - single span value for all breakpoints
-         * @param {Number | String} $span - single context value for all breakpoints
-         *
-         * @example scss
-         * _(2, 4)
          */
         or flint-is-number($key) and length($key) == 1 and flint-is-number($span) and length($span) == 1
         or flint-is-number($key) and length($key) == 1 and $span == "auto"
 
-        /**
+        /*
          * Recursive shorthand with differing context
-         *
-         * @param {Number}        $key  - single span value for all breakpoints
-         * @param {List | String} $span - context value of span for each breakpoint
-         *
-         * @example scss
-         * _(1, 2 4 6 8) | _(1, auto)
-         *
-         * @throws error if lengths do not match number of breakpoints
          */
         or flint-is-number($key) and length($key) == 1 and flint-types-in-list($span, "number")
         or flint-is-number($key) and length($key) == 1 and $span == "auto"
 
-        /**
+        /*
          * Variable shorthand with no context
-         *
-         * @param {List} $key  - span value for each breakpoint
-         * @param {Null} $span - null context value
-         *
-         * @example scss
-         * _(1 2 3 4)
-         *
-         * @throws error if lengths do not match number of breakpoints
          */
         or flint-types-in-list($key, "number") and $span == null
 
-        /**
+        /*
          * Variable shorthand with identical context
-         *
-         * @param {List}            $key  - span value for each breakpoint
-         * @param {Number | String} $span - context value for each breakpoint
-         *
-         * @example scss
-         * _(1 2 3 4, 4) | _(1 2 3 4, auto)
          */
         or flint-types-in-list($key, "number") and flint-is-number($span) and length($span) == 1
         or flint-types-in-list($key, "number") and $span == "auto"
 
-        /**
+        /*
          * Variable shorthand with differing context
-         *
-         * @param {List}          $key  - span value for each breakpoint
-         * @param {List | String} $span - context value for each breakpoint
-         *
-         * @example scss
-         * _(4 3 2 1, 8 6 4 2) | _(4 3 2 1, auto)
-         *
-         * @throws error if lengths do not match number of breakpoints
          */
         or flint-types-in-list($key, "number") and flint-types-in-list($span, "number")
         or flint-types-in-list($key, "number") and $span == "auto" {
@@ -360,36 +371,18 @@
                 }
             }
 
-        /**
+        /*
          * Call by alias with no context
-         *
-         * @param {String} $key     - breakpoint alias
-         * @param {Number} $span    - span value for breakpoint
-         * @param {Null}   $context - null context value
-         *
-         * @example scss
-         * _(desktop, 2)
-         *
-         * @throws error if breakpoint alias does not exist
          */
         } @else if flint-is-string($key) and flint-is-number($span) and $context == null
 
-        /**
+        /*
          * Call by alias with context
-         *
-         * @param {String}          $key     - breakpoint alias
-         * @param {Number}          $span    - span value for breakpoint
-         * @param {Number | String} $context - context value for breakpoint
-         *
-         * @example scss
-         * _(desktop, 2, 4) | _(desktop, 2, auto)
-         *
-         * @throws error if breakpoint alias does not exist
          */
         or flint-is-string($key) and flint-is-number($span) and flint-is-number($context)
         or flint-is-string($key) and flint-is-number($span) and $context == "auto" {
 
-            // Emit erroring for invalid argument lengths
+            // Throw error for invalid argument lengths
             @if not flint-exists($flint, $key) {
                 @if not $flint__development-mode {
                     @error "Invalid argument: #{$key}. Breakpoint does not exist. Please provide a valid argument.";
@@ -457,21 +450,14 @@
                 }
             }
 
-        /**
-         * Wrap @content in media query
-         *
-         * @param {String | List} $key - defines how to make up media query
+        /*
+         * Wrap content in media query
          */
         } @else if flint-exists($flint, $key) and $span == null and $context == null
         or flint-is-list($key) and $span == null and $context == null {
 
-            /**
+            /*
              * Call $key breakpoint by alias
-             *
-             * @param {String} $key - only for $key breakpoint
-             *
-             * @example scss
-             * _($key)
              */
             @if length($key) == 1 {
 
@@ -501,13 +487,8 @@
                     }
                 }
 
-            /**
+            /*
              * From $key breakpoint to infinity
-             *
-             * @param {List} $key - min-width from $key breakpoint
-             *
-             * @example scss
-             * _(from $key to infinity)
              */
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" and nth($key, 4) == "infinity" {
 
@@ -525,13 +506,8 @@
                     }
                 }
 
-            /**
+            /*
              * From $key-x breakpoint to $key-y breakpoint
-             *
-             * @param {List} $key - from $key-x breakpoint to $key-y
-             *
-             * @example scss
-             * _(from $key-x to $key-y)
              */
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" {
 
@@ -549,13 +525,8 @@
                     }
                 }
 
-            /**
+            /*
              * From $num-x to $num-y
-             *
-             * @param {List} $key - arbitrary media query
-             *
-             * @example scss
-             * _(from $num-x to $num-y)
              */
             } @else if flint-types-in-list($key, "string" "number" "string" "number", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" {
                 // Make sure passed units match units used in config
@@ -570,13 +541,8 @@
                     }
                 }
 
-            /**
+            /*
              * Greater than $key breakpoint
-             *
-             * @param {List} $key - anything above $key breakpoint
-             *
-             * @example scss
-             * _(greater than $key)
              */
             } @else if flint-types-in-list($key, "string", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
@@ -594,13 +560,8 @@
                     }
                 }
 
-            /**
+            /*
              * Greater than number
-             *
-             * @param {List} $key - anything above number
-             *
-             * @example scss
-             * _(greater than $num)
              */
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
@@ -614,13 +575,8 @@
                     }
                 }
 
-            /**
+            /*
              * Number greater than $key breakpoint
-             *
-             * @param {List} $key - unit value greater than $key breakpoint
-             *
-             * @example scss
-             * _($num greater than $key)
              */
             } @else if flint-types-in-list($key, "number" "string" "string" "string", 4) and nth($key, 2) == "greater" and nth($key, 3) == "than" {
 
@@ -634,13 +590,8 @@
                     }
                 }
 
-            /**
+            /*
              * Less than $key breakpoint
-             *
-             * @param {List} $key - anything below $key breakpoint
-             *
-             * @example scss
-             * _(less than $key)
              */
             } @else if flint-types-in-list($key, "string", 3) and nth($key, 1) == "less" and nth($key, 2) == "than" {
 
@@ -658,13 +609,8 @@
                     }
                 }
 
-            /**
+            /*
              * Less than number
-             *
-             * @param {List} $key - anything below number
-             *
-             * @example scss
-             * _(less than $num)
              */
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "less" and nth($key, 2) == "than" {
 
@@ -678,13 +624,8 @@
                     }
                 }
 
-            /**
+            /*
              * Number less than $key breakpoint
-             *
-             * @param {List} $key - unit value less than $key breakpoint
-             *
-             * @example scss
-             * _($num less than $key)
              */
             } @else if flint-types-in-list($key, "number" "string" "string" "string", 4) and nth($key, 2) == "less" and nth($key, 3) == "than" {
 
@@ -698,13 +639,8 @@
                     }
                 }
 
-            /**
+            /*
              * For $key-x $key-y $key-z
-             *
-             * @param {List} $key - comma delimited list of queries
-             *
-             * @example scss
-             * _(for $key-x $key-y $key-z)
              */
             } @else if flint-types-in-list($key, "string") and nth($key, 1) == "for" {
                 // Define empty query list
@@ -748,10 +684,8 @@
                 }
             }
 
-        /**
+        /*
          * Invalid argument
-         *
-         * @throw invalid argument error
          */
         } @else {
             @if $key != "clear" {

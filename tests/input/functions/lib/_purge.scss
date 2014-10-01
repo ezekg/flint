@@ -1,11 +1,5 @@
 /**
  * Removes all false and null values from $list
- *
- * @link http://sassylists.com/documentation.html#purge
- *
- * @param {List} $list
- *
- * @return {List}
  */
 @include describe("[function] purge") {
 
