@@ -5,7 +5,9 @@
  *
  * @param {String} $type ("border-box") - border-box type
  *
- * @requires local box-sizing mixin if available
+ * @requires {Mixin} box-sizing - local mixin if available
+ *
+ * @group Internal Mixins
  */
 @mixin flint-box-sizing($type: "border-box") {
     @if mixin-exists("box-sizing") {

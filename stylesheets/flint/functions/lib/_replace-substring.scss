@@ -8,6 +8,8 @@
  * @param {String} $new-substring (" ") - new string to replace sub with
  *
  * @return {String}
+ *
+ * @group Internal Functions
  */
 @function flint-replace-substring($string, $substring, $new-substring: " ") {
 

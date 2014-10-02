@@ -1,4 +1,4 @@
-/**
+/*
  * Returns truthiness of a value
  */
 @include describe("[function] is-true") {
@@ -34,7 +34,7 @@
 	}
 }
 
-/**
+/*
  * Checks if item is map
  */
 @include describe("[function] is-map") {
@@ -77,7 +77,7 @@
 	}
 }
 
-/**
+/*
  * Checks if item is list
  */
 @include describe("[function] is-list") {
@@ -120,7 +120,7 @@
 	}
 }
 
-/**
+/*
  * Checks if item is number
  */
 @include describe("[function] is-number") {
@@ -163,7 +163,7 @@
 	}
 }
 
-/**
+/*
  * Checks if item is string
  */
 @include describe("[function] is-string") {
@@ -206,7 +206,7 @@
 	}
 }
 
-/**
+/*
  * Checks if item is not string
  */
 @include describe("[function] is-not-string") {
@@ -246,7 +246,7 @@
 	}
 }
 
-/**
+/*
  * Get gutter value from config map
  */
 @include describe("[function] get-gutter") {
@@ -259,7 +259,7 @@
 	}
 }
 
-/**
+/*
  * Gets list of each breakpoint's key
  */
 @include describe("[function] get-all-keys") {
@@ -272,7 +272,7 @@
 	}
 }
 
-/**
+/*
  * Gets list of all breakpoints
  */
 @include describe("[function] get-all-breakpoints") {
@@ -285,7 +285,7 @@
 	}
 }
 
-/**
+/*
  * Checks if passed $key is the highest breakpoint
  */
 @include describe("[function] is-highest-breakpoint") {
@@ -313,7 +313,7 @@
 	}
 }
 
-/**
+/*
  * Checks if passed $key is the lowest breakpoint
  */
 @include describe("[function] is-lowest-breakpoint") {
@@ -341,7 +341,7 @@
 	}
 }
 
-/**
+/*
  * Checks if $key is grid default
  */
 @include describe("[function] is-default") {
@@ -369,7 +369,7 @@
 	}
 }
 
-/**
+/*
  * Gets all breakpoint column values
  */
 @include describe("[function] get-all-columns") {
@@ -382,7 +382,7 @@
 	}
 }
 
-/**
+/*
  * Returns the unit used in config
  */
 @include describe("[function] get-config-unit") {
@@ -394,7 +394,7 @@
 	}
 }
 
-/**
+/*
  * Convert pixel value to em
  */
 @include describe("[function] to-em") {

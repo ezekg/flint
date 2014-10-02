@@ -10,6 +10,8 @@
  * @param {Bool} $recursive
  *
  * @return {List}
+ *
+ * @group Internal Functions
  */
 @function flint-remove($list, $value) {
 	@return flint-replace($list, $value, null);

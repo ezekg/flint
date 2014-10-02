@@ -6,6 +6,8 @@
  * @param {List} $selectors - string of selectors to parse
  *
  * @return {List} - parsed list of selectors
+ *
+ * @group Internal Functions
  */
 @function flint-use-syntax($selectors) {
     @if $flint__support-syntax {

@@ -8,6 +8,8 @@
  * @param {Number} $i    - index of current breakpoint
  *
  * @return {Number} - breakpoint value
+ *
+ * @group Internal Functions
  */
 @function flint-calc-breakpoint($type, $key, $i) {
 

@@ -10,6 +10,8 @@
  * @param {*}    $value
  *
  * @return {List}
+ *
+ * @group Internal Functions
  */
 @function flint-replace($list, $old, $value) {
   $running: true;

@@ -6,7 +6,9 @@
  * @param {Map}     $map  - map to fetch value from
  * @param {ArgList} $keys - list of keys to traverse
  *
- * @return {String | False}
+ * @return {*}
+ *
+ * @group Internal Functions
  */
 @function flint-map-fetch($map, $keys...) {
 

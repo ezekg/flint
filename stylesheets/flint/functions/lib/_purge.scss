@@ -8,6 +8,8 @@
  * @param {List} $list
  *
  * @return {List}
+ *
+ * @group Internal Functions
  */
 @function flint-purge($list) {
 	$result: ();

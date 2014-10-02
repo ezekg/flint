@@ -1,4 +1,8 @@
 /**
+ * @group Internal Mixins
+ **/
+
+/**
  * Outputs calculated styles
  *
  * @access private
@@ -33,11 +37,11 @@
  *
  * @access private
  *
- * @param {String}        $calc-key     - breakpoint key
- * @param {Number}        $calc-span    - span value
- * @param {Number}        $calc-context - context value
- * @param {String}        $calc-gutter  - gutter modifier
- * @param {Number | Null} $i            - index if variable length is > 1
+ * @param {String}      $calc-key     - breakpoint key
+ * @param {Number}      $calc-span    - span value
+ * @param {Number}      $calc-context - context value
+ * @param {String}      $calc-gutter  - gutter modifier
+ * @param {Number|Null} $i            - index if variable length is > 1
  */
 @mixin flint-calculate($key, $span, $context, $gutter, $i: null) {
 

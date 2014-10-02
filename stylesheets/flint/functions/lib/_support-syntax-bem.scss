@@ -6,6 +6,8 @@
  * @param {List} $selectors - string of selectors to parse
  *
  * @return {List} - parsed list of selectors according to syntax
+ *
+ * @group Internal Functions
  */
 @function flint-support-syntax-bem($selectors) {
     // Clean up selector, remove double underscores for spaces

@@ -4,10 +4,12 @@
  * @access private
  *
  * @param {List} $list                          - list of items
- * @param {String | List} $assert-types  (null) - single or list of types to assert
- * @param {Number}        $assert-length (null) - assert length of list
+ * @param {String|List} $assert-types  (null) - single or list of types to assert
+ * @param {Number}      $assert-length (null) - assert length of list
  *
  * @return {Bool}
+ *
+ * @group Internal Functions
  */
 @function flint-types-in-list($list, $assert-types: null, $assert-length: null) {
     @if flint-is-list($list) {

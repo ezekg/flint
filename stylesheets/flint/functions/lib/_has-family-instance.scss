@@ -6,7 +6,9 @@
  * @param {String} $key    - breakpoint key to search for matching instance
  * @param {String} $syntax - searches for instance using passed syntax parser
  *
- * @return {String | False} instance selector
+ * @return {String} instance selector
+ *
+ * @group Internal Functions
  */
 @function flint-has-family-instance($key: flint-get-value("settings", "default"), $syntax: $flint__support-syntax) {
 	$selector: nth(&, 1);

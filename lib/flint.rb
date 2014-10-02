@@ -10,8 +10,8 @@ else
 end
 
 module Flint
-    VERSION = "2.0.2"
-    DATE = "2014-10-01"
+    VERSION = "2.0.3"
+    DATE = "2014-10-02"
 end
 
 module Sass::Script::Functions
@@ -31,7 +31,7 @@ module Sass::Script::Functions
     # @param {Map}     map  - map to fetch value from
     # @param {ArgList} keys - list of keys to traverse
     #
-    # @return {String | False}
+    # @return {*}
     ###
     def flint_ruby_map_fetch(map, *keys)
         assert_type map, :Map, :map

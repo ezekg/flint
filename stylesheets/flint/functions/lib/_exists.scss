@@ -7,6 +7,8 @@
  * @param {String} $value - key to search for
  *
  * @return {Bool}
+ *
+ * @group Internal Functions
  */
 @function flint-exists($map, $value){
 	$is-map: flint-is-map($map);

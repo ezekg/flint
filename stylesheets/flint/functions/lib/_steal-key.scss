@@ -5,7 +5,9 @@
  *
  * @param {Number} $index - index of key
  *
- * @return {String | False}
+ * @return {String}
+ *
+ * @group Internal Functions
  */
 @function flint-steal-key($index) {
 	$length: length(map-keys(flint-get-value("breakpoints")));

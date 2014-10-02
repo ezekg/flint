@@ -6,6 +6,8 @@
  * @param {List} $list
  *
  * @return {List}
+ *
+ * @group Internal Functions
  */
 @function flint-last($list) {
 	@return nth($list, length($list));

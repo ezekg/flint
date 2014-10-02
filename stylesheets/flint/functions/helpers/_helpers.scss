@@ -1,4 +1,8 @@
 /**
+ * @group Internal Helper Functions
+ **/
+
+/**
  * Returns truthiness of a value
  *
  * @access private
@@ -192,7 +196,7 @@
  * @param {Number} $target  - pixel value
  * @param {Number} $context - context to divide by
  *
- * @return em value of target relative to context
+ * @return {Number} em value of target relative to context
  */
 @function flint-to-em($target, $context: $flint__base-font-size) {
 	@return ($target / $context) * 1em;

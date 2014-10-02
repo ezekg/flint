@@ -19,6 +19,8 @@
  * @prop {Bool}   settings.instance-maps       - use instance maps for added features
  * @prop {Bool}   settings.support-syntax      - support syntax within instance functions
  * @prop {Bool}   settings.debug-mode          - enable debug mode
+ *
+ * @group Configuration
  */
 $flint: (
     "breakpoints": (

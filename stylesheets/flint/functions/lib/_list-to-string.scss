@@ -10,6 +10,8 @@
  * @param {Bool}   $is-nested
  *
  * @return {String}
+ *
+ * @group Internal Functions
  */
 @function flint-list-to-string($list, $glue: "", $is-nested: false) {
 	$result: null;

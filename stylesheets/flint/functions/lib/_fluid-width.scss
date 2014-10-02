@@ -7,6 +7,8 @@
  * @param {Number} $context
  *
  * @return {Number}
+ *
+ * @group Internal Functions
  */
 @function flint-fluid-width($target, $context) {
 	@return ($target / $context) * 100%;

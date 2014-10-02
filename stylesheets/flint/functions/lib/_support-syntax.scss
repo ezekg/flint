@@ -7,6 +7,8 @@
  * @param {List}   $selectors - string of selectors to parse
  *
  * @return {List} - list of parsed selectors according to syntax
+ *
+ * @group Internal Functions
  */
 @function flint-support-syntax($syntax, $selectors) {
     $syntax: to-lower-case($syntax);

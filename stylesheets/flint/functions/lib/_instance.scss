@@ -12,6 +12,8 @@
  * @param {Number} $output-margin-left  - computed left margin of instance
  *
  * @return {Map} merged instance map
+ *
+ * @group Internal Functions
  */
 @function flint-instance($key, $span, $context, $gutter, $output-width, $output-margin-right, $output-margin-left) {
 
