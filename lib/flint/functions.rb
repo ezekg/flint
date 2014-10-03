@@ -93,5 +93,4 @@ module Flint
     end
     declare :flint_ruby_replace_substring, :args => [:string, :find, :replace]
 
-    Sass::Script::Functions.send(:include, Flint)
 end
