@@ -43,6 +43,9 @@ $flint: (
 // Enable development mode
 $flint__development-mode: true !global;
 
+// Test speed improvements
+// $flint__use-ruby-functions: false !global;
+
 /*
  * BEGIN TESTS
  * -----------

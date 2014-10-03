@@ -1,41 +1,37 @@
-require './lib/flint'
+require_relative 'lib/flint'
 
-Gem::Specification.new do |s|
+Gem::Specification.new do |spec|
 
-  # Release Specific Information
-  s.version = Flint::VERSION
-  s.date = Flint::DATE
+  # Info
+  spec.version = Flint::VERSION
+  spec.date = Flint::DATE
 
-  # Gem Details
-  s.name = "flint-gs"
-  s.rubyforge_project = "flint"
-  s.licenses = ['MIT']
-  s.authors = ["Ezekiel Gabrielse"]
-  s.email = ["ezekg@yahoo.com"]
-  s.homepage = "http://flint.gs"
+  # Details
+  spec.name = "flint-gs"
+  spec.rubyforge_project = "flint"
+  spec.licenses = "MIT"
+  spec.authors = ["Ezekiel Gabrielse"]
+  spec.email = ["ezekg@yahoo.com"]
+  spec.homepage = "http://flint.gs"
 
-  # Project Description
-  s.summary = %q{A highly advanced Sass grid framework designed for rapid responsive development.}
-  s.description = %q{Flint is a highly advanced Sass grid framework designed for rapid responsive development.}
+  # Description
+  spec.summary = %q{A highly advanced Sass grid framework designed for rapid responsive development.}
+  spec.description = %q{Flint is a highly advanced Sass grid framework designed for rapid responsive development.}
 
-  # Library Files
-  s.files += Dir.glob("lib/**/*.*")
+  # Library
+  spec.files += Dir.glob("lib/**/*.*")
 
-  # Sass Files
-  s.files += Dir.glob("stylesheets/**/*.*")
+  # Sass
+  spec.files += Dir.glob("stylesheets/**/*.*")
 
-  # Test Files
-  # s.files += Dir.glob("tests/**/*.*")
+  # Other
+  spec.files += ["LICENSE", "README.md"]
 
-  # Other files
-  s.files += ["LICENSE", "README.md"]
+  # Test
+  spec.test_files += Dir.glob("tests/**/*.*")
 
-  # Gem Bookkeeping
-  s.required_rubygems_version = ">= 1.3.6"
-  s.rubygems_version = %q{1.3.6}
-
-  # Gems Dependencies
-  s.add_dependency("sass", ["~> 3.4"])
-  # s.add_dependency("compass", [">= 0.12.1"])
-
+  # Dependencies
+  spec.add_development_dependency "bundler", "~> 1.7"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_dependency "sass", "~> 3.4"
 end

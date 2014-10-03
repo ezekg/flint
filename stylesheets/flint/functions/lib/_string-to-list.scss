@@ -80,13 +80,13 @@
 				$string-list: append($string-list, $matched-string, "comma");
 
 				// Finally, return comma separated list of selectors
-				@return $string-list;
+				@return flint-purge($string-list);
 			} @else {
 
 				// Else, just return the string as a single item list
 				$string-list: append($string-list, $string);
 
-				@return $string-list;
+				@return flint-purge($string-list);
 			}
 		}
 	} @else {

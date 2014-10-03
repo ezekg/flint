@@ -12,22 +12,22 @@
 @function flint-support-syntax-bem($selectors) {
     // Clean up selector, remove double underscores for spaces
     //  add pseudo character to differentiate selectors
-    $selectors: flint-replace-substring(inspect($selectors), "__", "/");
+    $selectors: flint-replace-substring(inspect(unquote($selectors)), "__", "/");
     // Parse string back to list without pseudo character
     $selectors: flint-string-to-list($selectors, "/");
     // Define top-most parent of selector
     $parent: nth($selectors, 1);
     // Create new list of parsed selectors
-    $selector-list: ($parent);
+    $selector-list: ("#{$parent}",);
 
     // Loop over each selector and build list of selectors
     @each $selector in $selectors {
         // Make sure current selector is not the parent
         @if $selector != $parent {
             // Save to selector list
-            $selector-list: append($selector-list, ($parent + "__" + $selector), "comma");
+            $selector-list: append($selector-list, "#{$parent}__#{$selector}", "comma");
             // Define new parent
-            $parent: $parent + "__" + $selector;
+            $parent: "#{$parent}__#{$selector}";
         }
     }
 

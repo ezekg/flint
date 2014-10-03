@@ -14,18 +14,24 @@
  * @group Internal Functions
  */
 @function flint-list-to-string($list, $glue: "", $is-nested: false) {
-	$result: null;
-	$length: length($list);
 
-	@for $i from 1 through $length {
-		$n: nth($list, $i);
+	// Use Ruby function if available
+	@if $flint__use-ruby-functions {
+		@return flint_ruby_list_to_string($list, $glue);
+	} @else {
+		$result: null;
+		$length: length($list);
 
-		@if flint-is-list($n) {
-			$result: $result#{flint-list-to-string($n, $glue, true)};
-		} @else {
-			$result: if($i != length($list) or $is-nested, $result#{$n}#{$glue}, $result#{$n});
+		@for $i from 1 through $length {
+			$n: nth($list, $i);
+
+			@if flint-is-list($n) {
+				$result: $result#{flint-list-to-string($n, $glue, true)};
+			} @else {
+				$result: if($i != length($list) or $is-nested, $result#{$n}#{$glue}, $result#{$n});
+			}
 		}
-	}
 
-	@return $result;
+		@return unquote($result);
+	}
 }

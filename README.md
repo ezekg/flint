@@ -53,36 +53,39 @@ function parses the selector string (for example, `.block__element__element`) li
 /**
  * Parser to support BEM syntax
  *
+ * @access private
+ *
  * @param {List} $selectors - string of selectors to parse
  *
  * @return {List} - parsed list of selectors according to syntax
+ *
+ * @group Internal Functions
  */
 @function flint-support-syntax-bem($selectors) {
-	// Clean up selector, remove double underscores for spaces
-	//  add pseudo character to differentiate selectors
-	$selectors: flint-replace-substring(inspect($selectors), "__", "/");
-	// Parse string back to list without pseudo character
-	$selectors: flint-string-to-list($selectors, "/");
-	// Define top-most parent of selector
-	$parent: nth($selectors, 1);
-	// Create new list of parsed selectors
-	$selector-list: ($parent);
+    // Clean up selector, remove double underscores for spaces
+    //  add pseudo character to differentiate selectors
+    $selectors: flint-replace-substring(inspect(unquote($selectors)), "__", "/");
+    // Parse string back to list without pseudo character
+    $selectors: flint-string-to-list($selectors, "/");
+    // Define top-most parent of selector
+    $parent: nth($selectors, 1);
+    // Create new list of parsed selectors
+    $selector-list: ("#{$parent}",);
 
-	// Loop over each selector and build list of selectors
-	@each $selector in $selectors {
-		// Make sure current selector is not the parent
-		@if $selector != $parent {
-			// Save to selector list
-			$selector-list: append($selector-list, ($parent + "__" + $selector), "comma");
-			// Define new parent
-			$parent: $parent + "__" + $selector;
-		}
-	}
+    // Loop over each selector and build list of selectors
+    @each $selector in $selectors {
+        // Make sure current selector is not the parent
+        @if $selector != $parent {
+            // Save to selector list
+            $selector-list: append($selector-list, "#{$parent}__#{$selector}", "comma");
+            // Define new parent
+            $parent: "#{$parent}__#{$selector}";
+        }
+    }
 
-	// Return the list of parsed selectors
-	@return $selector-list;
+    // Return the list of parsed selectors
+    @return $selector-list;
 }
-
 ```
 
 This will be parsed into a list of selectors: `.block, .block__element, .block__element__element`. The list of selectors can then be used by the

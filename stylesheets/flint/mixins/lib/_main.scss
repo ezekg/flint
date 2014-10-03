@@ -274,8 +274,6 @@
  * @param {String|Number}      $context (null) - context value of span, or null for shorthand
  * @param {String|List}        $gutter  (null) - alias for gutter modifier
  *
- * @content all content passed will be placed _underneath_ output so that it takes precedence.
- *
  * @throws error if list lengths do not match number of breakpoints (when using variable shorthands).
  *
  * ----

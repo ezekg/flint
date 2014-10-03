@@ -1,5 +1,14 @@
 # Change Log
 
+### 2.0.4 10/3/14
+* Refactored Ruby `lib` for easier upkeep.
+* Removed `@content` from doc blocks for now.
+* Added `list_to_string()` Ruby function.
+* Fixed issue with `support-syntax-bem()` returning oddly quoted strings when using Sass functions.
+
+### 2.0.3 10/2/14
+* Update documentation to follow SassDoc standards.
+
 ### 2.0.2 10/1/14
 * Reversed order that `map-merge` merges instance maps, so that newer instances are merged to the top rather than the bottom. Increased performance benchmarks by `23%`.
 * Added Ruby function for `map-fetch()`. Increased performance benchmarks by `15%`.
