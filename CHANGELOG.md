@@ -1,5 +1,12 @@
 # Change Log
 
+### 2.0.6 10/7/14
+* Remove redundant Ruby functions.
+* Update docs to include examples that follow SassDoc standards.
+
+### 2.0.5 10/4/14
+* Update docs
+
 ### 2.0.4 10/3/14
 * Refactored Ruby `lib` for easier upkeep.
 * Removed `@content` from doc blocks for now.

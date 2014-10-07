@@ -6,6 +6,8 @@
  * @link http://nicolasgallagher.com/micro-clearfix-hack/
  *
  * @requires {Mixin} clearfix - local mixin if available
+ *
+ * @group Internal Mixins
  */
 @mixin flint-clearfix {
     @if mixin-exists("clearfix") {

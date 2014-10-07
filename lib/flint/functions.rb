@@ -4,10 +4,6 @@ module Flint
       Sass::Script::Functions.declare(*args)
     end
 
-    def self.map(hash)
-      Sass::Script::Value::Map.new(hash)
-    end
-
     ###
     # Use ruby functions
     #

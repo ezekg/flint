@@ -4,7 +4,6 @@ Gem::Specification.new do |spec|
 
   # Info
   spec.version = Flint::VERSION
-  spec.date = Flint::DATE
 
   # Details
   spec.name = "flint-gs"

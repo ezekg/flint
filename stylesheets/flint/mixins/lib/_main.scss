@@ -11,37 +11,61 @@
  * a column count of `4`, then anything above that would likely cause layout issues
  * for that breakpoint.
  *
- *     \@include _(2);
+ *    ```scss
+ *    div {
+ *        @include _(2);
+ *    }
+ *    ```
  *
  * ### Recursive Span With Identical Context
  * Use this if your nested context is identical across all breakpoints. The `$context` should
  * be the span value of the element's parent, or `auto`.
  *
- *     \@include _(4, 2);
+ *    ```scss
+ *    div {
+ *        @include _(4, 2);
+ *    }
+ *    ```
  *
  * ### Recursive Span With Differing Context
  * Use this if your nested context is not identical across all breakpoints. The `$context`
  * should be the span value of the element's parent, or `auto`.
  *
- *     \@include _(4, 8 8 4 4);
+ *    ```scss
+ *    div {
+ *        @include _(4, 8 8 4 4);
+ *    }
+ *    ```
  *
  * ### Variable Span
  * Use this if your content needs different spans across each breakpoint. The order of
  * operations is the order that your breakpoints are listed in your config (DESC).
  *
- *     \@include _(8 8 4 4);
+ *    ```scss
+ *    div {
+ *        @include _(8 8 4 4);
+ *    }
+ *    ```
  *
  * ### Variable Span With Identical Context
  * Use this if your nested context is identical across all breakpoints. The `$context`
  * should be the span value of the element's parent, or `auto`.
  *
- *     \@include _(4 4 2 2, 4);
+ *    ```scss
+ *    div {
+ *        @include _(4 4 2 2, 4);
+ *    }
+ *    ```
  *
  * ### Variable Span With Differing Context
  * Use this if your nested context is not identical across all breakpoints. The `$context`
  * should be the span value of the element's parent, or `auto`.
  *
- *     \@include _(8 8 4 4, 8 8 4 4);
+ *    ```scss
+ *    div {
+ *        @include _(8 8 4 4, 8 8 4 4);
+ *    }
+ *    ```
  *
  * ----
  *
@@ -50,13 +74,21 @@
  * ### Span
  * Use if you want to define each span by breakpoint `$alias`.
  *
- *     \@include _(desktop, 2);
+ *    ```scss
+ *    div {
+ *        @include _(desktop, 2);
+ *    }
+ *    ```
  *
  * ### Span With Context
  * Use if you want to define each span by breakpoint `$alias`. The `$context` should be the span
  * value of the element's parent, or `auto`.
  *
- *     \@include _(desktop, 4, 2);
+ *    ```scss
+ *    div {
+ *        @include _(desktop, 4, 2);
+ *    }
+ *    ```
  *
  * ----
  *
@@ -69,9 +101,9 @@
  *
  * When utilizing the `$context` argument, be sure to note the differences in the way the calculations
  * happen depending on if you use a numerical value or `auto`. When using a numerical value, the span
- * is calculated against the current breakpoint's value (example: `80em`), then is divided by it's column
- * count (example: `16`), and then finally multiplied by the current breakpoints passed `$context` value.
- * When using `auto`, the span is _always_ calculated against the closest parent element's width instead
+ * is calculated against the current breakpoint's value (example: `80em`), then it's divided by its column
+ * count (example: `16`), and then finally, it's multiplied by the passed `$context` value. When using
+ * `auto`, the span is _always_ calculated against the closest parent element's width instead
  * of the current breakpoint's width.
  *
  * The difference in output varies, but your gutters will be more accurate across the board if you
@@ -80,34 +112,45 @@
  * all use a gutter value of their own. Because the parent element's actual width is always used, the
  * gutters never become out of sync.
  *
+ *    ```scss
  *    .parent {
- *        \@include _(4);
+ *        @include _(4);
  *        .child {
- *            \@include _(3, 4);
+ *            @include _(3, 4);
  *        }
  *    }
+ *
  *    // Auto will work
  *    .parent {
- *        \@include _(4);
+ *        @include _(4);
  *        .child {
- *            \@include _(3, auto);
+ *            @include _(3, auto);
  *        }
  *    }
+ *
  *    // Will also work
  *    .parent {
- *        \@include _(4);
+ *        @include _(4);
  *    }
  *    .parent .child {
- *        \@include _(3, auto);
+ *        @include _(3, auto);
  *    }
+ *
  *    // Will not work, as the child has no relation to
  *    //   the parent within the stylesheet
  *    .parent {
- *        \@include _(6);
+ *        @include _(6);
  *    }
  *    .child {
- *        \@include _(3, auto);
+ *        @include _(3, auto);
  *    }
+ *    ```
+ *
+ * If you attempt to use this feature with a methodology like BEM, where selectors aren't neccassarily
+ * lists, but instead single strings, you'll notice that Flint can't find return a valid parent for the
+ * element. This is the reason for the `support-syntax` functionality. With it, Flint is able to parse
+ * selectors that are a single string, as opposed to a list, and successfully search for the passed
+ * selector's parent.
  *
  * ----
  *
@@ -116,56 +159,70 @@
  * ### Alpha
  * Remove the left `$gutter` from the span. Other aliases for `alpha` include: `no-left` and `first`.
  *
+ *    ```scss
  *    div {
- *        \@include _(12 8 6 4, $gutter: alpha);
+ *        @include _(12 8 6 4, $gutter: alpha);
  *    }
+ *    ```
  *
  * ### Omega
  * Remove the right `$gutter` from the span. Other aliases for `omega` include: `no-right` and `last`.
  *
+ *    ```scss
  *    div {
- *        \@include _(2, $gutter: omega);
+ *        @include _(2, $gutter: omega);
  *    }
+ *    ````
  *
  * ### Row
  * Remove both of the `$gutter` values from the span. Other aliases for `row` include: `none`.
  *
+ *    ```scss
  *    div {
- *        \@include _(4, $gutter: row);
+ *        @include _(4, $gutter: row);
  *    }
+ *    ```
  *
  * ### Center
  * Center the current span within it's container element. Outputs auto left and right margins.
  * This modifier will also remove any float properties on the element.
  *
+ *    ```scss
  *    div {
- *        \@include _(4, $gutter: center);
+ *        @include _(4, $gutter: center);
  *    }
+ *    ```
  *
  * ### Inside
  * Sets both `$gutter` values on the inside of the element. Instead of deducting `$gutter*2` out
  * of the final width, it will deduct `$gutter*4`. Useful for nesting elements inside of other
  * elements without using `$context: auto`.
  *
+ *    ```scss
  *    div {
- *        \@include _(16 12 8 4, $gutter: inside);
+ *        @include _(16 12 8 4, $gutter: inside);
  *    }
+ *    ```
  *
  * ### Default
  * Argument to use the default left/right `$gutter` values. Useful for when you want to use a
  * variable `$gutter` argument. Other aliases for `default` include: `normal` and `regular`.
  *
+ *    ```scss
  *    div {
- *        \@include _(4, $gutter: default);
+ *        @include _(4, $gutter: default);
  *    }
+ *    ```
  *
  * ### Variable Modifiers
  * Instead of passing in a recursive `$gutter` value, you may specify a value for each breakpoint exactly
  * like you would a `$span` argument.
  *
+ *    ```scss
  *    div {
- *        \@include _(10 8 6 4, $gutter: alpha omega omega default);
+ *        @include _(10 8 6 4, $gutter: alpha omega omega default);
  *    }
+ *    ```
  *
  * ----
  *
@@ -174,63 +231,73 @@
  * ### By Alias
  * Use this type of query to wrap the `@content` in a single query for the specified breakpoint.
  *
+ *    ```scss
  *    div {
- *        \@include _(desktop) {
+ *        @include _(desktop) {
  *            property: value;
  *        }
  *    }
+ *    ```
  *
  * ### From, To
  * Use this type of query to wrap the `@content` in a single query between 2 breakpoints. Make
  * sure to pass in the breakpoints from lowest to highest.
  *
+ *    ```scss
  *    div {
- *        \@include _(from tablet to laptop) {
+ *        @include _(from tablet to laptop) {
  *            property: value;
  *        }
  *    }
+ *    ```
  *
  * ### Greater Than
  * Use this type of query to wrap the `@content` in a single query for anything above
  * the passed breakpoint.
  *
+ *    ```scss
  *    div {
- *        \@include _(greater than laptop) {
+ *        @include _(greater than laptop) {
  *            property: value;
  *        }
- *        \@include _(5em greater than tablet) {
+ *        @include _(5em greater than tablet) {
  *            property: value;
  *        }
- *        \@include _(greater than 55em) {
+ *        @include _(greater than 55em) {
  *            property: value;
  *        }
  *    }
+ *    ```
  *
  * ### Less Than
  * Use this type of query to wrap the `@content` in a single query for anything below
  * the passed breakpoint.
  *
+ *    ```scss
  *    div {
- *        \@include _(less than laptop) {
+ *        @include _(less than laptop) {
  *            property: value;
  *        }
- *        \@include _(5em less than tablet) {
+ *        @include _(5em less than tablet) {
  *            property: value;
  *        }
- *        \@include _(less than 8em) {
+ *        @include _(less than 8em) {
  *            property: value;
  *        }
  *    }
+ *    ```
  *
  * ### For
  * Use this type of query to wrap the `@content` in a single comma delimited query
  * for each passed `$alias`.
  *
+ *    ```scss
  *    div {
- *        \@include _(for mobile tablet desktop) {
+ *        @include _(for mobile tablet desktop) {
  *            property: value;
  *        }
  *    }
+ *    ```
  *
  * ----
  *
@@ -241,9 +308,11 @@
  * packaged with a micro-clearfix function. _Flint will attempt to use a local mixin named
  * `clearfix`. If one is not found, it will use it's own._
  *
+ *    ```scss
  *    div {
- *        \@include _(clear);
+ *        @include _(clear);
  *    }
+ *    ```
  *
  * ### Foundation
  * A foundation instance will output a global box-sizing: border-box declaration. If you selected
@@ -252,7 +321,9 @@
  * This should be placed at the root of your stylesheet. _Flint will attempt to use a local
  * mixin named `box-sizing`. If one is not found, it will use it's own._
  *
- *     \@include _(foundation);
+ *    ```scss
+ *     @include _(foundation);
+ *    ```
  *
  * ### Container
  * Containers act as a containing row for each individual breakpoint. It uses the `"max-width"`
@@ -260,10 +331,11 @@
  * will also center your element using auto left and right margins. You may combine
  * container and clear declarations, with arguments separated by a comma.
  *
- *
+ *    ```scss
  *    div {
- *        \@include _(container);
+ *        @include _(container);
  *    }
+ *    ```
  *
  * ----
  *
@@ -274,7 +346,7 @@
  * @param {String|Number}      $context (null) - context value of span, or null for shorthand
  * @param {String|List}        $gutter  (null) - alias for gutter modifier
  *
- * @throws error if list lengths do not match number of breakpoints (when using variable shorthands).
+ * @throws - Error if list lengths do not match number of breakpoints (when using variable shorthands).
  *
  * ----
  *
