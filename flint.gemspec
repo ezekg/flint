@@ -18,16 +18,16 @@ Gem::Specification.new do |spec|
   spec.description = %q{Flint is a highly advanced Sass grid framework designed for rapid responsive development.}
 
   # Library
-  spec.files += Dir.glob("lib//////.*")
+  spec.files += Dir.glob("lib/**/*.*")
 
   # Sass
-  spec.files += Dir.glob("stylesheets//////.*")
+  spec.files += Dir.glob("stylesheets/**/*.*")
 
   # Other
   spec.files += ["LICENSE", "README.md"]
 
   # Test
-  spec.test_files += Dir.glob("tests//////.*")
+  spec.test_files += Dir.glob("tests/**/*.*")
 
   # Dependencies
   spec.add_development_dependency "bundler", "~> 1.7"
