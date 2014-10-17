@@ -1,6 +1,6 @@
-/*
- * Get single value from key in instance map based on $selector::$key
- */
+//
+// Get single value from key in instance map based on $selector::$key
+//
 @include describe("[function] get-instance-value") {
 
 	// $flint__instances: (

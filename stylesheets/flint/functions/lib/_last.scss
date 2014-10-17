@@ -1,14 +1,14 @@
-/**
- * Get last item in list
- *
- * @access private
- *
- * @param {List} $list
- *
- * @return {List}
- *
- * @group Internal Functions
- */
+///
+/// Get last item in list
+///
+/// @access private
+///
+/// @param {List} $list
+///
+/// @return {List}
+///
+/// @group Internal Functions
+///
 @function flint-last($list) {
 	@return nth($list, length($list));
 }

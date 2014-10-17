@@ -1,16 +1,16 @@
-/**
- * Turns string into a flat list
- *
- * @access private
- *
- * @param {String} $string       - string to perform on
- * @param {String} $find   (" ") - item to find which separates substrings
- * @param {String} $ignore (",") - removes remaining string beyond item
- *
- * @return {List}
- *
- * @group Internal Functions
- */
+///
+/// Turns string into a flat list
+///
+/// @access private
+///
+/// @param {String} $string       - string to perform on
+/// @param {String} $find   (" ") - item to find which separates substrings
+/// @param {String} $ignore (",") - removes remaining string beyond item
+///
+/// @return {List}
+///
+/// @group Internal Functions
+///
 @function flint-string-to-list($string, $find: " ", $ignore: ",") {
 	@if flint-is-string($string) {
 

@@ -1,15 +1,15 @@
-/**
- * Fetch value from map
- *
- * @access private
- *
- * @param {Map}     $map  - map to fetch value from
- * @param {ArgList} $keys - list of keys to traverse
- *
- * @return {*}
- *
- * @group Internal Functions
- */
+///
+/// Fetch value from map
+///
+/// @access private
+///
+/// @param {Map}     $map  - map to fetch value from
+/// @param {ArgList} $keys - list of keys to traverse
+///
+/// @return {*}
+///
+/// @group Internal Functions
+///
 @function flint-map-fetch($map, $keys...) {
 
 	// Use Ruby function if available

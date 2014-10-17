@@ -1,14 +1,14 @@
-/**
- * Use global syntax
- *
- * @access private
- *
- * @param {List} $selectors - string of selectors to parse
- *
- * @return {List} - parsed list of selectors
- *
- * @group Internal Functions
- */
+///
+/// Use global syntax
+///
+/// @access private
+///
+/// @param {List} $selectors - string of selectors to parse
+///
+/// @return {List} - parsed list of selectors
+///
+/// @group Internal Functions
+///
 @function flint-use-syntax($selectors) {
     @if $flint__support-syntax {
         @return flint-support-syntax($flint__support-syntax, $selectors);

@@ -1,6 +1,6 @@
-/*
- * Gets the index of the passed key
- */
+//
+// Gets the index of the passed key
+//
 @include describe("[function] get-index") {
 
     @include it("should expect index to match index of key in configuration map") {

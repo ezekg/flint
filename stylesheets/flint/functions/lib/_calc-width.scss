@@ -1,17 +1,17 @@
-/**
-* Calculate width
-*
-* @access private
-*
-* @param {String}        $key            - key of breakpoint
-* @param {Number}        $span           - span value of element
-* @param {Number|String} $context (null) - context value of element
-* @param {Number}        $deduct  (null) - subtract value out of final width
-*
-* @return {Map} - map of target and context result
-*
-* @group Internal Functions
-*/
+///
+/// Calculate width
+///
+/// @access private
+///
+/// @param {String}        $key            - key of breakpoint
+/// @param {Number}        $span           - span value of element
+/// @param {Number|String} $context (null) - context value of element
+/// @param {Number}        $deduct  (null) - subtract value out of final width
+///
+/// @return {Map} - map of target and context result
+///
+/// @group Internal Functions
+///
 @function flint-calc-width($key, $span, $context: null, $deduct: null) {
 	$result: ();
 
@@ -26,9 +26,9 @@
 
 	} @else if $context == "auto" {
 
-		/*
-		 * Check if instance maps are enabled
-		 */
+		//
+		// Check if instance maps are enabled
+		//
 		@if not flint-get-value("settings", "instance-maps") {
 			@if not $flint__development-mode {
 				@error "Instance maps are disabled. Automatic context is not available. Enable `instance-maps` in the config to continue.";

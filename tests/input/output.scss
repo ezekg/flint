@@ -1,6 +1,6 @@
-/**
- * Configuration map
- */
+///
+/// Configuration map
+///
 $flint: (
     "breakpoints": (
         "desktop": (
@@ -46,15 +46,15 @@ $flint__development-mode: true !global;
 // Test speed improvements
 // $flint__use-ruby-functions: false !global;
 
-/*
- * BEGIN TESTS
- * -----------
- */
+///
+/// BEGIN TESTS
+/// -----------
+///
 @include runner-start;
-/*
- * -----------
- * BEGIN TESTS
- */
+///
+/// -----------
+/// BEGIN TESTS
+///
 
 @include it("should expect foundation to not be set") {
     @include should(expect($flint__foundation),
@@ -72,21 +72,21 @@ $flint__development-mode: true !global;
 
 @import "functions/functions";
 
-/*
- * END TESTS
- * ---------
- */
+///
+/// END TESTS
+/// ---------
+///
 @include runner-end;
-/*
- * ---------
- * END TESTS
- */
+///
+/// ---------
+/// END TESTS
+///
 
 
 
-/*
- * Visual HTML test
- */
+///
+/// Visual HTML test
+///
 $color__blue: #2C3F52;
 $color__blue--dark: #15202A;
 $color__blue--darkest: #0E181E;

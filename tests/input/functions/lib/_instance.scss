@@ -1,6 +1,6 @@
-/*
- * Keeps count of all instances with arguments, stores in global var
- */
+//
+// Keeps count of all instances with arguments, stores in global var
+//
 @include describe("[function] instance") {
 
     $pseudo-instance: (

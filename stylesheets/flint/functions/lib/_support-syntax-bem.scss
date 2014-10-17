@@ -1,14 +1,14 @@
-/**
- * Parser to support BEM syntax
- *
- * @access private
- *
- * @param {List} $selectors - string of selectors to parse
- *
- * @return {List} - parsed list of selectors according to syntax
- *
- * @group Internal Functions
- */
+///
+/// Parser to support BEM syntax
+///
+/// @access private
+///
+/// @param {List} $selectors - string of selectors to parse
+///
+/// @return {List} - parsed list of selectors according to syntax
+///
+/// @group Internal Functions
+///
 @function flint-support-syntax-bem($selectors) {
     // Clean up selector, remove double underscores for spaces
     //  add pseudo character to differentiate selectors

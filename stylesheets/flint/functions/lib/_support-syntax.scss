@@ -1,15 +1,15 @@
-/**
- * Support syntax
- *
- * @access private
- *
- * @param {String} $syntax    - alias of syntax to support
- * @param {List}   $selectors - string of selectors to parse
- *
- * @return {List} - list of parsed selectors according to syntax
- *
- * @group Internal Functions
- */
+///
+/// Support syntax
+///
+/// @access private
+///
+/// @param {String} $syntax    - alias of syntax to support
+/// @param {List}   $selectors - string of selectors to parse
+///
+/// @return {List} - list of parsed selectors according to syntax
+///
+/// @group Internal Functions
+///
 @function flint-support-syntax($syntax, $selectors) {
     $syntax: to-lower-case($syntax);
 

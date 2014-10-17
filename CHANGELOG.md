@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.0.7 10/17/14
+* Changed doc comments from `/* */` comments to `///`.
+
 ### 2.0.6 10/7/14
 * Remove redundant Ruby functions.
 * Update docs to include examples that follow SassDoc standards.

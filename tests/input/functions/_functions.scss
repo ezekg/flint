@@ -1,11 +1,11 @@
-/*
- * Helpers
- */
+///
+/// Helpers
+///
 @import "helpers/helpers";
 
-/*
- * Functions
- */
+///
+/// Functions
+///
 @import "lib/exists";
 
 // Getters
@@ -38,9 +38,9 @@
 @import "lib/replace-substring";
 @import "lib/string-to-list";
 
-/*
- * Support syntax
- */
+///
+/// Support syntax
+///
 @import "lib/use-syntax";
 @import "lib/support-syntax";
 

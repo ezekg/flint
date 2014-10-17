@@ -1,6 +1,6 @@
-/*
- * Returns next indexed key based on passed index
- */
+//
+// Returns next indexed key based on passed index
+//
 @include describe("[function] next-index") {
 
 	@include it("should expect alias of next indexed breakpoint") {

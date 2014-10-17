@@ -1,20 +1,20 @@
-/**
- * Keeps count of all instances with arguments, stores in global var
- *
- * @access private
- *
- * @param {String} $key                 - computed breakpoint of instance
- * @param {Number} $span                - computed span of instance
- * @param {Number} $context             - computed context of instance
- * @param {Number} $gutter              - computed gutter of instance
- * @param {Number} $output-width        - computed width of instance
- * @param {Number} $output-margin-right - computed right margin of instance
- * @param {Number} $output-margin-left  - computed left margin of instance
- *
- * @return {Map} merged instance map
- *
- * @group Internal Functions
- */
+///
+/// Keeps count of all instances with arguments, stores in global var
+///
+/// @access private
+///
+/// @param {String} $key                 - computed breakpoint of instance
+/// @param {Number} $span                - computed span of instance
+/// @param {Number} $context             - computed context of instance
+/// @param {Number} $gutter              - computed gutter of instance
+/// @param {Number} $output-width        - computed width of instance
+/// @param {Number} $output-margin-right - computed right margin of instance
+/// @param {Number} $output-margin-left  - computed left margin of instance
+///
+/// @return {Map} merged instance map
+///
+/// @group Internal Functions
+///
 @function flint-instance($key, $span, $context, $gutter, $output-width, $output-margin-right, $output-margin-left) {
 
     // Increase the instance count

@@ -43,6 +43,8 @@ scss --require ./lib/flint.rb example.scss > example.css
 
 Documentation is located [here](http://flint.gs/docs).
 
+_Tip: For simple projects, disable `instance-maps`, as it is has a large overhead and will increase your compile times._
+
 ## Syntax support
 
 As of `1.6.0`, you can add syntax support for your preferred syntax. I built the system for BEM, but it should be easily extendable to
@@ -50,17 +52,17 @@ support your preferred syntax. Simply create a function which parses a string of
 function parses the selector string (for example, `.block__element__element`) like so,
 
 ```scss
-/**
- * Parser to support BEM syntax
- *
- * @access private
- *
- * @param {List} $selectors - string of selectors to parse
- *
- * @return {List} - parsed list of selectors according to syntax
- *
- * @group Internal Functions
- */
+///
+/// Parser to support BEM syntax
+///
+/// @access private
+///
+/// @param {List} $selectors - string of selectors to parse
+///
+/// @return {List} - parsed list of selectors according to syntax
+///
+/// @group Internal Functions
+///
 @function flint-support-syntax-bem($selectors) {
     // Clean up selector, remove double underscores for spaces
     //  add pseudo character to differentiate selectors

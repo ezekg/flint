@@ -1,15 +1,15 @@
-/**
- * Steal breakpoint value by index
- *
- * @access private
- *
- * @param {Number} $index - index of key
- * @param {String} $value - value to get from breakpoint
- *
- * @return {String}
- *
- * @group Internal Functions
- */
+///
+/// Steal breakpoint value by index
+///
+/// @access private
+///
+/// @param {Number} $index - index of key
+/// @param {String} $value - value to get from breakpoint
+///
+/// @return {String}
+///
+/// @group Internal Functions
+///
 @function flint-steal-values($index, $value) {
 	@return if(flint-is-number($index), flint-get-value("breakpoints", flint-steal-key($index), $value), false);
 }

@@ -1,104 +1,104 @@
-/**
- * @group Internal Variables
-**/
+////
+/// @group Internal Variables
+////
 
-/**
- * Use development mode to silence fatal errors
- *
- * @access private
- *
- * @type Bool
- */
+///
+/// Use development mode to silence fatal errors
+///
+/// @access private
+///
+/// @type Bool
+///
 $flint__development-mode: false !global;
 
-/**
- * Set global variable to check if foundation has been set
- *
- * @access private
- *
- * @type String
- */
+///
+/// Set global variable to check if foundation has been set
+///
+/// @access private
+///
+/// @type String
+///
 $flint__foundation: "non-existent" !global;
 
-/**
- * Keep count of all instances
- *
- * @access private
- *
- * @type Number
- */
+///
+/// Keep count of all instances
+///
+/// @access private
+///
+/// @type Number
+///
 $flint__instance-count: 0 !global;
 
-/**
- * Keep map of all instances
- *
- * @access private
- *
- * @type Map
- */
+///
+/// Keep map of all instances
+///
+/// @access private
+///
+/// @type Map
+///
 $flint__instances: () !global;
 
-/**
- * Font size for em calculation
- *
- * @access private
- *
- * @type Number
- */
+///
+/// Font size for em calculation
+///
+/// @access private
+///
+/// @type Number
+///
 $flint__base-font-size: 16px !global;
 
-/**
- * Detect if Ruby functions are available
- *
- * @access private
- *
- * @type Bool
- */
+///
+/// Detect if Ruby functions are available
+///
+/// @access private
+///
+/// @type Bool
+///
 $flint__use-ruby-functions: if(flint-use-ruby-functions() == true, true, false) !global;
 
-/**
- * Global syntax support
- *
- * @access private
- *
- * @type String
- */
+///
+/// Global syntax support
+///
+/// @access private
+///
+/// @type String
+///
 $flint__support-syntax: flint-get-value("settings", "support-syntax") !global;
 
-/**
- * Gather all keys, breakpoints and column counts
- *
- * @access private
- *
- * @type List
- */
+///
+/// Gather all keys, breakpoints and column counts
+///
+/// @access private
+///
+/// @type List
+///
 $flint__all-keys: flint-get-all-keys() !global;
 $flint__all-breakpoints: flint-get-all-breakpoints() !global;
 $flint__all-columns: flint-get-all-columns() !global;
 
-/**
- * Cache selector instance lists
- *
- * @access private
- *
- * @type Map
- */
+///
+/// Cache selector instance lists
+///
+/// @access private
+///
+/// @type Map
+///
 $flint__cached-instances: () !global;
 
-/**
- * Cache calculated values
- *
- * @access private
- *
- * @type Map
- */
+///
+/// Cache calculated values
+///
+/// @access private
+///
+/// @type Map
+///
 $flint__cached-values: () !global;
 
-/**
- * Cache calculation results
- *
- * @access private
- *
- * @type Map
- */
+///
+/// Cache calculation results
+///
+/// @access private
+///
+/// @type Map
+///
 $flint__cache-results: () !global;

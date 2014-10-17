@@ -1,6 +1,6 @@
-/*
- * Steal breakpoint value by index
- */
+//
+// Steal breakpoint value by index
+//
 @include describe("[function] steal-values") {
 
 	@include it("should expect steal value from breakpoint key based on its index") {

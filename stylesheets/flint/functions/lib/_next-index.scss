@@ -1,14 +1,14 @@
-/**
- * Returns next indexed key based on passed index
- *
- * @access private
- *
- * @param {Number} $index - index of breakpoint
- *
- * @return {String}
- *
- * @group Internal Functions
- */
+///
+/// Returns next indexed key based on passed index
+///
+/// @access private
+///
+/// @param {Number} $index - index of breakpoint
+///
+/// @return {String}
+///
+/// @group Internal Functions
+///
 @function flint-next-index($index) {
 	@return if(flint-is-number($index) and $index != 0, flint-steal-key($index + 1), false);
 }

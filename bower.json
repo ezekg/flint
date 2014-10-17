@@ -1,6 +1,6 @@
 {
   "name": "flint",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "main": "stylesheets/_flint.scss",
   "description": "Flint is a highly advanced Sass grid framework designed for rapid responsive development.",
   "authors": ["Ezekiel Gabrielse <ezekg@yahoo.com>"],
@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "ignore": [
-    "**/.*",
+    "*///.*",
     "*.json",
     "*.gemspec",
     "*.gem"

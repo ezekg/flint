@@ -1,6 +1,6 @@
-/*
- * Remove value from list
- */
+//
+// Remove value from list
+//
 @include describe("[function] remove") {
 
 	$list: ("one", "two", "three");

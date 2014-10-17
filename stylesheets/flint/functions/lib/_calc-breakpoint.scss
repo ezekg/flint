@@ -1,16 +1,16 @@
-/**
- * Calculate breakpoint query
- *
- * @access private
- *
- * @param {String} $type - type of query to get
- * @param {String} $key  - key of breakpoint
- * @param {Number} $i    - index of current breakpoint
- *
- * @return {Number} - breakpoint value
- *
- * @group Internal Functions
- */
+///
+/// Calculate breakpoint query
+///
+/// @access private
+///
+/// @param {String} $type - type of query to get
+/// @param {String} $key  - key of breakpoint
+/// @param {Number} $i    - index of current breakpoint
+///
+/// @return {Number} - breakpoint value
+///
+/// @group Internal Functions
+///
 @function flint-calc-breakpoint($type, $key, $i) {
 
     @if $type == "alias" {

@@ -1,432 +1,432 @@
-/**
- * # Main API
- *
- * ----
- *
- * ## Shorthand
- *
- * ### Recursive span
- * Use this if you want identical column spans across all breakpoints. This is of course
- * relative to each of your breakpoint's column count, so if your lowest breakpoint has
- * a column count of `4`, then anything above that would likely cause layout issues
- * for that breakpoint.
- *
- *    ```scss
- *    div {
- *        @include _(2);
- *    }
- *    ```
- *
- * ### Recursive Span With Identical Context
- * Use this if your nested context is identical across all breakpoints. The `$context` should
- * be the span value of the element's parent, or `auto`.
- *
- *    ```scss
- *    div {
- *        @include _(4, 2);
- *    }
- *    ```
- *
- * ### Recursive Span With Differing Context
- * Use this if your nested context is not identical across all breakpoints. The `$context`
- * should be the span value of the element's parent, or `auto`.
- *
- *    ```scss
- *    div {
- *        @include _(4, 8 8 4 4);
- *    }
- *    ```
- *
- * ### Variable Span
- * Use this if your content needs different spans across each breakpoint. The order of
- * operations is the order that your breakpoints are listed in your config (DESC).
- *
- *    ```scss
- *    div {
- *        @include _(8 8 4 4);
- *    }
- *    ```
- *
- * ### Variable Span With Identical Context
- * Use this if your nested context is identical across all breakpoints. The `$context`
- * should be the span value of the element's parent, or `auto`.
- *
- *    ```scss
- *    div {
- *        @include _(4 4 2 2, 4);
- *    }
- *    ```
- *
- * ### Variable Span With Differing Context
- * Use this if your nested context is not identical across all breakpoints. The `$context`
- * should be the span value of the element's parent, or `auto`.
- *
- *    ```scss
- *    div {
- *        @include _(8 8 4 4, 8 8 4 4);
- *    }
- *    ```
- *
- * ----
- *
- * ## Longhand
- *
- * ### Span
- * Use if you want to define each span by breakpoint `$alias`.
- *
- *    ```scss
- *    div {
- *        @include _(desktop, 2);
- *    }
- *    ```
- *
- * ### Span With Context
- * Use if you want to define each span by breakpoint `$alias`. The `$context` should be the span
- * value of the element's parent, or `auto`.
- *
- *    ```scss
- *    div {
- *        @include _(desktop, 4, 2);
- *    }
- *    ```
- *
- * ----
- *
- * ## Automatic Context
- *
- * You can use `$context: auto`, and Flint will calculate based on the closest parent element's
- * width instead of the current breakpoint. When using `auto`, Flint falls back from the topmost
- * selector until one is found that has an instance, and it will calculate its span based on that
- * instance's width for the current breakpoint. Think of the `auto` option as a self-correcting grid.
- *
- * When utilizing the `$context` argument, be sure to note the differences in the way the calculations
- * happen depending on if you use a numerical value or `auto`. When using a numerical value, the span
- * is calculated against the current breakpoint's value (example: `80em`), then it's divided by its column
- * count (example: `16`), and then finally, it's multiplied by the passed `$context` value. When using
- * `auto`, the span is _always_ calculated against the closest parent element's width instead
- * of the current breakpoint's width.
- *
- * The difference in output varies, but your gutters will be more accurate across the board if you
- * consistently use the `auto` option. This option allows you to infinitely nest elements on both fixed
- * and fluid grids without dealing with the inconsistencies that can be caused by nesting elements that
- * all use a gutter value of their own. Because the parent element's actual width is always used, the
- * gutters never become out of sync.
- *
- *    ```scss
- *    .parent {
- *        @include _(4);
- *        .child {
- *            @include _(3, 4);
- *        }
- *    }
- *
- *    // Auto will work
- *    .parent {
- *        @include _(4);
- *        .child {
- *            @include _(3, auto);
- *        }
- *    }
- *
- *    // Will also work
- *    .parent {
- *        @include _(4);
- *    }
- *    .parent .child {
- *        @include _(3, auto);
- *    }
- *
- *    // Will not work, as the child has no relation to
- *    //   the parent within the stylesheet
- *    .parent {
- *        @include _(6);
- *    }
- *    .child {
- *        @include _(3, auto);
- *    }
- *    ```
- *
- * If you attempt to use this feature with a methodology like BEM, where selectors aren't neccassarily
- * lists, but instead single strings, you'll notice that Flint can't find return a valid parent for the
- * element. This is the reason for the `support-syntax` functionality. With it, Flint is able to parse
- * selectors that are a single string, as opposed to a list, and successfully search for the passed
- * selector's parent.
- *
- * ----
- *
- * ## Modifiers
- *
- * ### Alpha
- * Remove the left `$gutter` from the span. Other aliases for `alpha` include: `no-left` and `first`.
- *
- *    ```scss
- *    div {
- *        @include _(12 8 6 4, $gutter: alpha);
- *    }
- *    ```
- *
- * ### Omega
- * Remove the right `$gutter` from the span. Other aliases for `omega` include: `no-right` and `last`.
- *
- *    ```scss
- *    div {
- *        @include _(2, $gutter: omega);
- *    }
- *    ````
- *
- * ### Row
- * Remove both of the `$gutter` values from the span. Other aliases for `row` include: `none`.
- *
- *    ```scss
- *    div {
- *        @include _(4, $gutter: row);
- *    }
- *    ```
- *
- * ### Center
- * Center the current span within it's container element. Outputs auto left and right margins.
- * This modifier will also remove any float properties on the element.
- *
- *    ```scss
- *    div {
- *        @include _(4, $gutter: center);
- *    }
- *    ```
- *
- * ### Inside
- * Sets both `$gutter` values on the inside of the element. Instead of deducting `$gutter*2` out
- * of the final width, it will deduct `$gutter*4`. Useful for nesting elements inside of other
- * elements without using `$context: auto`.
- *
- *    ```scss
- *    div {
- *        @include _(16 12 8 4, $gutter: inside);
- *    }
- *    ```
- *
- * ### Default
- * Argument to use the default left/right `$gutter` values. Useful for when you want to use a
- * variable `$gutter` argument. Other aliases for `default` include: `normal` and `regular`.
- *
- *    ```scss
- *    div {
- *        @include _(4, $gutter: default);
- *    }
- *    ```
- *
- * ### Variable Modifiers
- * Instead of passing in a recursive `$gutter` value, you may specify a value for each breakpoint exactly
- * like you would a `$span` argument.
- *
- *    ```scss
- *    div {
- *        @include _(10 8 6 4, $gutter: alpha omega omega default);
- *    }
- *    ```
- *
- * ----
- *
- * ## Queries
- *
- * ### By Alias
- * Use this type of query to wrap the `@content` in a single query for the specified breakpoint.
- *
- *    ```scss
- *    div {
- *        @include _(desktop) {
- *            property: value;
- *        }
- *    }
- *    ```
- *
- * ### From, To
- * Use this type of query to wrap the `@content` in a single query between 2 breakpoints. Make
- * sure to pass in the breakpoints from lowest to highest.
- *
- *    ```scss
- *    div {
- *        @include _(from tablet to laptop) {
- *            property: value;
- *        }
- *    }
- *    ```
- *
- * ### Greater Than
- * Use this type of query to wrap the `@content` in a single query for anything above
- * the passed breakpoint.
- *
- *    ```scss
- *    div {
- *        @include _(greater than laptop) {
- *            property: value;
- *        }
- *        @include _(5em greater than tablet) {
- *            property: value;
- *        }
- *        @include _(greater than 55em) {
- *            property: value;
- *        }
- *    }
- *    ```
- *
- * ### Less Than
- * Use this type of query to wrap the `@content` in a single query for anything below
- * the passed breakpoint.
- *
- *    ```scss
- *    div {
- *        @include _(less than laptop) {
- *            property: value;
- *        }
- *        @include _(5em less than tablet) {
- *            property: value;
- *        }
- *        @include _(less than 8em) {
- *            property: value;
- *        }
- *    }
- *    ```
- *
- * ### For
- * Use this type of query to wrap the `@content` in a single comma delimited query
- * for each passed `$alias`.
- *
- *    ```scss
- *    div {
- *        @include _(for mobile tablet desktop) {
- *            property: value;
- *        }
- *    }
- *    ```
- *
- * ----
- *
- * ## Miscellaneous
- *
- * ### Clearfix
- * Given that Flint is float based, you might find yourself needing to use a clearfix. Flint comes
- * packaged with a micro-clearfix function. _Flint will attempt to use a local mixin named
- * `clearfix`. If one is not found, it will use it's own._
- *
- *    ```scss
- *    div {
- *        @include _(clear);
- *    }
- *    ```
- *
- * ### Foundation
- * A foundation instance will output a global box-sizing: border-box declaration. If you selected
- * `"border-box-sizing": true`, then it is advised to create a global foundation instance. If you
- * don't, Flint will automatically apply a foundation instance with your first span declaration.
- * This should be placed at the root of your stylesheet. _Flint will attempt to use a local
- * mixin named `box-sizing`. If one is not found, it will use it's own._
- *
- *    ```scss
- *     @include _(foundation);
- *    ```
- *
- * ### Container
- * Containers act as a containing row for each individual breakpoint. It uses the `"max-width"`
- * setting, if set. They do not float, so if you have `"center-container"` set, then it
- * will also center your element using auto left and right margins. You may combine
- * container and clear declarations, with arguments separated by a comma.
- *
- *    ```scss
- *    div {
- *        @include _(container);
- *    }
- *    ```
- *
- * ----
- *
- * @access public
- *
- * @param {String|Number|List} $key     (null) - key of breakpoint, or shorthand span
- * @param {String|Number|List} $span    (null) - value of span for column, or shorthand context
- * @param {String|Number}      $context (null) - context value of span, or null for shorthand
- * @param {String|List}        $gutter  (null) - alias for gutter modifier
- *
- * @throws - Error if list lengths do not match number of breakpoints (when using variable shorthands).
- *
- * ----
- *
- * @example scss - Recursive shorthand with no context
- * _(2)
- *
- * @example scss - Recursive shorthand with identical context
- * _(2, 4)
- *
- * @example scss - Recursive shorthand with differing context
- * _(1, 2 4 6 8)
- * _(1, auto)
- *
- * @example scss - Variable shorthand with no context
- * _(1 2 3 4)
- *
- * @example scss - Variable shorthand with identical context
- * _(1 2 3 4, 4)
- * _(1 2 3 4, auto)
- *
- * @example scss - Variable shorthand with differing context
- * _(4 3 2 1, 8 6 4 2)
- * _(4 3 2 1, auto)
- *
- * @example scss - Call by alias with no context
- * _(desktop, 2)
- *
- * @example scss - Call by alias with context
- * _(desktop, 2, 4)
- * _(desktop, 2, auto)
- *
- * @example scss - Call $key breakpoint by alias
- * _(desktop) { ... }
- *
- * @example scss - From $key breakpoint to infinity
- * _(from laptop to infinity) { ... }
- *
- * @example scss - From $key-x breakpoint to $key-y breakpoint
- * _(from tablet to laptop) { ... }
- *
- * @example scss - From $num-x to $num-y
- * _(from 20em to laptop) { ... }
- *
- * @example scss - Greater than $key breakpoint
- * _(greater than tablet) { ... }
- *
- * @example scss - Greater than number
- * _(greater than 15em) { ... }
- *
- * @example scss - Number greater than $key breakpoint
- * _(5em greater than mobile) { ... }
- *
- * @example scss - Less than $key breakpoint
- * _(less than laptop) { ... }
- *
- * @example scss - Less than number
- * _(less than 35em) { ... }
- *
- * @example scss - Number less than $key breakpoint
- * _(10em less than laptop) { ... }
- *
- * @example scss - For $key-x $key-y $key-z...
- * _(for mobile tablet desktop) { ... }
- *
- * @example scss - Clear
- * _(clear)
- *
- * @example scss - Foundation
- * _(foundation)
- *
- * @example scss - Container
- * _(container)
- *
- * ----
- *
- * @author Ezekiel Gabrielse
- * @link http://flint.gs
- *
- * @group Public API
- */
+///
+/// # Main API
+///
+/// ----
+///
+/// ## Shorthand
+///
+/// ### Recursive span
+/// Use this if you want identical column spans across all breakpoints. This is of course
+/// relative to each of your breakpoint's column count, so if your lowest breakpoint has
+/// a column count of `4`, then anything above that would likely cause layout issues
+/// for that breakpoint.
+///
+///    ```scss
+///    div {
+///        @include _(2);
+///    }
+///    ```
+///
+/// ### Recursive Span With Identical Context
+/// Use this if your nested context is identical across all breakpoints. The `$context` should
+/// be the span value of the element's parent, or `auto`.
+///
+///    ```scss
+///    div {
+///        @include _(4, 2);
+///    }
+///    ```
+///
+/// ### Recursive Span With Differing Context
+/// Use this if your nested context is not identical across all breakpoints. The `$context`
+/// should be the span value of the element's parent, or `auto`.
+///
+///    ```scss
+///    div {
+///        @include _(4, 8 8 4 4);
+///    }
+///    ```
+///
+/// ### Variable Span
+/// Use this if your content needs different spans across each breakpoint. The order of
+/// operations is the order that your breakpoints are listed in your config (DESC).
+///
+///    ```scss
+///    div {
+///        @include _(8 8 4 4);
+///    }
+///    ```
+///
+/// ### Variable Span With Identical Context
+/// Use this if your nested context is identical across all breakpoints. The `$context`
+/// should be the span value of the element's parent, or `auto`.
+///
+///    ```scss
+///    div {
+///        @include _(4 4 2 2, 4);
+///    }
+///    ```
+///
+/// ### Variable Span With Differing Context
+/// Use this if your nested context is not identical across all breakpoints. The `$context`
+/// should be the span value of the element's parent, or `auto`.
+///
+///    ```scss
+///    div {
+///        @include _(8 8 4 4, 8 8 4 4);
+///    }
+///    ```
+///
+/// ----
+///
+/// ## Longhand
+///
+/// ### Span
+/// Use if you want to define each span by breakpoint `$alias`.
+///
+///    ```scss
+///    div {
+///        @include _(desktop, 2);
+///    }
+///    ```
+///
+/// ### Span With Context
+/// Use if you want to define each span by breakpoint `$alias`. The `$context` should be the span
+/// value of the element's parent, or `auto`.
+///
+///    ```scss
+///    div {
+///        @include _(desktop, 4, 2);
+///    }
+///    ```
+///
+/// ----
+///
+/// ## Automatic Context
+///
+/// You can use `$context: auto`, and Flint will calculate based on the closest parent element's
+/// width instead of the current breakpoint. When using `auto`, Flint falls back from the topmost
+/// selector until one is found that has an instance, and it will calculate its span based on that
+/// instance's width for the current breakpoint. Think of the `auto` option as a self-correcting grid.
+///
+/// When utilizing the `$context` argument, be sure to note the differences in the way the calculations
+/// happen depending on if you use a numerical value or `auto`. When using a numerical value, the span
+/// is calculated against the current breakpoint's value (example: `80em`), then it's divided by its column
+/// count (example: `16`), and then finally, it's multiplied by the passed `$context` value. When using
+/// `auto`, the span is _always_ calculated against the closest parent element's width instead
+/// of the current breakpoint's width.
+///
+/// The difference in output varies, but your gutters will be more accurate across the board if you
+/// consistently use the `auto` option. This option allows you to infinitely nest elements on both fixed
+/// and fluid grids without dealing with the inconsistencies that can be caused by nesting elements that
+/// all use a gutter value of their own. Because the parent element's actual width is always used, the
+/// gutters never become out of sync.
+///
+///    ```scss
+///    .parent {
+///        @include _(4);
+///        .child {
+///            @include _(3, 4);
+///        }
+///    }
+///
+///    // Auto will work
+///    .parent {
+///        @include _(4);
+///        .child {
+///            @include _(3, auto);
+///        }
+///    }
+///
+///    // Will also work
+///    .parent {
+///        @include _(4);
+///    }
+///    .parent .child {
+///        @include _(3, auto);
+///    }
+///
+///    // Will not work, as the child has no relation to
+///    //   the parent within the stylesheet
+///    .parent {
+///        @include _(6);
+///    }
+///    .child {
+///        @include _(3, auto);
+///    }
+///    ```
+///
+/// If you attempt to use this feature with a methodology like BEM, where selectors aren't neccassarily
+/// lists, but instead single strings, you'll notice that Flint can't find return a valid parent for the
+/// element. This is the reason for the `support-syntax` functionality. With it, Flint is able to parse
+/// selectors that are a single string, as opposed to a list, and successfully search for the passed
+/// selector's parent.
+///
+/// ----
+///
+/// ## Modifiers
+///
+/// ### Alpha
+/// Remove the left `$gutter` from the span. Other aliases for `alpha` include: `no-left` and `first`.
+///
+///    ```scss
+///    div {
+///        @include _(12 8 6 4, $gutter: alpha);
+///    }
+///    ```
+///
+/// ### Omega
+/// Remove the right `$gutter` from the span. Other aliases for `omega` include: `no-right` and `last`.
+///
+///    ```scss
+///    div {
+///        @include _(2, $gutter: omega);
+///    }
+///    ````
+///
+/// ### Row
+/// Remove both of the `$gutter` values from the span. Other aliases for `row` include: `none`.
+///
+///    ```scss
+///    div {
+///        @include _(4, $gutter: row);
+///    }
+///    ```
+///
+/// ### Center
+/// Center the current span within it's container element. Outputs auto left and right margins.
+/// This modifier will also remove any float properties on the element.
+///
+///    ```scss
+///    div {
+///        @include _(4, $gutter: center);
+///    }
+///    ```
+///
+/// ### Inside
+/// Sets both `$gutter` values on the inside of the element. Instead of deducting `$gutter*2` out
+/// of the final width, it will deduct `$gutter*4`. Useful for nesting elements inside of other
+/// elements without using `$context: auto`.
+///
+///    ```scss
+///    div {
+///        @include _(16 12 8 4, $gutter: inside);
+///    }
+///    ```
+///
+/// ### Default
+/// Argument to use the default left/right `$gutter` values. Useful for when you want to use a
+/// variable `$gutter` argument. Other aliases for `default` include: `normal` and `regular`.
+///
+///    ```scss
+///    div {
+///        @include _(4, $gutter: default);
+///    }
+///    ```
+///
+/// ### Variable Modifiers
+/// Instead of passing in a recursive `$gutter` value, you may specify a value for each breakpoint exactly
+/// like you would a `$span` argument.
+///
+///    ```scss
+///    div {
+///        @include _(10 8 6 4, $gutter: alpha omega omega default);
+///    }
+///    ```
+///
+/// ----
+///
+/// ## Queries
+///
+/// ### By Alias
+/// Use this type of query to wrap the `@content` in a single query for the specified breakpoint.
+///
+///    ```scss
+///    div {
+///        @include _(desktop) {
+///            property: value;
+///        }
+///    }
+///    ```
+///
+/// ### From, To
+/// Use this type of query to wrap the `@content` in a single query between 2 breakpoints. Make
+/// sure to pass in the breakpoints from lowest to highest.
+///
+///    ```scss
+///    div {
+///        @include _(from tablet to laptop) {
+///            property: value;
+///        }
+///    }
+///    ```
+///
+/// ### Greater Than
+/// Use this type of query to wrap the `@content` in a single query for anything above
+/// the passed breakpoint.
+///
+///    ```scss
+///    div {
+///        @include _(greater than laptop) {
+///            property: value;
+///        }
+///        @include _(5em greater than tablet) {
+///            property: value;
+///        }
+///        @include _(greater than 55em) {
+///            property: value;
+///        }
+///    }
+///    ```
+///
+/// ### Less Than
+/// Use this type of query to wrap the `@content` in a single query for anything below
+/// the passed breakpoint.
+///
+///    ```scss
+///    div {
+///        @include _(less than laptop) {
+///            property: value;
+///        }
+///        @include _(5em less than tablet) {
+///            property: value;
+///        }
+///        @include _(less than 8em) {
+///            property: value;
+///        }
+///    }
+///    ```
+///
+/// ### For
+/// Use this type of query to wrap the `@content` in a single comma delimited query
+/// for each passed `$alias`.
+///
+///    ```scss
+///    div {
+///        @include _(for mobile tablet desktop) {
+///            property: value;
+///        }
+///    }
+///    ```
+///
+/// ----
+///
+/// ## Miscellaneous
+///
+/// ### Clearfix
+/// Given that Flint is float based, you might find yourself needing to use a clearfix. Flint comes
+/// packaged with a micro-clearfix function. _Flint will attempt to use a local mixin named
+/// `clearfix`. If one is not found, it will use it's own._
+///
+///    ```scss
+///    div {
+///        @include _(clear);
+///    }
+///    ```
+///
+/// ### Foundation
+/// A foundation instance will output a global box-sizing: border-box declaration. If you selected
+/// `"border-box-sizing": true`, then it is advised to create a global foundation instance. If you
+/// don't, Flint will automatically apply a foundation instance with your first span declaration.
+/// This should be placed at the root of your stylesheet. _Flint will attempt to use a local
+/// mixin named `box-sizing`. If one is not found, it will use it's own._
+///
+///    ```scss
+///     @include _(foundation);
+///    ```
+///
+/// ### Container
+/// Containers act as a containing row for each individual breakpoint. It uses the `"max-width"`
+/// setting, if set. They do not float, so if you have `"center-container"` set, then it
+/// will also center your element using auto left and right margins. You may combine
+/// container and clear declarations, with arguments separated by a comma.
+///
+///    ```scss
+///    div {
+///        @include _(container);
+///    }
+///    ```
+///
+/// ----
+///
+/// @access public
+///
+/// @param {String|Number|List} $key     (null) - key of breakpoint, or shorthand span
+/// @param {String|Number|List} $span    (null) - value of span for column, or shorthand context
+/// @param {String|Number}      $context (null) - context value of span, or null for shorthand
+/// @param {String|List}        $gutter  (null) - alias for gutter modifier
+///
+/// @throws - Error if list lengths do not match number of breakpoints (when using variable shorthands).
+///
+/// ----
+///
+/// @example scss - Recursive shorthand with no context
+/// _(2)
+///
+/// @example scss - Recursive shorthand with identical context
+/// _(2, 4)
+///
+/// @example scss - Recursive shorthand with differing context
+/// _(1, 2 4 6 8)
+/// _(1, auto)
+///
+/// @example scss - Variable shorthand with no context
+/// _(1 2 3 4)
+///
+/// @example scss - Variable shorthand with identical context
+/// _(1 2 3 4, 4)
+/// _(1 2 3 4, auto)
+///
+/// @example scss - Variable shorthand with differing context
+/// _(4 3 2 1, 8 6 4 2)
+/// _(4 3 2 1, auto)
+///
+/// @example scss - Call by alias with no context
+/// _(desktop, 2)
+///
+/// @example scss - Call by alias with context
+/// _(desktop, 2, 4)
+/// _(desktop, 2, auto)
+///
+/// @example scss - Call $key breakpoint by alias
+/// _(desktop) { ... }
+///
+/// @example scss - From $key breakpoint to infinity
+/// _(from laptop to infinity) { ... }
+///
+/// @example scss - From $key-x breakpoint to $key-y breakpoint
+/// _(from tablet to laptop) { ... }
+///
+/// @example scss - From $num-x to $num-y
+/// _(from 20em to laptop) { ... }
+///
+/// @example scss - Greater than $key breakpoint
+/// _(greater than tablet) { ... }
+///
+/// @example scss - Greater than number
+/// _(greater than 15em) { ... }
+///
+/// @example scss - Number greater than $key breakpoint
+/// _(5em greater than mobile) { ... }
+///
+/// @example scss - Less than $key breakpoint
+/// _(less than laptop) { ... }
+///
+/// @example scss - Less than number
+/// _(less than 35em) { ... }
+///
+/// @example scss - Number less than $key breakpoint
+/// _(10em less than laptop) { ... }
+///
+/// @example scss - For $key-x $key-y $key-z...
+/// _(for mobile tablet desktop) { ... }
+///
+/// @example scss - Clear
+/// _(clear)
+///
+/// @example scss - Foundation
+/// _(foundation)
+///
+/// @example scss - Container
+/// _(container)
+///
+/// ----
+///
+/// @author Ezekiel Gabrielse
+/// @link http://flint.gs
+///
+/// @group Public API
+///
 @mixin _(
     $key: null,
     $span: null,
@@ -434,15 +434,15 @@
     $gutter: null
 ) {
 
-    /*
-     * Clearfix
-     */
+    //
+    // Clearfix
+    //
     @if $key == "clear" or $span == "clear" or $context == "clear" {
 
-        /*
-         * Check if key exists as breakpoint, and if so wrap
-         *   in query to not affect other breakpoints
-         */
+        //
+        // Check if key exists as breakpoint, and if so wrap
+        //   in query to not affect other breakpoints
+        //
         @if flint-exists($flint, $key) {
 
             @if flint-get-value("settings", "grid") == "fluid" {
@@ -479,9 +479,9 @@
         }
     }
 
-    /*
-     * Foundation
-     */
+    //
+    // Foundation
+    //
     @if $key == "foundation" {
 
         // Apply global border-box-sizing if set to true
@@ -497,9 +497,9 @@
             }
         }
 
-    /*
-     * Container
-     */
+    //
+    // Container
+    //
     } @else if $key == "container" or $span == "container" or $context == "container" {
 
         // Apply individually if foundation is not set globally, but is set to true in config
@@ -590,9 +590,9 @@
             }
         }
 
-    /*
-     * Create a new instance, add to global instance map
-     */
+    //
+    // Create a new instance, add to global instance map
+    //
     } @else {
 
         // Apply individually if foundation is not set globally, but is set to true in config
@@ -600,37 +600,37 @@
             @include _("foundation");
         }
 
-        /*
-         * Recursive shorthand with no context
-         */
+        //
+        // Recursive shorthand with no context
+        //
         @if flint-is-number($key) and length($key) == 1 and $span == null
 
-        /*
-         * Recursive shorthand with identical context
-         */
+        //
+        // Recursive shorthand with identical context
+        //
         or flint-is-number($key) and length($key) == 1 and flint-is-number($span) and length($span) == 1
         or flint-is-number($key) and length($key) == 1 and $span == "auto"
 
-        /*
-         * Recursive shorthand with differing context
-         */
+        //
+        // Recursive shorthand with differing context
+        //
         or flint-is-number($key) and length($key) == 1 and flint-types-in-list($span, "number")
         or flint-is-number($key) and length($key) == 1 and $span == "auto"
 
-        /*
-         * Variable shorthand with no context
-         */
+        //
+        // Variable shorthand with no context
+        //
         or flint-types-in-list($key, "number") and $span == null
 
-        /*
-         * Variable shorthand with identical context
-         */
+        //
+        // Variable shorthand with identical context
+        //
         or flint-types-in-list($key, "number") and flint-is-number($span) and length($span) == 1
         or flint-types-in-list($key, "number") and $span == "auto"
 
-        /*
-         * Variable shorthand with differing context
-         */
+        //
+        // Variable shorthand with differing context
+        //
         or flint-types-in-list($key, "number") and flint-types-in-list($span, "number")
         or flint-types-in-list($key, "number") and $span == "auto" {
 
@@ -709,14 +709,14 @@
                 }
             }
 
-        /*
-         * Call by alias with no context
-         */
+        //
+        // Call by alias with no context
+        //
         } @else if flint-is-string($key) and flint-is-number($span) and $context == null
 
-        /*
-         * Call by alias with context
-         */
+        //
+        // Call by alias with context
+        //
         or flint-is-string($key) and flint-is-number($span) and flint-is-number($context)
         or flint-is-string($key) and flint-is-number($span) and $context == "auto" {
 
@@ -788,15 +788,15 @@
                 }
             }
 
-        /*
-         * Wrap content in media query
-         */
+        //
+        // Wrap content in media query
+        //
         } @else if flint-exists($flint, $key) and $span == null and $context == null
         or flint-is-list($key) and $span == null and $context == null {
 
-            /*
-             * Call $key breakpoint by alias
-             */
+            //
+            // Call $key breakpoint by alias
+            //
             @if length($key) == 1 {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
@@ -825,9 +825,9 @@
                     }
                 }
 
-            /*
-             * From $key breakpoint to infinity
-             */
+            //
+            // From $key breakpoint to infinity
+            //
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" and nth($key, 4) == "infinity" {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
@@ -844,9 +844,9 @@
                     }
                 }
 
-            /*
-             * From $key-x breakpoint to $key-y breakpoint
-             */
+            //
+            // From $key-x breakpoint to $key-y breakpoint
+            //
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
@@ -863,9 +863,9 @@
                     }
                 }
 
-            /*
-             * From $num-x to $num-y
-             */
+            //
+            // From $num-x to $num-y
+            //
             } @else if flint-types-in-list($key, "string" "number" "string" "number", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" {
                 // Make sure passed units match units used in config
                 @if flint-get-config-unit() == unit(nth($key, 2)) and flint-get-config-unit() == unit(nth($key, 4)) {
@@ -879,9 +879,9 @@
                     }
                 }
 
-            /*
-             * Greater than $key breakpoint
-             */
+            //
+            // Greater than $key breakpoint
+            //
             } @else if flint-types-in-list($key, "string", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
@@ -898,9 +898,9 @@
                     }
                 }
 
-            /*
-             * Greater than number
-             */
+            //
+            // Greater than number
+            //
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
                 @if flint-get-config-unit() == unit(nth($key, 3)) {
@@ -913,9 +913,9 @@
                     }
                 }
 
-            /*
-             * Number greater than $key breakpoint
-             */
+            //
+            // Number greater than $key breakpoint
+            //
             } @else if flint-types-in-list($key, "number" "string" "string" "string", 4) and nth($key, 2) == "greater" and nth($key, 3) == "than" {
 
                 @if flint-get-config-unit() == unit(nth($key, 1)) {
@@ -928,9 +928,9 @@
                     }
                 }
 
-            /*
-             * Less than $key breakpoint
-             */
+            //
+            // Less than $key breakpoint
+            //
             } @else if flint-types-in-list($key, "string", 3) and nth($key, 1) == "less" and nth($key, 2) == "than" {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
@@ -947,9 +947,9 @@
                     }
                 }
 
-            /*
-             * Less than number
-             */
+            //
+            // Less than number
+            //
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "less" and nth($key, 2) == "than" {
 
                 @if flint-get-config-unit() == unit(nth($key, 3)) {
@@ -962,9 +962,9 @@
                     }
                 }
 
-            /*
-             * Number less than $key breakpoint
-             */
+            //
+            // Number less than $key breakpoint
+            //
             } @else if flint-types-in-list($key, "number" "string" "string" "string", 4) and nth($key, 2) == "less" and nth($key, 3) == "than" {
 
                 @if flint-get-config-unit() == unit(nth($key, 1)) {
@@ -977,16 +977,16 @@
                     }
                 }
 
-            /*
-             * For $key-x $key-y $key-z
-             */
+            //
+            // For $key-x $key-y $key-z
+            //
             } @else if flint-types-in-list($key, "string") and nth($key, 1) == "for" {
                 // Define empty query list
                 $query: ();
 
-                /*
-                 * Build out comma delimited query list for each breakpoint
-                 */
+                //
+                // Build out comma delimited query list for each breakpoint
+                //
                 @for $i from 1 through length($key) {
                     $calc-key: nth($key, $i);
 
@@ -1022,9 +1022,9 @@
                 }
             }
 
-        /*
-         * Invalid argument
-         */
+        //
+        // Invalid argument
+        //
         } @else {
             @if $key != "clear" {
                 @if not $flint__development-mode {

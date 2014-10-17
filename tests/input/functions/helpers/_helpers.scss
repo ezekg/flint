@@ -1,6 +1,6 @@
-/*
- * Returns truthiness of a value
- */
+//
+// Returns truthiness of a value
+//
 @include describe("[function] is-true") {
 
 	@include it("should expect values to be truthy") {
@@ -34,9 +34,9 @@
 	}
 }
 
-/*
- * Checks if item is map
- */
+//
+// Checks if item is map
+//
 @include describe("[function] is-map") {
 
 	$map: ("key": "value");
@@ -77,9 +77,9 @@
 	}
 }
 
-/*
- * Checks if item is list
- */
+//
+// Checks if item is list
+//
 @include describe("[function] is-list") {
 
 	$map: ("key": "value");
@@ -120,9 +120,9 @@
 	}
 }
 
-/*
- * Checks if item is number
- */
+//
+// Checks if item is number
+//
 @include describe("[function] is-number") {
 
 	$map: ("key": "value");
@@ -163,9 +163,9 @@
 	}
 }
 
-/*
- * Checks if item is string
- */
+//
+// Checks if item is string
+//
 @include describe("[function] is-string") {
 
 	$map: ("key": "value");
@@ -206,9 +206,9 @@
 	}
 }
 
-/*
- * Checks if item is not string
- */
+//
+// Checks if item is not string
+//
 @include describe("[function] is-not-string") {
 
 	$map: ("key": "value");
@@ -246,9 +246,9 @@
 	}
 }
 
-/*
- * Get gutter value from config map
- */
+//
+// Get gutter value from config map
+//
 @include describe("[function] get-gutter") {
 
 	@include it("should expect gutter value from config") {
@@ -259,9 +259,9 @@
 	}
 }
 
-/*
- * Gets list of each breakpoint's key
- */
+//
+// Gets list of each breakpoint's key
+//
 @include describe("[function] get-all-keys") {
 
 	@include it("should expect a list of all breakpoint keys") {
@@ -272,9 +272,9 @@
 	}
 }
 
-/*
- * Gets list of all breakpoints
- */
+//
+// Gets list of all breakpoints
+//
 @include describe("[function] get-all-breakpoints") {
 
 	@include it("should expect a list of all breakpoint values") {
@@ -285,9 +285,9 @@
 	}
 }
 
-/*
- * Checks if passed $key is the highest breakpoint
- */
+//
+// Checks if passed $key is the highest breakpoint
+//
 @include describe("[function] is-highest-breakpoint") {
 
 	@include it("should expect to be highest breakpoint") {
@@ -313,9 +313,9 @@
 	}
 }
 
-/*
- * Checks if passed $key is the lowest breakpoint
- */
+//
+// Checks if passed $key is the lowest breakpoint
+//
 @include describe("[function] is-lowest-breakpoint") {
 
 	@include it("should expect to be lowest breakpoint") {
@@ -341,9 +341,9 @@
 	}
 }
 
-/*
- * Checks if $key is grid default
- */
+//
+// Checks if $key is grid default
+//
 @include describe("[function] is-default") {
 
 	@include it("should expect to be default breakpoint") {
@@ -369,9 +369,9 @@
 	}
 }
 
-/*
- * Gets all breakpoint column values
- */
+//
+// Gets all breakpoint column values
+//
 @include describe("[function] get-all-columns") {
 
 	@include it("should expect a list of all breakpoint column values") {
@@ -382,9 +382,9 @@
 	}
 }
 
-/*
- * Returns the unit used in config
- */
+//
+// Returns the unit used in config
+//
 @include describe("[function] get-config-unit") {
 	@include it("should expect configuration unit to be ems") {
 		@include should(expect(
@@ -394,9 +394,9 @@
 	}
 }
 
-/*
- * Convert pixel value to em
- */
+//
+// Convert pixel value to em
+//
 @include describe("[function] to-em") {
 
 	@include it("should expect passed pixel value to be converted to ems") {

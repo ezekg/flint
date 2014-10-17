@@ -1,6 +1,6 @@
-/*
- * Get single value from configuration map
- */
+//
+// Get single value from configuration map
+//
 @include describe("[function] get-value") {
 
 	@include it("should expect value to be fetched from configuration map") {

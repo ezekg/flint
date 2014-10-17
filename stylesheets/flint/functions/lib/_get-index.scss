@@ -1,14 +1,14 @@
-/**
- * Gets the index of the passed key
- *
- * @access private
- *
- * @param {String} $key - breakpoint key
- *
- * @return {Number}
- *
- * @group Internal Functions
- */
+///
+/// Gets the index of the passed key
+///
+/// @access private
+///
+/// @param {String} $key - breakpoint key
+///
+/// @return {Number}
+///
+/// @group Internal Functions
+///
 @function flint-get-index($key) {
 
     @for $i from 1 through length(map-keys(flint-get-value("breakpoints"))) {

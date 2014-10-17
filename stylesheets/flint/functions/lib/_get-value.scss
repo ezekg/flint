@@ -1,14 +1,14 @@
-/**
- * Get single value from configuration map
- *
- * @access private
- *
- * @param {ArgList} $keys - list of keys to fetch value from
- *
- * @return {*}
- *
- * @group Internal Functions
- */
+///
+/// Get single value from configuration map
+///
+/// @access private
+///
+/// @param {ArgList} $keys - list of keys to fetch value from
+///
+/// @return {*}
+///
+/// @group Internal Functions
+///
 @function flint-get-value($keys...) {
 	@return flint-map-fetch($flint, $keys...);
 }

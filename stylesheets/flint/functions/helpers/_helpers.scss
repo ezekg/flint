@@ -1,114 +1,114 @@
-/**
- * @group Internal Helper Functions
- **/
+////
+/// @group Internal Helper Functions
+////
 
-/**
- * Returns truthiness of a value
- *
- * @access private
- *
- * @param {*} $value
- *
- * @return {Bool}
- */
+///
+/// Returns truthiness of a value
+///
+/// @access private
+///
+/// @param {*} $value
+///
+/// @return {Bool}
+///
 @function flint-is-true($value) {
 	@return if($value == null, false, $value and $value != null and $value != "" and $value != ());
 }
 
-/**
- * Checks if item is map
- *
- * @access private
- *
- * @param {Map} $n
- *
- * @return {Bool}
- */
+///
+/// Checks if item is map
+///
+/// @access private
+///
+/// @param {Map} $n
+///
+/// @return {Bool}
+///
 @function flint-is-map($n) {
 	@return type-of($n) == "map";
 }
 
-/**
- * Checks if item is list
- *
- * @access private
- *
- * @param {List} $n
- *
- * @return {Bool}
- */
+///
+/// Checks if item is list
+///
+/// @access private
+///
+/// @param {List} $n
+///
+/// @return {Bool}
+///
 @function flint-is-list($n) {
 	@return type-of($n) == "list";
 }
 
-/**
- * Checks if item is number
- *
- * @access private
- *
- * @param {Number} $n
- *
- * @return {Bool}
- */
+///
+/// Checks if item is number
+///
+/// @access private
+///
+/// @param {Number} $n
+///
+/// @return {Bool}
+///
 @function flint-is-number($n) {
 	@return type-of($n) == "number";
 }
 
-/**
- * Checks if item is string
- *
- * @access private
- *
- * @param {String} $n
- *
- * @return {Bool}
- */
+///
+/// Checks if item is string
+///
+/// @access private
+///
+/// @param {String} $n
+///
+/// @return {Bool}
+///
 @function flint-is-string($n) {
 	@return type-of($n) == "string";
 }
 
-/**
- * Checks if item is not string
- *
- * @access private
- *
- * @param {String} $n
- *
- * @return {Bool}
- */
+///
+/// Checks if item is not string
+///
+/// @access private
+///
+/// @param {String} $n
+///
+/// @return {Bool}
+///
 @function flint-is-not-string($n) {
 	@return type-of($n) != "string";
 }
 
-/**
- * Get gutter value from config map
- *
- * @access private
- *
- * @return {Number}
- */
+///
+/// Get gutter value from config map
+///
+/// @access private
+///
+/// @return {Number}
+///
 @function flint-get-gutter() {
 	@return flint-get-value("settings", "gutter");
 }
 
-/**
- * Gets list of each breakpoint's key
- *
- * @access private
- *
- * @return {List}
- */
+///
+/// Gets list of each breakpoint's key
+///
+/// @access private
+///
+/// @return {List}
+///
 @function flint-get-all-keys() {
 	@return map-keys(flint-get-value("breakpoints"));
 }
 
-/**
- * Gets list of all breakpoints
- *
- * @access private
- *
- * @return {List}
- */
+///
+/// Gets list of all breakpoints
+///
+/// @access private
+///
+/// @return {List}
+///
 @function flint-get-all-breakpoints() {
 	$all-keys: flint-get-all-keys();
 	$all-breakpoints: ();
@@ -120,52 +120,52 @@
 	@return $all-breakpoints;
 }
 
-/**
- * Checks if passed $key is the highest breakpoint
- *
- * @access private
- *
- * @param {String} $key - alias of breakpoint
- *
- * @return {Bool}
- */
+///
+/// Checks if passed $key is the highest breakpoint
+///
+/// @access private
+///
+/// @param {String} $key - alias of breakpoint
+///
+/// @return {Bool}
+///
 @function flint-is-highest-breakpoint($key) {
 	@return flint-get-value("breakpoints", $key, "breakpoint") == max(flint-get-all-breakpoints()...);
 }
 
-/**
- * Checks if passed $key is the lowest breakpoint
- *
- * @access private
- *
- * @param {String} $key - alias of breakpoint
- *
- * @return {Bool}
- */
+///
+/// Checks if passed $key is the lowest breakpoint
+///
+/// @access private
+///
+/// @param {String} $key - alias of breakpoint
+///
+/// @return {Bool}
+///
 @function flint-is-lowest-breakpoint($key) {
 	@return flint-get-value("breakpoints", $key, "breakpoint") == min(flint-get-all-breakpoints()...);
 }
 
-/**
- * Checks if $key is grid default
- *
- * @access private
- *
- * @param {String} $key - alias of breakpoint
- *
- * @return {Bool}
- */
+///
+/// Checks if $key is grid default
+///
+/// @access private
+///
+/// @param {String} $key - alias of breakpoint
+///
+/// @return {Bool}
+///
 @function flint-is-default($key) {
 	@return $key == flint-get-value("settings", "default");
 }
 
-/**
- * Gets all breakpoint column values
- *
- * @access private
- *
- * @return {List}
- */
+///
+/// Gets all breakpoint column values
+///
+/// @access private
+///
+/// @return {List}
+///
 @function flint-get-all-columns() {
 	$all-keys: flint-get-all-keys();
 	$all-columns: ();
@@ -177,39 +177,39 @@
 	@return $all-columns;
 }
 
-/**
- * Returns the unit used in config
- *
- * @access private
- *
- * @return {*}
- */
+///
+/// Returns the unit used in config
+///
+/// @access private
+///
+/// @return {*}
+///
 @function flint-get-config-unit() {
 	@return unit(flint-get-value("settings", "gutter"));
 }
 
-/**
- * Convert pixel value to em
- *
- * @access private
- *
- * @param {Number} $target  - pixel value
- * @param {Number} $context - context to divide by
- *
- * @return {Number} em value of target relative to context
- */
+///
+/// Convert pixel value to em
+///
+/// @access private
+///
+/// @param {Number} $target  - pixel value
+/// @param {Number} $context - context to divide by
+///
+/// @return {Number} em value of target relative to context
+///
 @function flint-to-em($target, $context: $flint__base-font-size) {
 	@return ($target / $context) * 1em;
 }
 
-/**
- * Use Ruby functions in place of Sass functions where possible
- *   to speed up performance, especially with string functions
- *
- * @access private
- *
- * @return {Bool}
- */
+///
+/// Use Ruby functions in place of Sass functions where possible
+///   to speed up performance, especially with string functions
+///
+/// @access private
+///
+/// @return {Bool}
+///
 @function flint-use-ruby-functions() {
 	@return flint_use_ruby() == true;
 }

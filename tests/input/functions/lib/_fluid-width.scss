@@ -1,6 +1,6 @@
-/*
- * Convert fixed to fluid width
- */
+//
+// Convert fixed to fluid width
+//
 @include describe("[function] fluid-width") {
 
 	@include it("should expect result to be equal to manual calculation") {

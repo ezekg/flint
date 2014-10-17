@@ -1,6 +1,6 @@
-/*
- * Calculate width
- */
+//
+// Calculate width
+//
 @include describe("[function] calc-width") {
 
 	@include it("should expect full width columns to be equal to manually calculated value") {

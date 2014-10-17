@@ -1,18 +1,18 @@
-/**
- * Joins all elements of list with passed glue
- *
- * @access private
- *
- * @link http://sassylists.com/documentation/#to-string
- *
- * @param {List}   $list
- * @param {String} $glue
- * @param {Bool}   $is-nested
- *
- * @return {String}
- *
- * @group Internal Functions
- */
+///
+/// Joins all elements of list with passed glue
+///
+/// @access private
+///
+/// @link http://sassylists.com/documentation/#to-string
+///
+/// @param {List}   $list
+/// @param {String} $glue
+/// @param {Bool}   $is-nested
+///
+/// @return {String}
+///
+/// @group Internal Functions
+///
 @function flint-list-to-string($list, $glue: "", $is-nested: false) {
 
 	// Use Ruby function if available

@@ -1,14 +1,14 @@
-/**
- * Box sizing
- *
- * @access private
- *
- * @param {String} $type ("border-box") - border-box type
- *
- * @requires {Mixin} box-sizing - local mixin if available
- *
- * @group Internal Mixins
- */
+///
+/// Box sizing
+///
+/// @access private
+///
+/// @param {String} $type ("border-box") - border-box type
+///
+/// @requires {Mixin} box-sizing - local mixin if available
+///
+/// @group Internal Mixins
+///
 @mixin flint-box-sizing($type: "border-box") {
     @if mixin-exists("box-sizing") {
         @include box-sizing($type);

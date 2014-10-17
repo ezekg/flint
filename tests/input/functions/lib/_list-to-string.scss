@@ -1,6 +1,6 @@
-/*
- * Joins all elements of list with passed glue
- */
+//
+// Joins all elements of list with passed glue
+//
 @include describe("[function] list-to-string") {
 
 	$list: ("one", "two", "three");

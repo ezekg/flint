@@ -1,6 +1,6 @@
-/*
- * Parser to support BEM syntax
- */
+//
+// Parser to support BEM syntax
+//
 @include describe("[function] support-syntax-bem") {
 
     $selectors: ".block__element__element--modifier";

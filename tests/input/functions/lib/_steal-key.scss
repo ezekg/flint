@@ -1,6 +1,6 @@
-/*
- * Steal breakpoint key by index
- */
+//
+// Steal breakpoint key by index
+//
 @include describe("[function] steal-key") {
 
 	@include it("should expect breakpoint alias of passed index from configuration map") {

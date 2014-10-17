@@ -1,6 +1,6 @@
-/*
- * Checks type of each item in list
- */
+//
+// Checks type of each item in list
+//
 @include describe("[function] types-in-list") {
 
     $list-of-numbers: 1, 2, 3, 4, 5;

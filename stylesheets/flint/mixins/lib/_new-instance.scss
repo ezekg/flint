@@ -1,18 +1,18 @@
-/**
- * Creates a new instance, adds to global instance map
- *
- * @access private
- *
- * @param {String} $calc-key
- * @param {Number} $calc-span
- * @param {Number} $calc-context
- * @param {Number} $calc-gutter
- * @param {Number} $output-width
- * @param {Number} $output-margin-right
- * @param {Number} $output-margin-left
- *
- * @group Internal Mixins
- */
+///
+/// Creates a new instance, adds to global instance map
+///
+/// @access private
+///
+/// @param {String} $calc-key
+/// @param {Number} $calc-span
+/// @param {Number} $calc-context
+/// @param {Number} $calc-gutter
+/// @param {Number} $output-width
+/// @param {Number} $output-margin-right
+/// @param {Number} $output-margin-left
+///
+/// @group Internal Mixins
+///
 @mixin flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $output-width, $output-margin-right, $output-margin-left) {
 	$flint__instances:
 		flint-instance(

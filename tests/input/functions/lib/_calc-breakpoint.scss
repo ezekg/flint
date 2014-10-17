@@ -1,6 +1,6 @@
-/*
- * Calculate breakpoint query
- */
+//
+// Calculate breakpoint query
+//
 @include describe("[function] calc-breakpoint") {
 
     @include it("should expect breakpoint of passed key") {

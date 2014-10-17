@@ -1,6 +1,6 @@
-/*
- * Removes all false and null values from $list
- */
+//
+// Removes all false and null values from $list
+//
 @include describe("[function] purge") {
 
 	$list: (true, false, "string", "", null, 1);

@@ -1,13 +1,13 @@
-/**
- * Container
- *
- * @access private
- *
- * @param {String} $key (null) - alias of individual breakpoint
- * @param {Number} $i   (null) - index number if called from loop
- *
- * @group Internal Mixins
- */
+///
+/// Container
+///
+/// @access private
+///
+/// @param {String} $key (null) - alias of individual breakpoint
+/// @param {Number} $i   (null) - index number if called from loop
+///
+/// @group Internal Mixins
+///
 @mixin flint-container($key: null, $i: null) {
 
     // Check if inside of loop, and if so only output for default

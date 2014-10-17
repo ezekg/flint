@@ -1,6 +1,6 @@
-/*
- * Replaces old by new in $list
- */
+//
+// Replaces old by new in $list
+//
 @include describe("[function] replace") {
 
     $list: ("one", "two", "three");

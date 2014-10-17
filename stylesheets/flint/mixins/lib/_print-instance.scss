@@ -1,14 +1,14 @@
-/**
- * @group Internal Mixins
- **/
+////
+/// @group Internal Mixins
+////
 
-/**
- * Prints debug properties
- *
- * @access private
- *
- * @param {String} $calc-key - breakpoint key to search for instance
- */
+///
+/// Prints debug properties
+///
+/// @access private
+///
+/// @param {String} $calc-key - breakpoint key to search for instance
+///
 @mixin flint-debug-instance($calc-key) {
     @if flint-get-value("settings", "debug-mode") {
         // Lets clean up the selector a bit...
@@ -19,13 +19,13 @@
 	}
 }
 
-/**
- * Prints all contents of instance map
- *
- * @access private
- *
- * @param {Map} $instance - instance map
- */
+///
+/// Prints all contents of instance map
+///
+/// @access private
+///
+/// @param {Map} $instance - instance map
+///
 @mixin flint-print-instance($instance) {
 
 	// Loop through each property in passed instance

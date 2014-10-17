@@ -1,16 +1,16 @@
-/**
- * @group Internal Mixins
- **/
+////
+/// @group Internal Mixins
+////
 
-/**
- * Outputs calculated styles
- *
- * @access private
- *
- * @param {Map}    $width        - map of target / context values
- * @param {Number} $margin-right - right margin value
- * @param {Number} $margin-left  - left margin value
- */
+///
+/// Outputs calculated styles
+///
+/// @access private
+///
+/// @param {Map}    $width        - map of target / context values
+/// @param {Number} $margin-right - right margin value
+/// @param {Number} $margin-left  - left margin value
+///
 @mixin flint-output($width, $margin-right, $margin-left) {
 
 	@if not flint-is-map($width) {
@@ -32,17 +32,17 @@
 	@content;
 }
 
-/**
- * Calculate widths, save all variables to instance
- *
- * @access private
- *
- * @param {String}      $calc-key     - breakpoint key
- * @param {Number}      $calc-span    - span value
- * @param {Number}      $calc-context - context value
- * @param {String}      $calc-gutter  - gutter modifier
- * @param {Number|Null} $i            - index if variable length is > 1
- */
+///
+/// Calculate widths, save all variables to instance
+///
+/// @access private
+///
+/// @param {String}      $calc-key     - breakpoint key
+/// @param {Number}      $calc-span    - span value
+/// @param {Number}      $calc-context - context value
+/// @param {String}      $calc-gutter  - gutter modifier
+/// @param {Number|Null} $i            - index if variable length is > 1
+///
 @mixin flint-calculate($key, $span, $context, $gutter, $i: null) {
 
 	// Define local vars
@@ -62,18 +62,18 @@
 	// Default value for cache search result
 	$cached: false;
 
-	/*
-	 * Check lengths, if invalid throw error
-	 */
+	//
+	// Check lengths, if invalid throw error
+	//
 	@if flint-types-in-list($calc-gutter, "string") and length($calc-gutter) != length($flint__all-keys) {
 		@if not $flint__development-mode {
 			@error "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all-keys)}). Your argument was: #{$calc-gutter}";
 		}
 	}
 
-	/*
-	 * Check if any arguments are lists if called from loop
-	 */
+	//
+	// Check if any arguments are lists if called from loop
+	//
 	@if $i {
 
 		@if flint-types-in-list($calc-key, "number") {
@@ -91,9 +91,9 @@
 
 	}
 
-	/*
-	* Check for cached results
-	*/
+	//
+	// Check for cached results
+	//
 	@if $calc-context != "auto" and $calc-span != 0 {
 		@if map-has-key($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}") {
 			$result: map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}");
@@ -108,9 +108,9 @@
 		}
 	}
 
-	/*
-	 * Hide if span is zero
-	 */
+	//
+	// Hide if span is zero
+	//
 	@if $calc-span == 0 {
 
 		// First check if it's the default, so we don't hide the element on all breakpoints
@@ -133,16 +133,16 @@
 
 	} @else {
 
-		/*
-		 * Define floats if key is default, or this is a single instance call
-		 */
+		//
+		// Define floats if key is default, or this is a single instance call
+		//
 		@if flint-is-default($calc-key) and $gutter != "center" or $i == null and $gutter != "center" {
 			float: unquote(flint-get-value("settings", "float-direction"));
 		}
 
-		/*
-		 * Disable floats if gutter is set to center
-		 */
+		//
+		// Disable floats if gutter is set to center
+		//
 		$recursive-center: false;
 
 		@if $gutter == "center" {
@@ -162,9 +162,9 @@
 			float: none;
 		}
 
-		/*
-		 * Only run through if cache search was unsuccessful
-		 */
+		//
+		// Only run through if cache search was unsuccessful
+		//
 		@if not $cached {
 
 			$output-gutter: flint-get-gutter();
