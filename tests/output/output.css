@@ -14,8 +14,8 @@
 .parent-instance {
   float: left;
   width: 93.75%;
-  margin-right: 3.125%;
-  margin-left: 3.125%;
+  margin-right: auto;
+  margin-left: auto;
 }
 @media (min-width: 60.0625em) {
   .parent-instance {
@@ -26,16 +26,21 @@
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
   .parent-instance {
-    width: 31.25%;
+    width: 32.29167%;
     margin-right: 1.04167%;
-    margin-left: 1.04167%;
+    margin-left: 0;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
   .parent-instance {
-    width: 46.875%;
-    margin-right: 1.5625%;
+    width: 48.4375%;
+    margin-right: 0;
     margin-left: 1.5625%;
+  }
+}
+@media (min-width: 0) and (max-width: 20em) {
+  .parent-instance {
+    float: none;
   }
 }
 .parent-instance .child-instance {
@@ -46,23 +51,23 @@
 }
 @media (min-width: 60.0625em) {
   .parent-instance .child-instance {
-    width: 43.33333%;
-    margin-right: 3.33333%;
-    margin-left: 3.33333%;
+    width: 50%;
+    margin-right: 0;
+    margin-left: 0;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
   .parent-instance .child-instance {
-    width: 43.33333%;
-    margin-right: 3.33333%;
-    margin-left: 3.33333%;
+    width: 37.09677%;
+    margin-right: 3.22581%;
+    margin-left: 3.22581%;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
   .parent-instance .child-instance {
-    width: 43.33333%;
-    margin-right: 3.33333%;
-    margin-left: 3.33333%;
+    width: 43.54839%;
+    margin-right: 3.22581%;
+    margin-left: 3.22581%;
   }
 }
 

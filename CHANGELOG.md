@@ -1,6 +1,10 @@
 # Change Log
 
-### 2.0.7 10/17/14
+### 2.0.9
+* Fixed issue with `$gutter: center` attempting to divide by `auto`.
+* Wrote tests for `$gutter` modifiers.
+
+### 2.0.7, 2.0.8 10/17/14
 * Changed doc comments from `/* */` comments to `///`.
 
 ### 2.0.6 10/7/14

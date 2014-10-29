@@ -54,7 +54,7 @@
             "columns": 4,
             "span": 2,
             "context": 4,
-            "gutter": null,
+            "gutter": normal,
             "internal": (
                 "width": 8.125em,
                 "margin-right": 0.625em,
@@ -69,9 +69,9 @@
             "columns": 8,
             "span": 2,
             "context": 4,
-            "gutter": null,
+            "gutter": normal,
             "internal": (
-                "width": 8.125em,
+                "width": 8.4375em,
                 "margin-right": 0.625em,
                 "margin-left": 0.625em
             )
@@ -84,9 +84,9 @@
             "columns": 12,
             "span": 2,
             "context": 4,
-            "gutter": null,
+            "gutter": inside,
             "internal": (
-                "width": 8.125em,
+                "width": 7.1875em,
                 "margin-right": 0.625em,
                 "margin-left": 0.625em
             )
@@ -99,11 +99,11 @@
             "columns": 16,
             "span": 2,
             "context": 4,
-            "gutter": null,
+            "gutter": row,
             "internal": (
-                "width": 8.125em,
-                "margin-right": 0.625em,
-                "margin-left": 0.625em
+                "width": 9.375em,
+                "margin-right": 0,
+                "margin-left": 0
             )
         ),
         ".parent-instance::mobile": (
@@ -114,11 +114,11 @@
             "columns": 4,
             "span": 4,
             "context": null,
-            "gutter": null,
+            "gutter": center,
             "internal": (
                 "width": 18.75em,
-                "margin-right": 0.625em,
-                "margin-left": 0.625em
+                "margin-right": auto,
+                "margin-left": auto
             )
         ),
         ".parent-instance::tablet": (
@@ -129,10 +129,10 @@
             "columns": 8,
             "span": 4,
             "context": null,
-            "gutter": null,
+            "gutter": omega,
             "internal": (
-                "width": 18.75em,
-                "margin-right": 0.625em,
+                "width": 19.375em,
+                "margin-right": 0,
                 "margin-left": 0.625em
             )
         ),
@@ -144,11 +144,11 @@
             "columns": 12,
             "span": 4,
             "context": null,
-            "gutter": null,
+            "gutter": alpha,
             "internal": (
-                "width": 18.75em,
+                "width": 19.375em,
                 "margin-right": 0.625em,
-                "margin-left": 0.625em
+                "margin-left": 0
             )
         ),
         ".parent-instance::desktop": (
@@ -159,7 +159,7 @@
             "columns": 16,
             "span": 4,
             "context": null,
-            "gutter": null,
+            "gutter": normal,
             "internal": (
                 "width": 18.75em,
                 "margin-right": 0.625em,
@@ -169,10 +169,10 @@
     );
 
     .parent-instance {
-        @include _(4);
+        @include _(4, $gutter: normal alpha omega center);
 
         .child-instance {
-            @include _(2, "auto");
+            @include _(2, "auto", $gutter: row inside normal normal);
 
             @at-root {
                 @include it("should expect instance map to match pseudo instance map") {
