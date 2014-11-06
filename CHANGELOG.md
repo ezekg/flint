@@ -1,5 +1,9 @@
 # Change Log
 
+### 2.1.0
+* Added support for `rem` values.
+* Set up proper submodule for Bootcamp.
+
 ### 2.0.9
 * Fixed issue with `$gutter: center` attempting to divide by `auto`.
 * Wrote tests for `$gutter` modifiers.

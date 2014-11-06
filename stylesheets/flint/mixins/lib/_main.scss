@@ -435,6 +435,19 @@
 ) {
 
     //
+    // Get unit to modify queries with
+    //
+    $unit: null;
+
+    @if flint-get-config-unit() == "rem" {
+        $unit: flint-to-rem(1px);
+    } @else if flint-get-config-unit() == "em" {
+        $unit: flint-to-em(1px);
+    } @else {
+        $unit: 1;
+    }
+
+    //
     // Clearfix
     //
     @if $key == "clear" or $span == "clear" or $context == "clear" {
@@ -447,12 +460,12 @@
 
             @if flint-get-value("settings", "grid") == "fluid" {
                 @if flint-is-highest-breakpoint($key) {
-                    @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                    @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + $unit) ) {
                         @include flint-clearfix;
                         @content;
                     }
                 } @else {
-                    @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
+                    @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, $unit)) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
                         @include flint-clearfix;
                         @content;
                     }
@@ -464,7 +477,7 @@
                         @content;
                     }
                 } @else {
-                    @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                    @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - $unit) ) {
                         @include flint-clearfix;
                         @content;
                     }
@@ -536,7 +549,7 @@
 
                     } @else {
 
-                        @media ( min-width: flint-calc-breakpoint("alias", $calc-key, $i) ) and ( max-width: (flint-calc-breakpoint("prev", $calc-key, $i) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                        @media ( min-width: flint-calc-breakpoint("alias", $calc-key, $i) ) and ( max-width: (flint-calc-breakpoint("prev", $calc-key, $i) - $unit) ) {
                             @include flint-container($calc-key, $i) {
                                 @content;
                             }
@@ -559,7 +572,7 @@
 
             } @else {
 
-                @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - $unit) ) {
                     @include flint-container($key) {
                         @content;
                     }
@@ -569,7 +582,7 @@
         } @else if flint-exists($flint, $key) and flint-get-value("settings", "grid") == "fluid" {
             @if flint-is-highest-breakpoint($key) {
 
-                @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + $unit) ) {
                     @include flint-container {
                         @content;
                     }
@@ -577,7 +590,7 @@
 
             } @else {
 
-                @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
+                @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, $unit)) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
                     @include flint-container {
                         @content;
                     }
@@ -664,7 +677,7 @@
 
                             @if flint-is-highest-breakpoint($calc-key) {
 
-                                @media ( min-width: (flint-calc-breakpoint("next", $calc-key, $i) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                                @media ( min-width: (flint-calc-breakpoint("next", $calc-key, $i) + $unit) ) {
                                     @include flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter, $i) {
                                         @content;
                                     }
@@ -672,7 +685,7 @@
 
                             } @else {
 
-                                @media ( min-width: (flint-calc-breakpoint("next", $calc-key, $i) + if(flint-is-lowest-breakpoint($calc-key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", $calc-key, $i) ) {
+                                @media ( min-width: (flint-calc-breakpoint("next", $calc-key, $i) + if(flint-is-lowest-breakpoint($calc-key), 0, $unit)) ) and ( max-width: flint-calc-breakpoint("alias", $calc-key, $i) ) {
                                     @include flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter, $i) {
                                         @content;
                                     }
@@ -692,7 +705,7 @@
 
                             } @else {
 
-                                @media ( min-width: flint-calc-breakpoint("alias", $calc-key, $i) ) and ( max-width: (flint-calc-breakpoint("prev", $calc-key, $i) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                                @media ( min-width: flint-calc-breakpoint("alias", $calc-key, $i) ) and ( max-width: (flint-calc-breakpoint("prev", $calc-key, $i) - $unit) ) {
                                     @include flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter, $i) {
                                         @content;
                                     }
@@ -744,7 +757,7 @@
 
                         @if flint-is-highest-breakpoint($calc-key) {
 
-                            @media ( min-width: (flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                            @media ( min-width: (flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + $unit) ) {
                                 @include flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter) {
                                     @content;
                                 }
@@ -752,7 +765,7 @@
 
                         } @else {
 
-                            @media ( min-width: (flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + if(flint-is-lowest-breakpoint($calc-key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key)) ) {
+                            @media ( min-width: (flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + if(flint-is-lowest-breakpoint($calc-key), 0, $unit)) ) and ( max-width: flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key)) ) {
                                 @include flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter) {
                                     @content;
                                 }
@@ -772,7 +785,7 @@
 
                         } @else {
 
-                            @media ( min-width: flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key)) ) and ( max-width: (flint-calc-breakpoint("prev", $calc-key, flint-get-index($calc-key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                            @media ( min-width: flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key)) ) and ( max-width: (flint-calc-breakpoint("prev", $calc-key, flint-get-index($calc-key)) - $unit) ) {
                                 @include flint-calculate($calc-key, $calc-span, $calc-context, $calc-gutter) {
                                     @content;
                                 }
@@ -801,11 +814,11 @@
 
                 @if flint-get-value("settings", "grid") == "fluid" {
                     @if flint-is-highest-breakpoint($key) {
-                        @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                        @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + $unit) ) {
                             @content;
                         }
                     } @else {
-                        @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
+                        @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + if(flint-is-lowest-breakpoint($key), 0, $unit)) ) and ( max-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) {
                             @content;
                         }
                     }
@@ -815,7 +828,7 @@
                             @content;
                         }
                     } @else {
-                        @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                        @media ( min-width: flint-calc-breakpoint("alias", $key, flint-get-index($key)) ) and ( max-width: (flint-calc-breakpoint("prev", $key, flint-get-index($key)) - $unit) ) {
                             @content;
                         }
                     }
@@ -831,7 +844,7 @@
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" and nth($key, 4) == "infinity" {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
-                    @media ( min-width: (flint-calc-breakpoint("next", nth($key, 2), flint-get-index(nth($key, 2))) + if(flint-is-lowest-breakpoint(nth($key, 2)), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) {
+                    @media ( min-width: (flint-calc-breakpoint("next", nth($key, 2), flint-get-index(nth($key, 2))) + if(flint-is-lowest-breakpoint(nth($key, 2)), 0, $unit)) ) {
                         @content;
                     }
                 } @else if flint-get-value("settings", "grid") == "fixed" {
@@ -850,11 +863,11 @@
             } @else if flint-types-in-list($key, "string", 4) and nth($key, 1) == "from" and nth($key, 3) == "to" {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
-                    @media ( min-width: (flint-calc-breakpoint("next", nth($key, 2), flint-get-index(nth($key, 2))) + if(flint-is-lowest-breakpoint(nth($key, 2)), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) and ( max-width: flint-calc-breakpoint("alias", nth($key, 4), flint-get-index(nth($key, 4))) ) {
+                    @media ( min-width: (flint-calc-breakpoint("next", nth($key, 2), flint-get-index(nth($key, 2))) + if(flint-is-lowest-breakpoint(nth($key, 2)), 0, $unit)) ) and ( max-width: flint-calc-breakpoint("alias", nth($key, 4), flint-get-index(nth($key, 4))) ) {
                         @content;
                     }
                 } @else if flint-get-value("settings", "grid") == "fixed" {
-                     @media ( min-width: flint-calc-breakpoint("alias", nth($key, 2), flint-get-index(nth($key, 2))) ) and ( max-width: (flint-calc-breakpoint("prev", nth($key, 4), flint-get-index(nth($key, 4))) - if(flint-is-highest-breakpoint(nth($key, 4)), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1))) ) {
+                     @media ( min-width: flint-calc-breakpoint("alias", nth($key, 2), flint-get-index(nth($key, 2))) ) and ( max-width: (flint-calc-breakpoint("prev", nth($key, 4), flint-get-index(nth($key, 4))) - if(flint-is-highest-breakpoint(nth($key, 4)), 0, $unit)) ) {
                         @content;
                     }
                 } @else {
@@ -885,7 +898,7 @@
             } @else if flint-types-in-list($key, "string", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
                 @if flint-get-value("settings", "grid") == "fluid" {
-                    @media ( min-width: (flint-calc-breakpoint("alias", nth($key, 3), flint-get-index(nth($key, 3))) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                    @media ( min-width: (flint-calc-breakpoint("alias", nth($key, 3), flint-get-index(nth($key, 3))) + $unit) ) {
                         @content;
                     }
                 } @else if flint-get-value("settings", "grid") == "fixed" {
@@ -904,7 +917,7 @@
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "greater" and nth($key, 2) == "than" {
 
                 @if flint-get-config-unit() == unit(nth($key, 3)) {
-                    @media ( min-width: nth($key, 3) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1) ) {
+                    @media ( min-width: nth($key, 3) + $unit ) {
                         @content;
                     }
                 } @else {
@@ -938,7 +951,7 @@
                         @content;
                     }
                 } @else if flint-get-value("settings", "grid") == "fixed" {
-                    @media ( max-width: (flint-calc-breakpoint("alias", nth($key, 3), flint-get-index(nth($key, 3))) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1)) ) {
+                    @media ( max-width: (flint-calc-breakpoint("alias", nth($key, 3), flint-get-index(nth($key, 3))) - $unit) ) {
                         @content;
                     }
                 } @else {
@@ -953,7 +966,7 @@
             } @else if flint-types-in-list($key, "string" "string" "number", 3) and nth($key, 1) == "less" and nth($key, 2) == "than" {
 
                 @if flint-get-config-unit() == unit(nth($key, 3)) {
-                    @media ( max-width: nth($key, 3) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1) ) {
+                    @media ( max-width: nth($key, 3) - $unit ) {
                         @content;
                     }
                 } @else {
@@ -993,15 +1006,15 @@
                     @if flint-exists($flint, $calc-key) {
                         @if flint-get-value("settings", "grid") == "fluid" {
                             @if flint-is-highest-breakpoint($calc-key) {
-                                $query: append($query, unquote('( min-width: #{(flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + if(flint-get-config-unit() == "em", flint-to-em(1px), 1))} )'), "comma");
+                                $query: append($query, unquote('( min-width: #{(flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + $unit)} )'), "comma");
                             } @else {
-                                $query: append($query, unquote('( min-width: #{(flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + if(flint-is-lowest-breakpoint($calc-key), 0, if(flint-get-config-unit() == "em", flint-to-em(1px), 1)))} ) and ( max-width: #{flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key))} )'), "comma");
+                                $query: append($query, unquote('( min-width: #{(flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + if(flint-is-lowest-breakpoint($calc-key), 0, $unit))} ) and ( max-width: #{flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key))} )'), "comma");
                             }
                         } @else if flint-get-value("settings", "grid") == "fixed" {
                             @if flint-is-highest-breakpoint($calc-key) {
                                 $query: append($query, unquote('( min-width: #{flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key))} )'), "comma");
                             } @else {
-                                $query: append($query, unquote('( min-width: #{flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key))} ) and ( max-width: #{(flint-calc-breakpoint("prev", $calc-key, flint-get-index($calc-key)) - if(flint-get-config-unit() == "em", flint-to-em(1px), 1))} )'), "comma");
+                                $query: append($query, unquote('( min-width: #{flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key))} ) and ( max-width: #{(flint-calc-breakpoint("prev", $calc-key, flint-get-index($calc-key)) - $unit)} )'), "comma");
                             }
                         } @else {
                             @if not $flint__development-mode {

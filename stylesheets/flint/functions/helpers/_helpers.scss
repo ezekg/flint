@@ -202,6 +202,20 @@
 	@return ($target / $context) * 1em;
 }
 
+//
+/// Convert pixel value to rem
+///
+/// @access private
+///
+/// @param {Number} $target  - pixel value
+/// @param {Number} $context - context to divide by
+///
+/// @return {Number} rem value of target relative to context
+///
+@function flint-to-rem($target, $context: $flint__base-font-size) {
+	@return ($target / $context) * 1rem;
+}
+
 ///
 /// Use Ruby functions in place of Sass functions where possible
 ///   to speed up performance, especially with string functions

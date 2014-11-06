@@ -1,0 +1,3 @@
+[submodule "tests/bootcamp"]
+	path = tests/bootcamp
+	url = git://github.com/thejameskyle/bootcamp.git

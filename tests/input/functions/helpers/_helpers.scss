@@ -414,3 +414,24 @@
 		);
 	}
 }
+
+//
+// Convert pixel value to rem
+//
+@include describe("[function] to-rem") {
+
+	@include it("should expect passed pixel value to be converted to rems") {
+		@include should(expect(
+			flint-to-rem(16px)),
+			to(be(1rem))
+		);
+		@include should(expect(
+			flint-to-rem(32px)),
+			to(be(2rem))
+		);
+		@include should(expect(
+			flint-to-rem(16px, 32px)),
+			to(be(0.5rem))
+		);
+	}
+}

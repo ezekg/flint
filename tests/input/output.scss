@@ -1,6 +1,13 @@
 ///
 /// Configuration map
 ///
+
+// Bootcamp
+@import "../bootcamp/dist/bootcamp";
+
+// Flint
+@import "../../stylesheets/flint";
+
 $flint: (
     "breakpoints": (
         "desktop": (
@@ -32,13 +39,7 @@ $flint: (
         "support-syntax": false,
         "debug-mode": false
     )
-);
-
-// Bootcamp
-@import "../bootcamp/bootcamp";
-
-// Flint
-@import "../../stylesheets/flint";
+) !global;
 
 // Enable development mode
 $flint__development-mode: true !global;
