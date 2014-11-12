@@ -1,6 +1,6 @@
 {
   "name": "flint",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "stylesheets/_flint.scss",
   "description": "Flint is a highly advanced Sass grid framework designed for rapid responsive development.",
   "authors": ["Ezekiel Gabrielse <ezekg@yahoo.com>"],

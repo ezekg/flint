@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.1.1
+* Fix issue with unassigned `$output-width` variable when using `$span: 0`.
+
 ### 2.1.0
 * Added support for `rem` values.
 * Set up proper submodule for Bootcamp.

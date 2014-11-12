@@ -127,7 +127,7 @@
 		}
 
 		@if flint-get-value("settings", "instance-maps") {
-			@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $output-width, $output-margin-right, $output-margin-left);
+			@include flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $output-width-map, $output-margin-right, $output-margin-left);
 			@include flint-debug-instance($calc-key);
 		}
 
