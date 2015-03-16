@@ -187,7 +187,7 @@
 				$output-margin-right: $output-gutter;
 				$output-margin-left: 0;
 
-			} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "flint-last" {
+			} @else if $calc-gutter == "omega" or $calc-gutter == "no-right" or $calc-gutter == "last" {
 
 				$output-width-map: flint-calc-width($calc-key, $calc-span, if($calc-context, $calc-context, null), $output-gutter);
 				$output-margin-right: 0;
