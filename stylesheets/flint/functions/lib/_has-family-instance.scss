@@ -56,15 +56,16 @@
 
 		// Loop through length of list of selectors
 		@for $i from 1 through $length {
+			$selector-string: flint-list-to-string($selector-list, ' ');
 
 			// Make sure that we're not counting the current selector set
-			@if flint-exists($flint__instances, "#{flint-list-to-string($selector-list, ' ')}::#{$key}") and $selector != $selector-list {
+			@if flint-exists($flint__instances, "#{$selector-string}::#{$key}") and $selector != $selector-list {
 
 				// Cache result
-				$flint__cached-instances: map-merge($flint__cached-instances, ("#{$selector}": "#{flint-list-to-string($selector-list, ' ')}"));
+				$flint__cached-instances: map-merge($flint__cached-instances, ("#{$selector}": "#{$selector-string}"));
 
 				// Return the matching instance key
-				@return "#{flint-list-to-string($selector-list, ' ')}::#{$key}";
+				@return "#{$selector-string}::#{$key}";
 
 			} @else {
 
