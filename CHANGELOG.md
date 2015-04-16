@@ -1,5 +1,12 @@
 # Change Log
 
+### 2.1.4
+* Fix issue with using `unquote()` on non-strings.
+
+### 2.1.2, 2.1.3
+* Update comments to follow SassDoc standards
+* Small style fixes
+
 ### 2.1.1
 * Fix issue with unassigned `$output-width` variable when using `$span: 0`.
 

@@ -4,8 +4,8 @@
 /// @access private
 ///
 /// @param {String} $string       - string to perform on
-/// @param {String} $find   (" ") - item to find which separates substrings
-/// @param {String} $ignore (",") - removes remaining string beyond item
+/// @param {String} $find   [" "] - item to find which separates substrings
+/// @param {String} $ignore [","] - removes remaining string beyond item
 ///
 /// @return {List}
 ///

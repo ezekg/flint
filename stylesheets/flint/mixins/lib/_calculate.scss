@@ -95,8 +95,8 @@
 	// Check for cached results
 	//
 	@if $calc-context != "auto" and $calc-span != 0 {
-		@if map-has-key($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}") {
-			$result: map-get($flint__cache-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}");
+		@if map-has-key($flint__cached-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}") {
+			$result: map-get($flint__cached-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}");
 
 			// Get results
 			$output-width-map: nth($result, 1);
@@ -218,7 +218,7 @@
 
 			// Cache result
 			@if $calc-context != "auto" and $calc-span != 0 and not $cached {
-				$flint__cache-results: map-merge($flint__cache-results, (
+				$flint__cached-results: map-merge($flint__cached-results, (
 					"#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}": ($output-width-map, $output-margin-right, $output-margin-left)
 				)) !global;
 			}

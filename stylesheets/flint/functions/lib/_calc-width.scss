@@ -5,8 +5,8 @@
 ///
 /// @param {String}        $key            - key of breakpoint
 /// @param {Number}        $span           - span value of element
-/// @param {Number|String} $context (null) - context value of element
-/// @param {Number}        $deduct  (null) - subtract value out of final width
+/// @param {Number|String} $context [null] - context value of element
+/// @param {Number}        $deduct  [null] - subtract value out of final width
 ///
 /// @return {Map} - map of target and context result
 ///

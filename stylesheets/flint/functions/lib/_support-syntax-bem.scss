@@ -12,7 +12,7 @@
 @function flint-support-syntax-bem($selectors) {
     // Clean up selector, remove double underscores for spaces
     //  add pseudo character to differentiate selectors
-    $selectors: flint-replace-substring(inspect(unquote($selectors)), "__", "/");
+    $selectors: flint-replace-substring(unquote(inspect($selectors)), "__", "/");
     // Parse string back to list without pseudo character
     $selectors: flint-string-to-list($selectors, "/");
     // Define top-most parent of selector

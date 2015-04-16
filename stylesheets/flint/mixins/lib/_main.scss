@@ -341,10 +341,10 @@
 ///
 /// @access public
 ///
-/// @param {String|Number|List} $key     (null) - key of breakpoint, or shorthand span
-/// @param {String|Number|List} $span    (null) - value of span for column, or shorthand context
-/// @param {String|Number}      $context (null) - context value of span, or null for shorthand
-/// @param {String|List}        $gutter  (null) - alias for gutter modifier
+/// @param {String|Number|List} $key     [null] - key of breakpoint, or shorthand span
+/// @param {String|Number|List} $span    [null] - value of span for column, or shorthand context
+/// @param {String|Number}      $context [null] - context value of span, or null for shorthand
+/// @param {String|List}        $gutter  [null] - alias for gutter modifier
 ///
 /// @throws - Error if list lengths do not match number of breakpoints (when using variable shorthands).
 ///

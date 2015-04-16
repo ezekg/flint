@@ -6,4 +6,8 @@ Gemfile.lock
 .DS_Store
 
 # Folders
-.sass-cache
+.sass-cache/
+
+# Sassdoc
+sassdoc/
+npm-debug.log
