@@ -64,31 +64,10 @@ function parses the selector string (for example, `.block__element__element`) li
 /// @group Internal Functions
 ///
 @function flint-support-syntax-bem($selectors) {
-    // Clean up selector, remove double underscores for spaces
-    //  add pseudo character to differentiate selectors
-    $selectors: flint-replace-substring(inspect(unquote($selectors)), "__", "/");
-    // Parse string back to list without pseudo character
-    $selectors: flint-string-to-list($selectors, "/");
-    // Define top-most parent of selector
-    $parent: nth($selectors, 1);
-    // Create new list of parsed selectors
-    $selector-list: ("#{$parent}",);
-
-    // Loop over each selector and build list of selectors
-    @each $selector in $selectors {
-        // Make sure current selector is not the parent
-        @if $selector != $parent {
-            // Save to selector list
-            $selector-list: append($selector-list, "#{$parent}__#{$selector}", "comma");
-            // Define new parent
-            $parent: "#{$parent}__#{$selector}";
-        }
-    }
-
-    // Return the list of parsed selectors
-    @return $selector-list;
+    /// ...
 }
 ```
+[View Source](https://github.com/ezekg/flint/blob/master/stylesheets/flint/functions/lib/_support-syntax-bem.scss)
 
 This will be parsed into a list of selectors: `.block, .block__element, .block__element__element`. The list of selectors can then be used by the
 instance system to look up a selectors parent, etc. To support your own preferred syntax: create a `flint-support-syntax-<syntax-name>` function
