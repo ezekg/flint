@@ -3,7 +3,7 @@
 //
 @include describe("[function] get-instance-value") {
 
-	// $flint__instances: (
+	// $flint-instances: (
 	// 	".instance::desktop": (
 	// 		"instance-count": 1,
 	// 		"parent-selector": none,
@@ -67,6 +67,6 @@
 		}
 	}
 
-	$flint__instances: () !global;
-	$flint__instance-count: 0 !global;
+	$flint-instances: () !global;
+	$flint-instance-count: 0 !global;
 }

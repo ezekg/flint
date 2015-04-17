@@ -499,11 +499,11 @@
 
         // Apply global border-box-sizing if set to true
         @if flint-get-value("settings", "border-box-sizing") {
-            $flint__foundation: "existent" !global;
+            $flint-foundation: "existent" !global;
         }
 
         // Foundation is now globally existant
-        @if $flint__foundation == "existent" {
+        @if $flint-foundation == "existent" {
             @at-root *, *:before, *:after {
                 @include flint-box-sizing;
                 @content;
@@ -516,14 +516,14 @@
     } @else if $key == "container" or $span == "container" or $context == "container" {
 
         // Apply individually if foundation is not set globally, but is set to true in config
-        @if flint-get-value("settings", "border-box-sizing") and $flint__foundation == "non-existent" {
+        @if flint-get-value("settings", "border-box-sizing") and $flint-foundation == "non-existent" {
             @include _("foundation");
         }
 
         // Output container for each breakpoint if fixed grid
         @if $key == "container" and flint-get-value("settings", "grid") == "fixed" {
 
-            @for $i from 1 through length($flint__all-keys) {
+            @for $i from 1 through length($flint-all-keys) {
 
                 // Set up variables
                 $calc-key: flint-steal-key($i);
@@ -609,7 +609,7 @@
     } @else {
 
         // Apply individually if foundation is not set globally, but is set to true in config
-        @if flint-get-value("settings", "border-box-sizing") and $flint__foundation == "non-existent" {
+        @if flint-get-value("settings", "border-box-sizing") and $flint-foundation == "non-existent" {
             @include _("foundation");
         }
 
@@ -648,17 +648,17 @@
         or flint-types-in-list($key, "number") and $span == "auto" {
 
             // Emit erroring for invalid argument lengths
-            @if flint-types-in-list($key, "number") and length($key) != length($flint__all-keys) {
-                @if not $flint__development-mode {
-                    @error "Invalid argument length of #{length($key)} for span. Please provide an argument for each breakpoint in your config (#{length($flint__all-keys)}). Your argument was: #{$key}";
+            @if flint-types-in-list($key, "number") and length($key) != length($flint-all-keys) {
+                @if not $flint-development-mode {
+                    @error "Invalid argument length of #{length($key)} for span. Please provide an argument for each breakpoint in your config (#{length($flint-all-keys)}). Your argument was: #{$key}";
                 }
-            } @else if flint-types-in-list($span, "number") and length($span) != length($flint__all-keys) {
-                @if not $flint__development-mode {
-                    @error "Invalid argument length of #{length($span)} for context. Please provide an argument for each breakpoint in your config (#{length($flint__all-keys)}). Your argument was: #{$span}";
+            } @else if flint-types-in-list($span, "number") and length($span) != length($flint-all-keys) {
+                @if not $flint-development-mode {
+                    @error "Invalid argument length of #{length($span)} for context. Please provide an argument for each breakpoint in your config (#{length($flint-all-keys)}). Your argument was: #{$span}";
                 }
             } @else {
 
-                @for $i from 1 through length($flint__all-keys) {
+                @for $i from 1 through length($flint-all-keys) {
 
                     $calc-key: flint-steal-key($i);
                     $calc-span: $key;
@@ -714,7 +714,7 @@
                             }
 
                         } @else {
-                            @if not $flint__development-mode {
+                            @if not $flint-development-mode {
                                 @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                             }
                         }
@@ -735,7 +735,7 @@
 
             // Throw error for invalid argument lengths
             @if not flint-exists($flint, $key) {
-                @if not $flint__development-mode {
+                @if not $flint-development-mode {
                     @error "Invalid argument: #{$key}. Breakpoint does not exist. Please provide a valid argument.";
                 }
             } @else {
@@ -794,7 +794,7 @@
                         }
 
                     } @else {
-                        @if not $flint__development-mode {
+                        @if not $flint-development-mode {
                             @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                         }
                     }
@@ -833,7 +833,7 @@
                         }
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                     }
                 }
@@ -852,7 +852,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                     }
                 }
@@ -871,7 +871,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                     }
                 }
@@ -887,7 +887,7 @@
                     }
                 // Throw error
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Passed units [#{unit(nth($key, 2))}, #{unit(nth($key, 4))}] do not match the unit used in your config map: #{flint-get-config-unit()}";
                     }
                 }
@@ -906,7 +906,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                     }
                 }
@@ -921,7 +921,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Passed units [#{unit(nth($key, 3))}] do not match the unit used in your config map: #{flint-get-config-unit()}";
                     }
                 }
@@ -936,7 +936,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Passed units [#{unit(nth($key, 1))}] do not match the unit used in your config map: #{flint-get-config-unit()}";
                     }
                 }
@@ -955,7 +955,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                     }
                 }
@@ -970,7 +970,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Passed units [#{unit(nth($key, 3))}] do not match the unit used in your config map: #{flint-get-config-unit()}";
                     }
                 }
@@ -985,7 +985,7 @@
                         @content;
                     }
                 } @else {
-                    @if not $flint__development-mode {
+                    @if not $flint-development-mode {
                         @error "Passed units [#{unit(nth($key, 1))}] do not match the unit used in your config map: #{flint-get-config-unit()}";
                     }
                 }
@@ -1017,13 +1017,13 @@
                                 $query: append($query, unquote('( min-width: #{flint-calc-breakpoint("alias", $calc-key, flint-get-index($calc-key))} ) and ( max-width: #{(flint-calc-breakpoint("prev", $calc-key, flint-get-index($calc-key)) - $unit)} )'), "comma");
                             }
                         } @else {
-                            @if not $flint__development-mode {
+                            @if not $flint-development-mode {
                                 @error "Invalid gutter settings in config map: #{flint-get-value('settings', 'grid')}. Valid arguments: fluid, fixed";
                             }
                         }
                     } @else {
                         @if not $calc-key == "for" {
-                            @if not $flint__development-mode {
+                            @if not $flint-development-mode {
                                 @error "Invalid argument: #{$calc-key}. Breakpoint does not exist. Please provide a valid argument.";
                             }
                         }
@@ -1040,7 +1040,7 @@
         //
         } @else {
             @if $key != "clear" {
-                @if not $flint__development-mode {
+                @if not $flint-development-mode {
                     @error "Invalid argument(s). Please double check and provide a valid argument. If you're calling by alias, please provide a single span argument for your breakpoint. See documentation for additional details.";
                 }
             }

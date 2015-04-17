@@ -18,14 +18,14 @@
 @function flint-instance($key, $span, $context, $gutter, $output-width, $output-margin-right, $output-margin-left) {
 
     // Increase the instance count
-    $flint__instance-count: $flint__instance-count + 1 !global;
+    $flint-instance-count: $flint-instance-count + 1 !global;
 
     // Lets clean up the selector a bit...
     $selector: nth(&, 1);
 
-    $flint__instance: (
+    $flint-instance: (
 		"#{$selector}::#{$key}": (
-			"instance-count": $flint__instance-count,
+			"instance-count": $flint-instance-count,
 			"parent-selector": if(flint-has-family-instance($key) != false, flint-has-family-instance($key), none),
 			"key": $key,
 			"breakpoint": flint-get-value("breakpoints", $key, "breakpoint"),
@@ -41,5 +41,5 @@
 		)
     );
 
-    @return map-merge($flint__instance, $flint__instances);
+    @return map-merge($flint-instance, $flint-instances);
 }

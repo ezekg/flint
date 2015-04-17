@@ -63,9 +63,7 @@ function parses the selector string (for example, `.block__element__element`) li
 ///
 /// @group Internal Functions
 ///
-@function flint-support-syntax-bem($selectors) {
-    /// ...
-}
+@function flint-support-syntax-bem($selectors) { ... }
 ```
 [View Source](https://github.com/ezekg/flint/blob/master/stylesheets/flint/functions/lib/_support-syntax-bem.scss)
 

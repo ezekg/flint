@@ -13,7 +13,7 @@
 @function flint-map-fetch($map, $keys...) {
 
 	// Use Ruby function if available
-	@if $flint__use-ruby-functions {
+	@if $flint-use-ruby-functions {
 		@return flint_ruby_map_fetch($map, $keys...);
 	} @else {
 		$result: $map;

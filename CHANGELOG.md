@@ -1,5 +1,10 @@
 # Change Log
 
+### 2.2.0
+* Rewrite `exists()` method in Ruby for a huge performance increase.
+* Write `Flint::Profiler` to help test future performance bottlenecks.
+* Update global variables to follow standard naming conventions.
+
 ### 2.1.4
 * Fix issue with using `unquote()` on non-strings.
 

@@ -16,7 +16,7 @@
 @function flint-list-to-string($list, $glue: "", $is-nested: false) {
 
 	// Use Ruby function if available
-	@if $flint__use-ruby-functions {
+	@if $flint-use-ruby-functions {
 		@return flint_ruby_list_to_string($list, $glue);
 	} @else {
 		$result: null;

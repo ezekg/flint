@@ -26,24 +26,24 @@
 
         @at-root {
             @include it("should expect instance map to match pseudo instance") {
-                @include should(expect(inspect($flint__instances)), to(be(inspect($pseudo-instance))));
+                @include should(expect(inspect($flint-instances)), to(be(inspect($pseudo-instance))));
             }
         }
 
-        $flint__instances: () !global;
-        $flint__instance-count: 0 !global;
+        $flint-instances: () !global;
+        $flint-instance-count: 0 !global;
 
-        $flint__instances: flint-instance("desktop", 4, null, null, 18.75em, 0.625em, 0.625em) !global;
+        $flint-instances: flint-instance("desktop", 4, null, null, 18.75em, 0.625em, 0.625em) !global;
 
         @at-root {
             @include it("should expect instance map to match pseudo instance") {
-                @include should(expect(inspect($flint__instances)), to(be(inspect($pseudo-instance))));
+                @include should(expect(inspect($flint-instances)), to(be(inspect($pseudo-instance))));
             }
         }
     }
 
-    $flint__instances: () !global;
-    $flint__instance-count: 0 !global;
+    $flint-instances: () !global;
+    $flint-instance-count: 0 !global;
 
     $pseudo-instance: (
         ".parent-instance .child-instance::mobile": (
@@ -176,12 +176,12 @@
 
             @at-root {
                 @include it("should expect instance map to match pseudo instance map") {
-                    @include should(expect(inspect($flint__instances)), to(be(inspect($pseudo-instance))));
+                    @include should(expect(inspect($flint-instances)), to(be(inspect($pseudo-instance))));
                 }
             }
         }
     }
 
-    $flint__instances: () !global;
-    $flint__instance-count: 0 !global;
+    $flint-instances: () !global;
+    $flint-instance-count: 0 !global;
 }

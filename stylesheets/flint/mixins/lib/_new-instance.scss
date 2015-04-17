@@ -14,7 +14,7 @@
 /// @group Internal Mixins
 ///
 @mixin flint-new-instance($calc-key, $calc-span, $calc-context, $calc-gutter, $output-width, $output-margin-right, $output-margin-left) {
-	$flint__instances:
+	$flint-instances:
 		flint-instance(
 			$calc-key,
 			$calc-span,

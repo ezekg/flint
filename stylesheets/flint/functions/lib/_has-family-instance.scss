@@ -10,13 +10,13 @@
 ///
 /// @group Internal Functions
 ///
-@function flint-has-family-instance($key: flint-get-value("settings", "default"), $syntax: $flint__support-syntax) {
+@function flint-has-family-instance($key: flint-get-value("settings", "default"), $syntax: $flint-support-syntax) {
 	$selector: nth(&, 1);
 
 	// Check if instance result had been cached
-	@if map-has-key($flint__cached-instances, "#{$selector}") {
+	@if map-has-key($flint-cached-instances, "#{$selector}") {
 		// Get cached instance
-		$cached-instance: map-get($flint__cached-instances, "#{$selector}");
+		$cached-instance: map-get($flint-cached-instances, "#{$selector}");
 		// Return with current key
 		@return "#{$cached-instance}::#{$key}";
 	}
@@ -30,18 +30,18 @@
 		// Loop through transformed selectors
 		@for $i from 1 through $length {
 
-			// Check flint-last selector in list
-			@if flint-exists($flint__instances, "#{flint-last($parsed-selector)}::#{$key}") {
+			// Check last selector in list
+			@if flint-exists($flint-instances, "#{flint-last($parsed-selector)}::#{$key}") {
 
 				// Cache result
-				$flint__cached-instances: map-merge($flint__cached-instances, ("#{$selector}": "#{flint-last($parsed-selector)}"));
+				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{flint-last($parsed-selector)}"));
 
 				// Return the matching instance key
 				@return "#{flint-last($parsed-selector)}::#{$key}";
 
 			} @else {
 
-				// Else, flint-remove the flint-last selector and loop again
+				// Else, remove the last selector and loop again
 				$parsed-selector: flint-remove($parsed-selector, flint-last($parsed-selector));
 
 			}
@@ -56,13 +56,13 @@
 
 		// Loop through length of list of selectors
 		@for $i from 1 through $length {
-			$selector-string: flint-list-to-string($selector-list, ' ');
+			$selector-string: flint-list-to-string($selector-list, " ");
 
 			// Make sure that we're not counting the current selector set
-			@if flint-exists($flint__instances, "#{$selector-string}::#{$key}") and $selector != $selector-list {
+			@if flint-exists($flint-instances, "#{$selector-string}::#{$key}") and $selector != $selector-list {
 
 				// Cache result
-				$flint__cached-instances: map-merge($flint__cached-instances, ("#{$selector}": "#{$selector-string}"));
+				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{$selector-string}"));
 
 				// Return the matching instance key
 				@return "#{$selector-string}::#{$key}";

@@ -14,7 +14,7 @@
 @mixin flint-output($width, $margin-right, $margin-left) {
 
 	@if not flint-is-map($width) {
-		@if not $flint__development-mode {
+		@if not $flint-development-mode {
 			@error "Passed $width (#{$width}) was not a map; a map containing a target / context combination is required."
 		}
 	}
@@ -65,9 +65,9 @@
 	//
 	// Check lengths, if invalid throw error
 	//
-	@if flint-types-in-list($calc-gutter, "string") and length($calc-gutter) != length($flint__all-keys) {
-		@if not $flint__development-mode {
-			@error "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint__all-keys)}). Your argument was: #{$calc-gutter}";
+	@if flint-types-in-list($calc-gutter, "string") and length($calc-gutter) != length($flint-all-keys) {
+		@if not $flint-development-mode {
+			@error "Invalid argument length of #{length($calc-gutter)} for gutter. If you're using a shorthand, please provide an argument for each breakpoint in your config (#{length($flint-all-keys)}). Your argument was: #{$calc-gutter}";
 		}
 	}
 
@@ -95,8 +95,8 @@
 	// Check for cached results
 	//
 	@if $calc-context != "auto" and $calc-span != 0 {
-		@if map-has-key($flint__cached-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}") {
-			$result: map-get($flint__cached-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}");
+		@if map-has-key($flint-cached-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}") {
+			$result: map-get($flint-cached-results, "#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}");
 
 			// Get results
 			$output-width-map: nth($result, 1);
@@ -206,7 +206,7 @@
 				$output-margin-left: 0;
 
 			} @else {
-				@if not $flint__development-mode {
+				@if not $flint-development-mode {
 					@error "Invalid gutter argument: #{$calc-gutter}. Please provide a valid argument.";
 				} @else {
 					$errors: true;
@@ -218,7 +218,7 @@
 
 			// Cache result
 			@if $calc-context != "auto" and $calc-span != 0 and not $cached {
-				$flint__cached-results: map-merge($flint__cached-results, (
+				$flint-cached-results: map-merge($flint-cached-results, (
 					"#{$calc-key, $calc-span, $calc-context, $calc-gutter, $i}": ($output-width-map, $output-margin-right, $output-margin-left)
 				)) !global;
 			}

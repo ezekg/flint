@@ -22,7 +22,7 @@
         @return call("flint-support-syntax-#{$syntax}", $selectors);
 
     } @else {
-        @if not $flint__development-mode {
+        @if not $flint-development-mode {
             // Throw error if the syntax does not exist and a function to call cannot be found
             @error "You did not pass a valid syntax to `flint-support-syntax`: #{$syntax}. Either specify a custom `flint-support-syntax-<syntax>` function to call, or use one of the offically supported syntaxes. For more info, please visit the docs.";
         } @else {

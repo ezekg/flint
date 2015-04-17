@@ -13,7 +13,7 @@
 	$length: length(map-keys(flint-get-value("breakpoints")));
 
 	@if not flint-is-number($index) {
-		@if not $flint__development-mode {
+		@if not $flint-development-mode {
 			@error "Passed $index (#{$index}) is not a number. Function takes index number of breakpoint key.";
 		} @else {
 			@return false;
@@ -21,7 +21,7 @@
 	}
 
 	@if $index > $length {
-		@if not $flint__development-mode {
+		@if not $flint-development-mode {
 			@error "Passed $index (#{$index}) is greater than the length of the config map.";
 		} @else {
 			@return false;

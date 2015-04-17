@@ -11,5 +11,5 @@
 /// @group Internal Functions
 ///
 @function flint-get-instance-value($key, $values...) {
-	@return flint-map-fetch($flint__instances, flint-has-family-instance($key), $values...);
+	@return flint-map-fetch($flint-instances, flint-has-family-instance($key), $values...);
 }

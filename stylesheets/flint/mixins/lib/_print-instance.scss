@@ -15,7 +15,7 @@
         $selector: nth(&, 1);
         // Append key to selector
 		$print-selector: "#{$selector}" + "::" + "#{$calc-key}";
-		@include flint-print-instance(map-get($flint__instances, unquote($print-selector)));
+		@include flint-print-instance(map-get($flint-instances, unquote($print-selector)));
 	}
 }
 

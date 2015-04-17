@@ -15,7 +15,7 @@
 	@if flint-is-string($string) {
 
 		// Use Ruby function if available
-		@if $flint__use-ruby-functions {
+		@if $flint-use-ruby-functions {
 			@return flint_ruby_string_to_list($string, $find, $ignore);
 		} @else {
 			$string-list: ();

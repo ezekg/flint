@@ -9,7 +9,7 @@
 ///
 /// @type Bool
 ///
-$flint__development-mode: false !global;
+$flint-development-mode: false !global;
 
 ///
 /// Set global variable to check if foundation has been set
@@ -18,7 +18,7 @@ $flint__development-mode: false !global;
 ///
 /// @type String
 ///
-$flint__foundation: "non-existent" !global;
+$flint-foundation: "non-existent" !global;
 
 ///
 /// Keep count of all instances
@@ -27,7 +27,7 @@ $flint__foundation: "non-existent" !global;
 ///
 /// @type Number
 ///
-$flint__instance-count: 0 !global;
+$flint-instance-count: 0 !global;
 
 ///
 /// Keep map of all instances
@@ -36,7 +36,7 @@ $flint__instance-count: 0 !global;
 ///
 /// @type Map
 ///
-$flint__instances: () !global;
+$flint-instances: () !global;
 
 ///
 /// Font size for em calculation
@@ -45,7 +45,7 @@ $flint__instances: () !global;
 ///
 /// @type Number
 ///
-$flint__base-font-size: 16px !global;
+$flint-base-font-size: 16px !global;
 
 ///
 /// Detect if Ruby functions are available
@@ -54,7 +54,7 @@ $flint__base-font-size: 16px !global;
 ///
 /// @type Bool
 ///
-$flint__use-ruby-functions: if(flint-use-ruby-functions() == true, true, false) !global;
+$flint-use-ruby-functions: if(flint-use-ruby-functions() == true, true, false) !global;
 
 ///
 /// Global syntax support
@@ -63,7 +63,7 @@ $flint__use-ruby-functions: if(flint-use-ruby-functions() == true, true, false) 
 ///
 /// @type String
 ///
-$flint__support-syntax: flint-get-value("settings", "support-syntax") !global;
+$flint-support-syntax: flint-get-value("settings", "support-syntax") !global;
 
 ///
 /// Gather all keys, breakpoints and column counts
@@ -72,9 +72,9 @@ $flint__support-syntax: flint-get-value("settings", "support-syntax") !global;
 ///
 /// @type List
 ///
-$flint__all-keys: flint-get-all-keys() !global;
-$flint__all-breakpoints: flint-get-all-breakpoints() !global;
-$flint__all-columns: flint-get-all-columns() !global;
+$flint-all-keys: flint-get-all-keys() !global;
+$flint-all-breakpoints: flint-get-all-breakpoints() !global;
+$flint-all-columns: flint-get-all-columns() !global;
 
 ///
 /// Cache selector instance lists
@@ -83,7 +83,7 @@ $flint__all-columns: flint-get-all-columns() !global;
 ///
 /// @type Map
 ///
-$flint__cached-instances: () !global;
+$flint-cached-instances: () !global;
 
 ///
 /// Cache calculated values
@@ -92,7 +92,7 @@ $flint__cached-instances: () !global;
 ///
 /// @type Map
 ///
-$flint__cached-values: () !global;
+$flint-cached-values: () !global;
 
 ///
 /// Cache calculation results
@@ -101,4 +101,4 @@ $flint__cached-values: () !global;
 ///
 /// @type Map
 ///
-$flint__cached-results: () !global;
+$flint-cached-results: () !global;

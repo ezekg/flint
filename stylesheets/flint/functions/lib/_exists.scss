@@ -3,26 +3,34 @@
 ///
 /// @access private
 ///
-/// @param {Map}    $map   - map to search
-/// @param {String} $value - key to search for
+/// @param {Map}    $map - map to search
+/// @param {String} $key - key to search for
 ///
 /// @return {Bool}
 ///
 /// @group Internal Functions
 ///
-@function flint-exists($map, $value){
-	$is-map: flint-is-map($map);
-	$top-has-key: $is-map and map-has-key($map, $value) or false;
+@function flint-exists($map, $key) {
 
-	@if $top-has-key {
-		@return true;
-	} @else if $is-map {
-		@each $m, $k in $map {
-			@if flint-exists($k, $value) {
-				@return true;
-			}
-		}
+	@if not flint-is-string($key) {
+		@return false;
 	}
 
-	@return false;
+	// Use Ruby function if available
+	@if $flint-use-ruby-functions {
+		@return flint_ruby_exists($map, $key);
+	} @else {
+		$is-map: flint-is-map($map);
+		$top-has-key: $is-map and map-has-key($map, $key) or false;
+
+		@if $top-has-key {
+			@return true;
+		} @else if $is-map {
+			@each $m, $k in $map {
+				@return flint-exists($k, $key)
+			}
+		}
+
+		@return false;
+	}
 }

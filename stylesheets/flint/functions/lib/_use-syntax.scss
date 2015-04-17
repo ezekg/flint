@@ -10,11 +10,11 @@
 /// @group Internal Functions
 ///
 @function flint-use-syntax($selectors) {
-    @if $flint__support-syntax {
-        @return flint-support-syntax($flint__support-syntax, $selectors);
+    @if $flint-support-syntax {
+        @return flint-support-syntax($flint-support-syntax, $selectors);
     } @else {
-        @if not $flint__development-mode {
-            @error "Support syntax is set to #{$flint__support-syntax}. Aborting mission.";
+        @if not $flint-development-mode {
+            @error "Support syntax is set to #{$flint-support-syntax}. Aborting mission.";
         } @else {
             @return false;
         }

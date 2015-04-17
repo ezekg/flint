@@ -42,10 +42,10 @@ $flint: (
 ) !global;
 
 // Enable development mode
-$flint__development-mode: true !global;
+$flint-development-mode: true !global;
 
 // Test speed improvements
-// $flint__use-ruby-functions: false !global;
+// $flint-use-ruby-functions: false !global;
 
 ///
 /// BEGIN TESTS
@@ -58,7 +58,7 @@ $flint__development-mode: true !global;
 ///
 
 @include it("should expect foundation to not be set") {
-    @include should(expect($flint__foundation),
+    @include should(expect($flint-foundation),
         to(be("non-existent"))
     );
 }
@@ -66,7 +66,7 @@ $flint__development-mode: true !global;
 @include _("foundation");
 
 @include it("should expect foundation to be set") {
-    @include should(expect($flint__foundation),
+    @include should(expect($flint-foundation),
         to(be("existent"))
     );
 }

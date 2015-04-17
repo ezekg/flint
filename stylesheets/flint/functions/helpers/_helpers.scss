@@ -198,7 +198,7 @@
 ///
 /// @return {Number} em value of target relative to context
 ///
-@function flint-to-em($target, $context: $flint__base-font-size) {
+@function flint-to-em($target, $context: $flint-base-font-size) {
 	@return ($target / $context) * 1em;
 }
 
@@ -212,7 +212,7 @@
 ///
 /// @return {Number} rem value of target relative to context
 ///
-@function flint-to-rem($target, $context: $flint__base-font-size) {
+@function flint-to-rem($target, $context: $flint-base-font-size) {
 	@return ($target / $context) * 1rem;
 }
 
