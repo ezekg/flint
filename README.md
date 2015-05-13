@@ -1,6 +1,7 @@
 [![Flint - Grid System](http://flint.gs/wp-content/themes/flint/images/logo.png)](http://flint.gs)
 
-[![Gem Version](https://badge.fury.io/rb/flint-gs.svg)](http://badge.fury.io/rb/flint-gs)
+[![Gem](https://img.shields.io/gem/v/flint-gs.svg?style=flat-square)](https://rubygems.org/gems/flint-gs)
+[![Bower](https://img.shields.io/bower/v/flint.svg?style=flat-square)](http://bower.io/search/?q=flint)
 
 ## What is Flint?
 Flint is a responsive grid framework written in Sass, created to allow developers to rapidly produce responsive layouts that are built on a sophisticated foundation.
