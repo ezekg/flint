@@ -2,6 +2,7 @@
 
 [![Gem](https://img.shields.io/gem/v/flint-gs.svg?style=flat-square)](https://rubygems.org/gems/flint-gs)
 [![Bower](https://img.shields.io/bower/v/flint.svg?style=flat-square)](http://bower.io/search/?q=flint)
+[![GitHub license](https://img.shields.io/github/license/ezekg/flint.svg?style=flat-square)](https://github.com/ezekg/flint/blob/master/LICENSE)
 
 ## What is Flint?
 Flint is a responsive grid framework written in Sass, created to allow developers to rapidly produce responsive layouts that are built on a sophisticated foundation.
