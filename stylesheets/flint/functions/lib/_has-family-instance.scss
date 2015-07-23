@@ -56,7 +56,7 @@
 
 		// Loop through length of list of selectors
 		@for $i from 1 through $length {
-			$selector-string: flint-list-to-string($selector-list, " ");
+			$selector-string: flint-list-to-str($selector-list, " ");
 
 			// Make sure that we're not counting the current selector set
 			@if flint-exists($flint-instances, "#{$selector-string}::#{$key}") and $selector != $selector-list {

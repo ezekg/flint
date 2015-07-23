@@ -43,7 +43,7 @@ module Flint
   #
   # @return {String}
   #
-  def flint_ruby_list_to_string(list, glue)
+  def flint_ruby_list_to_str(list, glue)
     assert_type list, :List, :list
     assert_type glue, :String, :glue
 
@@ -51,7 +51,7 @@ module Flint
 
     Sass::Script::String.new(arr.join(glue.value))
   end
-  declare :flint_ruby_list_to_string, :args => [:list, :glue]
+  declare :flint_ruby_list_to_str, :args => [:list, :glue]
 
   #
   # Turn string into a flat list
@@ -62,7 +62,7 @@ module Flint
   #
   # @return {List}
   #
-  def flint_ruby_string_to_list(string, separator, ignore)
+  def flint_ruby_str_to_list(string, separator, ignore)
     assert_type string, :String, :string
     assert_type separator, :String, :separator
     assert_type ignore, :String, :ignore
@@ -76,7 +76,7 @@ module Flint
       Sass::Script::List.new(items.map { |i| Sass::Script::String.new(i) }, :comma)
     end
   end
-  declare :flint_ruby_string_to_list, :args => [:string, :separator, :ignore]
+  declare :flint_ruby_str_to_list, :args => [:string, :separator, :ignore]
 
   #
   # Replace substring with string
@@ -87,14 +87,14 @@ module Flint
   #
   # @return {String}
   #
-  def flint_ruby_replace_substring(string, find, replace)
+  def flint_ruby_str_replace(string, find, replace)
     assert_type string, :String, :string
     assert_type find, :String, :find
     assert_type replace, :String, :replace
 
     Sass::Script::String.new(string.value.gsub(find.value, replace.value))
   end
-  declare :flint_ruby_replace_substring, :args => [:string, :find, :replace]
+  declare :flint_ruby_str_replace, :args => [:string, :find, :replace]
 
   #
   # Check if key exists in map

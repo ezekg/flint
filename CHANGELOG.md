@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.3.0
+* Add SVG grid overlay to `debug-mode`.
+
 ### 2.2.0
 * Rewrite `exists()` method in Ruby for a huge performance increase.
 * Write `Flint::Profiler` to help test future performance bottlenecks.
@@ -9,8 +12,8 @@
 * Fix issue with using `unquote()` on non-strings.
 
 ### 2.1.2, 2.1.3
-* Update comments to follow SassDoc standards
-* Small style fixes
+* Update comments to follow SassDoc standards.
+* Small style fixes.
 
 ### 2.1.1
 * Fix issue with unassigned `$output-width` variable when using `$span: 0`.
@@ -113,7 +116,7 @@
 * Fixed issue with `flint-support-syntax-bem` function.
 
 ### 1.6.4 - 7/08/14
-* Remove recursive option from `flint-replace-substring` for performance reasons.
+* Remove recursive option from `flint-str-replace` for performance reasons.
 
 ### 1.6.3 - 7/08/14
 * Added string flint-replace function.
@@ -167,7 +170,7 @@
     * Added actual `$context` in place of `auto` in output
 
 ### 1.2.2 - 5/02/14
-* Adjusted `$length` variable in `flint-string-to-list()` for better performance.
+* Adjusted `$length` variable in `flint-str-to-list()` for better performance.
 * Added 2 additional aliases for `$gutter` modifiers
     * `alpha > first`
     * `omega > flint-last`

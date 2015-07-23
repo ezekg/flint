@@ -1,27 +1,27 @@
 //
 // Turns string into a flat list
 //
-@include describe("[function] string-to-list") {
+@include describe("[function] str-to-list") {
 
 	$string: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
 	@include it("should expect string to be converted into a list") {
 		@include should(expect(
-			flint-string-to-list($string, " ", "")),
+			flint-str-to-list($string, " ", "")),
 			to(be(("Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing", "elit,", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua.")))
 		);
 	}
 
 	@include it("should expect string to be converted into a list") {
 		@include should(expect(
-			flint-string-to-list($string, " ", "d")),
+			flint-str-to-list($string, " ", "d")),
 			to(be(("Lorem", "ipsum")))
 		);
 	}
 
 	@include it("should expect string up to comma to be converted into a list") {
 		@include should(expect(
-			flint-string-to-list($string)),
+			flint-str-to-list($string)),
 			to(be(("Lorem", "ipsum", "dolor", "sit", "amet")))
 		);
 	}

@@ -1,13 +1,13 @@
 //
 // Replace substring
 //
-@include describe("[function] replace-substring") {
+@include describe("[function] str-replace") {
 
 	$string: "this is a string";
 
 	@include it("should expect the substring to be updated inside of string") {
 		@include should(expect(
-			flint-replace-substring($string, "a", "an awesome")),
+			flint-str-replace($string, "a", "an awesome")),
 			to(be("this is an awesome string"))
 		);
 	}

@@ -493,17 +493,25 @@
     }
 
     //
+    // Apply grid overlay if debug mode is enabled
+    //
+    @if not $flint-overlay and flint-get-value("settings", "debug-mode") {
+        $flint-overlay: true !global;
+        @include flint-overlay-grid;
+    }
+
+    //
     // Foundation
     //
     @if $key == "foundation" {
 
         // Apply global border-box-sizing if set to true
         @if flint-get-value("settings", "border-box-sizing") {
-            $flint-foundation: "existent" !global;
+            $flint-foundation: true !global;
         }
 
         // Foundation is now globally existant
-        @if $flint-foundation == "existent" {
+        @if $flint-foundation {
             @at-root *, *:before, *:after {
                 @include flint-box-sizing;
                 @content;
@@ -516,7 +524,7 @@
     } @else if $key == "container" or $span == "container" or $context == "container" {
 
         // Apply individually if foundation is not set globally, but is set to true in config
-        @if flint-get-value("settings", "border-box-sizing") and $flint-foundation == "non-existent" {
+        @if flint-get-value("settings", "border-box-sizing") and not $flint-foundation {
             @include _("foundation");
         }
 
@@ -609,7 +617,7 @@
     } @else {
 
         // Apply individually if foundation is not set globally, but is set to true in config
-        @if flint-get-value("settings", "border-box-sizing") and $flint-foundation == "non-existent" {
+        @if flint-get-value("settings", "border-box-sizing") and not $flint-foundation {
             @include _("foundation");
         }
 

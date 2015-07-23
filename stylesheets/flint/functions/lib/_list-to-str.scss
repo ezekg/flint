@@ -13,11 +13,11 @@
 ///
 /// @group Internal Functions
 ///
-@function flint-list-to-string($list, $glue: "", $is-nested: false) {
+@function flint-list-to-str($list, $glue: "", $is-nested: false) {
 
 	// Use Ruby function if available
 	@if $flint-use-ruby-functions {
-		@return flint_ruby_list_to_string($list, $glue);
+		@return flint_ruby_list_to_str($list, $glue);
 	} @else {
 		$result: null;
 		$length: length($list);
@@ -26,7 +26,7 @@
 			$n: nth($list, $i);
 
 			@if flint-is-list($n) {
-				$result: $result#{flint-list-to-string($n, $glue, true)};
+				$result: $result#{flint-list-to-str($n, $glue, true)};
 			} @else {
 				$result: if($i != length($list) or $is-nested, $result#{$n}#{$glue}, $result#{$n});
 			}

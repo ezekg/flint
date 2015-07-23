@@ -11,11 +11,11 @@
 ///
 /// @group Internal Functions
 ///
-@function flint-replace-substring($string, $substring, $new-substring: " ") {
+@function flint-str-replace($string, $substring, $new-substring: " ") {
 
 	// Use Ruby function if available
 	@if $flint-use-ruby-functions {
-		@return flint_ruby_replace_substring($string, $substring, $new-substring);
+		@return flint_ruby_str_replace($string, $substring, $new-substring);
 	} @else {
 		// Loop through length of string
 		@for $i from 1 through str-length($string) {

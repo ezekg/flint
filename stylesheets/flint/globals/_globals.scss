@@ -16,9 +16,9 @@ $flint-development-mode: false !global;
 ///
 /// @access private
 ///
-/// @type String
+/// @type Bool
 ///
-$flint-foundation: "non-existent" !global;
+$flint-foundation: false !global;
 
 ///
 /// Keep count of all instances
@@ -102,3 +102,21 @@ $flint-cached-values: () !global;
 /// @type Map
 ///
 $flint-cached-results: () !global;
+
+///
+/// Bool check for overlay
+///
+/// @access private
+///
+/// @type Bool
+///
+$flint-overlay: false !global;
+
+///
+/// Color for grid overlay
+///
+/// @access private
+///
+/// @type Color
+///
+$flint-overlay-color: #f33 !global;

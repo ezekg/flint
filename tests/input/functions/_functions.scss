@@ -26,7 +26,7 @@
 @import "lib/get-instance-value";
 
 // List functions
-@import "lib/list-to-string";
+@import "lib/list-to-str";
 @import "lib/types-in-list";
 @import "lib/next-index";
 @import "lib/purge";
@@ -35,8 +35,8 @@
 @import "lib/last";
 
 // String functions
-@import "lib/replace-substring";
-@import "lib/string-to-list";
+@import "lib/str-replace";
+@import "lib/str-to-list";
 
 ///
 /// Support syntax

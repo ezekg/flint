@@ -1,27 +1,27 @@
 //
 // Joins all elements of list with passed glue
 //
-@include describe("[function] list-to-string") {
+@include describe("[function] list-to-str") {
 
 	$list: ("one", "two", "three");
 
 	@include it("should expect the list to be converted into a string without spaces") {
 		@include should(expect(
-			flint-list-to-string($list)),
+			flint-list-to-str($list)),
 			to(be("onetwothree"))
 		);
 	}
 
 	@include it("should expect the list to be converted into a string with spaces") {
 		@include should(expect(
-			flint-list-to-string($list, " ")),
+			flint-list-to-str($list, " ")),
 			to(be("one two three"))
 		);
 	}
 
 	@include it("should expect the list to be converted into a string with commas") {
 		@include should(expect(
-			flint-list-to-string($list, ", ")),
+			flint-list-to-str($list, ", ")),
 			to(be("one, two, three"))
 		);
 	}

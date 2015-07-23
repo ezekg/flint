@@ -11,12 +11,12 @@
 ///
 /// @group Internal Functions
 ///
-@function flint-string-to-list($string, $find: " ", $ignore: ",") {
+@function flint-str-to-list($string, $find: " ", $ignore: ",") {
 	@if flint-is-string($string) {
 
 		// Use Ruby function if available
 		@if $flint-use-ruby-functions {
-			@return flint_ruby_string_to_list($string, $find, $ignore);
+			@return flint_ruby_str_to_list($string, $find, $ignore);
 		} @else {
 			$string-list: ();
 			$space-indexes: ();

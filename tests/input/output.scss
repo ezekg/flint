@@ -12,20 +12,20 @@ $flint: (
     "breakpoints": (
         "desktop": (
             "columns": 16,
-            "breakpoint": 80em
+            "breakpoint": 80em,
         ),
         "laptop": (
             "columns": 12,
-            "breakpoint": 60em
+            "breakpoint": 60em,
         ),
         "tablet": (
             "columns": 8,
-            "breakpoint": 40em
+            "breakpoint": 40em,
         ),
         "mobile": (
             "columns": 4,
-            "breakpoint": 20em
-        )
+            "breakpoint": 20em,
+        ),
     ),
     "settings": (
         "default": "mobile",
@@ -37,9 +37,15 @@ $flint: (
         "border-box-sizing": true,
         "instance-maps": true,
         "support-syntax": false,
-        "debug-mode": false
+        "debug-mode": false,
     )
 ) !global;
+
+// Quick reset
+body {
+    margin: 0;
+    padding: 0;
+}
 
 // Enable development mode
 $flint-development-mode: true !global;
@@ -59,7 +65,7 @@ $flint-development-mode: true !global;
 
 @include it("should expect foundation to not be set") {
     @include should(expect($flint-foundation),
-        to(be("non-existent"))
+        to(be(false))
     );
 }
 
@@ -67,7 +73,7 @@ $flint-development-mode: true !global;
 
 @include it("should expect foundation to be set") {
     @include should(expect($flint-foundation),
-        to(be("existent"))
+        to(be(true))
     );
 }
 
