@@ -47,7 +47,7 @@
 /// @group Internal Mixins
 ///
 @mixin flint-overlay-grid {
-  html {
+  @at-root html {
     position: relative;
 
     &:after {

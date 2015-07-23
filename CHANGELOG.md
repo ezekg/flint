@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.3.1
+* Fix issue where grid overlay wasn't applied using `@at-root`
+
 ### 2.3.0
 * Add SVG grid overlay to `debug-mode`.
 

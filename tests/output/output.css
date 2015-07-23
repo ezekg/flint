@@ -4,6 +4,59 @@ body {
   padding: 0;
 }
 
+html {
+  position: relative;
+}
+html:after {
+  transform: translateX(-50%);
+  content: " ";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.25;
+  z-index: 9999;
+  pointer-events: none;
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+@media (min-width: 60.0625em) {
+  html:after {
+    max-width: 80em;
+    background-image: url("data:image/svg+xml,%3Csvg%20version%3D%271%2E1%27%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20xmlns%3Axlink%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F1999%2Fxlink%27%3E\a%20%20%20%20%3Cdefs%3E\a%20%20%20%20%20%20%3ClinearGradient%20id%3D%27gr%27%20x1%3D%270%25%27%20y1%3D%270%25%27%20x2%3D%27100%25%27%20y2%3D%270%25%27%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20style%3D%27stop%2Dcolor%3A%20%23f33%3B%27%20%2F%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20style%3D%27stop%2Dcolor%3A%20%23ff6666%3B%27%20%2F%3E\a%20%20%20%20%20%20%3C%2FlinearGradient%3E\a%20%20%20%20%3C%2Fdefs%3E%3Crect%20x%3D%270%2E78125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%277%2E03125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2713%2E28125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2719%2E53125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2725%2E78125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2732%2E03125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2738%2E28125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2744%2E53125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2750%2E78125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2757%2E03125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2763%2E28125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2769%2E53125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2775%2E78125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2782%2E03125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2788%2E28125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2794%2E53125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%274%2E6875%25%27%20height%3D%27100%25%27%2F%3E%3C%2Fsvg%3E");
+    background-size: 100% 100%;
+    background-position: 0 0;
+  }
+}
+@media (min-width: 40.0625em) and (max-width: 60em) {
+  html:after {
+    max-width: 60em;
+    background-image: url("data:image/svg+xml,%3Csvg%20version%3D%271%2E1%27%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20xmlns%3Axlink%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F1999%2Fxlink%27%3E\a%20%20%20%20%3Cdefs%3E\a%20%20%20%20%20%20%3ClinearGradient%20id%3D%27gr%27%20x1%3D%270%25%27%20y1%3D%270%25%27%20x2%3D%27100%25%27%20y2%3D%270%25%27%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20style%3D%27stop%2Dcolor%3A%20%23f33%3B%27%20%2F%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20style%3D%27stop%2Dcolor%3A%20%23ff6666%3B%27%20%2F%3E\a%20%20%20%20%20%20%3C%2FlinearGradient%3E\a%20%20%20%20%3C%2Fdefs%3E%3Crect%20x%3D%271%2E04167%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%279%2E375%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2717%2E70833%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2726%2E04167%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2734%2E375%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2742%2E70833%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2751%2E04167%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2759%2E375%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2767%2E70833%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2776%2E04167%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2784%2E375%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2792%2E70833%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%276%2E25%25%27%20height%3D%27100%25%27%2F%3E%3C%2Fsvg%3E");
+    background-size: 100% 100%;
+    background-position: 0 0;
+  }
+}
+@media (min-width: 20.0625em) and (max-width: 40em) {
+  html:after {
+    max-width: 40em;
+    background-image: url("data:image/svg+xml,%3Csvg%20version%3D%271%2E1%27%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20xmlns%3Axlink%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F1999%2Fxlink%27%3E\a%20%20%20%20%3Cdefs%3E\a%20%20%20%20%20%20%3ClinearGradient%20id%3D%27gr%27%20x1%3D%270%25%27%20y1%3D%270%25%27%20x2%3D%27100%25%27%20y2%3D%270%25%27%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20style%3D%27stop%2Dcolor%3A%20%23f33%3B%27%20%2F%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20style%3D%27stop%2Dcolor%3A%20%23ff6666%3B%27%20%2F%3E\a%20%20%20%20%20%20%3C%2FlinearGradient%3E\a%20%20%20%20%3C%2Fdefs%3E%3Crect%20x%3D%271%2E5625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2714%2E0625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2726%2E5625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2739%2E0625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2751%2E5625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2764%2E0625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2776%2E5625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2789%2E0625%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%279%2E375%25%27%20height%3D%27100%25%27%2F%3E%3C%2Fsvg%3E");
+    background-size: 100% 100%;
+    background-position: 0 0;
+  }
+}
+@media (min-width: 0) and (max-width: 20em) {
+  html:after {
+    max-width: 20em;
+    background-image: url("data:image/svg+xml,%3Csvg%20version%3D%271%2E1%27%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20xmlns%3Axlink%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F1999%2Fxlink%27%3E\a%20%20%20%20%3Cdefs%3E\a%20%20%20%20%20%20%3ClinearGradient%20id%3D%27gr%27%20x1%3D%270%25%27%20y1%3D%270%25%27%20x2%3D%27100%25%27%20y2%3D%270%25%27%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20style%3D%27stop%2Dcolor%3A%20%23f33%3B%27%20%2F%3E\a%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20style%3D%27stop%2Dcolor%3A%20%23ff6666%3B%27%20%2F%3E\a%20%20%20%20%20%20%3C%2FlinearGradient%3E\a%20%20%20%20%3C%2Fdefs%3E%3Crect%20x%3D%273%2E125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%2718%2E75%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2728%2E125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%2718%2E75%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2753%2E125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%2718%2E75%25%27%20height%3D%27100%25%27%2F%3E%3Crect%20x%3D%2778%2E125%25%27%20fill%3D%27url%28%23gr%29%27%20width%3D%2718%2E75%25%27%20height%3D%27100%25%27%2F%3E%3C%2Fsvg%3E");
+    background-size: 100% 100%;
+    background-position: 0 0;
+  }
+}
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -13,6 +66,15 @@ body {
     width: 23.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 1;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 
@@ -21,12 +83,32 @@ body {
   width: 93.75%;
   margin-right: auto;
   margin-left: auto;
+  -flint-instance-count: 4;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-gutter: center;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: auto;
+  -flint-output-margin-left: auto;
 }
 @media (min-width: 60.0625em) {
   .parent-instance {
     width: 23.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 1;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-gutter: normal;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -34,6 +116,16 @@ body {
     width: 32.29167%;
     margin-right: 1.04167%;
     margin-left: 0;
+    -flint-instance-count: 2;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 4;
+    -flint-gutter: alpha;
+    -flint-output-width: 19.375em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -41,6 +133,16 @@ body {
     width: 48.4375%;
     margin-right: 0;
     margin-left: 1.5625%;
+    -flint-instance-count: 3;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-gutter: omega;
+    -flint-output-width: 19.375em;
+    -flint-output-margin-right: 0;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 0) and (max-width: 20em) {
@@ -53,12 +155,34 @@ body {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 8;
+  -flint-parent-selector: .parent-instance::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-gutter: normal;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .parent-instance .child-instance {
     width: 50%;
     margin-right: 0;
     margin-left: 0;
+    -flint-instance-count: 5;
+    -flint-parent-selector: .parent-instance::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 2;
+    -flint-context: 4;
+    -flint-gutter: row;
+    -flint-output-width: 9.375em;
+    -flint-output-margin-right: 0;
+    -flint-output-margin-left: 0;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -66,6 +190,17 @@ body {
     width: 37.09677%;
     margin-right: 3.22581%;
     margin-left: 3.22581%;
+    -flint-instance-count: 6;
+    -flint-parent-selector: .parent-instance::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 2;
+    -flint-context: 4;
+    -flint-gutter: inside;
+    -flint-output-width: 7.1875em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -73,6 +208,17 @@ body {
     width: 43.54839%;
     margin-right: 3.22581%;
     margin-left: 3.22581%;
+    -flint-instance-count: 7;
+    -flint-parent-selector: .parent-instance::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 2;
+    -flint-context: 4;
+    -flint-gutter: normal;
+    -flint-output-width: 8.4375em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 
@@ -82,6 +228,15 @@ body {
     width: 31.25%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 1;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -90,6 +245,15 @@ body {
     width: 14.58333%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 2;
+    -flint-parent-selector: .parent-instance::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 2;
+    -flint-output-width: 8.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 
@@ -99,6 +263,15 @@ body {
     width: 23.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 1;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -107,6 +280,15 @@ body {
     width: 10.9375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 2;
+    -flint-parent-selector: .parent-instance::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 2;
+    -flint-output-width: 8.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 
@@ -125,6 +307,15 @@ Test Results {
   width: 18.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 4;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 1;
+  -flint-output-width: 3.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -132,6 +323,15 @@ Test Results {
     width: 4.6875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 1;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 1;
+    -flint-output-width: 3.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -139,6 +339,15 @@ Test Results {
     width: 6.25%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 2;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 1;
+    -flint-output-width: 3.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -146,6 +355,15 @@ Test Results {
     width: 9.375%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 3;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 1;
+    -flint-output-width: 3.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -173,12 +391,32 @@ Test Results {
   width: 66.66667%;
   margin-right: 16.66667%;
   margin-left: 16.66667%;
+  -flint-instance-count: 8;
+  -flint-parent-selector: .col-1::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 1;
+  -flint-context: 1;
+  -flint-output-width: 2.5em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-1 .col-1-child {
     width: 66.66667%;
     margin-right: 16.66667%;
     margin-left: 16.66667%;
+    -flint-instance-count: 5;
+    -flint-parent-selector: .col-1::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 1;
+    -flint-context: 1;
+    -flint-output-width: 2.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -186,6 +424,16 @@ Test Results {
     width: 66.66667%;
     margin-right: 16.66667%;
     margin-left: 16.66667%;
+    -flint-instance-count: 6;
+    -flint-parent-selector: .col-1::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 1;
+    -flint-context: 1;
+    -flint-output-width: 2.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -193,6 +441,16 @@ Test Results {
     width: 66.66667%;
     margin-right: 16.66667%;
     margin-left: 16.66667%;
+    -flint-instance-count: 7;
+    -flint-parent-selector: .col-1::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 1;
+    -flint-context: 1;
+    -flint-output-width: 2.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -224,6 +482,15 @@ Test Results {
   width: 43.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 12;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-output-width: 8.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -231,6 +498,15 @@ Test Results {
     width: 10.9375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 9;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 2;
+    -flint-output-width: 8.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -238,6 +514,15 @@ Test Results {
     width: 14.58333%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 10;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 2;
+    -flint-output-width: 8.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -245,6 +530,15 @@ Test Results {
     width: 21.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 11;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 2;
+    -flint-output-width: 8.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -272,12 +566,32 @@ Test Results {
   width: 85.71429%;
   margin-right: 7.14286%;
   margin-left: 7.14286%;
+  -flint-instance-count: 16;
+  -flint-parent-selector: .col-2::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 2;
+  -flint-output-width: 7.5em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-2 .col-2-child {
     width: 85.71429%;
     margin-right: 7.14286%;
     margin-left: 7.14286%;
+    -flint-instance-count: 13;
+    -flint-parent-selector: .col-2::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 2;
+    -flint-context: 2;
+    -flint-output-width: 7.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -285,6 +599,16 @@ Test Results {
     width: 85.71429%;
     margin-right: 7.14286%;
     margin-left: 7.14286%;
+    -flint-instance-count: 14;
+    -flint-parent-selector: .col-2::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 2;
+    -flint-context: 2;
+    -flint-output-width: 7.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -292,6 +616,16 @@ Test Results {
     width: 85.71429%;
     margin-right: 7.14286%;
     margin-left: 7.14286%;
+    -flint-instance-count: 15;
+    -flint-parent-selector: .col-2::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 2;
+    -flint-context: 2;
+    -flint-output-width: 7.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -323,6 +657,15 @@ Test Results {
   width: 68.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 20;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 3;
+  -flint-output-width: 13.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -330,6 +673,15 @@ Test Results {
     width: 17.1875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 17;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 3;
+    -flint-output-width: 13.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -337,6 +689,15 @@ Test Results {
     width: 22.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 18;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 3;
+    -flint-output-width: 13.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -344,6 +705,15 @@ Test Results {
     width: 34.375%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 19;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 3;
+    -flint-output-width: 13.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -371,12 +741,32 @@ Test Results {
   width: 90.90909%;
   margin-right: 4.54545%;
   margin-left: 4.54545%;
+  -flint-instance-count: 24;
+  -flint-parent-selector: .col-3::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 3;
+  -flint-context: 3;
+  -flint-output-width: 12.5em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-3 .col-3-child {
     width: 90.90909%;
     margin-right: 4.54545%;
     margin-left: 4.54545%;
+    -flint-instance-count: 21;
+    -flint-parent-selector: .col-3::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 3;
+    -flint-context: 3;
+    -flint-output-width: 12.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -384,6 +774,16 @@ Test Results {
     width: 90.90909%;
     margin-right: 4.54545%;
     margin-left: 4.54545%;
+    -flint-instance-count: 22;
+    -flint-parent-selector: .col-3::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 3;
+    -flint-context: 3;
+    -flint-output-width: 12.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -391,6 +791,16 @@ Test Results {
     width: 90.90909%;
     margin-right: 4.54545%;
     margin-left: 4.54545%;
+    -flint-instance-count: 23;
+    -flint-parent-selector: .col-3::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 3;
+    -flint-context: 3;
+    -flint-output-width: 12.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -422,6 +832,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 28;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -429,6 +848,15 @@ Test Results {
     width: 23.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 25;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -436,6 +864,15 @@ Test Results {
     width: 31.25%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 26;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -443,6 +880,15 @@ Test Results {
     width: 46.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 27;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -470,12 +916,32 @@ Test Results {
   width: 93.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 32;
+  -flint-parent-selector: .col-4::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-context: 4;
+  -flint-output-width: 17.5em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-4 .col-4-child {
     width: 93.33333%;
     margin-right: 3.33333%;
     margin-left: 3.33333%;
+    -flint-instance-count: 29;
+    -flint-parent-selector: .col-4::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-context: 4;
+    -flint-output-width: 17.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -483,6 +949,16 @@ Test Results {
     width: 93.33333%;
     margin-right: 3.33333%;
     margin-left: 3.33333%;
+    -flint-instance-count: 30;
+    -flint-parent-selector: .col-4::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 4;
+    -flint-context: 4;
+    -flint-output-width: 17.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -490,6 +966,16 @@ Test Results {
     width: 93.33333%;
     margin-right: 3.33333%;
     margin-left: 3.33333%;
+    -flint-instance-count: 31;
+    -flint-parent-selector: .col-4::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 4;
+    -flint-output-width: 17.5em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -521,6 +1007,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 36;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -528,6 +1023,15 @@ Test Results {
     width: 29.6875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 33;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 5;
+    -flint-output-width: 23.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -535,6 +1039,15 @@ Test Results {
     width: 39.58333%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 34;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 5;
+    -flint-output-width: 23.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -542,6 +1055,15 @@ Test Results {
     width: 59.375%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 35;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 5;
+    -flint-output-width: 23.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -569,12 +1091,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 40;
+  -flint-parent-selector: .col-5::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-5 .col-5-child {
     width: 44.73684%;
     margin-right: 2.63158%;
     margin-left: 2.63158%;
+    -flint-instance-count: 37;
+    -flint-parent-selector: .col-5::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 2.5;
+    -flint-context: 5;
+    -flint-output-width: 10.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -582,6 +1124,16 @@ Test Results {
     width: 44.73684%;
     margin-right: 2.63158%;
     margin-left: 2.63158%;
+    -flint-instance-count: 38;
+    -flint-parent-selector: .col-5::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 2.5;
+    -flint-context: 5;
+    -flint-output-width: 10.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -589,6 +1141,16 @@ Test Results {
     width: 44.73684%;
     margin-right: 2.63158%;
     margin-left: 2.63158%;
+    -flint-instance-count: 39;
+    -flint-parent-selector: .col-5::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 2.5;
+    -flint-context: 5;
+    -flint-output-width: 10.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -620,6 +1182,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 44;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -627,6 +1198,15 @@ Test Results {
     width: 35.9375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 41;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 6;
+    -flint-output-width: 28.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -634,6 +1214,15 @@ Test Results {
     width: 47.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 42;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 6;
+    -flint-output-width: 28.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -641,6 +1230,15 @@ Test Results {
     width: 71.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 43;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 6;
+    -flint-output-width: 28.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -668,12 +1266,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 48;
+  -flint-parent-selector: .col-6::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-6 .col-6-child {
     width: 45.65217%;
     margin-right: 2.17391%;
     margin-left: 2.17391%;
+    -flint-instance-count: 45;
+    -flint-parent-selector: .col-6::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 3;
+    -flint-context: 6;
+    -flint-output-width: 13.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -681,6 +1299,16 @@ Test Results {
     width: 45.65217%;
     margin-right: 2.17391%;
     margin-left: 2.17391%;
+    -flint-instance-count: 46;
+    -flint-parent-selector: .col-6::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 3;
+    -flint-context: 6;
+    -flint-output-width: 13.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -688,6 +1316,16 @@ Test Results {
     width: 45.65217%;
     margin-right: 2.17391%;
     margin-left: 2.17391%;
+    -flint-instance-count: 47;
+    -flint-parent-selector: .col-6::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 3;
+    -flint-context: 6;
+    -flint-output-width: 13.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -719,6 +1357,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 52;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -726,6 +1373,15 @@ Test Results {
     width: 42.1875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 49;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 7;
+    -flint-output-width: 33.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -733,6 +1389,15 @@ Test Results {
     width: 56.25%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 50;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 7;
+    -flint-output-width: 33.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -740,6 +1405,15 @@ Test Results {
     width: 84.375%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 51;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 7;
+    -flint-output-width: 33.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -767,12 +1441,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 56;
+  -flint-parent-selector: .col-7::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-7 .col-7-child {
     width: 46.2963%;
     margin-right: 1.85185%;
     margin-left: 1.85185%;
+    -flint-instance-count: 53;
+    -flint-parent-selector: .col-7::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 3.5;
+    -flint-context: 7;
+    -flint-output-width: 15.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -780,6 +1474,16 @@ Test Results {
     width: 46.2963%;
     margin-right: 1.85185%;
     margin-left: 1.85185%;
+    -flint-instance-count: 54;
+    -flint-parent-selector: .col-7::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 3.5;
+    -flint-context: 7;
+    -flint-output-width: 15.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -787,6 +1491,16 @@ Test Results {
     width: 46.2963%;
     margin-right: 1.85185%;
     margin-left: 1.85185%;
+    -flint-instance-count: 55;
+    -flint-parent-selector: .col-7::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 3.5;
+    -flint-context: 7;
+    -flint-output-width: 15.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -818,6 +1532,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 60;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -825,6 +1548,15 @@ Test Results {
     width: 48.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 57;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -832,6 +1564,15 @@ Test Results {
     width: 64.58333%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 58;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -839,6 +1580,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 59;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -866,12 +1616,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 64;
+  -flint-parent-selector: .col-8::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-8 .col-8-child {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 61;
+    -flint-parent-selector: .col-8::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -879,6 +1649,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 62;
+    -flint-parent-selector: .col-8::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -886,6 +1666,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 63;
+    -flint-parent-selector: .col-8::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -917,6 +1707,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 68;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -924,6 +1723,15 @@ Test Results {
     width: 54.6875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 65;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 9;
+    -flint-output-width: 43.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -931,6 +1739,15 @@ Test Results {
     width: 72.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 66;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 9;
+    -flint-output-width: 43.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -938,6 +1755,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 67;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -965,12 +1791,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 72;
+  -flint-parent-selector: .col-9::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-9 .col-9-child {
     width: 47.14286%;
     margin-right: 1.42857%;
     margin-left: 1.42857%;
+    -flint-instance-count: 69;
+    -flint-parent-selector: .col-9::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4.5;
+    -flint-context: 9;
+    -flint-output-width: 20.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -978,6 +1824,16 @@ Test Results {
     width: 47.14286%;
     margin-right: 1.42857%;
     margin-left: 1.42857%;
+    -flint-instance-count: 70;
+    -flint-parent-selector: .col-9::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 4.5;
+    -flint-context: 9;
+    -flint-output-width: 20.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -985,6 +1841,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 71;
+    -flint-parent-selector: .col-9::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1016,6 +1882,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 76;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -1023,6 +1898,15 @@ Test Results {
     width: 60.9375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 73;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 10;
+    -flint-output-width: 48.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1030,6 +1914,15 @@ Test Results {
     width: 81.25%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 74;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 10;
+    -flint-output-width: 48.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1037,6 +1930,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 75;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1064,12 +1966,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 80;
+  -flint-parent-selector: .col-10::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-10 .col-10-child {
     width: 47.4359%;
     margin-right: 1.28205%;
     margin-left: 1.28205%;
+    -flint-instance-count: 77;
+    -flint-parent-selector: .col-10::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 5;
+    -flint-context: 10;
+    -flint-output-width: 23.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1077,6 +1999,16 @@ Test Results {
     width: 47.4359%;
     margin-right: 1.28205%;
     margin-left: 1.28205%;
+    -flint-instance-count: 78;
+    -flint-parent-selector: .col-10::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 5;
+    -flint-context: 10;
+    -flint-output-width: 23.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1084,6 +2016,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 79;
+    -flint-parent-selector: .col-10::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1115,6 +2057,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 84;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -1122,6 +2073,15 @@ Test Results {
     width: 67.1875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 81;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 11;
+    -flint-output-width: 53.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1129,6 +2089,15 @@ Test Results {
     width: 89.58333%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 82;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 11;
+    -flint-output-width: 53.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1136,6 +2105,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 83;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1163,12 +2141,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 88;
+  -flint-parent-selector: .col-11::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-11 .col-11-child {
     width: 47.67442%;
     margin-right: 1.16279%;
     margin-left: 1.16279%;
+    -flint-instance-count: 85;
+    -flint-parent-selector: .col-11::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 5.5;
+    -flint-context: 11;
+    -flint-output-width: 25.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1176,6 +2174,16 @@ Test Results {
     width: 47.67442%;
     margin-right: 1.16279%;
     margin-left: 1.16279%;
+    -flint-instance-count: 86;
+    -flint-parent-selector: .col-11::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 5.5;
+    -flint-context: 11;
+    -flint-output-width: 25.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1183,6 +2191,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 87;
+    -flint-parent-selector: .col-11::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1214,6 +2232,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 92;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -1221,6 +2248,15 @@ Test Results {
     width: 73.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 89;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 12;
+    -flint-output-width: 58.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1228,6 +2264,15 @@ Test Results {
     width: 97.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 90;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 12;
+    -flint-output-width: 58.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1235,6 +2280,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 91;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1262,12 +2316,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 96;
+  -flint-parent-selector: .col-12::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-12 .col-12-child {
     width: 47.87234%;
     margin-right: 1.06383%;
     margin-left: 1.06383%;
+    -flint-instance-count: 93;
+    -flint-parent-selector: .col-12::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 6;
+    -flint-context: 12;
+    -flint-output-width: 28.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1275,6 +2349,16 @@ Test Results {
     width: 47.87234%;
     margin-right: 1.06383%;
     margin-left: 1.06383%;
+    -flint-instance-count: 94;
+    -flint-parent-selector: .col-12::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 6;
+    -flint-context: 12;
+    -flint-output-width: 28.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1282,6 +2366,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 95;
+    -flint-parent-selector: .col-12::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1313,6 +2407,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 100;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -1320,6 +2423,15 @@ Test Results {
     width: 79.6875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 97;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 13;
+    -flint-output-width: 63.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1327,6 +2439,15 @@ Test Results {
     width: 97.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 98;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 12;
+    -flint-output-width: 58.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1334,6 +2455,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 99;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1361,12 +2491,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 104;
+  -flint-parent-selector: .col-13::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-13 .col-13-child {
     width: 48.03922%;
     margin-right: 0.98039%;
     margin-left: 0.98039%;
+    -flint-instance-count: 101;
+    -flint-parent-selector: .col-13::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 6.5;
+    -flint-context: 13;
+    -flint-output-width: 30.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1374,6 +2524,16 @@ Test Results {
     width: 47.87234%;
     margin-right: 1.06383%;
     margin-left: 1.06383%;
+    -flint-instance-count: 102;
+    -flint-parent-selector: .col-13::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 6;
+    -flint-context: 12;
+    -flint-output-width: 28.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1381,6 +2541,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 103;
+    -flint-parent-selector: .col-13::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1412,6 +2582,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 108;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -1419,6 +2598,15 @@ Test Results {
     width: 85.9375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 105;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 14;
+    -flint-output-width: 68.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1426,6 +2614,15 @@ Test Results {
     width: 97.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 106;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 12;
+    -flint-output-width: 58.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1433,6 +2630,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 107;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1460,12 +2666,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 112;
+  -flint-parent-selector: .col-14::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-14 .col-14-child {
     width: 48.18182%;
     margin-right: 0.90909%;
     margin-left: 0.90909%;
+    -flint-instance-count: 109;
+    -flint-parent-selector: .col-14::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 7;
+    -flint-context: 14;
+    -flint-output-width: 33.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1473,6 +2699,16 @@ Test Results {
     width: 47.87234%;
     margin-right: 1.06383%;
     margin-left: 1.06383%;
+    -flint-instance-count: 110;
+    -flint-parent-selector: .col-14::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 6;
+    -flint-context: 12;
+    -flint-output-width: 28.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1480,6 +2716,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 111;
+    -flint-parent-selector: .col-14::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1511,6 +2757,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 116;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -1518,6 +2773,15 @@ Test Results {
     width: 92.1875%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 113;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 15;
+    -flint-output-width: 73.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1525,6 +2789,15 @@ Test Results {
     width: 97.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 114;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 12;
+    -flint-output-width: 58.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1532,6 +2805,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 115;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1559,12 +2841,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 120;
+  -flint-parent-selector: .col-15::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-15 .col-15-child {
     width: 48.30508%;
     margin-right: 0.84746%;
     margin-left: 0.84746%;
+    -flint-instance-count: 117;
+    -flint-parent-selector: .col-15::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 7.5;
+    -flint-context: 15;
+    -flint-output-width: 35.625em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1572,6 +2874,16 @@ Test Results {
     width: 47.87234%;
     margin-right: 1.06383%;
     margin-left: 1.06383%;
+    -flint-instance-count: 118;
+    -flint-parent-selector: .col-15::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 6;
+    -flint-context: 12;
+    -flint-output-width: 28.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1579,6 +2891,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 119;
+    -flint-parent-selector: .col-15::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1610,6 +2932,15 @@ Test Results {
   width: 93.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 124;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 4;
+  -flint-output-width: 18.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   clear: both;
 }
 @media (min-width: 60.0625em) {
@@ -1617,6 +2948,15 @@ Test Results {
     width: 98.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 121;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 16;
+    -flint-output-width: 78.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1624,6 +2964,15 @@ Test Results {
     width: 97.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 122;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 12;
+    -flint-output-width: 58.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1631,6 +2980,15 @@ Test Results {
     width: 96.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 123;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 8;
+    -flint-output-width: 38.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1658,12 +3016,32 @@ Test Results {
   width: 43.33333%;
   margin-right: 3.33333%;
   margin-left: 3.33333%;
+  -flint-instance-count: 128;
+  -flint-parent-selector: .col-16::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 2;
+  -flint-context: 4;
+  -flint-output-width: 8.125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-16 .col-16-child {
     width: 48.4127%;
     margin-right: 0.79365%;
     margin-left: 0.79365%;
+    -flint-instance-count: 125;
+    -flint-parent-selector: .col-16::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 8;
+    -flint-context: 16;
+    -flint-output-width: 38.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1671,6 +3049,16 @@ Test Results {
     width: 47.87234%;
     margin-right: 1.06383%;
     margin-left: 1.06383%;
+    -flint-instance-count: 126;
+    -flint-parent-selector: .col-16::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 6;
+    -flint-context: 12;
+    -flint-output-width: 28.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1678,6 +3066,16 @@ Test Results {
     width: 46.77419%;
     margin-right: 1.6129%;
     margin-left: 1.6129%;
+    -flint-instance-count: 127;
+    -flint-parent-selector: .col-16::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 18.125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1705,12 +3103,32 @@ Test Results {
   width: 34.61538%;
   margin-right: 7.69231%;
   margin-left: 7.69231%;
+  -flint-instance-count: 132;
+  -flint-parent-selector: .col-16 .col-16-child::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 1;
+  -flint-context: 2;
+  -flint-output-width: 2.8125em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-16 .col-16-child .col-16-grandchild {
     width: 46.72131%;
     margin-right: 1.63934%;
     margin-left: 1.63934%;
+    -flint-instance-count: 129;
+    -flint-parent-selector: .col-16 .col-16-child::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-context: 8;
+    -flint-output-width: 17.8125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1718,6 +3136,16 @@ Test Results {
     width: 45.55556%;
     margin-right: 2.22222%;
     margin-left: 2.22222%;
+    -flint-instance-count: 130;
+    -flint-parent-selector: .col-16 .col-16-child::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 3;
+    -flint-context: 6;
+    -flint-output-width: 12.8125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1725,6 +3153,16 @@ Test Results {
     width: 43.10345%;
     margin-right: 3.44828%;
     margin-left: 3.44828%;
+    -flint-instance-count: 131;
+    -flint-parent-selector: .col-16 .col-16-child::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 2;
+    -flint-context: 4;
+    -flint-output-width: 7.8125em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 60.0625em) {
@@ -1756,12 +3194,30 @@ Test Results {
   width: 27.08333%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 136;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 1.33333;
+  -flint-output-width: 5.41667em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-third {
     width: 31.77083%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 133;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 5.33333;
+    -flint-output-width: 25.41667em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1769,6 +3225,15 @@ Test Results {
     width: 31.25%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 134;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1776,6 +3241,15 @@ Test Results {
     width: 30.20833%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 135;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 2.66667;
+    -flint-output-width: 12.08333em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 .col-third:before {
@@ -1787,12 +3261,30 @@ Test Results {
   width: 18.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 140;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 1;
+  -flint-output-width: 3.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-fourth {
     width: 23.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 137;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 4;
+    -flint-output-width: 18.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1800,6 +3292,15 @@ Test Results {
     width: 22.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 138;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 3;
+    -flint-output-width: 13.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1807,6 +3308,15 @@ Test Results {
     width: 21.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 139;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 2;
+    -flint-output-width: 8.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 .col-fourth:before {
@@ -1818,12 +3328,30 @@ Test Results {
   width: 13.75%;
   margin-right: 3.125%;
   margin-left: 3.125%;
+  -flint-instance-count: 144;
+  -flint-parent-selector: none;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 0.8;
+  -flint-output-width: 2.75em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
 }
 @media (min-width: 60.0625em) {
   .col-fifth {
     width: 18.4375%;
     margin-right: 0.78125%;
     margin-left: 0.78125%;
+    -flint-instance-count: 141;
+    -flint-parent-selector: none;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 3.2;
+    -flint-output-width: 14.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1831,6 +3359,15 @@ Test Results {
     width: 17.91667%;
     margin-right: 1.04167%;
     margin-left: 1.04167%;
+    -flint-instance-count: 142;
+    -flint-parent-selector: none;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 2.4;
+    -flint-output-width: 10.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1838,6 +3375,15 @@ Test Results {
     width: 16.875%;
     margin-right: 1.5625%;
     margin-left: 1.5625%;
+    -flint-instance-count: 143;
+    -flint-parent-selector: none;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 1.6;
+    -flint-output-width: 6.75em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 .col-fifth:before {
@@ -1848,6 +3394,16 @@ Test Results {
   width: -12.12121%;
   margin-right: 22.72727%;
   margin-left: 22.72727%;
+  -flint-instance-count: 148;
+  -flint-parent-selector: .col-fifth::mobile;
+  -flint-key: mobile;
+  -flint-breakpoint: 20em;
+  -flint-columns: 4;
+  -flint-span: 0.26667;
+  -flint-context: 0.8;
+  -flint-output-width: -0.33333em;
+  -flint-output-margin-right: 0.625em;
+  -flint-output-margin-left: 0.625em;
   height: 100% !important;
 }
 @media (min-width: 60.0625em) {
@@ -1855,6 +3411,16 @@ Test Results {
     width: 24.85876%;
     margin-right: 4.23729%;
     margin-left: 4.23729%;
+    -flint-instance-count: 145;
+    -flint-parent-selector: .col-fifth::desktop;
+    -flint-key: desktop;
+    -flint-breakpoint: 80em;
+    -flint-columns: 16;
+    -flint-span: 1.06667;
+    -flint-context: 3.2;
+    -flint-output-width: 3.66667em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 40.0625em) and (max-width: 60em) {
@@ -1862,6 +3428,16 @@ Test Results {
     width: 21.70543%;
     margin-right: 5.81395%;
     margin-left: 5.81395%;
+    -flint-instance-count: 146;
+    -flint-parent-selector: .col-fifth::laptop;
+    -flint-key: laptop;
+    -flint-breakpoint: 60em;
+    -flint-columns: 12;
+    -flint-span: 0.8;
+    -flint-context: 2.4;
+    -flint-output-width: 2.33333em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 @media (min-width: 20.0625em) and (max-width: 40em) {
@@ -1869,6 +3445,16 @@ Test Results {
     width: 14.81481%;
     margin-right: 9.25926%;
     margin-left: 9.25926%;
+    -flint-instance-count: 147;
+    -flint-parent-selector: .col-fifth::tablet;
+    -flint-key: tablet;
+    -flint-breakpoint: 40em;
+    -flint-columns: 8;
+    -flint-span: 0.53333;
+    -flint-context: 1.6;
+    -flint-output-width: 1em;
+    -flint-output-margin-right: 0.625em;
+    -flint-output-margin-left: 0.625em;
   }
 }
 
