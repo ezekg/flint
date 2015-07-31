@@ -1,5 +1,8 @@
 # Change Log
 
+### 2.3.2, 2.3.3
+* Fix deprecation warning for multiline strings
+
 ### 2.3.1
 * Fix issue where grid overlay wasn't applied using `@at-root`
 
