@@ -11,12 +11,12 @@
 /// @group Internal Mixins
 ///
 @mixin flint-svg-grid($key, $breakpoint, $columns, $gutter) {
-  $svg: "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-    <defs>
-      <linearGradient id='gr' x1='0%' y1='0%' x2='100%' y2='0%'>
-        <stop offset='0%' style='stop-color: #{$flint-overlay-color};' />
-        <stop offset='100%' style='stop-color: #{lighten($flint-overlay-color, 10%)};' />
-      </linearGradient>
+  $svg: "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>\A
+    <defs>\A
+      <linearGradient id='gr' x1='0%' y1='0%' x2='100%' y2='0%'>\A
+        <stop offset='0%' style='stop-color: #{$flint-overlay-color};' />\A
+        <stop offset='100%' style='stop-color: #{lighten($flint-overlay-color, 10%)};' />\A
+      </linearGradient>\A
     </defs>";
 
   @for $i from 1 through $columns {
