@@ -1,9 +1,11 @@
 @charset "UTF-8";
+/*! sassyjson - v1.1.8 - 2014-06-01 */
 body {
   margin: 0;
   padding: 0;
 }
 
+/* >> Bootcamp >> */
 html {
   position: relative;
 }
@@ -302,6 +304,7 @@ Test Results {
   Skipped: 0;
 }
 
+/* << Bootcamp << */
 .col-1 {
   float: left;
   width: 18.75%;
