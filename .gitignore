@@ -1,13 +1,6 @@
-# Gem files
+*.log
 *.gem
 Gemfile.lock
-
-# Files
 .DS_Store
-
-# Folders
 .sass-cache/
-
-# Sassdoc
 sassdoc/
-npm-debug.log

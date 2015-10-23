@@ -9,7 +9,7 @@ require "sass-prof"
 prof             = Sass::Prof::Config
 # prof.output_file = "sass-prof.log"
 # prof.quiet       = true
-prof.col_width   = 40
+prof.max_width   = 40
 prof.color       = true
 prof.t_max       = 250
 
