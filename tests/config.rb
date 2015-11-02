@@ -6,12 +6,12 @@ require "bundler"
 Bundler.require(:default, :test) if defined?(Bundler)
 
 require "sass-prof"
-prof             = Sass::Prof::Config
+prof             = SassProf::Config
 # prof.output_file = "sass-prof.log"
 # prof.quiet       = true
 prof.max_width   = 40
 prof.color       = true
-prof.t_max       = 250
+prof.t_max       = 9000
 
 # Define paths
 css_dir = "output"
