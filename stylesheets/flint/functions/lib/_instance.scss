@@ -23,10 +23,13 @@
     // Lets clean up the selector a bit...
     $selector: nth(&, 1);
 
+		// Get the selector family instance
+    $family-instance: flint-has-family-instance($key);
+
     $flint-instance: (
 		"#{$selector}::#{$key}": (
 			"instance-count": $flint-instance-count,
-			"parent-selector": if(flint-has-family-instance($key) != false, flint-has-family-instance($key), none),
+			"parent-selector": if($family-instance != false, $family-instance, none),
 			"key": $key,
 			"breakpoint": flint-get-value("breakpoints", $key, "breakpoint"),
 			"columns": flint-get-value("breakpoints", $key, "columns"),
