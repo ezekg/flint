@@ -8,10 +8,11 @@ Bundler.require(:default, :test) if defined?(Bundler)
 require "sass-prof"
 prof             = SassProf::Config
 # prof.output_file = "sass-prof.log"
-# prof.quiet       = true
+# prof.quiet       = false
 prof.max_width   = 40
 prof.color       = true
 prof.t_max       = 9000
+prof.ignore      = [:var]
 
 # Define paths
 css_dir = "output"
@@ -28,6 +29,6 @@ line_comments = false
 
 # Options
 sass_options = {
-	# For when working on Windows machines
-	:unix_newlines => true
+  # For when working on Windows machines
+  :unix_newlines => true
 }
