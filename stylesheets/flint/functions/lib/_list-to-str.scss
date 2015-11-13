@@ -12,7 +12,7 @@
 /// @group Internal Functions
 ///
 @function flint-list-to-str($list, $glue: "", $is-nested: false) {
-	@if not flint-is-list($list) {
+	@if flint-is-string($list) {
 		$list: ($list,);
 	}
 
