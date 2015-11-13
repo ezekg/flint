@@ -1,5 +1,5 @@
 ///
-/// Checks if instance flint-exists in selector familiy tree, falls back from current selector
+/// Checks if instance exists in selector familiy tree, falls back from current selector
 ///
 /// @access private
 ///
@@ -31,7 +31,7 @@
 		@for $i from 1 through $length {
 
 			// Check last selector in list
-			@if flint-exists($flint-instances, "#{flint-last($parsed-selector)}::#{$key}") {
+			@if map-has-key($flint-instances, "#{flint-last($parsed-selector)}::#{$key}") {
 
 				// Cache result
 				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{flint-last($parsed-selector)}"));
@@ -59,7 +59,7 @@
 			$selector-string: flint-list-to-str($selector-list, " ");
 
 			// Make sure that we're not counting the current selector set
-			@if flint-exists($flint-instances, "#{$selector-string}::#{$key}") and $selector != $selector-list {
+			@if map-has-key($flint-instances, "#{$selector-string}::#{$key}") and $selector != $selector-list {
 
 				// Cache result
 				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{$selector-string}"));

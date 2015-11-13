@@ -15,17 +15,17 @@
 	// Use Ruby function if available
 	@if $flint-use-ruby-functions {
 		@return flint_ruby_map_fetch($map, $keys...);
-	} @else {
-		$result: $map;
-
-		@each $key in $keys {
-			@if $result {
-				$result: flint-is-map($result) and map-has-key($result, $key) and map-get($result, $key) or false;
-			} @else {
-				@return false;
-			}
-		}
-
-		@return $result;
 	}
+	
+	$result: $map;
+
+	@each $key in $keys {
+		@if $result {
+			$result: flint-is-map($result) and map-has-key($result, $key) and map-get($result, $key) or false;
+		} @else {
+			@return false;
+		}
+	}
+
+	@return $result;
 }

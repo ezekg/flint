@@ -12,92 +12,77 @@
 /// @group Internal Functions
 ///
 @function flint-types-in-list($list, $assert-types: null, $assert-length: null) {
-    @if flint-is-list($list) {
+    @if not flint-is-list($list) {
+      @return false;
+    }
 
-        // Assert types in list?
-        @if $assert-types {
+    // Assert types in list?
+    @if $assert-types {
 
-            // Assert length of list?
-            @if $assert-length {
-                // Get length of list
-                $length: length($list);
+        // Assert length of list?
+        @if $assert-length {
+            // Get length of list
+            $length: length($list);
 
-                // Make sure lengths match
-                @if $length == $assert-length {
-                    // Keep empty list of types
-                    $types: ();
+            // Make sure lengths match
+            @if $length == $assert-length {
+                // Keep empty list of types
+                $types: ();
 
-                    // List of asserted types?
-                    @if flint-is-list($assert-types) {
+                // List of asserted types?
+                @if flint-is-list($assert-types) {
 
-                        // Make sure length of types match list
-                        @if length($assert-types) == $length {
-
-                            // Loop over each item in list
-                            @for $i from 1 through $assert-length {
-                                $item: nth($list, $i);
-                                $type: nth($assert-types, $i);
-
-                                // Check if type of item matches asserted type
-                                @if type-of($item) != $type {
-                                    @return false;
-                                }
-
-                                $types: append($types, $type);
-                            }
-
-                        // Lengths did not match
-                        } @else {
-                            @return false;
-                        }
-
-                    // Assert a single type across list
-                    } @else {
-                        // Assert single type
-                        $type: nth($assert-types, 1);
+                    // Make sure length of types match list
+                    @if length($assert-types) == $length {
 
                         // Loop over each item in list
                         @for $i from 1 through $assert-length {
                             $item: nth($list, $i);
+                            $type: nth($assert-types, $i);
 
                             // Check if type of item matches asserted type
                             @if type-of($item) != $type {
                                 @return false;
                             }
+
+                            $types: append($types, $type);
                         }
 
-                        $types: append($types, $type);
-                    }
-
-                    // Return list of types
-                    @return true;
-
-                // Lengths did not match, return false
-                } @else {
-                    @return false;
-                }
-
-            // Just assert types in list, any length
-            } @else {
-                // Get asserted type
-                $type: $assert-types;
-
-                // Check each items type
-                @each $item in $list {
-                    // Check if type of item matches asserted type
-                    @if type-of($item) != $type {
+                    // Lengths did not match
+                    } @else {
                         @return false;
                     }
+
+                // Assert a single type across list
+                } @else {
+                    // Assert single type
+                    $type: nth($assert-types, 1);
+
+                    // Loop over each item in list
+                    @for $i from 1 through $assert-length {
+                        $item: nth($list, $i);
+
+                        // Check if type of item matches asserted type
+                        @if type-of($item) != $type {
+                            @return false;
+                        }
+                    }
+
+                    $types: append($types, $type);
                 }
 
-                // Passed check
+                // Return list of types
                 @return true;
+
+            // Lengths did not match, return false
+            } @else {
+                @return false;
             }
 
-        // Just assert type of first item in list
+        // Just assert types in list, any length
         } @else {
-            // Get type of first item in list
-            $type: type-of(nth($list, 1));
+            // Get asserted type
+            $type: $assert-types;
 
             // Check each items type
             @each $item in $list {
@@ -107,11 +92,23 @@
                 }
             }
 
+            // Passed check
             @return true;
         }
 
-    // Was not a list, return false
+    // Just assert type of first item in list
     } @else {
-        @return false;
+        // Get type of first item in list
+        $type: type-of(nth($list, 1));
+
+        // Check each items type
+        @each $item in $list {
+            // Check if type of item matches asserted type
+            @if type-of($item) != $type {
+                @return false;
+            }
+        }
+
+        @return true;
     }
 }

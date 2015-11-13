@@ -15,6 +15,9 @@
 			flint-exists($map, "key")),
 			to(be(true))
 		);
+	}
+
+	@include it("should expect deep key to exist within map") {
 		@include should(expect(
 			flint-exists($map, "deep key")),
 			to(be(true))

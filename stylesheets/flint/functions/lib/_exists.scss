@@ -12,25 +12,24 @@
 ///
 @function flint-exists($map, $key) {
 
-	@if not flint-is-string($key) {
-		@return false;
-	}
-
 	// Use Ruby function if available
 	@if $flint-use-ruby-functions {
 		@return flint_ruby_exists($map, $key);
-	} @else {
-		$is-map: flint-is-map($map);
-		$top-has-key: $is-map and map-has-key($map, $key) or false;
+	}
 
-		@if $top-has-key {
-			@return true;
-		} @else if $is-map {
-			@each $m, $k in $map {
-				@return flint-exists($k, $key)
-			}
-		}
-
+	@if not flint-is-map($map) or not flint-is-string($key) {
 		@return false;
 	}
+
+	@if map-has-key($map, $key) {
+		@return true;
+	}
+
+	@each $_, $v in $map {
+		@if flint-exists($v, $key) {
+			@return true;
+		}
+	}
+
+	@return false;
 }

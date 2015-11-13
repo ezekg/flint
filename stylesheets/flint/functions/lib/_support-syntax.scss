@@ -20,13 +20,12 @@
         //
         // WARNING: Be sure you have created a custom function to support an unknown syntax
         @return call("flint-support-syntax-#{$syntax}", $selectors);
+    }
 
+    @if not $flint-development-mode {
+        // Throw error if the syntax does not exist and a function to call cannot be found
+        @error "You did not pass a valid syntax to `flint-support-syntax`: #{$syntax}. Either specify a custom `flint-support-syntax-<syntax>` function to call, or use one of the offically supported syntaxes. For more info, please visit the docs.";
     } @else {
-        @if not $flint-development-mode {
-            // Throw error if the syntax does not exist and a function to call cannot be found
-            @error "You did not pass a valid syntax to `flint-support-syntax`: #{$syntax}. Either specify a custom `flint-support-syntax-<syntax>` function to call, or use one of the offically supported syntaxes. For more info, please visit the docs.";
-        } @else {
-            @return false;
-        }
+        @return false;
     }
 }

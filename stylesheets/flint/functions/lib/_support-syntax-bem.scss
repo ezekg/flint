@@ -10,15 +10,16 @@
 /// @group Internal Functions
 ///
 @function flint-support-syntax-bem($selectors) {
+    $selectors: flint-list-to-str($selectors, " ");
     // Clean up selector, remove double underscores for spaces
     //  add pseudo character to differentiate selectors
-    $selectors: flint-str-replace(unquote(inspect($selectors)), "__", "/");
+    $selectors: flint-str-replace($selectors, "__", "/");
     // Parse string back to list without pseudo character
     $selectors: flint-str-to-list($selectors, "/");
     // Define top-most parent of selector
     $parent: nth($selectors, 1);
     // Create new list of parsed selectors
-    $selector-list: ("#{$parent}",);
+    $selector-list: ($parent,);
 
     // Loop over each selector and build list of selectors
     @each $selector in $selectors {

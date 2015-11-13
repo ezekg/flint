@@ -3,8 +3,6 @@
 ///
 /// @access private
 ///
-/// @link http://sassylists.com/documentation/#to-string
-///
 /// @param {List}   $list
 /// @param {String} $glue
 /// @param {Bool}   $is-nested
@@ -18,20 +16,20 @@
 	// Use Ruby function if available
 	@if $flint-use-ruby-functions {
 		@return flint_ruby_list_to_str($list, $glue);
-	} @else {
-		$result: null;
-		$length: length($list);
-
-		@for $i from 1 through $length {
-			$n: nth($list, $i);
-
-			@if flint-is-list($n) {
-				$result: $result#{flint-list-to-str($n, $glue, true)};
-			} @else {
-				$result: if($i != length($list) or $is-nested, $result#{$n}#{$glue}, $result#{$n});
-			}
-		}
-
-		@return unquote($result);
 	}
+
+	$result: "";
+	$length: length($list);
+
+	@for $i from 1 through $length {
+		$item: nth($list, $i);
+
+		@if flint-is-list($item) {
+			$result: $result + flint-list-to-str($item, $glue, true);
+		} @else {
+			$result: if($i != length($list) or $is-nested, $result + $item + $glue, $result + $item);
+		}
+	}
+
+	@return quote($result);
 }
