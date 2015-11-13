@@ -96,32 +96,4 @@ module Flint
   end
   declare :flint_ruby_str_replace, :args => [:string, :find, :replace]
 
-  #
-  # Check if key exists in map
-  #
-  # @param {Map}    map - map to search
-  # @param {String} key - key to search for
-  #
-  # @return {Bool}
-  #
-  def flint_ruby_exists(map, key)
-    assert_type map, :Map, :map
-    assert_type key, :String, :key
-
-    hash = map.to_h
-
-    if hash.fetch(key, false)
-      return Sass::Script::Bool.new(true)
-    else
-      hash.each do |_, value|
-        if value.is_a?(Sass::Script::Value::Map)
-          return Sass::Script::Bool.new(true) if flint_ruby_exists(value, key).value
-        end
-      end
-    end
-
-    Sass::Script::Bool.new(false)
-  end
-  declare :flint_ruby_exists, :args => [:map, :key]
-
 end
