@@ -11,7 +11,7 @@ prof             = SassProf::Config
 # prof.quiet       = false
 prof.max_width   = 40
 prof.color       = true
-prof.t_max       = 9000
+prof.t_max       = 90000
 prof.ignore      = [:var]
 
 # Define paths
