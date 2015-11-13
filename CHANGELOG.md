@@ -2,7 +2,7 @@
 
 ### 2.3.4, 2.3.5
 * Fix compatibility issues with Libsass
-* Refactor various functions
+* Refactor and get rid of various functions
 
 ### 2.3.2, 2.3.3
 * Fix deprecation warning for multiline strings
