@@ -6,12 +6,16 @@
 /// @param {String} $key    - breakpoint key to search for matching instance
 /// @param {String} $syntax - searches for instance using passed syntax parser
 ///
-/// @return {String} instance selector
+/// @return {String|False} instance selector
 ///
 /// @group Internal Functions
 ///
 @function flint-has-family-instance($key: flint-get-value("settings", "default"), $syntax: $flint-support-syntax) {
 	$selector: nth(&, 1);
+
+	@if not $key or not $selector {
+		@return false;
+	}
 
 	// Check if instance result had been cached
 	@if map-has-key($flint-cached-instances, "#{$selector}") {

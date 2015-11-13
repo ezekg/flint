@@ -456,7 +456,7 @@
         // Check if key exists as breakpoint, and if so wrap
         //   in query to not affect other breakpoints
         //
-        @if flint-exists($flint, $key) {
+        @if map-has-key(map-get($flint, "breakpoints"), $key) {
 
             @if flint-get-value("settings", "grid") == "fluid" {
                 @if flint-is-highest-breakpoint($key) {
@@ -568,7 +568,7 @@
             }
 
         // Output container for specific breakpoint if exists
-        } @else if flint-exists($flint, $key) and flint-get-value("settings", "grid") == "fixed" {
+        } @else if map-has-key(map-get($flint, "breakpoints"), $key) and flint-get-value("settings", "grid") == "fixed" {
 
             @if flint-is-highest-breakpoint($key) {
 
@@ -587,7 +587,7 @@
                 }
 
             }
-        } @else if flint-exists($flint, $key) and flint-get-value("settings", "grid") == "fluid" {
+        } @else if map-has-key(map-get($flint, "breakpoints"), $key) and flint-get-value("settings", "grid") == "fluid" {
             @if flint-is-highest-breakpoint($key) {
 
                 @media ( min-width: (flint-calc-breakpoint("next", $key, flint-get-index($key)) + $unit) ) {
@@ -742,7 +742,7 @@
         or flint-is-string($key) and flint-is-number($span) and $context == "auto" {
 
             // Throw error for invalid argument lengths
-            @if not flint-exists($flint, $key) {
+            @if not map-has-key(map-get($flint, "breakpoints"), $key) {
                 @if not $flint-development-mode {
                     @error "Invalid argument: #{$key}. Breakpoint does not exist. Please provide a valid argument.";
                 }
@@ -812,7 +812,7 @@
         //
         // Wrap content in media query
         //
-        } @else if flint-exists($flint, $key) and $span == null and $context == null
+        } @else if map-has-key(map-get($flint, "breakpoints"), $key) and $span == null and $context == null
         or flint-is-list($key) and $span == null and $context == null {
 
             //
@@ -1011,7 +1011,7 @@
                 @for $i from 1 through length($key) {
                     $calc-key: nth($key, $i);
 
-                    @if flint-exists($flint, $calc-key) {
+                    @if map-has-key(map-get($flint, "breakpoints"), $calc-key) {
                         @if flint-get-value("settings", "grid") == "fluid" {
                             @if flint-is-highest-breakpoint($calc-key) {
                                 $query: append($query, unquote('( min-width: #{(flint-calc-breakpoint("next", $calc-key, flint-get-index($calc-key)) + $unit)} )'), "comma");
