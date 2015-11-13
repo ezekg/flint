@@ -12,6 +12,9 @@
 /// @group Internal Functions
 ///
 @function flint-list-to-str($list, $glue: "", $is-nested: false) {
+	@if not flint-is-list($list) {
+		$list: ($list,);
+	}
 
 	// Use Ruby function if available
 	@if $flint-use-ruby-functions {
