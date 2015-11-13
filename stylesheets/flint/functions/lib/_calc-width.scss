@@ -62,7 +62,7 @@
 
 	// Save result to cache
 	@if $context != "auto" {
-		$flint-cached-values: map-merge($flint-cached-values, ("#{$key, $span, $context, $deduct}::width": $result));
+		$flint-cached-values: map-merge($flint-cached-values, ("#{$key, $span, $context, $deduct}::width": $result)) !global;
 	}
 
 	// Return result

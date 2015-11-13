@@ -38,7 +38,7 @@
 			@if map-has-key($flint-instances, "#{flint-last($parsed-selector)}::#{$key}") {
 
 				// Cache result
-				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{flint-last($parsed-selector)}"));
+				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{flint-last($parsed-selector)}")) !global;
 
 				// Return the matching instance key
 				@return "#{flint-last($parsed-selector)}::#{$key}";
@@ -66,7 +66,7 @@
 			@if map-has-key($flint-instances, "#{$selector-string}::#{$key}") and $selector != $selector-list {
 
 				// Cache result
-				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{$selector-string}"));
+				$flint-cached-instances: map-merge($flint-cached-instances, ("#{$selector}": "#{$selector-string}")) !global;
 
 				// Return the matching instance key
 				@return "#{$selector-string}::#{$key}";
