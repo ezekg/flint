@@ -1,9 +1,10 @@
 source "https://rubygems.org"
 
-gemspec
+gem "sass", "~> 3.4"
 
 group :test do
-  gem "sass",      "~> 3.4"
-  gem "rake",      :require => false
+  gem "bundler",   "~> 1.7"
+  gem "rake",      "~> 10.0"
+  gem "compass",   "~> 1.0"
   gem "sass-prof", :require => false
 end

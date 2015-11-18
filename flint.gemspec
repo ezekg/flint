@@ -35,8 +35,5 @@ Gem::Specification.new do |spec|
   spec.test_files += Dir.glob("tests/**/*.*")
 
   # Dependencies
-  spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "compass", "~> 1.0"
   spec.add_dependency "sass", "~> 3.4"
 end
