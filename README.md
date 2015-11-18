@@ -2,6 +2,7 @@
 
 [![Gem](https://img.shields.io/gem/v/flint-gs.svg?style=flat-square)](https://rubygems.org/gems/flint-gs)
 [![Bower](https://img.shields.io/bower/v/flint.svg?style=flat-square)](http://bower.io/search/?q=flint)
+[![Travis](https://img.shields.io/travis/ezekg/flint.svg?style=flat-square)](https://travis-ci.org/ezekg/flint)
 [![GitHub license](https://img.shields.io/github/license/ezekg/flint.svg?style=flat-square)](https://github.com/ezekg/flint/blob/master/LICENSE)
 
 ## What is Flint?
