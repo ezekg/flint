@@ -2,33 +2,21 @@ require "../lib/flint.rb"
 require "rubygems"
 require "bundler"
 
-# Require dependencies through bundler
 Bundler.require(:default, :test) if defined?(Bundler)
 
-require "sass-prof"
-prof             = SassProf::Config
+# require "sass-prof"
+# prof             = SassProf::Config
 # prof.output_file = "sass-prof.log"
 # prof.quiet       = false
-prof.max_width   = 40
-prof.color       = true
-prof.t_max       = 90000
-prof.ignore      = [:var]
+# prof.max_width   = 40
+# prof.color       = true
+# prof.t_max       = 90000
+# prof.ignore      = [:var]
 
-# Define paths
-css_dir = "output"
-sass_dir = "input"
-
-# Output style will change based on environment
-output_style = :expanded
-
-# Disable line comments
+css_dir       = "output"
+sass_dir      = "input"
+output_style  = :expanded
 line_comments = false
-
-# Disable Sass warnings
-# disable_warnings = true
-
-# Options
-sass_options = {
-  # For when working on Windows machines
+sass_options  = {
   :unix_newlines => true
 }

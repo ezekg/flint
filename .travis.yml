@@ -1,0 +1,8 @@
+language: ruby
+install:
+  - git submodule update --init --recursive
+  - bundle install
+  - rake clean
+  - rake test
+  - rake status
+sudo: false
