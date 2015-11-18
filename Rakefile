@@ -26,3 +26,5 @@ task :status do
     exit 0
   end
 end
+
+task :default => [:clean, :test, :status]
