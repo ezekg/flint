@@ -1,4 +1,9 @@
-require_relative 'lib/flint'
+# encoding: UTF-8
+
+lib = File.expand_path "../lib/", __FILE__
+$:.unshift lib unless $:.include? lib
+
+require "flint"
 
 Gem::Specification.new do |spec|
 

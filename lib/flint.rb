@@ -1,6 +1,7 @@
 require "sass"
-require_relative "flint/version"
-require_relative "flint/functions"
+
+require "flint/version"
+require "flint/functions"
 
 base_directory = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 flint_stylesheets_path = File.join(base_directory, 'stylesheets')
