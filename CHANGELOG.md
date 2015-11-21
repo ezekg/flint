@@ -1,6 +1,9 @@
 # Change Log
 
-### 2.3.4, 2.3.5
+### 2.3.7
+* Fix issue with Rails integration
+
+### 2.3.4, 2.3.6
 * Fix compatibility issues with Libsass
 * Refactor and get rid of various functions
 
