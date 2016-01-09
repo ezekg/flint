@@ -1,0 +1,26 @@
+{
+  "name": "flint-gs",
+  "version": "2.3.7",
+  "description": "Flint is a highly advanced Sass grid framework designed for rapid responsive development.",
+  "authors": ["Ezekiel Gabrielse <ezekg@yahoo.com>"],
+  "main": "stylesheets/_flint.scss",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ezekg/flint.git"
+  },
+  "keywords": [
+    "grid-system", "grid-framework", "framework", "ui", "grid", "layout", "flint", "breakpoint", "breakpoints", "semantic", "responsive-web-design"
+  ],
+  "bugs": {
+    "url": "https://github.com/ezekg/flint/issues"
+  },
+  "ignore": [
+    "**/.*",
+    "*.json",
+    "*.gemspec",
+    "*.gem"
+  ],
+  "devDependencies": {
+  }
+}
