@@ -1,5 +1,3 @@
-[![Flint - Grid System](http://flint.gs/wp-content/themes/flint/images/logo.png)](http://flint.gs)
-
 [![Gem](https://img.shields.io/gem/v/flint-gs.svg?style=flat-square)](https://rubygems.org/gems/flint-gs)
 [![Bower](https://img.shields.io/bower/v/flint.svg?style=flat-square)](http://bower.io/search/?q=flint)
 [![NPM](https://img.shields.io/npm/v/flint-gs.svg?style=flat-square)](https://www.npmjs.com/package/flint-gs)
@@ -16,6 +14,7 @@ Yes, it really is just an underscore. Easy to remember, huh? It shoves the funct
 
 ```scss
 @include _(from tablet to desktop) { ... }
+@include _(16 12 8 4, $gutter: no-left);
 ```
 
 In addition to that, as you can tell from the snippet above, Flint also handles your breakpoints for you. Long gone are the days that you need to download a separate plugin just so that you're able to create a truly responsive layout.
@@ -45,7 +44,7 @@ scss --require ./lib/flint.rb example.scss > example.css
 
 ## Documentation
 
-Documentation is located [here](http://flint.gs/docs).
+Documentation is located [here](https://github.com/ezekg/flint/blob/master/stylesheets/flint/mixins/lib/_main.scss).
 
 _Tip: For simple projects, disable `instance-maps`, as it is has a large overhead and will increase your compile times._
 
